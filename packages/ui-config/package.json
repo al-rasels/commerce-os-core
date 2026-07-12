@@ -1,0 +1,9 @@
+{
+  "name": "@commerceos/ui-config",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./index.js",
+  "scripts": {
+    "build": "echo 'build ui-config'"
+  }
+}

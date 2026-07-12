@@ -1,0 +1,13 @@
+{
+  "name": "@commerceos/shared-types",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "echo 'build shared-types'"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}

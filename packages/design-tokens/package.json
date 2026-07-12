@@ -1,0 +1,13 @@
+{
+  "name": "@commerceos/design-tokens",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "echo 'build design-tokens'"
+  },
+  "dependencies": {
+    "style-dictionary": "^3.9.0"
+  }
+}

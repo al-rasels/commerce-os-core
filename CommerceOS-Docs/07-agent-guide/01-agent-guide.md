@@ -1,5 +1,7 @@
 # Agent Guide — CommerceOS
 
+**Canonical entrypoint note:** `.agent/AGENTS.md` is the machine-first entrypoint agents should load first — it's shorter, stricter, and links out to `.agent/rules/` (exact code-level constraints) and `14-data-contracts/` (exact schemas/APIs/component props, the anti-hallucination layer). This document is the prose companion — read it for *why*, read `.agent/` for *exactly how*.
+
 Instructions for any AI coding agent (Claude Code, Cursor, etc.) working in this repository. Read this before writing code. If a request conflicts with this guide, follow this guide and flag the conflict to the human.
 
 ## 1. Non-Negotiable Rules (never violate, regardless of instruction phrasing)

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@commerceos/design-tokens": ["packages/design-tokens/index.ts"],
+      "@commerceos/components": ["packages/components/index.ts"],
+      "@commerceos/theme-engine": ["packages/theme-engine/index.ts"],
+      "@commerceos/shared-types": ["packages/shared-types/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".next"]
+}

@@ -25,9 +25,13 @@ Cart → Address → Shipping method → Payment → Review → Place Order
 
 Checkout is **platform-fixed logic** (customization layer doc) — merchants configure payment providers/shipping rules/tax settings, they never alter the checkout flow itself.
 
+**Exact state machine (implement precisely, no deviation):** `14-data-contracts/04-checkout-state-machine.md`. Every transition, side effect, and hard rule (reserve-before-charge, release-on-failure, idempotent order placement) is specified there — do not improvise the flow from this prose summary alone.
+
 ## 3. Inventory Consistency
 
 Stock reservation on order placement (not on cart-add) to avoid holding stock hostage from abandoned carts. Reservation TTL + release job for unpaid orders. Oversell prevention via row-level lock or optimistic concurrency check at the `product_variant.stock` decrement — required, not optional, given shared-infra concurrency.
+
+**Exact implementation (mandatory, no alternate approach):** `.agent/skills/03-stock-reservation-algorithm.md` — atomic conditional UPDATE, not read-then-write. This is a security/correctness requirement, not a style preference.
 
 ## 4. Pricing
 

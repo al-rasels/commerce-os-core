@@ -1,0 +1,252 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tenant {
+  id         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String
+  plan_id    String                @default("trial")
+  status     String                @default("active") // 'active' | 'suspended' | 'offboarding'
+  created_at DateTime              @default(now()) @db.Timestamptz
+  domains    TenantDomain[]
+  users      User[]
+  roles      Role[]
+  flags      FeatureFlag[]
+  products   Product[]
+  variants   ProductVariant[]
+  categories Category[]
+  customers  Customer[]
+  carts      Cart[]
+  cart_items CartItem[]
+  orders     Order[]
+  order_items OrderItem[]
+  theme_overrides ThemeTenantOverride[]
+  page_layouts PageLayout[]
+  audit_logs AuditLog[]
+
+  @@map("tenants")
+}
+
+model TenantDomain {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String   @db.Uuid
+  domain     String   @unique
+  is_primary Boolean  @default(true)
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@map("tenant_domains")
+}
+
+model Role {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id String?  @db.Uuid
+  name      String   // 'super_admin' | 'store_owner' | 'store_staff' | 'customer'
+  tenant    Tenant?  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  users     User[]
+
+  @@map("roles")
+}
+
+model User {
+  id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id     String?  @db.Uuid
+  email         String
+  password_hash String
+  role_id       String   @db.Uuid
+  created_at    DateTime @default(now()) @db.Timestamptz
+  tenant        Tenant?  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  role          Role     @relation(fields: [role_id], references: [id])
+  audit_logs    AuditLog[]
+
+  @@unique([tenant_id, email])
+  @@map("users")
+}
+
+model FeatureFlag {
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id String  @db.Uuid
+  flag_key  String
+  enabled   Boolean @default(false)
+  tenant    Tenant  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@unique([tenant_id, flag_key])
+  @@map("feature_flags")
+}
+
+model Product {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String           @db.Uuid
+  name        String
+  slug        String
+  status      String           @default("draft") // 'draft' | 'active' | 'archived'
+  category_id String?          @db.Uuid
+  created_at  DateTime         @default(now()) @db.Timestamptz
+  updated_at  DateTime         @updatedAt @db.Timestamptz
+  deleted_at  DateTime?        @db.Timestamptz
+  tenant      Tenant           @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  category    Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  variants    ProductVariant[]
+
+  @@unique([tenant_id, slug])
+  @@map("products")
+}
+
+model ProductVariant {
+  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id       String      @db.Uuid
+  product_id      String      @db.Uuid
+  sku             String
+  price_cents     Int
+  currency        String
+  stock_available Int         @default(0)
+  stock_reserved  Int         @default(0)
+  attributes_json Json?
+  tenant          Tenant      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  product         Product     @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  cart_items      CartItem[]
+  order_items     OrderItem[]
+
+  @@unique([tenant_id, sku])
+  @@map("product_variants")
+}
+
+model Category {
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String     @db.Uuid
+  name       String
+  slug       String
+  parent_id  String?    @db.Uuid
+  tenant     Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  parent     Category?  @relation("CategoryHierarchy", fields: [parent_id], references: [id], onDelete: SetNull)
+  children   Category[] @relation("CategoryHierarchy")
+  products   Product[]
+
+  @@unique([tenant_id, slug])
+  @@map("categories")
+}
+
+model Customer {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String   @db.Uuid
+  email      String
+  first_name String?
+  last_name  String?
+  created_at DateTime @default(now()) @db.Timestamptz
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  carts      Cart[]
+  orders     Order[]
+
+  @@unique([tenant_id, email])
+  @@map("customers")
+}
+
+model Cart {
+  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String     @db.Uuid
+  customer_id String?    @db.Uuid
+  session_id  String?
+  status      String     @default("open") // 'open' | 'converted' | 'abandoned'
+  created_at  DateTime   @default(now()) @db.Timestamptz
+  tenant      Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customer    Customer?  @relation(fields: [customer_id], references: [id], onDelete: SetNull)
+  items       CartItem[]
+
+  @@map("carts")
+}
+
+model CartItem {
+  id         String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String         @db.Uuid
+  cart_id    String         @db.Uuid
+  variant_id String         @db.Uuid
+  quantity   Int
+  tenant     Tenant         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  cart       Cart           @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  variant    ProductVariant @relation(fields: [variant_id], references: [id], onDelete: Cascade)
+
+  @@map("cart_items")
+}
+
+model Order {
+  id             String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id      String      @db.Uuid
+  customer_id    String      @db.Uuid
+  status         String      @default("pending") // 'pending' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded'
+  subtotal_cents Int
+  tax_cents      Int
+  shipping_cents Int
+  total_cents    Int
+  currency       String
+  channel        String      @default("online") // 'online' | 'pos'
+  created_at     DateTime    @default(now()) @db.Timestamptz
+  tenant         Tenant      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customer       Customer    @relation(fields: [customer_id], references: [id])
+  items          OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id               String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id        String         @db.Uuid
+  order_id         String         @db.Uuid
+  variant_id       String         @db.Uuid
+  quantity         Int
+  unit_price_cents Int
+  tenant           Tenant         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  order            Order          @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  variant          ProductVariant @relation(fields: [variant_id], references: [id])
+
+  @@map("order_items")
+}
+
+model ThemeBase {
+  id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  version     String
+  tokens_json Json
+  overrides   ThemeTenantOverride[]
+
+  @@map("theme_base")
+}
+
+model ThemeTenantOverride {
+  tenant_id      String    @id @db.Uuid
+  theme_base_id  String    @db.Uuid
+  overrides_json Json
+  updated_at     DateTime  @default(now()) @db.Timestamptz
+  tenant         Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  theme_base     ThemeBase @relation(fields: [theme_base_id], references: [id])
+
+  @@map("theme_tenant_override")
+}
+
+model PageLayout {
+  tenant_id     String    @db.Uuid
+  page_key      String    // 'homepage' | 'category' | 'product' | 'checkout'
+  sections_json Json
+  published_at  DateTime? @db.Timestamptz
+  tenant        Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@id([tenant_id, page_key])
+  @@map("page_layouts")
+}
+
+model AuditLog {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String?  @db.Uuid
+  actor_id   String   @db.Uuid
+  action     String
+  entity     String
+  entity_id  String?  @db.Uuid
+  diff_json  Json?
+  created_at DateTime @default(now()) @db.Timestamptz
+  tenant     Tenant?  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  actor      User     @relation(fields: [actor_id], references: [id])
+
+  @@map("audit_log")
+}
