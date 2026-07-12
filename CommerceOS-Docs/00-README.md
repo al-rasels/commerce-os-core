@@ -50,8 +50,11 @@ CommerceOS-Docs/
 ├── 10-roadmap/
 │   ├── 01-implementation-roadmap.md
 │   └── 02-phase1-mvp-spec.md
-└── 11-build-guide/
-    └── 01-session-by-session-build-guide.md   # START HERE when coding
+├── 11-build-guide/
+│   └── 01-session-by-session-build-guide.md   # START HERE when coding
+└── 12-tech-stack-and-packages/
+    ├── 01-folder-structure-theming.md          # monorepo layout + light/dark mode
+    └── 02-package-catalog.md                    # every library, by app/concern
 ```
 
 ## Reading Order
