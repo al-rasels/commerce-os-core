@@ -442,3 +442,12 @@ Not a hard percentage gate (avoid coverage theater), but every Phase 1 milestone
 - Never introduce new conventions, folder structures, utility styles, or alternative libraries unless explicitly approved. 
 - Follow the exact guidelines laid out in the `single-coding-convention` skill without exceptions.
 
+
+
+# Rule 06 — AI Documentation Loading (STRICT)
+
+**All agents must strictly adhere to the AI engineering constitution.**
+- You must always consult the rules in the `.ai/` directory before proceeding.
+- The `.ai/SYSTEM.md` file defines the core mission and absolute rules.
+- Review `.ai/CODING_STYLE.md`, `.ai/ARCHITECTURE.md`, `.ai/FOLDER_STRUCTURE.md`, `.ai/UI_GUIDELINES.md`, `.ai/API_CONVENTIONS.md`, `.ai/TESTING_GUIDELINES.md`, and `.ai/SECURITY_RULES.md` depending on the domain of your current task.
+- Before completing any task, you must ensure compliance with `.ai/CODE_REVIEW_CHECKLIST.md`.
