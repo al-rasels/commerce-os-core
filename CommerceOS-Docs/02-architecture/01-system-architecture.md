@@ -70,6 +70,8 @@ Events carry `tenant_id` mandatorily. Any consumer missing tenant scoping fails 
 - **Auth lifecycle** → `04-database-security/02-security-authentication.md`
 - **Checkout lifecycle** → `06-commerce-business-engines/01-commerce-engine.md`
 - **Rendering lifecycle** → `05-experience-engine/05-page-builder.md`
+- **Extensibility & Plugins** → `02-architecture/02-extensibility-and-plugins.md`
+- **Caching & Edge** → `02-architecture/03-caching-and-edge.md`
 
 ## 7. Non-Negotiables
 

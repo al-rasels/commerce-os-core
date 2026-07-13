@@ -8,6 +8,9 @@ Phase 1 ships **JSON-driven recursive layouts editable via a structured settings
 
 To support "building websites from scratch" (like Webflow/Shopify 2.0), the page structure is a recursive tree of `nodes` rather than a flat array of sections. This allows layout primitives (Flex, Grid) to nest atomic components (Text, Image).
 
+### 2.1 Dynamic Routing Engine (Headless Storefront URLs)
+Custom storefronts need custom URL slugs. We utilize Next.js Catch-All routes (`[...slug].tsx`). The route resolves the URL path dynamically against the API to determine if `/summer-sale` renders a Category, a custom Page, or a Product, rendering the corresponding `page_layout` JSON.
+
 ```json
 {
   "page_id": "homepage",

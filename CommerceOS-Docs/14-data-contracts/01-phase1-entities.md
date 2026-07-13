@@ -57,6 +57,7 @@ category_id   UUID FK -> categories.id, NULLABLE
 created_at    TIMESTAMPTZ
 updated_at    TIMESTAMPTZ
 deleted_at    TIMESTAMPTZ NULLABLE
+metafields_json JSONB DEFAULT '{}'      -- for third-party app extensibility
 UNIQUE(tenant_id, slug)
 ```
 
@@ -127,6 +128,7 @@ total_cents       INT NOT NULL
 currency          TEXT NOT NULL
 channel           TEXT NOT NULL DEFAULT 'online'   -- 'online' | 'pos' (Phase 3+)
 created_at        TIMESTAMPTZ
+metafields_json   JSONB DEFAULT '{}'
 ```
 
 ## order_items
