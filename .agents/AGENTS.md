@@ -434,3 +434,11 @@ Not a hard percentage gate (avoid coverage theater), but every Phase 1 milestone
 ---
 
 
+# Rule 05 — Single Coding Convention (STRICT)
+
+**All agents must enforce the Single Coding Convention (SCCE).**
+- You must always apply the `single-coding-convention` skill when writing or modifying code.
+- Preserve the existing architecture, naming, formatting, and patterns. 
+- Never introduce new conventions, folder structures, utility styles, or alternative libraries unless explicitly approved. 
+- Follow the exact guidelines laid out in the `single-coding-convention` skill without exceptions.
+
