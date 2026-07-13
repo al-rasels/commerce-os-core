@@ -169,8 +169,8 @@ All with `tenant_id UUID NOT NULL REFERENCES tenants(id)`, indexed first in ever
 **Goal:** prove the tenant-scoped pattern works end-to-end through a real feature.
 
 **Steps:**
-1. `ProductsController` + `ProductsService` in `apps/api`, using `TenantScopedRepository`.
-2. DTOs with validation (`class-validator`).
+1. [x] `ProductsController` + `ProductsService` in `apps/api`, using `TenantScopedRepository`.
+2. [x] DTOs with validation (`class-validator`).
 3. Minimal admin UI page: list/create/edit products, calling the API with the auth token.
 
 **Done When:**
@@ -222,8 +222,8 @@ CREATE TABLE theme_tenant_override (
 
 **Steps:**
 1. Seed one `theme_base` row (your default token set from Session 6).
-2. Build the merge function: `resolvedTheme = deepMerge(themeBase.tokens_json, override.overrides_json)`.
-3. Cache resolved theme per tenant (`tenantId:theme:resolved`), invalidate on override write.
+2. [x] Build the merge function: `resolvedTheme = deepMerge(themeBase.tokens_json, override.overrides_json)`.
+3. [x] Cache resolved theme per tenant (`tenantId:theme:resolved`), invalidate on override write.
 4. Simple admin UI: color pickers / font selectors that write to `overrides_json`.
 
 **Done When:**
@@ -251,10 +251,10 @@ CREATE TABLE page_layouts (
 ```
 
 **Steps:**
-1. Page JSON shape: `{ sections: [{ id, component, variant, props, visible }] }`.
+1. [x] Page JSON shape: `{ sections: [{ id, component, variant, props, visible }] }`.
 2. Admin: settings-panel UI (not drag-drop yet) — add/remove/reorder sections, edit props via schema-driven form.
 3. Storefront (Next.js): fetch published `sections_json` for the tenant/page, resolve each `component` ID against the component registry, apply resolved theme, render.
-4. Publish = atomic write to `sections_json` + `published_at`.
+4. [x] Publish = atomic write to `sections_json` + `published_at`.
 
 **Done When:**
 - [ ] Editing homepage sections in admin and publishing reflects live on `tenanta.localhost:3000`

@@ -23,11 +23,11 @@ Multi-warehouse inventory, POS, drag-drop builder UI, template marketplace, AI f
 | 1 | Tenant provisioning + resolution + TenantContext middleware | — |
 | 2 | Auth/RBAC + JWT tenant-claim enforcement | 1 |
 | 3 | Database schema (Phase 1 tables) + TenantScopedRepository | 1 |
-| 4 | Catalog CRUD (admin) | 2, 3 |
-| 5 | Design tokens + component library (20 components) | — (parallel to 1–4) |
-| 6 | Theme engine (base + override merge) | 5 |
-| 7 | Page layout JSON + settings-panel editor + renderer | 5, 6 |
-| 8 | Storefront (Next.js) rendering published pages | 7 |
+| 4 | Catalog CRUD (admin) | 2, 3 | (Backend done) |
+| 5 | Design tokens + component library (20 components) | — (parallel to 1–4) | |
+| 6 | Theme engine (base + override merge) | 5 | (Backend done) |
+| 7 | Page layout JSON + settings-panel editor + renderer | 5, 6 | (Backend done) |
+| 8 | Storefront (Next.js) rendering published pages | 7 | |
 | 9 | Cart/checkout/payment provider/order lifecycle | 4 |
 | 10 | Super Admin: provisioning UI, billing, feature flags | 2 |
 | 11 | Isolation regression test suite across all tenant tables | 3, 9 |
