@@ -27,9 +27,11 @@ Header/footer behavior (sticky, transparent-on-hero, etc.)
 
 Each setting writes to `theme_tenant_override.overrides_json` — never a new column, so the schema doesn't grow per setting added.
 
-## 4. Rendering
+## 4. Rendering (Dynamic SSR CSS Variables)
 
-Theme resolution happens once per tenant, cached (`tenantId:theme:resolved`), invalidated on any override write. Storefront renderer never recomputes the merge per-request.
+Theme resolution happens once per tenant, cached (`tenantId:theme:resolved`), invalidated on any override write. 
+
+To ensure instantaneous rendering and high Lighthouse scores, the Storefront renderer injects the resolved theme as a `<style>` block containing CSS Custom Properties (`:root { --color-primary: #hex; ... }`) in the SSR head. Components use standard `var(--color-primary)` instead of JS runtime styling (e.g., styled-components). This guarantees zero UI flicker and no build-step required when a merchant changes a color.
 
 ## 5. Dark Mode / Multi-Palette (Phase 2)
 

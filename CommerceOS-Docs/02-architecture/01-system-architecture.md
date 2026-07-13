@@ -15,6 +15,14 @@ Client
   → Response
 ```
 
+### 1.1 Storefront Single-Pass Rendering Pipeline
+To guarantee ultra-fast, modern performance, the Next.js storefront executes a single-pass SSR rendering flow:
+1. **Resolve Tenant**: Middlewares resolve `tenantId` via hostname.
+2. **Parallel Fetch**: Storefront fetches the Theme (`theme:resolved`), Page Layout (`pageJson`), and dynamic Commerce Data (Catalog, Cart) concurrently in a single batch query.
+3. **Context Injection**: Atomic components bind to dynamic data via Data Context Providers (`{{ product.title }}`).
+4. **Style Injection**: The resolved theme is injected as a `<style>` block of CSS Custom Properties (`:root`) in the document head.
+5. **Stream HTML**: The Next.js server streams the rendered component tree to the edge CDN.
+
 ## 2. Architecture Style
 
 **Modular monolith** (Phase 1–2), organized as independent modules with enforced boundaries (no cross-module DB joins, communication via internal service interfaces or events only). This is a deliberate constraint so Phase 3/4 extraction to microservices is a lift-and-shift, not a rewrite.

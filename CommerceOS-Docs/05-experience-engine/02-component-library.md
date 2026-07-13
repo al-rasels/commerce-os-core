@@ -18,17 +18,21 @@ Component {
 }
 ```
 
-## 3. Phase 1 Component Set (curated, not the full 150+)
+## 3. Phase 1 Component Set (curated for "from scratch" building)
+
+To support the Page Builder's recursive tree and data-binding architecture, Phase 1 includes both layout primitives and standard eCommerce blocks.
 
 ```
-Navigation:  Header (minimal, mega-menu, sticky variants), Footer
-Hero:        single component, 4 variants
-Commerce:    ProductCard, ProductGrid, CartDrawer, CheckoutSummary
-Marketing:   Testimonials, Newsletter, FAQ
-Content:     RichText, Gallery, Banner
+Layout Primitives: Flex, Grid, Box, Stack, Container
+Atomic Elements:   Text, Heading, Button, Image, Spacer, Divider
+Navigation:        Header (minimal, mega-menu, sticky variants), Footer
+Hero:              single component, 4 variants
+Commerce:          ProductCard, ProductGrid, CartDrawer, CheckoutSummary
+Marketing:         Testimonials, Newsletter, FAQ
+Content:           RichText, Gallery, Banner
 ```
 
-~20 components covers a real MVP storefront. Expand toward 150+ only after Phase 1 proves the registry/variant pattern holds under real template pressure (roadmap Phase 2).
+~30 components covers a real MVP storefront that can be assembled either via large pre-built sections (Hero) or from scratch (Flex > Image + Heading). Expand toward 150+ only after Phase 1 proves the registry/variant pattern holds under real template pressure (roadmap Phase 2).
 
 ## 4. Component Registry (why templates reference IDs, not code)
 
