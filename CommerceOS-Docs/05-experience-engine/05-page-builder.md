@@ -6,7 +6,9 @@ Phase 1 ships **JSON-driven recursive layouts editable via a structured settings
 
 ## 2. Page Model (Recursive Component Tree)
 
-To support "building websites from scratch" (like Webflow/Shopify 2.0), the page structure is a recursive tree of `nodes` rather than a flat array of sections. This allows layout primitives (Flex, Grid) to nest atomic components (Text, Image).
+**Competitive Context:** Traditional platforms like Shopify use a "Sections Everywhere" approach (a flat array of sections) which prevents infinite nesting. BigCommerce uses "Regions" which are rigidly hardcoded into themes. CommerceOS uses a **Recursive Component Tree**, similar to Webflow. This allows layout primitives (Flex, Grid) to deeply nest atomic components (Text, Image) without being restricted by the theme's hardcoded constraints.
+
+To support this "building websites from scratch" paradigm, the page structure is a recursive tree of `nodes`:
 
 ### 2.1 Dynamic Routing Engine (Headless Storefront URLs)
 Custom storefronts need custom URL slugs. We utilize Next.js Catch-All routes (`[...slug].tsx`). The route resolves the URL path dynamically against the API to determine if `/summer-sale` renders a Category, a custom Page, or a Product, rendering the corresponding `page_layout` JSON.
@@ -67,11 +69,19 @@ Section/Element Registry (available blocks & primitives)
   → Publish (atomic swap of pageJson version)
 ```
 
-## 5. Visibility Rules & Personalization (Phase 3)
+## 5. Monetization & Premium Assets (Phase 2)
+
+To support premium business models, the builder enforces a "Live Preview but Gated Publish" workflow for premium components and templates:
+- **Premium Components:** Defined in the Component Registry with a `minPlan` requirement (e.g., `"minPlan": "pro"`).
+- **Premium Templates:** A template is considered premium if its pre-saved JSON tree contains any premium components.
+- **Workflow (Live Preview):** Merchants on lower tiers can freely load and interact with premium templates in the builder using their real staging data, maximizing upsell potential.
+- **Workflow (Gated Publish):** The `PUT /api/v1/experience/page-layout` endpoint strictly validates the incoming JSON against the `TenantContext.plan`. If unauthorized components are present, the API rejects the request with a `403 Forbidden`, prompting the UI to show an upgrade modal.
+
+## 6. Visibility Rules & Personalization (Phase 3)
 
 Node-level `visible` can later become a rule (`visible_if: { segment: "returning_customer" }`).
 
-## 6. Non-Negotiables
+## 7. Non-Negotiables
 
 - No page renders with unresolved component references — a missing component ID fails closed (render nothing + log) rather than crashing the whole page.
 - Context injection is strictly isolated. A tenant cannot bind to another tenant's data variables.

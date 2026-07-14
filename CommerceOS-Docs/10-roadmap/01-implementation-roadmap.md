@@ -8,19 +8,19 @@ Tenant Context + Auth/RBAC → Catalog/Orders/Checkout (Commerce core) → Desig
 
 ## Phase 2 — Storefront Depth
 
-CDN, queue workers, search engine (Meilisearch/Elasticsearch), image optimization, drag-and-drop Page Builder UI, expand component library toward 50–80, coupons/promotions, returns/refunds, multiple themes/templates, template marketplace groundwork (not public yet).
+CDN, queue workers, search engine (Meilisearch/Elasticsearch), image optimization, drag-and-drop Page Builder UI with Visual Data Binding UI and Responsive Breakpoint Editor, Real-Time Preview Staging, expand component library toward 50–80, coupons/promotions, returns/refunds, multiple themes/templates, template marketplace groundwork (not public yet).
 
 ## Phase 3 — Business Depth & Service Extraction
 
-Extract Notification, Search, Media as independent services (module boundaries from Phase 1 make this a lift, not a rewrite — system architecture doc §2). Begin Business/ERP Engine: warehouses, procurement, basic accounting, POS. Full compliance posture (SOC2-track) work begins here.
+Extract Notification, Search, Media as independent services (module boundaries from Phase 1 make this a lift, not a rewrite — system architecture doc §2). Begin Business/ERP Engine: Multi-Warehouse Inventory & Routing, procurement, basic accounting, POS, Custom Metafields (EAV pattern). Full compliance posture (SOC2-track) work begins here.
 
 ## Phase 4 — Scale & Intelligence
 
-Extract Orders, Payments, Analytics as services. Kubernetes, multi-region infra. Intelligence Engine begins: search/recommendations, AI store assistant, content generation. Public template/plugin marketplace opens.
+Extract Orders, Payments, Analytics as services. Kubernetes, multi-region infra. Intelligence Engine begins: AI Copilot for merchants (content gen), AI-driven product recommendations, search/recommendations. Public template/plugin marketplace opens.
 
 ## Phase 5 — Enterprise & Ecosystem
 
-White-label, headless commerce API, full marketplace (themes/plugins/apps), B2B features, multi-region data residency options.
+White-label, headless commerce API, full marketplace (themes/plugins/apps), B2B features (Tiered pricing, multi-user accounts, and bulk workflows), multi-region data residency options.
 
 ## Governing Rule Across All Phases
 

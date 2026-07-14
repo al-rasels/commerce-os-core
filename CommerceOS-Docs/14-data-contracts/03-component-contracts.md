@@ -146,21 +146,26 @@ interface BannerProps {
 ## Component Registry Map (exact — used by the renderer to resolve `component` string in page JSON)
 
 ```ts
+export type ComponentRegistryEntry = {
+  component: any;
+  minPlan?: 'starter' | 'pro' | 'enterprise'; // Monetization metadata
+};
+
 export const componentRegistry = {
-  'hero.v1': Hero,
-  'header.v1': Header,
-  'footer.v1': Footer,
-  'product-card.v1': ProductCard,
-  'product-grid.v1': ProductGrid,
-  'cart-drawer.v1': CartDrawer,
-  'checkout-summary.v1': CheckoutSummary,
-  'testimonials.v1': Testimonials,
-  'newsletter.v1': Newsletter,
-  'faq.v1': Faq,
-  'rich-text.v1': RichText,
-  'gallery.v1': Gallery,
-  'banner.v1': Banner,
-} as const;
+  'hero.v1': { component: Hero },
+  'header.v1': { component: Header },
+  'footer.v1': { component: Footer },
+  'product-card.v1': { component: ProductCard },
+  'product-grid.v1': { component: ProductGrid },
+  'cart-drawer.v1': { component: CartDrawer },
+  'checkout-summary.v1': { component: CheckoutSummary },
+  'testimonials.v1': { component: Testimonials },
+  'newsletter.v1': { component: Newsletter },
+  'faq.v1': { component: Faq },
+  'rich-text.v1': { component: RichText },
+  'gallery.v1': { component: Gallery, minPlan: 'pro' }, // Example premium component
+  'banner.v1': { component: Banner },
+} as const satisfies Record<string, ComponentRegistryEntry>;
 
 export type ComponentRegistryKey = keyof typeof componentRegistry;
 ```
