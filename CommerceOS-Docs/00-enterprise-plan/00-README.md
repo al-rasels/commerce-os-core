@@ -69,11 +69,16 @@ CommerceOS-Docs/
 │   └── 02-package-catalog.md
 ├── 13-resources/
 │   └── 01-reference-implementations-and-starters.md
-└── 14-data-contracts/                           SOURCE OF TRUTH — anti-hallucination layer
-    ├── 01-phase1-entities.md                    exact table/column schemas
-    ├── 02-api-contracts.md                      exact routes, DTOs, error codes
-    ├── 03-component-contracts.md                exact prop shapes, registry map
-    └── 04-checkout-state-machine.md             exact states/transitions/side effects
+├── 14-data-contracts/                           SOURCE OF TRUTH — anti-hallucination layer
+│   ├── 01-phase1-entities.md                    exact table/column schemas
+│   ├── 02-api-contracts.md                      exact routes, DTOs, error codes
+│   ├── 03-component-contracts.md                exact prop shapes, registry map
+│   └── 04-checkout-state-machine.md             exact states/transitions/side effects
+└── 15-system-and-database-design/               VISUAL ARCHITECTURE — system flow and entity relationship diagrams
+    ├── 01-system-design-diagrams.md
+    ├── 02-database-entity-relationship.md
+    ├── 03-backend-api-service-design.md
+    └── 04-frontend-routing-design.md
 ```
 
 ## Why the Split Between Prose Docs and `.agent/` + `14-data-contracts/`

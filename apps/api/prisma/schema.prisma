@@ -7,6 +7,32 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Country {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code String @unique
+  name String
+
+  @@map("countries")
+}
+
+model Currency {
+  id             String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code           String @unique
+  symbol         String
+  decimal_places Int    @default(2)
+
+  @@map("currencies")
+}
+
+model Plan {
+  id                 String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String
+  default_flags_json Json   @default("{}")
+  price_cents        Int    @default(0)
+
+  @@map("plans")
+}
+
 model Tenant {
   id         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name       String
@@ -25,9 +51,11 @@ model Tenant {
   cart_items CartItem[]
   orders     Order[]
   order_items OrderItem[]
-  theme_overrides ThemeTenantOverride[]
-  page_layouts PageLayout[]
-  audit_logs AuditLog[]
+  theme_overrides    ThemeTenantOverride[]
+  template_overrides TemplateTenantOverride[]
+  page_layouts       PageLayout[]
+  stock_reservations StockReservation[]
+  audit_logs         AuditLog[]
 
   @@map("tenants")
 }
@@ -88,6 +116,7 @@ model Product {
   created_at  DateTime         @default(now()) @db.Timestamptz
   updated_at  DateTime         @updatedAt @db.Timestamptz
   deleted_at  DateTime?        @db.Timestamptz
+  metafields_json Json?        @default("{}")
   tenant      Tenant           @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   category    Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
   variants    ProductVariant[]
@@ -110,6 +139,7 @@ model ProductVariant {
   product         Product     @relation(fields: [product_id], references: [id], onDelete: Cascade)
   cart_items      CartItem[]
   order_items     OrderItem[]
+  stock_reservations StockReservation[]
 
   @@unique([tenant_id, sku])
   @@map("product_variants")
@@ -184,9 +214,11 @@ model Order {
   currency       String
   channel        String      @default("online") // 'online' | 'pos'
   created_at     DateTime    @default(now()) @db.Timestamptz
+  metafields_json Json?      @default("{}")
   tenant         Tenant      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   customer       Customer    @relation(fields: [customer_id], references: [id])
   items          OrderItem[]
+  stock_reservations StockReservation[]
 
   @@map("orders")
 }
@@ -223,6 +255,44 @@ model ThemeTenantOverride {
   theme_base     ThemeBase @relation(fields: [theme_base_id], references: [id])
 
   @@map("theme_tenant_override")
+}
+
+model TemplateBase {
+  id          String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  version     String
+  layout_json Json
+  overrides   TemplateTenantOverride[]
+
+  @@map("template_base")
+}
+
+model TemplateTenantOverride {
+  tenant_id        String       @id @db.Uuid
+  template_base_id String       @db.Uuid
+  overrides_json   Json         @default("{}")
+  updated_at       DateTime     @default(now()) @db.Timestamptz
+  tenant           Tenant       @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  template_base    TemplateBase @relation(fields: [template_base_id], references: [id])
+
+  @@map("template_tenant_override")
+}
+
+model StockReservation {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String   @db.Uuid
+  variant_id String   @db.Uuid
+  order_id   String?  @db.Uuid
+  quantity   Int
+  expires_at DateTime @db.Timestamptz
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  tenant     Tenant         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  variant    ProductVariant @relation(fields: [variant_id], references: [id], onDelete: Cascade)
+  order      Order?         @relation(fields: [order_id], references: [id], onDelete: SetNull)
+
+  @@index([tenant_id])
+  @@index([expires_at])
+  @@map("stock_reservations")
 }
 
 model PageLayout {

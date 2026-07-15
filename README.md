@@ -55,7 +55,12 @@ commerce-os-core/
 ├── CommerceOS-Docs/            Architecture documentation set
 │   ├── .agent/                 Machine-first rules and code templates
 │   ├── 01–13 (prose volumes)   Vision, architecture, engine specs
-│   └── 14-data-contracts/      Exact schemas, APIs, component props
+│   ├── 14-data-contracts/      Exact schemas, APIs, component props
+│   └── 15-system-and-database-design/
+│       ├── 01-system-design-diagrams.md
+│       ├── 02-database-entity-relationship.md
+│       ├── 03-backend-api-service-design.md
+│       └── 04-frontend-routing-design.md
 │
 ├── package.json                Root workspace config
 ├── turbo.json                  Turborepo pipeline definition
@@ -264,6 +269,7 @@ The full documentation set lives in [`CommerceOS-Docs/`](CommerceOS-Docs/00-READ
 | `12-tech-stack-and-packages/` | Folder structure, theming, package catalog |
 | `13-resources/` | Reference implementations |
 | `14-data-contracts/` | **Source of truth** — exact entity schemas, API contracts, component props, checkout state machine |
+| `15-system-and-database-design/` | **Visual architecture** — system flow and entity relationship diagrams |
 
 ---
 

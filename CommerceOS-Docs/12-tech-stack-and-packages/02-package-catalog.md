@@ -31,7 +31,7 @@ Principle: don't build what a well-maintained library already solves. This list 
 | Queue | `bullmq` + `@nestjs/bullmq` | Tenant-scoped background jobs |
 | Rate limiting | `@nestjs/throttler` | Per-tenant + per-IP (security doc §5) |
 | Security headers | `helmet` | CSP, HSTS etc. |
-| CSRF | `csurf` (or double-submit cookie pattern if session-based admin) | |
+
 | API docs | `@nestjs/swagger` | Auto-generate OpenAPI spec (feeds Phase 2 `sdk-client` package) |
 | File uploads | `multer` (+ `@nestjs/platform-express` built-in support) | |
 | Object storage | `@aws-sdk/client-s3` | Works with AWS S3 or S3-compatible (Cloudflare R2, MinIO for local dev) |
