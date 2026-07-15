@@ -8,7 +8,12 @@ Multi-tenant e-commerce SaaS platform ("CommerceOS"). Five engines: Platform, Co
 
 **Foundation: custom build, decided.** No OSS commerce core (Vendure/Medusa) is used — see `13-resources/01-reference-implementations-and-starters.md` Decision Log for why. `14-data-contracts/` is the literal source of truth for the Commerce Engine (REST APIs, Postgres/Prisma schema, `tenant_id`-column isolation). Never introduce GraphQL, Vendure/Medusa entities, or Channel-based tenancy concepts — that decision is closed, not a live option to reconsider mid-task.
 
-## 1. Read Order Before Any Task
+## 1. Mandatory Pre-Flight & Brain Activation
+
+**ACTIVATION MANDATE (THE MASTER BRAIN):**
+Before analyzing or writing any code, you MUST invoke and apply the `commerce-os-architect` skill. This loads the Master Brain of the project, including the 5-Engine strategy and the Single Coding Convention (SCCE). You must operate under the `commerce-os-architect` persona at all times.
+
+**CRITICAL DIRECTIVE:** You MUST NOT write or modify a single line of code until you have explicitly fetched and read all necessary documentation related to your task. Guessing, assuming, or working from memory is strictly prohibited. ANY agent (Claude Code, Cursor, Aider, etc.) operating in this repository MUST rigorously obey all documented constraints without exception.
 
 1. This file
 2. `.agent/rules/` — all four rule files, in order (01 through 04). These are hard constraints, not suggestions.
@@ -61,6 +66,7 @@ The project uses a strict task tracking system in the `.tasks/` directory (`back
 - [ ] Data contract doc updated if any new field/endpoint/component prop was introduced
 - [ ] Tests added per `.agent/rules/04-testing-requirements.md`
 - [ ] Relevant doc updated if a new pattern was introduced (docs-with-code rule)
+- [ ] Knowledge Graph updated: Run `npx @sentropic/graphify update ./` to keep the agent brain in sync if code or docs were modified.
 
 ## 7. File Map (quick index)
 
@@ -420,7 +426,7 @@ No task is "done" without the tests below. This is not aspirational — treat a 
   {feature}.e2e-spec.ts           ← if the module has a dedicated E2E flow, in module's /test folder
 ```
 
-## 8. What Counts as "Passing"
+## 9. What Counts as "Passing"
 
 - All tests green in CI, not just locally.
 - No test skipped/marked `.skip()`/`.todo()` merged into main without an explicit tracked reason and owner — an agent should never silently skip a failing test to make a PR look green.

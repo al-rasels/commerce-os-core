@@ -8,9 +8,11 @@ Multi-tenant e-commerce SaaS platform ("CommerceOS"). Five engines: Platform, Co
 
 **Foundation: custom build, decided.** No OSS commerce core (Vendure/Medusa) is used — see `13-resources/01-reference-implementations-and-starters.md` Decision Log for why. `14-data-contracts/` is the literal source of truth for the Commerce Engine (REST APIs, Postgres/Prisma schema, `tenant_id`-column isolation). Never introduce GraphQL, Vendure/Medusa entities, or Channel-based tenancy concepts — that decision is closed, not a live option to reconsider mid-task.
 
-## 1. Read Order Before Any Task
+## 1. Mandatory Pre-Flight (READ BEFORE CODING)
 
-1. This file
+**CRITICAL DIRECTIVE:** You MUST NOT write or modify a single line of code until you have explicitly fetched and read all necessary documentation related to your task. Guessing, assuming, or working from memory is strictly prohibited. ANY agent (Claude Code, Cursor, Aider, etc.) operating in this repository MUST rigorously obey all documented constraints without exception.
+
+1. This file (`AGENTS.md`)
 2. `.agent/rules/` — all four rule files, in order (01 through 04). These are hard constraints, not suggestions.
 3. The specific engine doc for your task (`05-experience-engine/*` or `06-commerce-business-engines/*`)
 4. `14-data-contracts/01-phase1-entities.md` — exact field names/types. **Never invent a field name.** If a field you need isn't there, add it to the contract doc in the same session, don't silently invent it in code only.
@@ -62,7 +64,15 @@ The project uses a strict task tracking system in the `.tasks/` directory (`back
 - [ ] Tests added per `.agent/rules/04-testing-requirements.md`
 - [ ] Relevant doc updated if a new pattern was introduced (docs-with-code rule)
 
-## 7. File Map (quick index)
+## 8. Single Coding Convention Strategy (SCCE)
+
+All agents must strictly enforce the **Single Coding Convention (SCCE)**.
+- You must always apply the `single-coding-convention` skill when writing or modifying code.
+- You must preserve the existing architecture, naming, formatting, and patterns found in the codebase.
+- **NEVER** introduce new conventions, folder structures, utility styles, or alternative libraries unless explicitly approved by the human lead.
+- The `14-data-contracts/` and `.agent/skills/` code templates represent the absolute standard. Do not rewrite them in your preferred style.
+
+## 9. File Map (quick index)
 
 ```
 # Documentation (CommerceOS-Docs/)

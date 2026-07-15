@@ -50,3 +50,8 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
+
+# AI Knowledge Graph & Local Agent Artifacts
+.graphify/
+.cursor/
+.aider/

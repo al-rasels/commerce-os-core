@@ -31,7 +31,8 @@ CommerceOS-Docs/
 │   └── skills/                                  exact, copy-this code templates
 │       ├── 01-tenant-scoped-entity-template.md
 │       ├── 02-override-merge-algorithm.md
-│       └── 03-stock-reservation-algorithm.md
+│       ├── 03-stock-reservation-algorithm.md
+│       └── 04-ui-component-template.md
 │
 ├── 01-vision-strategy/
 │   ├── 01-vision.md
@@ -48,8 +49,11 @@ CommerceOS-Docs/
 │   ├── 02-component-library.md
 │   ├── 03-theme-engine.md
 │   ├── 04-template-engine.md
-│   └── 05-page-builder.md
-├── 06-commerce-business-engines/
+│   ├── 05-page-builder.md
+│   ├── 06-ui-architecture-analysis.md
+│   ├── 07-ui-features-specification.md
+│   ├── 08-ui-wireframes-and-blocks.md
+│   └── 09-reusable-ui-components-spec.md
 │   ├── 01-commerce-engine.md
 │   ├── 02-business-erp-engine.md
 │   └── 03-intelligence-engine.md
