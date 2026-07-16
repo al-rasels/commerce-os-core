@@ -1,25 +1,19 @@
-import { Injectable, NestMiddleware, NotFoundException } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import { PrismaService } from '../../../../prisma/prisma.service';
+import { TenantService } from '../tenant.service';
 
 @Injectable()
 export class HostResolverMiddleware implements NestMiddleware {
-  constructor(private prisma: PrismaService) {}
+  constructor(private tenantService: TenantService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     const host = req.hostname;
-    
-    // For local dev, tenanta.localhost -> tenanta.localhost
-    const domainRecord = await this.prisma.tenantDomain.findUnique({
-      where: { domain: host },
-    });
 
-    if (!domainRecord) {
-      throw new NotFoundException(`Tenant not found for domain: ${host}`);
-    }
+    const ctx = await this.tenantService.resolveTenant(host);
 
-    req['resolvedTenantId'] = domainRecord.tenant_id;
+    req['resolvedTenantId'] = ctx.tenantId;
     req['resolvedDomain'] = host;
+    req['tenantContext'] = ctx;
     next();
   }
 }

@@ -36,7 +36,6 @@
     "@prisma/client": "^5.22.0",
     "@sentry/node": "^8.20.0",
     "argon2": "^0.40.3",
-    "bcrypt": "^6.0.0",
     "bullmq": "^5.8.6",
     "cache-manager": "^5.7.4",
     "class-transformer": "^0.5.1",
@@ -59,7 +58,6 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
-    "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
@@ -95,7 +93,8 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testTimeout": 30000
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

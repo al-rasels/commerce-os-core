@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx"
   },
-  "include": ["index.ts", "registry.ts", "utils.ts"]
+  "include": ["*.ts", "*.tsx"]
 }

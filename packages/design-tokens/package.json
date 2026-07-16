@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "echo 'build design-tokens'"
+    "build": "tsc && node build-tokens.mjs"
   },
   "dependencies": {
     "style-dictionary": "^3.9.0"

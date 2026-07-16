@@ -1,9 +1,12 @@
 import deepmerge from "deepmerge";
+import type { DesignTokens } from "@commerceos/design-tokens";
 
 export interface MergeResult<T> {
   resolved: T;
-  conflicts: string[]; // dot-paths where base removed a key the override still references
+  conflicts: string[];
 }
+
+export type TenantTokenOverride = Partial<DesignTokens>;
 
 export function resolveOverride<T extends Record<string, unknown>>(
   base: T,
@@ -11,25 +14,33 @@ export function resolveOverride<T extends Record<string, unknown>>(
 ): MergeResult<T> {
   const conflicts: string[] = [];
 
-  // detect conflicts BEFORE merging: override references a path base no longer has
   detectConflicts(base, override, "", conflicts);
 
   const resolved = deepmerge(base, override, {
-    arrayMerge: (target, source) => source, // override arrays replace, never concatenate
+    arrayMerge: (_target, source) => source,
   }) as T;
 
   return { resolved, conflicts };
 }
 
-function detectConflicts(base: any, override: any, path: string, conflicts: string[]) {
-  for (const key of Object.keys(override ?? {})) {
+function detectConflicts(base: unknown, override: unknown, path: string, conflicts: string[]) {
+  if (override === null || override === undefined) return;
+  if (typeof override !== "object") return;
+  if (Array.isArray(override)) return;
+  if (typeof base !== "object" || base === null) return;
+  if (Array.isArray(base)) return;
+
+  for (const key of Object.keys(override as Record<string, unknown>)) {
     const nextPath = path ? `${path}.${key}` : key;
-    if (!(key in (base ?? {}))) {
-      conflicts.push(nextPath); // override touches a key base no longer defines
+    if (!(key in (base as Record<string, unknown>))) {
+      conflicts.push(nextPath);
       continue;
     }
-    if (typeof override[key] === "object" && override[key] !== null && !Array.isArray(override[key])) {
-      detectConflicts(base[key], override[key], nextPath, conflicts);
-    }
+    detectConflicts(
+      (base as Record<string, unknown>)[key],
+      (override as Record<string, unknown>)[key],
+      nextPath,
+      conflicts,
+    );
   }
 }

@@ -1,6 +1,6 @@
 # Session 2 — Tenant Resolution
 
-## Status: NEXT
+## Status: COMPLETED
 
 ## Dependencies
 - [x] Session 0 — Prerequisites (completed)

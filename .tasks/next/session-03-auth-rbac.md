@@ -1,10 +1,10 @@
 # Session 3 — Auth & RBAC
 
-## Status: NEXT
+## Status: IN_PROGRESS
 
 ## Dependencies
 - [x] Session 1 — Repo Scaffold (completed)
-- [ ] Session 2 — Tenant Resolution (next)
+- [x] Session 2 — Tenant Resolution (completed)
 
 ## Objective
 Login works, JWTs carry `tenant_id` as a claim, and cross-tenant tokens are rejected. Four roles seeded: Super Admin, Store Owner, Store Staff, Customer.
