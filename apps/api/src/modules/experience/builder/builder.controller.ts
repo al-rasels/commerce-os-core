@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Put, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { BuilderService } from './builder.service';
 import { GetTenantContext } from '../../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../../platform/tenant/tenant-context';
@@ -25,7 +25,28 @@ export class BuilderController {
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,
     @Body('sectionsJson') sectionsJson: any,
+    @Body('publish') publish: boolean,
   ) {
-    return this.builderService.updatePageLayout(ctx, pageKey, sectionsJson);
+    return this.builderService.updatePageLayout(ctx, pageKey, sectionsJson, publish);
+  }
+
+  @Post(':key/publish')
+  @UseGuards(TenantAuthGuard)
+  @Permissions('builder.write')
+  async publishPageLayout(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('key') pageKey: string,
+  ) {
+    return this.builderService.publishPageLayout(ctx, pageKey);
+  }
+
+  @Post(':key/unpublish')
+  @UseGuards(TenantAuthGuard)
+  @Permissions('builder.write')
+  async unpublishPageLayout(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('key') pageKey: string,
+  ) {
+    return this.builderService.unpublishPageLayout(ctx, pageKey);
   }
 }

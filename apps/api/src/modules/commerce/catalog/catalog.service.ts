@@ -1,15 +1,21 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
 import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
-import { TenantContext } from '../../../common/decorators/tenant-context.decorator';
+import { ProductVariantRepository } from './repositories/product-variant.repository';
+import { TenantContext } from '../../platform/tenant/tenant-context';
 import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateProductVariantDto } from './dto/create-product-variant.dto';
+import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 
 @Injectable()
 export class CatalogService {
   constructor(
     private readonly productRepo: ProductRepository,
     private readonly categoryRepo: CategoryRepository,
+    private readonly variantRepo: ProductVariantRepository,
   ) {}
 
   async createProduct(ctx: any, dto: CreateProductDto) {
@@ -21,7 +27,7 @@ export class CatalogService {
   }
 
   async listProducts(ctx: any) {
-    return this.productRepo.findMany(ctx);
+    return this.productRepo.findMany(ctx, { orderBy: { created_at: 'desc' } });
   }
 
   async createCategory(ctx: any, dto: CreateCategoryDto) {
@@ -33,6 +39,91 @@ export class CatalogService {
   }
 
   async listCategories(ctx: any) {
-    return this.categoryRepo.findMany(ctx);
+    return this.categoryRepo.findMany(ctx, { orderBy: { sort_order: 'asc' } });
+  }
+
+  async getProduct(ctx: any, id: string) {
+    const product = await this.productRepo.findUnique(ctx, id);
+    if (!product) throw new NotFoundException('Product not found');
+    return product;
+  }
+
+  async updateProduct(ctx: any, id: string, dto: UpdateProductDto) {
+    const existing = await this.productRepo.findUnique(ctx, id);
+    if (!existing) throw new NotFoundException('Product not found');
+
+    if (dto.slug) {
+      const slugConflict = await this.productRepo.findMany(ctx, {
+        slug: dto.slug,
+        id: { not: id },
+      });
+      if (slugConflict.length > 0) {
+        throw new ConflictException('Product with this slug already exists');
+      }
+    }
+
+    return this.productRepo.update(ctx, id, dto);
+  }
+
+  async deleteProduct(ctx: any, id: string) {
+    const product = await this.productRepo.findUnique(ctx, id);
+    if (!product) throw new NotFoundException('Product not found');
+    return this.productRepo.softDelete(ctx, id);
+  }
+
+  async getCategory(ctx: any, id: string) {
+    const category = await this.categoryRepo.findUnique(ctx, id);
+    if (!category) throw new NotFoundException('Category not found');
+    return category;
+  }
+
+  async updateCategory(ctx: any, id: string, dto: UpdateCategoryDto) {
+    const existing = await this.categoryRepo.findUnique(ctx, id);
+    if (!existing) throw new NotFoundException('Category not found');
+
+    if (dto.slug) {
+      const slugConflict = await this.categoryRepo.findMany(ctx, {
+        slug: dto.slug,
+        id: { not: id },
+      });
+      if (slugConflict.length > 0) {
+        throw new ConflictException('Category with this slug already exists');
+      }
+    }
+
+    return this.categoryRepo.update(ctx, id, dto);
+  }
+
+  async deleteCategory(ctx: any, id: string) {
+    const category = await this.categoryRepo.findUnique(ctx, id);
+    if (!category) throw new NotFoundException('Category not found');
+    return this.categoryRepo.softDelete(ctx, id);
+  }
+
+  async getVariants(ctx: any, productId: string) {
+    return this.variantRepo.findMany(ctx, { where: { product_id: productId } });
+  }
+
+  async createVariant(ctx: any, dto: CreateProductVariantDto) {
+    const existing = await this.variantRepo.findMany(ctx, {
+      product_id: dto.product_id,
+      sku: dto.sku,
+    });
+    if (existing.length > 0) {
+      throw new ConflictException('Variant with this SKU already exists for this product');
+    }
+    return this.variantRepo.create(ctx, dto);
+  }
+
+  async updateVariant(ctx: any, id: string, dto: UpdateProductVariantDto) {
+    const variant = await this.variantRepo.findUnique(ctx, id);
+    if (!variant) throw new NotFoundException('Variant not found');
+    return this.variantRepo.update(ctx, id, dto);
+  }
+
+  async deleteVariant(ctx: any, id: string) {
+    const variant = await this.variantRepo.findUnique(ctx, id);
+    if (!variant) throw new NotFoundException('Variant not found');
+    return this.variantRepo.softDelete(ctx, id);
   }
 }

@@ -13,6 +13,12 @@ export abstract class TenantScopedRepository<T> {
     return { ...where, tenant_id: ctx.tenantId };
   }
 
+  async count(ctx: TenantContext, where: object = {}): Promise<number> {
+    return (this.prisma as any)[this.modelName].count({
+      where: this.scope(ctx, where),
+    });
+  }
+
   async findMany(ctx: TenantContext, args: any = {}): Promise<T[]> {
     const { where, ...rest } = args;
     return (this.prisma as any)[this.modelName].findMany({

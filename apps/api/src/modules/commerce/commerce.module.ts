@@ -5,8 +5,10 @@ import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { PaymentsModule } from './payments/payments.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { StorefrontModule } from '../storefront/storefront.module';
 
 @Module({
-  imports: [CatalogModule, CustomerModule, CartModule, OrderModule, CheckoutModule, PaymentsModule],
+  imports: [CatalogModule, CustomerModule, CartModule, OrderModule, CheckoutModule, PaymentsModule, DashboardModule, StorefrontModule],
 })
 export class CommerceModule {}

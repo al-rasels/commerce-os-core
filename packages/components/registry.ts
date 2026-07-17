@@ -18,6 +18,15 @@ import { Pagination } from "./pagination";
 import { Sidebar } from "./sidebar";
 import { Modal } from "./modal";
 import { Tabs } from "./tabs";
+import { Skeleton } from "./skeleton";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Textarea } from "./textarea";
+import { Select } from "./select";
+import { EmptyState } from "./empty-state";
+import { DataTable } from "./data-table";
+import { FormRenderer } from "./form-renderer";
+import { Toast, ToastContainer } from "./toast";
 
 export type ComponentRegistryEntry = {
   component: ComponentType<any>;
@@ -44,6 +53,16 @@ export const componentRegistry = {
   "sidebar.v1": { component: Sidebar, minPlan: "pro" },
   "modal.v1": { component: Modal },
   "tabs.v1": { component: Tabs },
+  "skeleton.v1": { component: Skeleton },
+  "button.v1": { component: Button },
+  "input.v1": { component: Input },
+  "textarea.v1": { component: Textarea },
+  "select.v1": { component: Select },
+  "empty-state.v1": { component: EmptyState },
+  "data-table.v1": { component: DataTable, minPlan: "pro" },
+  "form-renderer.v1": { component: FormRenderer, minPlan: "pro" },
+  "toast.v1": { component: Toast },
+  "toast-container.v1": { component: ToastContainer },
 } as const satisfies Record<string, ComponentRegistryEntry>;
 
 export type ComponentRegistryKey = keyof typeof componentRegistry;

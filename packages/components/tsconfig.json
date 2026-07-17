@@ -11,5 +11,6 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx"
   },
-  "include": ["*.ts", "*.tsx"]
+  "include": ["*.ts", "*.tsx"],
+  "exclude": ["*.spec.ts", "*.spec.tsx", "vitest.setup.ts"]
 }

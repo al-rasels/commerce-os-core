@@ -1,91 +1,273 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../../../prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
+import { authenticator } from 'otplib';
+import * as QRCode from 'qrcode';
+import { PrismaService } from '../../../../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
-import * as argon2 from 'argon2';
 import { TenantContext } from '../tenant/tenant-context';
+import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { MfaVerifyDto } from './dto/mfa-verify.dto';
+import { MfaDisableDto } from './dto/mfa-disable.dto';
+import { InviteDto } from './dto/invite.dto';
 
 @Injectable()
 export class AuthService {
+  private readonly SALT_ROUNDS = 12;
+
   constructor(
-    private prisma: PrismaService,
-    private jwtService: JwtService,
-    private redis: RedisService,
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly redis: RedisService,
   ) {}
 
-  private async issueTokens(user: { id: string; email: string; tenant_id: string | null; role: { name: string } }) {
-    const payload = { sub: user.id, email: user.email, tenant_id: user.tenant_id, role: user.role.name };
-    const refreshToken = await this.jwtService.signAsync(payload, { expiresIn: '7d' });
-
-    const key = `refresh:${user.tenant_id ?? 'platform'}:${user.id}`;
-    const hash = await argon2.hash(refreshToken);
-    await this.redis.set(key, hash, 7 * 24 * 60 * 60);
-
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-      refresh_token: refreshToken,
-    };
-  }
-
   async register(ctx: TenantContext, dto: RegisterDto) {
-    const existing = await this.prisma.user.findUnique({
-      where: { tenant_id_email: { tenant_id: ctx.tenantId, email: dto.email } },
+    const existing = await this.prisma.user.findFirst({
+      where: { tenant_id: ctx.tenantId, email: dto.email },
     });
-
-    if (existing) {
-      throw new ConflictException('Email already registered');
-    }
+    if (existing) throw new ConflictException('Email already registered');
 
     const role = await this.prisma.role.findFirst({
-      where: { tenant_id: ctx.tenantId, name: dto.roleName ?? 'Customer' },
+      where: { tenant_id: ctx.tenantId, name: dto.roleName ?? 'member' },
     });
+    if (!role) throw new NotFoundException('Default role not found');
 
-    const hash = await argon2.hash(dto.password);
+    const hash = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
     const user = await this.prisma.user.create({
       data: {
         tenant_id: ctx.tenantId,
         email: dto.email,
         password_hash: hash,
-        role_id: role!.id,
+        role_id: role.id,
       },
     });
 
-    return this.issueTokens({ ...user, role: role! });
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, role.permissions as string[]);
+    return { user: { id: user.id, email: user.email, role: role.name }, ...tokens };
   }
 
-  async login(ctx: TenantContext, email: string, pass: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { tenant_id_email: { tenant_id: ctx.tenantId, email } },
+  async login(ctx: TenantContext, dto: LoginDto) {
+    const user = await this.prisma.user.findFirst({
+      where: { tenant_id: ctx.tenantId, email: dto.email },
       include: { role: true },
     });
+    if (!user) throw new UnauthorizedException('Invalid credentials');
 
-    if (!user || !(await argon2.verify(user.password_hash, pass))) {
-      throw new UnauthorizedException('Invalid credentials');
+    if (user.status === 'suspended') throw new UnauthorizedException('Account suspended');
+    if (user.status === 'pending') throw new UnauthorizedException('Account not yet activated');
+
+    const valid = await bcrypt.compare(dto.password, user.password_hash);
+    if (!valid) throw new UnauthorizedException('Invalid credentials');
+
+    if (user.mfa_enabled) {
+      const mfaToken = await this.jwtService.signAsync(
+        { sub: user.id, tenant_id: ctx.tenantId, mfa_pending: true },
+        { expiresIn: '5m' },
+      );
+      return { mfa_required: true, mfa_token: mfaToken };
     }
 
-    return this.issueTokens(user);
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    return { user: { id: user.id, email: user.email, role: user.role.name }, ...tokens };
   }
 
-  async refresh(ctx: TenantContext, userId: string, refreshToken: string) {
+  async mfaVerify(ctx: TenantContext, mfaToken: string, dto: MfaVerifyDto) {
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(mfaToken, { ignoreExpiration: false });
+    } catch {
+      throw new UnauthorizedException('MFA token expired or invalid');
+    }
+    if (!payload.mfa_pending) throw new UnauthorizedException('Invalid MFA token');
+
     const user = await this.prisma.user.findUnique({
+      where: { id: payload.sub },
+      include: { role: true },
+    });
+    if (!user || !user.mfa_secret) throw new UnauthorizedException('MFA not configured');
+
+    const verified = authenticator.check(dto.token, user.mfa_secret);
+    if (!verified) throw new UnauthorizedException('Invalid MFA code');
+
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    return { user: { id: user.id, email: user.email, role: user.role.name }, ...tokens };
+  }
+
+  async setupMfa(ctx: TenantContext, userId: string) {
+    const secret = authenticator.generateSecret();
+    const appName = 'CommerceOS';
+    const otpauth = authenticator.keyuri(userId, appName, secret);
+    const qrCode = await QRCode.toDataURL(otpauth);
+
+    await this.prisma.user.update({
       where: { id: userId },
-      include: { role: true },
+      data: { mfa_secret: secret },
     });
 
-    if (!user || user.tenant_id !== ctx.tenantId) {
-      throw new UnauthorizedException('Invalid token');
-    }
+    return { secret, qr_code: qrCode };
+  }
 
-    const key = `refresh:${ctx.tenantId}:${userId}`;
+  async verifyAndEnableMfa(ctx: TenantContext, userId: string, dto: MfaVerifyDto) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user || !user.mfa_secret) throw new NotFoundException('MFA not set up');
+
+    const verified = authenticator.check(dto.token, user.mfa_secret);
+    if (!verified) throw new UnauthorizedException('Invalid MFA code');
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { mfa_enabled: true },
+    });
+    return { message: 'MFA enabled successfully' };
+  }
+
+  async disableMfa(ctx: TenantContext, userId: string, dto: MfaDisableDto) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+
+    const valid = await bcrypt.compare(dto.password, user.password_hash);
+    if (!valid) throw new UnauthorizedException('Invalid password');
+
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { mfa_secret: null, mfa_enabled: false },
+    });
+    return { message: 'MFA disabled successfully' };
+  }
+
+  async forgotPassword(ctx: TenantContext, dto: ForgotPasswordDto) {
+    const user = await this.prisma.user.findFirst({
+      where: { tenant_id: ctx.tenantId, email: dto.email },
+    });
+    if (!user) return { message: 'If the email exists, a reset link has been sent' };
+
+    const token = await this.jwtService.signAsync(
+      { sub: user.id, tenant_id: ctx.tenantId, purpose: 'reset_password' },
+      { expiresIn: '15m' },
+    );
+
+    const key = `reset_token:${ctx.tenantId}:${user.id}`;
+    await this.redis.set(key, token, 900);
+    // In production, send email with reset link containing the token
+
+    return { message: 'If the email exists, a reset link has been sent' };
+  }
+
+  async resetPassword(ctx: TenantContext, dto: ResetPasswordDto) {
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(dto.token);
+    } catch {
+      throw new UnauthorizedException('Invalid or expired reset token');
+    }
+    if (payload.purpose !== 'reset_password') throw new UnauthorizedException('Invalid token purpose');
+
+    const key = `reset_token:${ctx.tenantId}:${payload.sub}`;
     const stored = await this.redis.get(key);
-
-    if (!stored || !(await argon2.verify(stored, refreshToken).catch(() => false))) {
-      throw new UnauthorizedException('Invalid or expired refresh token');
-    }
+    if (!stored || stored !== dto.token) throw new UnauthorizedException('Token already used or expired');
 
     await this.redis.del(key);
 
-    return this.issueTokens(user);
+    const hash = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
+    await this.prisma.user.update({
+      where: { id: payload.sub },
+      data: { password_hash: hash },
+    });
+
+    return { message: 'Password reset successfully' };
+  }
+
+  async changePassword(ctx: TenantContext, userId: string, dto: ChangePasswordDto) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+
+    const valid = await bcrypt.compare(dto.currentPassword, user.password_hash);
+    if (!valid) throw new UnauthorizedException('Current password is incorrect');
+
+    const hash = await bcrypt.hash(dto.newPassword, this.SALT_ROUNDS);
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password_hash: hash },
+    });
+
+    return { message: 'Password changed successfully' };
+  }
+
+  async invite(ctx: TenantContext, dto: InviteDto) {
+    const existing = await this.prisma.user.findFirst({
+      where: { tenant_id: ctx.tenantId, email: dto.email },
+    });
+    if (existing) throw new ConflictException('User already exists with this email');
+
+    const role = await this.prisma.role.findFirst({
+      where: { tenant_id: ctx.tenantId, name: dto.roleName ?? 'member' },
+    });
+    if (!role) throw new NotFoundException('Role not found');
+
+    const tempPassword = crypto.randomUUID().slice(0, 12);
+    const hash = await bcrypt.hash(tempPassword, this.SALT_ROUNDS);
+
+    await this.prisma.user.create({
+      data: {
+        tenant_id: ctx.tenantId,
+        email: dto.email,
+        password_hash: hash,
+        role_id: role.id,
+        status: 'pending',
+      },
+    });
+
+    // In production, send invitation email with setup link and temp password
+
+    return { message: 'Invitation sent' };
+  }
+
+  async refresh(ctx: TenantContext, refreshToken: string) {
+    let payload: any;
+    try {
+      payload = await this.jwtService.verifyAsync(refreshToken, { ignoreExpiration: false });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
+    const stored = await this.redis.get(`refresh:${payload.sub}`);
+    if (!stored || stored !== refreshToken) {
+      throw new UnauthorizedException('Refresh token revoked');
+    }
+
+    const user = await this.prisma.user.findUnique({
+      where: { id: payload.sub },
+      include: { role: true },
+    });
+    if (!user) throw new UnauthorizedException('User not found');
+
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    return tokens;
+  }
+
+  async logout(ctx: TenantContext, userId: string) {
+    await this.redis.del(`refresh:${userId}`);
+    return { message: 'Logged out successfully' };
+  }
+
+  private async generateTokens(userId: string, tenantId: string, permissions: string[]) {
+    const payload = { sub: userId, tenant_id: tenantId, permissions };
+
+    const accessToken = await this.jwtService.signAsync(payload, { expiresIn: '15m' });
+    const refreshToken = await this.jwtService.signAsync(payload, { expiresIn: '7d' });
+
+    await this.redis.set(`refresh:${userId}`, refreshToken, 7 * 24 * 3600);
+
+    return { access_token: accessToken, refresh_token: refreshToken };
   }
 }

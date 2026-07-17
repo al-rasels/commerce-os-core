@@ -54,6 +54,7 @@ name          TEXT NOT NULL
 slug          TEXT NOT NULL
 status        TEXT NOT NULL DEFAULT 'draft'   -- 'draft' | 'active' | 'archived'
 category_id   UUID FK -> categories.id, NULLABLE
+description   TEXT                         -- rich text description (HTML from editor)
 created_at    TIMESTAMPTZ
 updated_at    TIMESTAMPTZ
 deleted_at    TIMESTAMPTZ NULLABLE
@@ -82,6 +83,7 @@ tenant_id     UUID FK -> tenants.id
 name          TEXT NOT NULL
 slug          TEXT NOT NULL
 parent_id     UUID FK -> categories.id, NULLABLE
+sort_order    INT NOT NULL DEFAULT 0        -- for drag-to-reorder in admin
 UNIQUE(tenant_id, slug)
 ```
 

@@ -33,9 +33,10 @@ export class ThemeService {
     const { resolved, conflicts } = resolveOverride(baseJson, overrideJson);
 
     return {
+      id: baseTheme.id,
       version: baseTheme.version,
       tokens: resolved,
-      conflicts, // Exposing conflicts so admin UI can warn the merchant if keys disappeared
+      conflicts,
     };
   }
 
