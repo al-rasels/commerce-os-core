@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Query, UseGuards } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
@@ -22,8 +22,15 @@ export class CustomerController {
 
   @Get()
   @RequirePermissions('customers.read')
-  async list(@GetTenantContext() ctx: TenantContext) {
-    return this.customerService.list(ctx);
+  async list(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('search') search?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    const pageNum = page ? parseInt(page, 10) : 1;
+    const limitNum = limit ? parseInt(limit, 10) : 10;
+    return this.customerService.list(ctx, search, pageNum, limitNum);
   }
 
   @Get(':id')

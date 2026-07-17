@@ -17,12 +17,32 @@ export class CustomerService {
     return this.customerRepo.create(ctx, dto);
   }
 
-  async list(ctx: TenantContext) {
-    return this.customerRepo.findMany(ctx, { orderBy: { created_at: 'desc' } });
+  async list(ctx: TenantContext, search?: string, page: number = 1, limit: number = 10) {
+    const where: any = {};
+    if (search) {
+      where.OR = [
+        { email: { contains: search, mode: 'insensitive' } },
+        { first_name: { contains: search, mode: 'insensitive' } },
+        { last_name: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const [data, total] = await Promise.all([
+      this.customerRepo.findMany(ctx, {
+        where,
+        orderBy: { created_at: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+        include: { _count: { select: { orders: true } } },
+      }),
+      this.customerRepo.count(ctx, where),
+    ]);
+
+    return { data, total, page, limit };
   }
 
   async get(ctx: TenantContext, id: string) {
-    const customer = await this.customerRepo.findUnique(ctx, id);
+    const customer = await this.customerRepo.findByIdWithOrders(ctx, id);
     if (!customer) throw new NotFoundException('Customer not found');
     return customer;
   }

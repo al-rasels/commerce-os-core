@@ -255,6 +255,17 @@ export class AuthService {
     return tokens;
   }
 
+  async me(ctx: TenantContext, userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: { role: { select: { id: true, name: true } } },
+    });
+    if (!user) throw new NotFoundException('User not found');
+
+    const { password_hash, mfa_secret, ...rest } = user as any;
+    return { ...rest, mfa_configured: !!mfa_secret };
+  }
+
   async logout(ctx: TenantContext, userId: string) {
     await this.redis.del(`refresh:${userId}`);
     return { message: 'Logged out successfully' };

@@ -9,9 +9,11 @@ import {
   FolderTree,
   ShoppingCart,
   Users,
+  UserCog,
   Palette,
   FileText,
   LogOut,
+  KeyRound,
   ChevronRight,
 } from "lucide-react"
 
@@ -21,6 +23,7 @@ const navItems = [
   { href: "/categories", label: "Categories", icon: FolderTree },
   { href: "/orders", label: "Orders", icon: ShoppingCart },
   { href: "/customers", label: "Customers", icon: Users },
+  { href: "/users", label: "Users", icon: UserCog },
   { href: "/theme", label: "Theme", icon: Palette },
   { href: "/settings/pages", label: "Pages", icon: FileText },
 ]
@@ -55,7 +58,15 @@ function Sidebar() {
         })}
       </nav>
       <Separator className="my-3" />
-      <div className="px-2.5 text-xs text-muted-foreground">Admin</div>
+      <div className="space-y-1">
+        <Link
+          to="/change-password"
+          className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        >
+          <KeyRound className="size-4" />
+          Change Password
+        </Link>
+      </div>
     </aside>
   )
 }

@@ -14,6 +14,10 @@ import CustomerListPage from "@/pages/customers/CustomerListPage"
 import CustomerDetailPage from "@/pages/customers/CustomerDetailPage"
 import CustomerFormPage from "@/pages/customers/CustomerFormPage"
 import DashboardPage from "@/pages/DashboardPage"
+import UserListPage from "@/pages/users/UserListPage"
+import UserDetailPage from "@/pages/users/UserDetailPage"
+import UserInvitePage from "@/pages/users/UserInvitePage"
+import ChangePasswordPage from "@/pages/auth/ChangePasswordPage"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
@@ -39,6 +43,10 @@ export default function App() {
             <Route path="customers/new" element={<CustomerFormPage />} />
             <Route path="customers/:id/edit" element={<CustomerFormPage />} />
             <Route path="customers/:id" element={<CustomerDetailPage />} />
+            <Route path="users" element={<UserListPage />} />
+            <Route path="users/invite" element={<UserInvitePage />} />
+            <Route path="users/:id" element={<UserDetailPage />} />
+            <Route path="change-password" element={<ChangePasswordPage />} />
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />

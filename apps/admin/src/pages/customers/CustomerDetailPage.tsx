@@ -28,9 +28,10 @@ const statusVariant: Record<string, "default" | "secondary" | "outline" | "destr
 
 export default function CustomerDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const { data: customer, isLoading } = useCustomer(id)
+  const { data: customer, isLoading, isError } = useCustomer(id)
 
   if (isLoading) return <div className="text-sm text-muted-foreground">Loading...</div>
+  if (isError) return <div className="text-sm text-destructive">Failed to load customer</div>
   if (!customer) return <div className="text-sm text-muted-foreground">Customer not found</div>
 
   return (
@@ -64,7 +65,7 @@ export default function CustomerDetailPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {customer.orders.length === 0 ? (
+              {!customer.orders || customer.orders.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={4} className="text-center text-muted-foreground">
                     No orders yet

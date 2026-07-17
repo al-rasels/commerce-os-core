@@ -18,7 +18,7 @@ export default function CustomerFormPage() {
   const navigate = useNavigate()
   const { data: customer, isLoading } = useCustomer(isEdit ? id : undefined)
   const createCustomer = useCreateCustomer()
-  const updateCustomer = useUpdateCustomer(id ?? "")
+  const updateCustomer = useUpdateCustomer(id!)
 
   const isPending = createCustomer.isPending || updateCustomer.isPending
 

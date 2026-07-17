@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Param,
@@ -16,7 +17,8 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 import { MfaVerifyDto } from './dto/mfa-verify.dto';
 import { MfaDisableDto } from './dto/mfa-disable.dto';
 import { InviteDto } from './dto/invite.dto';
-import { GetTenantContext } from '../../../../common/decorators/tenant-context.decorator';
+import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { TenantContext } from '../tenant/tenant-context';
 import { TenantAuthGuard } from './guards/tenant-auth.guard';
 import { RequirePermissions } from './decorators/permissions.decorator';
@@ -117,6 +119,15 @@ export class AuthController {
     @Body('refresh_token') refreshToken: string,
   ) {
     return this.authService.refresh(ctx, refreshToken);
+  }
+
+  @Get('me')
+  @UseGuards(TenantAuthGuard)
+  async me(
+    @GetTenantContext() ctx: TenantContext,
+    @CurrentUser('sub') userId: string,
+  ) {
+    return this.authService.me(ctx, userId);
   }
 
   @Post('logout')
