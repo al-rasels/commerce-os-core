@@ -57,4 +57,15 @@ export abstract class TenantScopedRepository<T> {
   async softDelete(ctx: TenantContext, id: string): Promise<T> {
     return this.update(ctx, id, { deleted_at: new Date() });
   }
-}
+
+  async updateByTenant(ctx: TenantContext, data: any): Promise<void> {
+    const result = await (this.prisma as any)[this.modelName].updateMany({
+      where: { tenant_id: ctx.tenantId },
+      data,
+    });
+    
+    if (result.count === 0) {
+      throw new Error('Record not found or not owned by tenant');
+    }
+  }
+}

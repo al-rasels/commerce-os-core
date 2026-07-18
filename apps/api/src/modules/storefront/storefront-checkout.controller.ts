@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Param, HttpCode, HttpStatus, NotFoundException, BadRequestException } from '@nestjs/common';
-import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
+import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
 
 @Controller('v1/storefront/checkout')
@@ -12,7 +12,7 @@ export class StorefrontCheckoutController {
     @Body('email') email?: string,
     @Body('session_id') sessionId?: string,
   ) {
-    const { PrismaService } = await import('../../prisma/prisma.service');
+    const { PrismaService } = await import('../../prisma/prisma.service.js');
     const prisma = new PrismaService();
 
     const cart = await (prisma as any).cart.findUnique({

@@ -1,9 +1,9 @@
 import { Controller, Get, Put, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { BuilderService } from './builder.service';
-import { GetTenantContext } from '../../../../common/decorators/tenant-context.decorator';
-import { TenantContext } from '../../../platform/tenant/tenant-context';
-import { TenantAuthGuard } from '../../../platform/auth/guards/tenant-auth.guard';
-import { Permissions } from '../../../platform/auth/decorators/permissions.decorator';
+import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator.js';
+import { TenantContext } from '../../platform/tenant/tenant-context';
+import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
+import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 
 @Controller('v1/experience/builder/pages')
 export class BuilderController {
@@ -20,7 +20,7 @@ export class BuilderController {
 
   @Put(':key')
   @UseGuards(TenantAuthGuard)
-  @Permissions('builder.write')
+  @RequirePermissions('builder.write')
   async updatePageLayout(
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,
@@ -32,7 +32,7 @@ export class BuilderController {
 
   @Post(':key/publish')
   @UseGuards(TenantAuthGuard)
-  @Permissions('builder.write')
+  @RequirePermissions('builder.write')
   async publishPageLayout(
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,
@@ -42,7 +42,7 @@ export class BuilderController {
 
   @Post(':key/unpublish')
   @UseGuards(TenantAuthGuard)
-  @Permissions('builder.write')
+  @RequirePermissions('builder.write')
   async unpublishPageLayout(
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,

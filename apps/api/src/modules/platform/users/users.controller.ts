@@ -9,8 +9,8 @@ import {
 } from '@nestjs/common';
 import { TenantAuthGuard } from '../auth/guards/tenant-auth.guard';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
-import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { TenantContext } from '../tenant/tenant-context';
+import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserStatusDto } from './dto/update-user-status.dto';

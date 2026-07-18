@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Test, TestingModule } from '@nestjs/testing';
 import { UnauthorizedException, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';

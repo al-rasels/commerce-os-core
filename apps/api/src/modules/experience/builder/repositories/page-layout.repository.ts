@@ -10,7 +10,7 @@ export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
   }
 
   // Override to handle composite key (tenant_id + page_key) safely
-  async findByPageKey(ctx: any, pageKey: string): Promise<PageLayout | null> {
+  async findByPageKey(ctx: TenantContext, pageKey: string): Promise<PageLayout | null> {
     const results = await this.findMany(ctx, { page_key: pageKey });
     return results.length > 0 ? results[0] : null;
   }

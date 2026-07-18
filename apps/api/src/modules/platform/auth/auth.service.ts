@@ -6,10 +6,11 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
-import { authenticator } from 'otplib';
+import * as argon2 from 'argon2';
+const { authenticator } = require('otplib');
 import * as QRCode from 'qrcode';
-import { PrismaService } from '../../../../prisma/prisma.service';
+import { UsersRepository } from '../users/users.repository';
+import { RoleRepository } from '../users/role.repository';
 import { RedisService } from '../redis/redis.service';
 import { TenantContext } from '../tenant/tenant-context';
 import { LoginDto } from './dto/login.dto';
@@ -23,50 +24,35 @@ import { InviteDto } from './dto/invite.dto';
 
 @Injectable()
 export class AuthService {
-  private readonly SALT_ROUNDS = 12;
-
-  constructor(
-    private readonly prisma: PrismaService,
+    constructor(
+    private readonly usersRepo: UsersRepository,
+    private readonly roleRepo: RoleRepository,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,
   ) {}
 
   async register(ctx: TenantContext, dto: RegisterDto) {
-    const existing = await this.prisma.user.findFirst({
-      where: { tenant_id: ctx.tenantId, email: dto.email },
-    });
+    const existing = (await this.usersRepo.findMany(ctx, { where: { email: dto.email } }))[0];
     if (existing) throw new ConflictException('Email already registered');
 
-    const role = await this.prisma.role.findFirst({
-      where: { tenant_id: ctx.tenantId, name: dto.roleName ?? 'member' },
-    });
+    const role = (await this.roleRepo.findMany(ctx, { where: { name: dto.roleName ?? 'member' } }))[0];
     if (!role) throw new NotFoundException('Default role not found');
 
-    const hash = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
-    const user = await this.prisma.user.create({
-      data: {
-        tenant_id: ctx.tenantId,
-        email: dto.email,
-        password_hash: hash,
-        role_id: role.id,
-      },
-    });
+    const hash = await argon2.hash(dto.password);
+    const user = await this.usersRepo.create(ctx, { email: dto.email, password_hash: hash, role_id: role.id });
 
-    const tokens = await this.generateTokens(user.id, ctx.tenantId, role.permissions as string[]);
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, ((role as any).permissions as string[]) || []);
     return { user: { id: user.id, email: user.email, role: role.name }, ...tokens };
   }
 
   async login(ctx: TenantContext, dto: LoginDto) {
-    const user = await this.prisma.user.findFirst({
-      where: { tenant_id: ctx.tenantId, email: dto.email },
-      include: { role: true },
-    });
+    const user = (await this.usersRepo.findManyWithRole(ctx, { where: { email: dto.email } }))[0];
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
     if (user.status === 'suspended') throw new UnauthorizedException('Account suspended');
     if (user.status === 'pending') throw new UnauthorizedException('Account not yet activated');
 
-    const valid = await bcrypt.compare(dto.password, user.password_hash);
+    const valid = await argon2.verify(user.password_hash, dto.password);
     if (!valid) throw new UnauthorizedException('Invalid credentials');
 
     if (user.mfa_enabled) {
@@ -77,7 +63,7 @@ export class AuthService {
       return { mfa_required: true, mfa_token: mfaToken };
     }
 
-    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, ((user.role as any).permissions as string[]) || []);
     return { user: { id: user.id, email: user.email, role: user.role.name }, ...tokens };
   }
 
@@ -90,16 +76,13 @@ export class AuthService {
     }
     if (!payload.mfa_pending) throw new UnauthorizedException('Invalid MFA token');
 
-    const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
-      include: { role: true },
-    });
+    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, payload.sub);
     if (!user || !user.mfa_secret) throw new UnauthorizedException('MFA not configured');
 
     const verified = authenticator.check(dto.token, user.mfa_secret);
     if (!verified) throw new UnauthorizedException('Invalid MFA code');
 
-    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, ((user.role as any).permissions as string[]) || []);
     return { user: { id: user.id, email: user.email, role: user.role.name }, ...tokens };
   }
 
@@ -109,46 +92,35 @@ export class AuthService {
     const otpauth = authenticator.keyuri(userId, appName, secret);
     const qrCode = await QRCode.toDataURL(otpauth);
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { mfa_secret: secret },
-    });
+    await this.usersRepo.updateUser(ctx, userId, { mfa_secret: secret });
 
     return { secret, qr_code: qrCode };
   }
 
   async verifyAndEnableMfa(ctx: TenantContext, userId: string, dto: MfaVerifyDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.usersRepo.findUnique(ctx, userId);
     if (!user || !user.mfa_secret) throw new NotFoundException('MFA not set up');
 
     const verified = authenticator.check(dto.token, user.mfa_secret);
     if (!verified) throw new UnauthorizedException('Invalid MFA code');
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { mfa_enabled: true },
-    });
+    await this.usersRepo.updateUser(ctx, userId, { mfa_enabled: true });
     return { message: 'MFA enabled successfully' };
   }
 
   async disableMfa(ctx: TenantContext, userId: string, dto: MfaDisableDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.usersRepo.findUnique(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
-    const valid = await bcrypt.compare(dto.password, user.password_hash);
+    const valid = await argon2.verify(user.password_hash, dto.password);
     if (!valid) throw new UnauthorizedException('Invalid password');
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { mfa_secret: null, mfa_enabled: false },
-    });
+    await this.usersRepo.updateUser(ctx, userId, { mfa_secret: null, mfa_enabled: false });
     return { message: 'MFA disabled successfully' };
   }
 
   async forgotPassword(ctx: TenantContext, dto: ForgotPasswordDto) {
-    const user = await this.prisma.user.findFirst({
-      where: { tenant_id: ctx.tenantId, email: dto.email },
-    });
+    const user = (await this.usersRepo.findMany(ctx, { where: { email: dto.email } }))[0];
     if (!user) return { message: 'If the email exists, a reset link has been sent' };
 
     const token = await this.jwtService.signAsync(
@@ -178,54 +150,36 @@ export class AuthService {
 
     await this.redis.del(key);
 
-    const hash = await bcrypt.hash(dto.password, this.SALT_ROUNDS);
-    await this.prisma.user.update({
-      where: { id: payload.sub },
-      data: { password_hash: hash },
-    });
+    const hash = await argon2.hash(dto.password);
+    await this.usersRepo.updateUser(ctx, payload.sub, { password_hash: hash });
 
     return { message: 'Password reset successfully' };
   }
 
   async changePassword(ctx: TenantContext, userId: string, dto: ChangePasswordDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    const user = await this.usersRepo.findUnique(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
-    const valid = await bcrypt.compare(dto.currentPassword, user.password_hash);
+    const valid = await argon2.verify(user.password_hash, dto.currentPassword);
     if (!valid) throw new UnauthorizedException('Current password is incorrect');
 
-    const hash = await bcrypt.hash(dto.newPassword, this.SALT_ROUNDS);
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { password_hash: hash },
-    });
+    const hash = await argon2.hash(dto.newPassword);
+    await this.usersRepo.updateUser(ctx, userId, { password_hash: hash });
 
     return { message: 'Password changed successfully' };
   }
 
   async invite(ctx: TenantContext, dto: InviteDto) {
-    const existing = await this.prisma.user.findFirst({
-      where: { tenant_id: ctx.tenantId, email: dto.email },
-    });
+    const existing = (await this.usersRepo.findMany(ctx, { where: { email: dto.email } }))[0];
     if (existing) throw new ConflictException('User already exists with this email');
 
-    const role = await this.prisma.role.findFirst({
-      where: { tenant_id: ctx.tenantId, name: dto.roleName ?? 'member' },
-    });
+    const role = (await this.roleRepo.findMany(ctx, { where: { name: dto.roleName ?? 'member' } }))[0];
     if (!role) throw new NotFoundException('Role not found');
 
     const tempPassword = crypto.randomUUID().slice(0, 12);
-    const hash = await bcrypt.hash(tempPassword, this.SALT_ROUNDS);
+    const hash = await argon2.hash(tempPassword);
 
-    await this.prisma.user.create({
-      data: {
-        tenant_id: ctx.tenantId,
-        email: dto.email,
-        password_hash: hash,
-        role_id: role.id,
-        status: 'pending',
-      },
-    });
+    await this.usersRepo.create(ctx, { email: dto.email, password_hash: hash, role_id: role.id, status: 'pending' });
 
     // In production, send invitation email with setup link and temp password
 
@@ -245,21 +199,15 @@ export class AuthService {
       throw new UnauthorizedException('Refresh token revoked');
     }
 
-    const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
-      include: { role: true },
-    });
+    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, payload.sub);
     if (!user) throw new UnauthorizedException('User not found');
 
-    const tokens = await this.generateTokens(user.id, ctx.tenantId, user.role.permissions as string[]);
+    const tokens = await this.generateTokens(user.id, ctx.tenantId, ((user.role as any).permissions as string[]) || []);
     return tokens;
   }
 
   async me(ctx: TenantContext, userId: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: userId },
-      include: { role: { select: { id: true, name: true } } },
-    });
+    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
     const { password_hash, mfa_secret, ...rest } = user as any;

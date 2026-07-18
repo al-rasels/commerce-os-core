@@ -1,6 +1,9 @@
 import type { Order } from "./api/orders"
+import { defaultDesignTokens } from "@commerceos/design-tokens"
+
 
 export function generateInvoiceHtml(order: Order): string {
+  const theme = defaultDesignTokens.colors.light
   const lineTotal = (item: { unit_price: number; quantity: number }) =>
     ((item.unit_price * item.quantity) / 100).toFixed(2)
 
@@ -8,10 +11,10 @@ export function generateInvoiceHtml(order: Order): string {
     .map(
       (item) => `
       <tr>
-        <td style="padding:8px;border-bottom:1px solid #e2e8f0;font-size:13px">${item.sku}</td>
-        <td style="padding:8px;border-bottom:1px solid #e2e8f0;text-align:center;font-size:13px">${item.quantity}</td>
-        <td style="padding:8px;border-bottom:1px solid #e2e8f0;text-align:right;font-size:13px">${order.currency} ${(item.unit_price / 100).toFixed(2)}</td>
-        <td style="padding:8px;border-bottom:1px solid #e2e8f0;text-align:right;font-size:13px">${order.currency} ${lineTotal(item)}</td>
+        <td style="padding:8px;border-bottom:1px solid ${theme.border};font-size:13px">${item.sku}</td>
+        <td style="padding:8px;border-bottom:1px solid ${theme.border};text-align:center;font-size:13px">${item.quantity}</td>
+        <td style="padding:8px;border-bottom:1px solid ${theme.border};text-align:right;font-size:13px">${order.currency} ${(item.unit_price / 100).toFixed(2)}</td>
+        <td style="padding:8px;border-bottom:1px solid ${theme.border};text-align:right;font-size:13px">${order.currency} ${lineTotal(item)}</td>
       </tr>`
     )
     .join("")
@@ -22,27 +25,27 @@ export function generateInvoiceHtml(order: Order): string {
   <meta charset="UTF-8">
   <title>Invoice ${order.id.slice(0, 8)}</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 40px; color: #1a1a2e; }
-    .header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid #1a1a2e; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 40px; color: ${theme.text}; }
+    .header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 2px solid ${theme.text}; }
     .invoice-title { font-size: 28px; font-weight: 700; margin: 0; }
-    .invoice-meta { text-align: right; font-size: 13px; color: #64748b; }
+    .invoice-meta { text-align: right; font-size: 13px; color: ${theme.textMuted}; }
     .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-    .info-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin: 0 0 8px; }
+    .info-section h3 { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${theme.textMuted}; margin: 0 0 8px; }
     .info-section p { margin: 2px 0; font-size: 14px; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
-    th { background: #f8fafc; padding: 10px 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; text-align: left; }
+    th { background: ${theme.surfaceMuted}; padding: 10px 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${theme.textMuted}; text-align: left; }
     th:not(:first-child) { text-align: right; }
     .totals { margin-left: auto; width: 280px; }
     .totals-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 14px; }
-    .totals-row.total { border-top: 2px solid #1a1a2e; margin-top: 4px; padding-top: 8px; font-weight: 700; font-size: 16px; }
-    .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; text-align: center; }
+    .totals-row.total { border-top: 2px solid ${theme.text}; margin-top: 4px; padding-top: 8px; font-weight: 700; font-size: 16px; }
+    .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid ${theme.border}; font-size: 12px; color: ${theme.textMuted}; text-align: center; }
   </style>
 </head>
 <body>
   <div class="header">
     <div>
       <h1 class="invoice-title">Invoice</h1>
-      <div style="font-size:13px;color:#64748b;margin-top:4px">#${order.id.slice(0, 8)}</div>
+      <div style="font-size:13px;color:${theme.textMuted};margin-top:4px">#${order.id.slice(0, 8)}</div>
     </div>
     <div class="invoice-meta">
       <div>Date: ${new Date(order.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</div>

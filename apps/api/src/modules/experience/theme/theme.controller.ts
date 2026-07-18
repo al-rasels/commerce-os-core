@@ -1,9 +1,9 @@
 import { Controller, Get, Put, Body, UseGuards } from '@nestjs/common';
 import { ThemeService } from './theme.service';
-import { GetTenantContext } from '../../../../common/decorators/tenant-context.decorator';
-import { TenantContext } from '../../../platform/tenant/tenant-context';
-import { TenantAuthGuard } from '../../../platform/auth/guards/tenant-auth.guard';
-import { Permissions } from '../../../platform/auth/decorators/permissions.decorator';
+import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
+import { TenantContext } from '../../platform/tenant/tenant-context';
+import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
+import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 
 @Controller('v1/experience/theme')
 export class ThemeController {
@@ -17,7 +17,7 @@ export class ThemeController {
 
   @Put('override')
   @UseGuards(TenantAuthGuard)
-  @Permissions('theme.write')
+  @RequirePermissions('theme.write')
   async updateOverride(
     @GetTenantContext() ctx: TenantContext,
     @Body('themeBaseId') themeBaseId: string,

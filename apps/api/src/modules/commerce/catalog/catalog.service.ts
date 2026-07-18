@@ -18,7 +18,7 @@ export class CatalogService {
     private readonly variantRepo: ProductVariantRepository,
   ) {}
 
-  async createProduct(ctx: any, dto: CreateProductDto) {
+  async createProduct(ctx: TenantContext, dto: CreateProductDto) {
     const existing = await this.productRepo.findMany(ctx, { slug: dto.slug });
     if (existing.length > 0) {
       throw new ConflictException('Product with this slug already exists');
@@ -26,11 +26,11 @@ export class CatalogService {
     return this.productRepo.create(ctx, dto);
   }
 
-  async listProducts(ctx: any) {
+  async listProducts(ctx: TenantContext) {
     return this.productRepo.findMany(ctx, { orderBy: { created_at: 'desc' } });
   }
 
-  async createCategory(ctx: any, dto: CreateCategoryDto) {
+  async createCategory(ctx: TenantContext, dto: CreateCategoryDto) {
     const existing = await this.categoryRepo.findMany(ctx, { slug: dto.slug });
     if (existing.length > 0) {
       throw new ConflictException('Category with this slug already exists');
@@ -38,17 +38,17 @@ export class CatalogService {
     return this.categoryRepo.create(ctx, dto);
   }
 
-  async listCategories(ctx: any) {
+  async listCategories(ctx: TenantContext) {
     return this.categoryRepo.findMany(ctx, { orderBy: { sort_order: 'asc' } });
   }
 
-  async getProduct(ctx: any, id: string) {
+  async getProduct(ctx: TenantContext, id: string) {
     const product = await this.productRepo.findUnique(ctx, id);
     if (!product) throw new NotFoundException('Product not found');
     return product;
   }
 
-  async updateProduct(ctx: any, id: string, dto: UpdateProductDto) {
+  async updateProduct(ctx: TenantContext, id: string, dto: UpdateProductDto) {
     const existing = await this.productRepo.findUnique(ctx, id);
     if (!existing) throw new NotFoundException('Product not found');
 
@@ -65,19 +65,19 @@ export class CatalogService {
     return this.productRepo.update(ctx, id, dto);
   }
 
-  async deleteProduct(ctx: any, id: string) {
+  async deleteProduct(ctx: TenantContext, id: string) {
     const product = await this.productRepo.findUnique(ctx, id);
     if (!product) throw new NotFoundException('Product not found');
     return this.productRepo.softDelete(ctx, id);
   }
 
-  async getCategory(ctx: any, id: string) {
+  async getCategory(ctx: TenantContext, id: string) {
     const category = await this.categoryRepo.findUnique(ctx, id);
     if (!category) throw new NotFoundException('Category not found');
     return category;
   }
 
-  async updateCategory(ctx: any, id: string, dto: UpdateCategoryDto) {
+  async updateCategory(ctx: TenantContext, id: string, dto: UpdateCategoryDto) {
     const existing = await this.categoryRepo.findUnique(ctx, id);
     if (!existing) throw new NotFoundException('Category not found');
 
@@ -94,17 +94,17 @@ export class CatalogService {
     return this.categoryRepo.update(ctx, id, dto);
   }
 
-  async deleteCategory(ctx: any, id: string) {
+  async deleteCategory(ctx: TenantContext, id: string) {
     const category = await this.categoryRepo.findUnique(ctx, id);
     if (!category) throw new NotFoundException('Category not found');
     return this.categoryRepo.softDelete(ctx, id);
   }
 
-  async getVariants(ctx: any, productId: string) {
+  async getVariants(ctx: TenantContext, productId: string) {
     return this.variantRepo.findMany(ctx, { where: { product_id: productId } });
   }
 
-  async createVariant(ctx: any, dto: CreateProductVariantDto) {
+  async createVariant(ctx: TenantContext, dto: CreateProductVariantDto) {
     const existing = await this.variantRepo.findMany(ctx, {
       product_id: dto.product_id,
       sku: dto.sku,
@@ -115,13 +115,13 @@ export class CatalogService {
     return this.variantRepo.create(ctx, dto);
   }
 
-  async updateVariant(ctx: any, id: string, dto: UpdateProductVariantDto) {
+  async updateVariant(ctx: TenantContext, id: string, dto: UpdateProductVariantDto) {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
     return this.variantRepo.update(ctx, id, dto);
   }
 
-  async deleteVariant(ctx: any, id: string) {
+  async deleteVariant(ctx: TenantContext, id: string) {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
     return this.variantRepo.softDelete(ctx, id);

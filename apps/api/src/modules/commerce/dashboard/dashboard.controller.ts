@@ -3,7 +3,7 @@ import { DashboardService } from './dashboard.service'
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard'
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator'
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator'
-import { TenantContext } from '../../platform/tenant/tenant-context'
+import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Controller('v1/commerce/dashboard')
 @UseGuards(TenantAuthGuard)

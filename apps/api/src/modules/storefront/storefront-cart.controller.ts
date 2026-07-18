@@ -10,7 +10,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
+import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
 import { AddItemDto } from '../commerce/cart/dto/add-item.dto';
 
@@ -22,7 +22,7 @@ export class StorefrontCartController {
     @GetTenantContext() ctx: TenantContext,
     @Body('session_id') sessionId: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service')).PrismaService;
+    const prisma = (await import('../../prisma/prisma.service.js')).PrismaService;
     const service = new prisma();
     return (service as any).cart.create({
       data: {
@@ -38,7 +38,7 @@ export class StorefrontCartController {
     @GetTenantContext() ctx: TenantContext,
     @Query('session_id') sessionId: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service')).PrismaService;
+    const prisma = (await import('../../prisma/prisma.service.js')).PrismaService;
     const service = new prisma();
     const cart = await (service as any).cart.findFirst({
       where: { tenant_id: ctx.tenantId, session_id: sessionId, status: 'open' },
@@ -54,7 +54,7 @@ export class StorefrontCartController {
     @Param('cartId') cartId: string,
     @Body() dto: AddItemDto,
   ) {
-    const prisma = (await import('../../prisma/prisma.service')).PrismaService;
+    const prisma = (await import('../../prisma/prisma.service.js')).PrismaService;
     const service = new prisma();
     const cart = await (service as any).cart.findFirst({
       where: { id: cartId, tenant_id: ctx.tenantId },
@@ -97,7 +97,7 @@ export class StorefrontCartController {
     @Param('itemId') itemId: string,
     @Body('quantity') quantity: number,
   ) {
-    const prisma = (await import('../../prisma/prisma.service')).PrismaService;
+    const prisma = (await import('../../prisma/prisma.service.js')).PrismaService;
     const service = new prisma();
 
     if (quantity === 0) {
@@ -118,7 +118,7 @@ export class StorefrontCartController {
     @Param('cartId') cartId: string,
     @Param('itemId') itemId: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service')).PrismaService;
+    const prisma = (await import('../../prisma/prisma.service.js')).PrismaService;
     const service = new prisma();
     await (service as any).cartItem.delete({ where: { id: itemId } });
     return { removed: true };

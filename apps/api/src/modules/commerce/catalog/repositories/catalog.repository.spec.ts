@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductRepository } from './product.repository';
 import { CategoryRepository } from './category.repository';
 import { PrismaService } from '../../../../prisma/prisma.service';
-import { TenantContext } from '../../../../common/decorators/tenant-context.decorator';
+import { TenantContext } from '../../../platform/tenant/tenant-context';
 
 describe('isolation: products & categories (TenantScopedRepository)', () => {
   let productRepo: ProductRepository;

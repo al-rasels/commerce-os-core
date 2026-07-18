@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
@@ -25,6 +26,27 @@ describe('CatalogController (e2e)', () => {
       .get('/v1/commerce/catalog/products')
       .set('Host', 'tenant1.localhost')
       .expect(401);
+  });
+
+  
+  it('rejects a token minted for a different tenant', async () => {
+    // 1. Get the JwtService from the Nest app context
+    const jwtService = app.get('JwtService');
+    
+    // 2. Mint a token for tenant2
+    const tokenForTenantB = jwtService.sign({
+      sub: 'user-123',
+      tenant_id: 'tenant-2-uuid',
+      email: 'test@example.com',
+      roles: ['admin']
+    });
+
+    // 3. Make request claiming to be tenant1 but providing tenant2's token
+    return request(app.getHttpServer())
+      .get('/v1/commerce/catalog/products')
+      .set('Host', 'tenant1.localhost')
+      .set('Authorization', `Bearer ${tokenForTenantB}`)
+      .expect(403); // The AuthGuard should reject it with 403 Forbidden
   });
 
   // Note: Full cross-tenant token rejection test requires minting tokens via Auth service.

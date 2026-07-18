@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PageLayoutRepository } from './repositories/page-layout.repository';
-import { TenantContext } from '../../../../common/decorators/tenant-context.decorator';
+import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
 export class BuilderService {
   constructor(private readonly layoutRepo: PageLayoutRepository) {}
 
-  async getPageLayout(ctx: any, pageKey: string) {
+  async getPageLayout(ctx: TenantContext, pageKey: string) {
     const layout = await this.layoutRepo.findByPageKey(ctx, pageKey);
     if (!layout) {
       throw new NotFoundException(`Page layout for '${pageKey}' not found`);
@@ -14,7 +14,7 @@ export class BuilderService {
     return layout;
   }
 
-  async updatePageLayout(ctx: any, pageKey: string, sectionsJson: any, publish: boolean = false) {
+  async updatePageLayout(ctx: TenantContext, pageKey: string, sectionsJson: any, publish: boolean = false) {
     const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
     const prisma = (this.layoutRepo as any).prisma;
 
@@ -37,7 +37,7 @@ export class BuilderService {
     }
   }
 
-  async publishPageLayout(ctx: any, pageKey: string) {
+  async publishPageLayout(ctx: TenantContext, pageKey: string) {
     const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
     if (!existing) {
       throw new NotFoundException(`Page layout for '${pageKey}' not found`);
@@ -49,7 +49,7 @@ export class BuilderService {
     });
   }
 
-  async unpublishPageLayout(ctx: any, pageKey: string) {
+  async unpublishPageLayout(ctx: TenantContext, pageKey: string) {
     const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
     if (!existing) {
       throw new NotFoundException(`Page layout for '${pageKey}' not found`);

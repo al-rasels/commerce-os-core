@@ -9,7 +9,7 @@ import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
-import { Permissions } from '../../platform/auth/decorators/permissions.decorator';
+import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 
 @Controller('v1/commerce/catalog')
 @UseGuards(TenantAuthGuard)
@@ -17,7 +17,7 @@ export class CatalogController {
   constructor(private readonly catalogService: CatalogService) {}
 
   @Post('products')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async createProduct(
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateProductDto,
@@ -26,13 +26,13 @@ export class CatalogController {
   }
 
   @Get('products')
-  @Permissions('catalog.read')
+  @RequirePermissions('catalog.read')
   async listProducts(@GetTenantContext() ctx: TenantContext) {
     return this.catalogService.listProducts(ctx);
   }
 
   @Post('categories')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async createCategory(
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CreateCategoryDto,
@@ -41,13 +41,13 @@ export class CatalogController {
   }
 
   @Get('categories')
-  @Permissions('catalog.read')
+  @RequirePermissions('catalog.read')
   async listCategories(@GetTenantContext() ctx: TenantContext) {
     return this.catalogService.listCategories(ctx);
   }
 
   @Get('products/:id')
-  @Permissions('catalog.read')
+  @RequirePermissions('catalog.read')
   async getProduct(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -56,7 +56,7 @@ export class CatalogController {
   }
 
   @Patch('products/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async updateProduct(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -66,7 +66,7 @@ export class CatalogController {
   }
 
   @Delete('products/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async deleteProduct(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -75,7 +75,7 @@ export class CatalogController {
   }
 
   @Get('categories/:id')
-  @Permissions('catalog.read')
+  @RequirePermissions('catalog.read')
   async getCategory(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -84,7 +84,7 @@ export class CatalogController {
   }
 
   @Patch('categories/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async updateCategory(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -94,7 +94,7 @@ export class CatalogController {
   }
 
   @Delete('categories/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async deleteCategory(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -103,7 +103,7 @@ export class CatalogController {
   }
 
   @Get('products/:productId/variants')
-  @Permissions('catalog.read')
+  @RequirePermissions('catalog.read')
   async listVariants(
     @GetTenantContext() ctx: TenantContext,
     @Param('productId') productId: string,
@@ -112,7 +112,7 @@ export class CatalogController {
   }
 
   @Post('products/:productId/variants')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async createVariant(
     @GetTenantContext() ctx: TenantContext,
     @Param('productId') productId: string,
@@ -122,7 +122,7 @@ export class CatalogController {
   }
 
   @Patch('variants/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async updateVariant(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
@@ -132,7 +132,7 @@ export class CatalogController {
   }
 
   @Delete('variants/:id')
-  @Permissions('catalog.write')
+  @RequirePermissions('catalog.write')
   async deleteVariant(
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,

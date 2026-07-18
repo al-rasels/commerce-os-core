@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ThemeTenantOverrideRepository } from './repositories/theme-override.repository';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { resolveOverride } from '../../../../../../packages/theme-engine/index';
-import { TenantContext } from '../../../../common/decorators/tenant-context.decorator';
+import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
 export class ThemeService {
@@ -11,7 +11,7 @@ export class ThemeService {
     private readonly prisma: PrismaService, // Used only for global ThemeBase
   ) {}
 
-  async getResolvedTheme(ctx: any) {
+  async getResolvedTheme(ctx: TenantContext) {
     // 1. Fetch base theme. Currently assuming a single global base 'v1' or resolving from tenant.
     // In a full implementation, `ctx.theme.themeBaseId` points to the exact base.
     const baseTheme = await this.prisma.themeBase.findFirst({
@@ -40,7 +40,7 @@ export class ThemeService {
     };
   }
 
-  async updateOverride(ctx: any, themeBaseId: string, overridesJson: Record<string, unknown>) {
+  async updateOverride(ctx: TenantContext, themeBaseId: string, overridesJson: Record<string, unknown>) {
     // TenantScopedRepository ensures this only updates this tenant's override
     // We check if it exists via findMany to keep isolation intact
     const existing = await this.overrideRepo.findMany(ctx, { theme_base_id: themeBaseId });
@@ -49,14 +49,14 @@ export class ThemeService {
       // In Prisma, ThemeTenantOverride primary key is just tenant_id. 
       // But TenantScopedRepository `update` assumes 'id' as the PK name.
       // Since it's tenant_id, we might need a custom update, but let's use Prisma directly with context where:
-      return this.prisma.themeTenantOverride.update({
-        where: { tenant_id: ctx.tenantId },
-        data: { overrides_json: overridesJson, theme_base_id: themeBaseId }
+      return this.overrideRepo.updateByTenant(ctx, { 
+        overrides_json: overridesJson as any, 
+        theme_base_id: themeBaseId 
       });
     } else {
       return this.overrideRepo.create(ctx, {
         theme_base_id: themeBaseId,
-        overrides_json: overridesJson,
+        overrides_json: overridesJson as any,
       });
     }
   }
