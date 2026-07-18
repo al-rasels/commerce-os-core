@@ -63,7 +63,7 @@ export default function OrderDetailPage() {
               <CardTitle>Order {order.id.slice(0, 8)}</CardTitle>
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="sm" onClick={() => downloadInvoice(order)}>
-                  <Download data-icon="inline-start" />
+                  <Download className="size-4" />
                   Invoice
                 </Button>
                 <StatusBadge status={order.status} />
@@ -133,7 +133,15 @@ export default function OrderDetailPage() {
             <div className="mt-4 space-y-1 border-t pt-4 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span>{(order.total / 100).toFixed(2)} {order.currency}</span>
+                <span>{(order.subtotal / 100).toFixed(2)} {order.currency}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Tax</span>
+                <span>{(order.tax / 100).toFixed(2)} {order.currency}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Shipping</span>
+                <span>{(order.shipping / 100).toFixed(2)} {order.currency}</span>
               </div>
               <div className="flex justify-between text-lg font-semibold">
                 <span>Total</span>

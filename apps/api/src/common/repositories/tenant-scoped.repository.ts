@@ -27,9 +27,10 @@ export abstract class TenantScopedRepository<T> {
     });
   }
 
-  async findUnique(ctx: TenantContext, id: string): Promise<T | null> {
+  async findUnique(ctx: TenantContext, id: string, args?: any): Promise<T | null> {
     const record = await (this.prisma as any)[this.modelName].findUnique({
       where: { id },
+      ...args,
     });
     if (record && record.tenant_id !== ctx.tenantId) return null; // defense in depth
     return record;

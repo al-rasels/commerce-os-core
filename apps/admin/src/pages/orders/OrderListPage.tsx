@@ -25,6 +25,8 @@ const PAGE_SIZE = 15
 export default function OrderListPage() {
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
+  const [dateFrom, setDateFrom] = useState("")
+  const [dateTo, setDateTo] = useState("")
   const [page, setPage] = useState(0)
 
   const params = useMemo(() => {
@@ -33,8 +35,10 @@ export default function OrderListPage() {
       limit: PAGE_SIZE,
     }
     if (statusFilter) p.status = statusFilter
-    return p as { status?: string; page?: number; limit?: number }
-  }, [statusFilter, page])
+    if (dateFrom) p.date_from = dateFrom
+    if (dateTo) p.date_to = dateTo
+    return p as { status?: string; date_from?: string; date_to?: string; page?: number; limit?: number }
+  }, [statusFilter, dateFrom, dateTo, page])
 
   const { data, isLoading } = useOrders(params)
 
@@ -63,6 +67,20 @@ export default function OrderListPage() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+          <input
+            type="date"
+            className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
+            value={dateFrom}
+            onChange={(e) => { setDateFrom(e.target.value); setPage(0) }}
+            title="From date"
+          />
+          <input
+            type="date"
+            className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
+            value={dateTo}
+            onChange={(e) => { setDateTo(e.target.value); setPage(0) }}
+            title="To date"
+          />
           <select
             className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
             value={statusFilter}

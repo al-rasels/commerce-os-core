@@ -1,4 +1,4 @@
-import { IsUUID, IsString, IsOptional, IsArray, ValidateNested } from 'class-validator';
+import { IsUUID, IsString, IsOptional, IsArray, ValidateNested, IsInt } from 'class-validator';
 import { Type } from 'class-transformer';
 
 class OrderItemDto {
@@ -30,7 +30,23 @@ export class OrderResponseDto {
   @IsString()
   status: string;
 
+  @IsInt()
+  subtotal: number;
+
+  @IsInt()
+  tax: number;
+
+  @IsInt()
+  shipping: number;
+
+  @IsInt()
   total: number;
+
+  @IsString()
+  currency: string;
+
+  @IsString()
+  channel: string;
 
   @IsArray()
   @ValidateNested({ each: true })

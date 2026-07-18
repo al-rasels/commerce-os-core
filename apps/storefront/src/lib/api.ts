@@ -57,4 +57,7 @@ export const api = {
         body: JSON.stringify({ email, session_id: sessionId }),
       }),
   },
+  orders: {
+    get: (id: string) => request<any>(`/orders/${id}`),
+  },
 };

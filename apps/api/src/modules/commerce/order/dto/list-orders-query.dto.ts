@@ -11,6 +11,14 @@ export class ListOrdersQueryDto {
   customer_id?: string;
 
   @IsOptional()
+  @IsString()
+  date_from?: string;
+
+  @IsOptional()
+  @IsString()
+  date_to?: string;
+
+  @IsOptional()
   @Type(() => Number)
   @IsInt()
   @Min(1)
