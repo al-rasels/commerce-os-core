@@ -33,16 +33,23 @@ export class TaxService {
   }
 
   // Used by checkout to calculate tax for a given subtotal and destination region
-  async calculateTax(ctx: TenantContext, orderSubtotalCents: number, region?: string) {
+  async calculateTax(
+    ctx: TenantContext,
+    orderSubtotalCents: number,
+    region?: string,
+  ) {
     const activeRules = await this.taxRuleRepo.findMany(ctx, {
       where: { is_active: true },
     });
 
     let taxAmountCents = 0;
-    const appliedRules = [];
+    const appliedRules: Array<{ id: string; name: string; rate: number; amount_cents: number }> = [];
 
     for (const rule of activeRules as any[]) {
-      if (rule.type === 'flat' || (rule.type === 'region' && rule.region === region)) {
+      if (
+        rule.type === 'flat' ||
+        (rule.type === 'region' && rule.region === region)
+      ) {
         const taxForRule = Math.round(orderSubtotalCents * (rule.rate / 100));
         taxAmountCents += taxForRule;
         appliedRules.push({

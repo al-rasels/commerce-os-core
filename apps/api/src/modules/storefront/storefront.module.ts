@@ -9,6 +9,11 @@ import { CheckoutModule } from '../commerce/checkout/checkout.module';
 
 @Module({
   imports: [CatalogModule, CartModule, CheckoutModule],
-  controllers: [StorefrontController, StorefrontCartController, StorefrontCheckoutController, StorefrontOrderController],
+  controllers: [
+    StorefrontController,
+    StorefrontCartController,
+    StorefrontCheckoutController,
+    StorefrontOrderController,
+  ],
 })
 export class StorefrontModule {}

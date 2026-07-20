@@ -5,10 +5,17 @@ interface AuthUser {
   email: string;
 }
 
+interface MfaState {
+  mfa_token: string;
+  user_id: string;
+  email: string;
+}
+
 interface AuthContextType {
   user: AuthUser | null;
   token: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<MfaState | void>;
+  mfaVerify: (token: string, code: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -38,10 +45,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     const data = await res.json();
+
+    if (data.mfa_token) {
+      return { mfa_token: data.mfa_token, user_id: data.user_id, email } as MfaState;
+    }
+
     localStorage.setItem(TOKEN_KEY, data.access_token);
     localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user_id, email }));
     setToken(data.access_token);
     setUser({ id: data.user_id, email });
+  }, []);
+
+  const mfaVerify = useCallback(async (mfaToken: string, code: string) => {
+    const res = await fetch('/api/v1/auth/mfa/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mfa_token: mfaToken, code }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || 'MFA verification failed');
+    }
+
+    const data = await res.json();
+    localStorage.setItem(TOKEN_KEY, data.access_token);
+    localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user_id, email: data.email }));
+    setToken(data.access_token);
+    setUser({ id: data.user_id, email: data.email });
   }, []);
 
   const logout = useCallback(() => {
@@ -52,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isAuthenticated: !!token }}>
+    <AuthContext.Provider value={{ user, token, login, mfaVerify, logout, isAuthenticated: !!token }}>
       {children}
     </AuthContext.Provider>
   );

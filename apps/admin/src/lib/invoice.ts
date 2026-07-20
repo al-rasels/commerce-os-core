@@ -1,5 +1,5 @@
 import type { Order } from "./api/orders"
-import { defaultDesignTokens } from "@commerceos/design-tokens"
+import { defaultTokens as defaultDesignTokens } from "@commerceos/design-tokens"
 
 
 export function generateInvoiceHtml(order: Order): string {

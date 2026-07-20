@@ -36,10 +36,7 @@ export class AdminController {
   }
 
   @Patch('tenants/:id/plan')
-  async updatePlan(
-    @Param('id') id: string,
-    @Body('plan_id') planId: string,
-  ) {
+  async updatePlan(@Param('id') id: string, @Body('plan_id') planId: string) {
     return this.adminService.updateTenantPlan(id, planId);
   }
 

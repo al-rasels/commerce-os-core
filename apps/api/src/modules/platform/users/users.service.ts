@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { AuthService } from '../auth/auth.service';
 import { TenantContext } from '../tenant/tenant-context';
@@ -12,7 +17,10 @@ export class UsersService {
     private readonly authService: AuthService,
   ) {}
 
-  async list(ctx: TenantContext, query: { page?: string; limit?: string; search?: string; status?: string }) {
+  async list(
+    ctx: TenantContext,
+    query: { page?: string; limit?: string; search?: string; status?: string },
+  ) {
     const page = Math.max(1, parseInt(query.page || '1', 10));
     const limit = Math.min(100, Math.max(1, parseInt(query.limit || '20', 10)));
     const skip = (page - 1) * limit;
@@ -63,9 +71,16 @@ export class UsersService {
     return { ...rest, mfa_configured: !!mfa_secret };
   }
 
-  async update(ctx: TenantContext, id: string, dto: UpdateUserDto, currentUserId: string) {
+  async update(
+    ctx: TenantContext,
+    id: string,
+    dto: UpdateUserDto,
+    currentUserId: string,
+  ) {
     if (id === currentUserId) {
-      throw new BadRequestException('Cannot update your own user here — use profile settings');
+      throw new BadRequestException(
+        'Cannot update your own user here — use profile settings',
+      );
     }
 
     const user = await this.usersRepository.findUniqueWithRole(ctx, id);
@@ -79,7 +94,12 @@ export class UsersService {
     return this.usersRepository.updateUser(ctx, id, data);
   }
 
-  async updateStatus(ctx: TenantContext, id: string, dto: UpdateUserStatusDto, currentUserId: string) {
+  async updateStatus(
+    ctx: TenantContext,
+    id: string,
+    dto: UpdateUserStatusDto,
+    currentUserId: string,
+  ) {
     if (id === currentUserId) {
       throw new BadRequestException('Cannot suspend your own account');
     }

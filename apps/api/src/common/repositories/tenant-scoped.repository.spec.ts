@@ -50,7 +50,9 @@ describe('TenantScopedRepository', () => {
   describe('findMany', () => {
     it('auto-injects tenant_id filter', async () => {
       await repo.findMany(ctxA);
-      expect(prisma.widget.findMany).toHaveBeenCalledWith({ where: { tenant_id: 'tenant-a' } });
+      expect(prisma.widget.findMany).toHaveBeenCalledWith({
+        where: { tenant_id: 'tenant-a' },
+      });
     });
 
     it('merges tenant_id with additional where clauses', async () => {
@@ -63,7 +65,10 @@ describe('TenantScopedRepository', () => {
 
   describe('findUnique', () => {
     it('returns record when tenant matches', async () => {
-      prisma.widget.findUnique.mockResolvedValue({ id: 'w1', tenant_id: 'tenant-a' });
+      prisma.widget.findUnique.mockResolvedValue({
+        id: 'w1',
+        tenant_id: 'tenant-a',
+      });
 
       const result = await repo.findUnique(ctxA, 'w1');
 
@@ -71,7 +76,10 @@ describe('TenantScopedRepository', () => {
     });
 
     it('returns null when record belongs to another tenant (defense in depth)', async () => {
-      prisma.widget.findUnique.mockResolvedValue({ id: 'w1', tenant_id: 'tenant-b' });
+      prisma.widget.findUnique.mockResolvedValue({
+        id: 'w1',
+        tenant_id: 'tenant-b',
+      });
 
       const result = await repo.findUnique(ctxA, 'w1');
 
@@ -81,7 +89,11 @@ describe('TenantScopedRepository', () => {
 
   describe('create', () => {
     it('auto-assigns tenant_id', async () => {
-      prisma.widget.create.mockResolvedValue({ id: 'w1', tenant_id: 'tenant-a', name: 'test' });
+      prisma.widget.create.mockResolvedValue({
+        id: 'w1',
+        tenant_id: 'tenant-a',
+        name: 'test',
+      });
 
       const result = await repo.create(ctxA, { name: 'test' });
 
@@ -95,7 +107,11 @@ describe('TenantScopedRepository', () => {
   describe('update', () => {
     it('updates only when id AND tenant_id match', async () => {
       prisma.widget.updateMany.mockResolvedValue({ count: 1 });
-      prisma.widget.findUnique.mockResolvedValue({ id: 'w1', tenant_id: 'tenant-a', name: 'updated' });
+      prisma.widget.findUnique.mockResolvedValue({
+        id: 'w1',
+        tenant_id: 'tenant-a',
+        name: 'updated',
+      });
 
       await repo.update(ctxA, 'w1', { name: 'updated' });
 
@@ -108,7 +124,9 @@ describe('TenantScopedRepository', () => {
     it('throws when record not found for tenant', async () => {
       prisma.widget.updateMany.mockResolvedValue({ count: 0 });
 
-      await expect(repo.update(ctxA, 'w1', { name: 'x' })).rejects.toThrow('Record not found or not owned by tenant');
+      await expect(repo.update(ctxA, 'w1', { name: 'x' })).rejects.toThrow(
+        'Record not found or not owned by tenant',
+      );
     });
   });
 });

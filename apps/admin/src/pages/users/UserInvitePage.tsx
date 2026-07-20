@@ -61,7 +61,7 @@ export default function UserInvitePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
-              <Select value={roleId} onValueChange={setRoleId}>
+              <Select value={roleId} onValueChange={(v) => v && setRoleId(v)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>

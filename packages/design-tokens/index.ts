@@ -6,5 +6,5 @@ export type {
   ShadowTokens,
   RadiusTokens,
   BreakpointTokens,
-} from "./tokens";
-export { defaultTokens } from "./tokens";
+} from "./tokens.js";
+export { defaultTokens } from "./tokens.js";

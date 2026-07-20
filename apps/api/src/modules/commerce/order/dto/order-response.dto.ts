@@ -1,4 +1,11 @@
-import { IsUUID, IsString, IsOptional, IsArray, ValidateNested, IsInt } from 'class-validator';
+import {
+  IsUUID,
+  IsString,
+  IsOptional,
+  IsArray,
+  ValidateNested,
+  IsInt,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 class OrderItemDto {

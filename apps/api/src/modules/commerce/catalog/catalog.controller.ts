@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -118,7 +127,10 @@ export class CatalogController {
     @Param('productId') productId: string,
     @Body() dto: CreateProductVariantDto,
   ) {
-    return this.catalogService.createVariant(ctx, { ...dto, product_id: productId });
+    return this.catalogService.createVariant(ctx, {
+      ...dto,
+      product_id: productId,
+    });
   }
 
   @Patch('variants/:id')

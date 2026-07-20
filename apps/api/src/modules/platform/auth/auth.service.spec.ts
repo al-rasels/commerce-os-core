@@ -91,7 +91,9 @@ describe('AuthService', () => {
     it('throws UnauthorizedException when user not found', async () => {
       mockPrisma.user.findUnique.mockResolvedValueOnce(null);
 
-      await expect(service.login(ctx, 'nonexistent@test.com', 'pass')).rejects.toThrow(UnauthorizedException);
+      await expect(
+        service.login(ctx, 'nonexistent@test.com', 'pass'),
+      ).rejects.toThrow(UnauthorizedException);
     });
 
     it('throws UnauthorizedException when password is wrong', async () => {
@@ -104,14 +106,19 @@ describe('AuthService', () => {
         role: { name: 'Store Owner' },
       });
 
-      await expect(service.login(ctx, 'test@test.com', 'wrong')).rejects.toThrow(UnauthorizedException);
+      await expect(
+        service.login(ctx, 'test@test.com', 'wrong'),
+      ).rejects.toThrow(UnauthorizedException);
     });
   });
 
   describe('register', () => {
     it('creates user and returns tokens', async () => {
       mockPrisma.user.findUnique.mockResolvedValueOnce(null);
-      mockPrisma.role.findFirst.mockResolvedValueOnce({ id: 'r1', name: 'Customer' });
+      mockPrisma.role.findFirst.mockResolvedValueOnce({
+        id: 'r1',
+        name: 'Customer',
+      });
       mockPrisma.user.create.mockResolvedValueOnce({
         id: 'u1',
         email: 'new@test.com',
@@ -122,7 +129,10 @@ describe('AuthService', () => {
       mockJwt.signAsync.mockResolvedValue('token');
       mockRedis.set.mockResolvedValueOnce(undefined);
 
-      const result = await service.register(ctx, { email: 'new@test.com', password: 'password123' });
+      const result = await service.register(ctx, {
+        email: 'new@test.com',
+        password: 'password123',
+      });
 
       expect(result.access_token).toBe('token');
       expect(result.refresh_token).toBe('token');
@@ -132,7 +142,10 @@ describe('AuthService', () => {
       mockPrisma.user.findUnique.mockResolvedValueOnce({ id: 'u1' });
 
       await expect(
-        service.register(ctx, { email: 'existing@test.com', password: 'password123' })
+        service.register(ctx, {
+          email: 'existing@test.com',
+          password: 'password123',
+        }),
       ).rejects.toThrow(ConflictException);
     });
   });
@@ -166,7 +179,9 @@ describe('AuthService', () => {
         role: { name: 'Store Owner' },
       });
 
-      await expect(service.refresh(ctx, 'u1', 'token')).rejects.toThrow(UnauthorizedException);
+      await expect(service.refresh(ctx, 'u1', 'token')).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
 
     it('throws UnauthorizedException when stored hash does not match', async () => {
@@ -178,7 +193,9 @@ describe('AuthService', () => {
       });
       mockRedis.get.mockResolvedValueOnce('different-hash');
 
-      await expect(service.refresh(ctx, 'u1', 'wrong-token')).rejects.toThrow(UnauthorizedException);
+      await expect(service.refresh(ctx, 'u1', 'wrong-token')).rejects.toThrow(
+        UnauthorizedException,
+      );
     });
   });
 });

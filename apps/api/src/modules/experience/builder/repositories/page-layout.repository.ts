@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PageLayout } from '@prisma/client';
 import { TenantScopedRepository } from '../../../../common/repositories/tenant-scoped.repository';
 import { PrismaService } from '../../../../prisma/prisma.service';
+import { TenantContext } from '../../../../modules/platform/tenant/tenant-context';
 
 @Injectable()
 export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
@@ -10,7 +11,10 @@ export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
   }
 
   // Override to handle composite key (tenant_id + page_key) safely
-  async findByPageKey(ctx: TenantContext, pageKey: string): Promise<PageLayout | null> {
+  async findByPageKey(
+    ctx: TenantContext,
+    pageKey: string,
+  ): Promise<PageLayout | null> {
     const results = await this.findMany(ctx, { page_key: pageKey });
     return results.length > 0 ? results[0] : null;
   }

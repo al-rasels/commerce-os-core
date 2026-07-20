@@ -11,7 +11,14 @@ import { TenantService } from './tenant/tenant.service';
 import { AdminModule } from './admin/admin.module';
 
 @Module({
-  imports: [TenantModule, AuthModule, UsersModule, RedisModule, AuditLogModule, AdminModule],
+  imports: [
+    TenantModule,
+    AuthModule,
+    UsersModule,
+    RedisModule,
+    AuditLogModule,
+    AdminModule,
+  ],
 })
 export class PlatformModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

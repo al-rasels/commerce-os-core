@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { PromotionsService } from './promotions.service';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
@@ -46,7 +55,10 @@ export class PromotionsController {
 
   @Delete(':id')
   @RequirePermissions('promotions.write')
-  async remove(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
+  async remove(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
     return this.promotionsService.deletePromotion(ctx, id);
   }
 }

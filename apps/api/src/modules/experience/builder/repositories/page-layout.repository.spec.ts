@@ -19,7 +19,10 @@ describe('isolation: page layout (TenantScopedRepository)', () => {
     await prisma.$disconnect();
   });
 
-  const generateUUID = () => '00000000-0000-0000-0000-000000000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
+  const generateUUID = () =>
+    '00000000-0000-0000-0000-000000000000'.replace(/0/g, () =>
+      (~~(Math.random() * 16)).toString(16),
+    );
 
   it("never returns another tenant's rows", async () => {
     const tenantAId = generateUUID();
@@ -35,10 +38,10 @@ describe('isolation: page layout (TenantScopedRepository)', () => {
     const ctxA: any = { tenantId: tenantAId };
     const ctxB: any = { tenantId: tenantBId };
 
-    await layoutRepo.create(ctxA, { 
-      page_key: 'homepage', 
+    await layoutRepo.create(ctxA, {
+      page_key: 'homepage',
       sections_json: { blocks: [] },
-      published_at: new Date()
+      published_at: new Date(),
     });
 
     const resultsAsB = await layoutRepo.findMany(ctxB);
@@ -46,8 +49,10 @@ describe('isolation: page layout (TenantScopedRepository)', () => {
 
     const resultsAsA = await layoutRepo.findMany(ctxA);
     expect(resultsAsA).toHaveLength(1);
-    
+
     // Cleanup
-    await prisma.tenant.deleteMany({ where: { id: { in: [tenantAId, tenantBId] } } });
+    await prisma.tenant.deleteMany({
+      where: { id: { in: [tenantAId, tenantBId] } },
+    });
   });
 });

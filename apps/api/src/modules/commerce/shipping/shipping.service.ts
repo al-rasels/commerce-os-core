@@ -15,7 +15,9 @@ export class ShippingService {
   }
 
   async getRule(ctx: TenantContext, id: string) {
-    const rule = (await this.shippingRuleRepo.findMany(ctx, { where: { id } }))[0];
+    const rule = (
+      await this.shippingRuleRepo.findMany(ctx, { where: { id } })
+    )[0];
     if (!rule) throw new NotFoundException('Shipping rule not found');
     return rule;
   }
@@ -24,7 +26,11 @@ export class ShippingService {
     return this.shippingRuleRepo.create(ctx, data);
   }
 
-  async updateRule(ctx: TenantContext, id: string, data: UpdateShippingRuleDto) {
+  async updateRule(
+    ctx: TenantContext,
+    id: string,
+    data: UpdateShippingRuleDto,
+  ) {
     return this.shippingRuleRepo.update(ctx, id, data);
   }
 
@@ -33,7 +39,11 @@ export class ShippingService {
   }
 
   // Used by checkout to calculate shipping options for a cart
-  async calculateShippingOptions(ctx: TenantContext, orderSubtotalCents: number, orderWeight: number) {
+  async calculateShippingOptions(
+    ctx: TenantContext,
+    orderSubtotalCents: number,
+    orderWeight: number,
+  ) {
     const activeRules = await this.shippingRuleRepo.findMany(ctx, {
       where: { is_active: true },
     });
@@ -43,13 +53,19 @@ export class ShippingService {
       if (rule.type === 'flat_rate') {
         price = rule.config.price_cents || 0;
         // check free shipping threshold
-        if (rule.config.free_shipping_threshold_cents && orderSubtotalCents >= rule.config.free_shipping_threshold_cents) {
+        if (
+          rule.config.free_shipping_threshold_cents &&
+          orderSubtotalCents >= rule.config.free_shipping_threshold_cents
+        ) {
           price = 0;
         }
       } else if (rule.type === 'weight_tier') {
         // Find applicable tier
         const tiers = rule.config.tiers || [];
-        const matchedTier = tiers.find((t: any) => orderWeight >= t.min_weight && orderWeight <= t.max_weight);
+        const matchedTier = tiers.find(
+          (t: any) =>
+            orderWeight >= t.min_weight && orderWeight <= t.max_weight,
+        );
         price = matchedTier ? matchedTier.price_cents : 0;
       }
       return { id: rule.id, name: rule.name, price_cents: price };

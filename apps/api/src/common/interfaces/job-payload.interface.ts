@@ -8,7 +8,7 @@ export interface JobPayload {
 
 /**
  * Example extended job payload:
- * 
+ *
  * export interface ProcessOrderJob extends JobPayload {
  *   orderId: string;
  * }

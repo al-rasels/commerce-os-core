@@ -14,7 +14,10 @@ export class UsersRepository extends TenantScopedRepository<User> {
     super(prisma, 'user');
   }
 
-  async findManyWithRole(ctx: TenantContext, args: any = {}): Promise<Array<User & { role: { id: string, name: string } }>> {
+  async findManyWithRole(
+    ctx: TenantContext,
+    args: any = {},
+  ): Promise<Array<User & { role: { id: string; name: string } }>> {
     return this.prisma.user.findMany({
       ...args,
       where: { ...args.where, tenant_id: ctx.tenantId },
@@ -22,23 +25,35 @@ export class UsersRepository extends TenantScopedRepository<User> {
     }) as any;
   }
 
-  async findUniqueWithRole(ctx: TenantContext, id: string): Promise<User & { role: { id: string, name: string } } | null> {
-    const record = await this.prisma.user.findUnique({
+  async findUniqueWithRole(
+    ctx: TenantContext,
+    id: string,
+  ): Promise<(User & { role: { id: string; name: string } }) | null> {
+    const record = (await this.prisma.user.findUnique({
       where: { id },
       include: this.include,
-    }) as any;
+    })) as any;
     if (record && record.tenant_id !== ctx.tenantId) return null;
     return record;
   }
 
-  async findUniqueWithRoleFull(ctx: TenantContext, id: string): Promise<User & { role: { id: string, name: string }, tenant: { id: string, name: string } | null } | null> {
-    const record = await this.prisma.user.findUnique({
+  async findUniqueWithRoleFull(
+    ctx: TenantContext,
+    id: string,
+  ): Promise<
+    | (User & {
+        role: { id: string; name: string };
+        tenant: { id: string; name: string } | null;
+      })
+    | null
+  > {
+    const record = (await this.prisma.user.findUnique({
       where: { id },
       include: {
         ...this.include,
         tenant: { select: { id: true, name: true } },
       },
-    }) as any;
+    })) as any;
     if (record && record.tenant_id !== ctx.tenantId) return null;
     return record;
   }

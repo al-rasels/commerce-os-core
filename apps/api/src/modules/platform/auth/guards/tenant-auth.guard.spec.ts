@@ -25,7 +25,11 @@ describe('TenantAuthGuard', () => {
   });
 
   it('allows when token tenant matches request tenant', async () => {
-    jwtService.verifyAsync.mockResolvedValue({ sub: 'u1', tenant_id: 't1', role: 'Store Owner' });
+    jwtService.verifyAsync.mockResolvedValue({
+      sub: 'u1',
+      tenant_id: 't1',
+      role: 'Store Owner',
+    });
     const ctx = mockCtx({ sub: 'u1' }, 't1');
 
     const result = await guard.canActivate(ctx);
@@ -34,14 +38,22 @@ describe('TenantAuthGuard', () => {
   });
 
   it('rejects when token tenant differs from request tenant (cross-tenant)', async () => {
-    jwtService.verifyAsync.mockResolvedValue({ sub: 'u1', tenant_id: 't1', role: 'Store Owner' });
+    jwtService.verifyAsync.mockResolvedValue({
+      sub: 'u1',
+      tenant_id: 't1',
+      role: 'Store Owner',
+    });
     const ctx = mockCtx({ sub: 'u1' }, 't2');
 
     await expect(guard.canActivate(ctx)).rejects.toThrow(ForbiddenException);
   });
 
   it('rejects when token has no tenant_id but request has tenantId', async () => {
-    jwtService.verifyAsync.mockResolvedValue({ sub: 'u1', tenant_id: null, role: 'Super Admin' });
+    jwtService.verifyAsync.mockResolvedValue({
+      sub: 'u1',
+      tenant_id: null,
+      role: 'Super Admin',
+    });
     const ctx = mockCtx({ sub: 'u1' }, 't1');
 
     await expect(guard.canActivate(ctx)).rejects.toThrow(ForbiddenException);

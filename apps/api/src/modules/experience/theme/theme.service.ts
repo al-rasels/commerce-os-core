@@ -15,7 +15,7 @@ export class ThemeService {
     // 1. Fetch base theme. Currently assuming a single global base 'v1' or resolving from tenant.
     // In a full implementation, `ctx.theme.themeBaseId` points to the exact base.
     const baseTheme = await this.prisma.themeBase.findFirst({
-      orderBy: { version: 'desc' }
+      orderBy: { version: 'desc' },
     });
 
     if (!baseTheme) {
@@ -23,11 +23,15 @@ export class ThemeService {
     }
 
     // 2. Fetch tenant override using strictly isolated repo
-    const overrides = await this.overrideRepo.findMany(ctx, { theme_base_id: baseTheme.id });
+    const overrides = await this.overrideRepo.findMany(ctx, {
+      theme_base_id: baseTheme.id,
+    });
     const tenantOverride = overrides.length > 0 ? overrides[0] : null;
 
     const baseJson = (baseTheme.tokens_json as Record<string, unknown>) || {};
-    const overrideJson = tenantOverride ? (tenantOverride.overrides_json as Record<string, unknown>) : {};
+    const overrideJson = tenantOverride
+      ? (tenantOverride.overrides_json as Record<string, unknown>)
+      : {};
 
     // 3. Resolve
     const { resolved, conflicts } = resolveOverride(baseJson, overrideJson);
@@ -40,18 +44,24 @@ export class ThemeService {
     };
   }
 
-  async updateOverride(ctx: TenantContext, themeBaseId: string, overridesJson: Record<string, unknown>) {
+  async updateOverride(
+    ctx: TenantContext,
+    themeBaseId: string,
+    overridesJson: Record<string, unknown>,
+  ) {
     // TenantScopedRepository ensures this only updates this tenant's override
     // We check if it exists via findMany to keep isolation intact
-    const existing = await this.overrideRepo.findMany(ctx, { theme_base_id: themeBaseId });
-    
+    const existing = await this.overrideRepo.findMany(ctx, {
+      theme_base_id: themeBaseId,
+    });
+
     if (existing.length > 0) {
-      // In Prisma, ThemeTenantOverride primary key is just tenant_id. 
+      // In Prisma, ThemeTenantOverride primary key is just tenant_id.
       // But TenantScopedRepository `update` assumes 'id' as the PK name.
       // Since it's tenant_id, we might need a custom update, but let's use Prisma directly with context where:
-      return this.overrideRepo.updateByTenant(ctx, { 
-        overrides_json: overridesJson as any, 
-        theme_base_id: themeBaseId 
+      return this.overrideRepo.updateByTenant(ctx, {
+        overrides_json: overridesJson as any,
+        theme_base_id: themeBaseId,
       });
     } else {
       return this.overrideRepo.create(ctx, {

@@ -1,9 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { orderApi, type ListOrdersParams } from '@/lib/api/orders';
 import { toast } from 'sonner';
 
 export function useOrders(params?: ListOrdersParams) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['orders', params],
     queryFn: () => orderApi.list(params),
   });

@@ -23,7 +23,10 @@ describe('isolation: products & categories (TenantScopedRepository)', () => {
     await prisma.$disconnect();
   });
 
-  const generateUUID = () => '00000000-0000-0000-0000-000000000000'.replace(/0/g, () => (~~(Math.random() * 16)).toString(16));
+  const generateUUID = () =>
+    '00000000-0000-0000-0000-000000000000'.replace(/0/g, () =>
+      (~~(Math.random() * 16)).toString(16),
+    );
 
   it("never returns another tenant's rows", async () => {
     const tenantAId = generateUUID();
@@ -39,8 +42,14 @@ describe('isolation: products & categories (TenantScopedRepository)', () => {
     const ctxA: any = { tenantId: tenantAId };
     const ctxB: any = { tenantId: tenantBId };
 
-    await productRepo.create(ctxA, { name: 'Product A', slug: 'prod-a-' + tenantAId });
-    await categoryRepo.create(ctxA, { name: 'Cat A', slug: 'cat-a-' + tenantAId });
+    await productRepo.create(ctxA, {
+      name: 'Product A',
+      slug: 'prod-a-' + tenantAId,
+    });
+    await categoryRepo.create(ctxA, {
+      name: 'Cat A',
+      slug: 'cat-a-' + tenantAId,
+    });
 
     const resultsProductsAsB = await productRepo.findMany(ctxB);
     const resultsCategoriesAsB = await categoryRepo.findMany(ctxB);
@@ -53,8 +62,10 @@ describe('isolation: products & categories (TenantScopedRepository)', () => {
 
     expect(resultsProductsAsA).toHaveLength(1);
     expect(resultsCategoriesAsA).toHaveLength(1);
-    
+
     // Cleanup
-    await prisma.tenant.deleteMany({ where: { id: { in: [tenantAId, tenantBId] } } });
+    await prisma.tenant.deleteMany({
+      where: { id: { in: [tenantAId, tenantBId] } },
+    });
   });
 });

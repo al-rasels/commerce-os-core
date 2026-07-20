@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PromotionRepository } from './promotion.repository';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
@@ -15,7 +19,9 @@ export class PromotionsService {
   }
 
   async getPromotion(ctx: TenantContext, id: string) {
-    const promo = (await this.promotionRepo.findMany(ctx, { where: { id } }))[0];
+    const promo = (
+      await this.promotionRepo.findMany(ctx, { where: { id } })
+    )[0];
     if (!promo) throw new NotFoundException('Promotion not found');
     return promo;
   }
@@ -24,7 +30,11 @@ export class PromotionsService {
     return this.promotionRepo.create(ctx, data);
   }
 
-  async updatePromotion(ctx: TenantContext, id: string, data: UpdatePromotionDto) {
+  async updatePromotion(
+    ctx: TenantContext,
+    id: string,
+    data: UpdatePromotionDto,
+  ) {
     return this.promotionRepo.update(ctx, id, data);
   }
 
@@ -32,8 +42,16 @@ export class PromotionsService {
     return this.promotionRepo.delete(ctx, id);
   }
 
-  async validateAndApply(ctx: TenantContext, code: string, orderSubtotalCents: number) {
-    const promo = (await this.promotionRepo.findMany(ctx, { where: { code, is_active: true } }))[0];
+  async validateAndApply(
+    ctx: TenantContext,
+    code: string,
+    orderSubtotalCents: number,
+  ) {
+    const promo = (
+      await this.promotionRepo.findMany(ctx, {
+        where: { code, is_active: true },
+      })
+    )[0];
     if (!promo) {
       throw new BadRequestException('Invalid or expired coupon code');
     }
@@ -47,7 +65,9 @@ export class PromotionsService {
     }
 
     if (promo.min_order && orderSubtotalCents < promo.min_order) {
-      throw new BadRequestException(`Minimum order amount of ${(promo.min_order / 100).toFixed(2)} not met`);
+      throw new BadRequestException(
+        `Minimum order amount of ${(promo.min_order / 100).toFixed(2)} not met`,
+      );
     }
 
     let discountCents = 0;

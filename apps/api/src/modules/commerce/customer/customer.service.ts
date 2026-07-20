@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { CustomerRepository } from './customer.repository';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { TenantContext } from '../../platform/tenant/tenant-context';
@@ -17,7 +21,12 @@ export class CustomerService {
     return this.customerRepo.create(ctx, dto);
   }
 
-  async list(ctx: TenantContext, search?: string, page: number = 1, limit: number = 10) {
+  async list(
+    ctx: TenantContext,
+    search?: string,
+    page: number = 1,
+    limit: number = 10,
+  ) {
     const where: any = {};
     if (search) {
       where.OR = [
@@ -47,7 +56,11 @@ export class CustomerService {
     return customer;
   }
 
-  async update(ctx: TenantContext, id: string, data: Partial<CreateCustomerDto>) {
+  async update(
+    ctx: TenantContext,
+    id: string,
+    data: Partial<CreateCustomerDto>,
+  ) {
     await this.get(ctx, id);
     return this.customerRepo.update(ctx, id, data);
   }

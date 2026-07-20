@@ -23,31 +23,41 @@ describe('Tenant Isolation (e2e)', () => {
     await app.init();
 
     // Create test tenants
-    const tenantA = await prisma.tenant.create({ data: { name: 'Tenant A', status: 'active' } });
-    const tenantB = await prisma.tenant.create({ data: { name: 'Tenant B', status: 'active' } });
+    const tenantA = await prisma.tenant.create({
+      data: { name: 'Tenant A', status: 'active' },
+    });
+    const tenantB = await prisma.tenant.create({
+      data: { name: 'Tenant B', status: 'active' },
+    });
     tenantAId = tenantA.id;
     tenantBId = tenantB.id;
 
     // Map domains
-    await prisma.tenantDomain.create({ data: { tenant_id: tenantAId, domain: 'tenant-a.test' } });
-    await prisma.tenantDomain.create({ data: { tenant_id: tenantBId, domain: 'tenant-b.test' } });
+    await prisma.tenantDomain.create({
+      data: { tenant_id: tenantAId, domain: 'tenant-a.test' },
+    });
+    await prisma.tenantDomain.create({
+      data: { tenant_id: tenantBId, domain: 'tenant-b.test' },
+    });
   });
 
   afterAll(async () => {
-    await prisma.tenant.deleteMany({ where: { id: { in: [tenantAId, tenantBId] } } });
+    await prisma.tenant.deleteMany({
+      where: { id: { in: [tenantAId, tenantBId] } },
+    });
     await app.close();
   });
 
   describe('isolation: products', () => {
-    it('never returns another tenant\'s rows', async () => {
+    it("never returns another tenant's rows", async () => {
       // Seed product for B
       await prisma.product.create({
         data: {
           tenant_id: tenantBId,
           title: 'Tenant B Product',
           slug: 'b-product',
-          status: 'active'
-        }
+          status: 'active',
+        },
       });
 
       const res = await request(app.getHttpServer())
@@ -65,7 +75,7 @@ describe('Tenant Isolation (e2e)', () => {
       const tokenForA = jwtService.sign({
         sub: 'user-123',
         tenant_id: tenantAId,
-        roles: ['admin']
+        roles: ['admin'],
       });
 
       // Attempt to access a protected route on Tenant B's domain

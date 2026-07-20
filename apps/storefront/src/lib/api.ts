@@ -20,22 +20,97 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return res.json();
 }
 
+async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(`${API_BASE}/v1/auth${path}`, {
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    ...options,
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new ApiError(body.message || res.statusText, res.status);
+  }
+  return res.json();
+}
+
+async function authRequestWithToken<T>(path: string, options?: RequestInit): Promise<T> {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
+  return authRequest<T>(path, {
+    ...options,
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...options?.headers,
+    },
+  });
+}
+
 export const api = {
   auth: {
     login: (email: string, password: string) =>
-      request<any>('/auth/login', {
+      authRequest<any>('/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       }),
     register: (email: string, password: string) =>
-      request<any>('/auth/register', {
+      authRequest<any>('/register', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       }),
+    forgotPassword: (email: string) =>
+      authRequest<any>('/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      }),
+    resetPassword: (token: string, password: string) =>
+      authRequest<any>('/reset-password', {
+        method: 'POST',
+        body: JSON.stringify({ token, password }),
+      }),
+    changePassword: (userId: string, currentPassword: string, newPassword: string) =>
+      authRequestWithToken<any>('/change-password', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: userId, current_password: currentPassword, new_password: newPassword }),
+      }),
+    mfaVerify: (mfaToken: string, code: string) =>
+      authRequest<any>('/mfa/verify', {
+        method: 'POST',
+        body: JSON.stringify({ mfa_token: mfaToken, code }),
+      }),
+    mfaSetup: (userId: string) =>
+      authRequestWithToken<any>('/mfa/setup', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: userId }),
+      }),
+    mfaEnable: (userId: string, token: string) =>
+      authRequestWithToken<any>('/mfa/enable', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: userId, token }),
+      }),
+    mfaDisable: (userId: string, password: string) =>
+      authRequestWithToken<any>('/mfa/disable', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: userId, password }),
+      }),
+    me: () =>
+      authRequestWithToken<any>('/me'),
+    logout: (userId: string) =>
+      authRequestWithToken<any>('/logout', {
+        method: 'POST',
+        body: JSON.stringify({ user_id: userId }),
+      }),
+    refresh: (refreshToken: string) =>
+      authRequest<any>('/refresh', {
+        method: 'POST',
+        body: JSON.stringify({ refresh_token: refreshToken }),
+      }),
   },
   products: {
-    list: (category?: string) =>
-      request<any[]>(`/products${category ? `?category=${category}` : ''}`),
+    list: (params?: { category?: string; q?: string }) => {
+      const search = new URLSearchParams();
+      if (params?.category) search.set('category', params.category);
+      if (params?.q) search.set('q', params.q);
+      const qs = search.toString();
+      return request<any[]>(`/products${qs ? `?${qs}` : ''}`);
+    },
     get: (slug: string) => request<any>(`/products/${slug}`),
   },
   categories: {

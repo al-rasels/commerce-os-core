@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { AddItemDto } from './dto/add-item.dto';
@@ -24,10 +33,7 @@ export class CartController {
 
   @Get(':id')
   @RequirePermissions('cart.read')
-  async get(
-    @GetTenantContext() ctx: TenantContext,
-    @Param('id') id: string,
-  ) {
+  async get(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
     return this.cartService.getWithItems(ctx, id);
   }
 

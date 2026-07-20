@@ -4,7 +4,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { StatusBadge } from "@/components/orders/StatusBadge"
 import { DollarSign, ShoppingCart, Users, TrendingUp, ArrowRight, PackageOpen } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
@@ -137,9 +136,9 @@ export default function DashboardPage() {
                       <StatusBadge status={order.status} />
                     </div>
                   ))}
-                  <Button variant="ghost" className="w-full mt-4 text-xs text-muted-foreground hover:text-white" asChild>
-                    <Link to="/orders">View all orders <ArrowRight className="ml-2 size-3" /></Link>
-                  </Button>
+                  <Link to="/orders" className="inline-flex items-center justify-center w-full mt-4 text-xs text-muted-foreground hover:text-white transition-colors">
+                    View all orders <ArrowRight className="ml-2 size-3" />
+                  </Link>
                 </div>
               )}
             </CardContent>

@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { CartRepository } from './repositories/cart.repository';
 import { CartItemRepository } from './repositories/cart-item.repository';
 import { PrismaService } from '../../../prisma/prisma.service';
@@ -53,7 +58,7 @@ export class CartService {
     const variant = await this.prisma.productVariant.findFirst({
       where: { id: dto.variant_id, tenant_id: ctx.tenantId },
     });
-    
+
     if (!variant) throw new NotFoundException('Variant not found');
     if (variant.stock_available - variant.stock_reserved < dto.quantity) {
       throw new BadRequestException('Insufficient stock');
@@ -78,7 +83,12 @@ export class CartService {
     });
   }
 
-  async updateItem(ctx: TenantContext, cartId: string, itemId: string, dto: UpdateItemDto) {
+  async updateItem(
+    ctx: TenantContext,
+    cartId: string,
+    itemId: string,
+    dto: UpdateItemDto,
+  ) {
     const cart = await this.cartRepo.findUnique(ctx, cartId);
     if (!cart) throw new NotFoundException('Cart not found');
 
@@ -94,8 +104,11 @@ export class CartService {
     const variant = await this.prisma.productVariant.findFirst({
       where: { id: item.variant_id, tenant_id: ctx.tenantId },
     });
-    
-    if (variant && variant.stock_available - variant.stock_reserved < dto.quantity) {
+
+    if (
+      variant &&
+      variant.stock_available - variant.stock_reserved < dto.quantity
+    ) {
       throw new BadRequestException('Insufficient stock');
     }
 
@@ -113,10 +126,10 @@ export class CartService {
     }
 
     this.logger.log(`Removing item ${itemId} from cart ${cartId}`);
-    await this.prisma.cartItem.deleteMany({ 
-      where: { id: itemId, tenant_id: ctx.tenantId } 
+    await this.prisma.cartItem.deleteMany({
+      where: { id: itemId, tenant_id: ctx.tenantId },
     });
-    
+
     return { removed: true };
   }
 
@@ -128,7 +141,7 @@ export class CartService {
     await this.prisma.cartItem.deleteMany({
       where: { cart_id: cartId, tenant_id: ctx.tenantId },
     });
-    
+
     return { cleared: true };
   }
 }

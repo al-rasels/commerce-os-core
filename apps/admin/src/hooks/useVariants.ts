@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { catalogApi, type ProductVariantInput } from '@/lib/api/catalog';
 import { toast } from 'sonner';
 

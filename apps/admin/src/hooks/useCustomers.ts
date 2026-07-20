@@ -1,9 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { customerApi, type CustomerInput, type CustomerListResponse } from '@/lib/api/customers';
 import { toast } from 'sonner';
 
 export function useCustomers(params?: { search?: string; page?: number; limit?: number }) {
-  return useQuery<CustomerListResponse>({
+  return useSuspenseQuery<CustomerListResponse>({
     queryKey: ['customers', params],
     queryFn: () => customerApi.list(params),
   });

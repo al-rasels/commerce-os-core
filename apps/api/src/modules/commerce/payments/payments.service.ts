@@ -1,4 +1,9 @@
-import { Injectable, Inject, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
@@ -63,18 +68,22 @@ export class PaymentsService {
   private async handlePaymentSucceeded(intent: any) {
     const orderId = intent.client_reference_id || intent.metadata?.order_id;
     const tenantId = intent.metadata?.tenant_id;
-    
+
     if (!orderId || !tenantId) {
-      this.logger.warn(`Missing order/tenant reference in PaymentIntent ${intent.id}`);
+      this.logger.warn(
+        `Missing order/tenant reference in PaymentIntent ${intent.id}`,
+      );
       return;
     }
 
     const order = await this.prisma.order.findFirst({
       where: { id: orderId, tenant_id: tenantId },
     });
-    
+
     if (!order) {
-      this.logger.warn(`Order ${orderId} not found for PaymentIntent ${intent.id}`);
+      this.logger.warn(
+        `Order ${orderId} not found for PaymentIntent ${intent.id}`,
+      );
       return;
     }
     if (order.status === 'paid') {
@@ -93,7 +102,7 @@ export class PaymentsService {
   private async handlePaymentFailed(intent: any) {
     const orderId = intent.client_reference_id || intent.metadata?.order_id;
     const tenantId = intent.metadata?.tenant_id;
-    
+
     if (!orderId || !tenantId) return;
 
     await this.prisma.order.updateMany({

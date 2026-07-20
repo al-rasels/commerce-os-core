@@ -21,7 +21,7 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
-@import 'tailwindcss';
+}
 
 @theme {
   --color-border: hsl(240 3.7% 15.9%);

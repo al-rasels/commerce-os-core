@@ -80,7 +80,9 @@ describe('TenantService', () => {
       mockCache.get.mockResolvedValueOnce(null);
       mockPrisma.tenantDomain.findUnique.mockResolvedValueOnce(null);
 
-      await expect(service.resolveTenant('unknown.local')).rejects.toThrow(NotFoundException);
+      await expect(service.resolveTenant('unknown.local')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 

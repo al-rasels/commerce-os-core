@@ -1,4 +1,8 @@
-import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
 import { ProductVariantRepository } from './repositories/product-variant.repository';
@@ -110,12 +114,18 @@ export class CatalogService {
       sku: dto.sku,
     });
     if (existing.length > 0) {
-      throw new ConflictException('Variant with this SKU already exists for this product');
+      throw new ConflictException(
+        'Variant with this SKU already exists for this product',
+      );
     }
     return this.variantRepo.create(ctx, dto);
   }
 
-  async updateVariant(ctx: TenantContext, id: string, dto: UpdateProductVariantDto) {
+  async updateVariant(
+    ctx: TenantContext,
+    id: string,
+    dto: UpdateProductVariantDto,
+  ) {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
     return this.variantRepo.update(ctx, id, dto);

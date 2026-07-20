@@ -35,7 +35,11 @@ describe('AuthController', () => {
 
       const result = await controller.login(req, dto);
 
-      expect(authService.login).toHaveBeenCalledWith(req.tenantContext, dto.email, dto.password);
+      expect(authService.login).toHaveBeenCalledWith(
+        req.tenantContext,
+        dto.email,
+        dto.password,
+      );
       expect(result).toEqual({ access_token: 'token' });
     });
   });
@@ -56,11 +60,17 @@ describe('AuthController', () => {
   describe('refresh', () => {
     it('delegates to authService.refresh', async () => {
       const req = { tenantContext: { tenantId: 't1' } };
-      mockAuthService.refresh.mockResolvedValueOnce({ access_token: 'new-token' });
+      mockAuthService.refresh.mockResolvedValueOnce({
+        access_token: 'new-token',
+      });
 
       const result = await controller.refresh(req, 'u1', 'refresh-token-value');
 
-      expect(authService.refresh).toHaveBeenCalledWith(req.tenantContext, 'u1', 'refresh-token-value');
+      expect(authService.refresh).toHaveBeenCalledWith(
+        req.tenantContext,
+        'u1',
+        'refresh-token-value',
+      );
       expect(result).toEqual({ access_token: 'new-token' });
     });
   });

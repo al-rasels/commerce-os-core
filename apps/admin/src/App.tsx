@@ -2,6 +2,9 @@ import { Navigate, Outlet, Route, BrowserRouter, Routes } from "react-router-dom
 import { useAuth } from "@/contexts/AuthContext"
 import AdminLayout from "@/layouts/AdminLayout"
 import LoginPage from "@/pages/LoginPage"
+import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage"
+import ResetPasswordPage from "@/pages/auth/ResetPasswordPage"
+import ChangePasswordPage from "@/pages/auth/ChangePasswordPage"
 import ProductListPage from "@/pages/products/ProductListPage"
 import ProductFormPage from "@/pages/products/ProductFormPage"
 import CategoryListPage from "@/pages/categories/CategoryListPage"
@@ -17,7 +20,8 @@ import DashboardPage from "@/pages/DashboardPage"
 import UserListPage from "@/pages/users/UserListPage"
 import UserDetailPage from "@/pages/users/UserDetailPage"
 import UserInvitePage from "@/pages/users/UserInvitePage"
-import ChangePasswordPage from "@/pages/auth/ChangePasswordPage"
+import { TenantsPage } from "@/pages/super-admin/TenantsPage"
+import { TenantDetailPage } from "@/pages/super-admin/TenantDetailPage"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
@@ -30,6 +34,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminLayout />}>
             <Route index element={<DashboardPage />} />
@@ -50,6 +56,8 @@ export default function App() {
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />
+            <Route path="super-admin/tenants" element={<TenantsPage />} />
+            <Route path="super-admin/tenants/:id" element={<TenantDetailPage />} />
           </Route>
         </Route>
       </Routes>

@@ -15,7 +15,13 @@ export class CustomerRepository extends TenantScopedRepository<Customer> {
       include: {
         orders: {
           orderBy: { created_at: 'desc' },
-          select: { id: true, status: true, total_cents: true, currency: true, created_at: true },
+          select: {
+            id: true,
+            status: true,
+            total_cents: true,
+            currency: true,
+            created_at: true,
+          },
         },
       },
     });

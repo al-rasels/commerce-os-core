@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { OrderRepository } from './order.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { ListOrdersQueryDto } from './dto/list-orders-query.dto';
@@ -16,7 +20,9 @@ export class OrderService {
   constructor(private readonly orderRepo: OrderRepository) {}
 
   async get(ctx: TenantContext, id: string) {
-    const order = await this.orderRepo.findUnique(ctx, id, { include: { items: true } });
+    const order = await this.orderRepo.findUnique(ctx, id, {
+      include: { items: true },
+    });
     if (!order) {
       throw new NotFoundException('Order not found');
     }
@@ -53,7 +59,9 @@ export class OrderService {
   }
 
   async updateStatus(ctx: TenantContext, id: string, newStatus: string) {
-    const order = await this.orderRepo.findUnique(ctx, id, { include: { items: true } });
+    const order = await this.orderRepo.findUnique(ctx, id, {
+      include: { items: true },
+    });
     if (!order) {
       throw new NotFoundException('Order not found');
     }

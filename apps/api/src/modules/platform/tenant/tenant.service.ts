@@ -39,9 +39,14 @@ export class TenantService {
     const ctx = new TenantContext({
       tenantId: tenant.id,
       plan: tenant.plan_id,
-      effectiveFlags: new Set(tenant.flags.filter(f => f.enabled).map(f => f.flag_key)),
+      effectiveFlags: new Set(
+        tenant.flags.filter((f) => f.enabled).map((f) => f.flag_key),
+      ),
       theme: themeOverride
-        ? { themeBaseId: themeOverride.theme_base_id, overrides: themeOverride.overrides_json as Record<string, unknown> }
+        ? {
+            themeBaseId: themeOverride.theme_base_id,
+            overrides: themeOverride.overrides_json as Record<string, unknown>,
+          }
         : { themeBaseId: '', overrides: {} },
       locale: 'en-US',
       currency: 'USD',

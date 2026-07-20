@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Patch, Param, Query, Body, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Param,
+  Query,
+  Body,
+  UseGuards,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
@@ -23,10 +32,7 @@ export class OrderController {
 
   @Get(':id')
   @RequirePermissions('order.read')
-  async get(
-    @GetTenantContext() ctx: TenantContext,
-    @Param('id') id: string,
-  ) {
+  async get(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
     return this.orderService.get(ctx, id);
   }
 

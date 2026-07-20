@@ -1,40 +1,46 @@
-import { Suspense } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Search as SearchIcon } from 'lucide-react';
+import { api } from '@/lib/api';
+import { ProductCard } from '@/components/product-card';
+import { SearchForm } from './search-form';
 
-export default function SearchPage({
+export const revalidate = 60;
+
+export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { q?: string };
+  searchParams: Promise<{ q?: string }>;
 }) {
-  const query = searchParams.q || '';
+  const { q } = await searchParams;
+  const query = q || '';
+  const products = query
+    ? await api.products.list({ q: query }).catch(() => [])
+    : [];
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 max-w-6xl">
       <h1 className="text-3xl font-bold mb-8 text-center">Search</h1>
-      
-      <form className="flex gap-2 mb-12" action="/search" method="GET">
-        <div className="relative flex-1">
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input 
-            name="q" 
-            defaultValue={query}
-            placeholder="Search products..." 
-            className="pl-10 h-12 text-lg"
-          />
-        </div>
-        <Button type="submit" size="lg">Search</Button>
-      </form>
+
+      <SearchForm query={query} />
 
       {query && (
         <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Results for &quot;{query}&quot;</h2>
-          <Suspense fallback={<div>Searching...</div>}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="text-muted-foreground">Search results...</div>
+          <h2 className="text-xl font-semibold">
+            {products.length > 0
+              ? `${products.length} result${products.length === 1 ? '' : 's'} for "${query}"`
+              : `No results for "${query}"`}
+          </h2>
+
+          {products.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {products.map((product: any) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
             </div>
-          </Suspense>
+          ) : (
+            <div className="text-center py-24 bg-muted/20 rounded-2xl border border-dashed border-border/50">
+              <p className="text-muted-foreground text-lg mb-2">Try a different search term.</p>
+              <p className="text-muted-foreground text-sm">Check your spelling or browse categories.</p>
+            </div>
+          )}
         </div>
       )}
     </div>

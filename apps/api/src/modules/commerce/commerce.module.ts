@@ -12,6 +12,18 @@ import { TaxModule } from './tax/tax.module';
 import { PromotionsModule } from './promotions/promotions.module';
 
 @Module({
-  imports: [CatalogModule, CustomerModule, CartModule, OrderModule, CheckoutModule, PaymentsModule, DashboardModule, StorefrontModule, ShippingModule, TaxModule, PromotionsModule],
+  imports: [
+    CatalogModule,
+    CustomerModule,
+    CartModule,
+    OrderModule,
+    CheckoutModule,
+    PaymentsModule,
+    DashboardModule,
+    StorefrontModule,
+    ShippingModule,
+    TaxModule,
+    PromotionsModule,
+  ],
 })
 export class CommerceModule {}

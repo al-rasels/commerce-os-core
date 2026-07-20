@@ -77,8 +77,14 @@ export default function RootLayout({
                 <Link href="/categories" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                   Categories
                 </Link>
+                <Link href="/search" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                  Search
+                </Link>
               </nav>
               <div className="flex items-center gap-4">
+                <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+                  Account
+                </Link>
                 <CartBadge />
               </div>
             </div>

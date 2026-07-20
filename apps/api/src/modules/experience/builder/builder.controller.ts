@@ -1,4 +1,12 @@
-import { Controller, Get, Put, Post, Body, Param, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Put,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { BuilderService } from './builder.service';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
@@ -13,7 +21,7 @@ export class BuilderController {
   // No auth guard for storefront reads
   async getPageLayout(
     @GetTenantContext() ctx: TenantContext,
-    @Param('key') pageKey: string
+    @Param('key') pageKey: string,
   ) {
     return this.builderService.getPageLayout(ctx, pageKey);
   }
@@ -27,7 +35,12 @@ export class BuilderController {
     @Body('sectionsJson') sectionsJson: any,
     @Body('publish') publish: boolean,
   ) {
-    return this.builderService.updatePageLayout(ctx, pageKey, sectionsJson, publish);
+    return this.builderService.updatePageLayout(
+      ctx,
+      pageKey,
+      sectionsJson,
+      publish,
+    );
   }
 
   @Post(':key/publish')

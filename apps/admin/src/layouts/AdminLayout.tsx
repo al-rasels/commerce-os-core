@@ -12,6 +12,7 @@ import {
   UserCog,
   Palette,
   FileText,
+  Shield,
   LogOut,
   KeyRound,
   ChevronRight,
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/users", label: "Users", icon: UserCog },
   { href: "/theme", label: "Theme", icon: Palette },
   { href: "/settings/pages", label: "Pages", icon: FileText },
+  { href: "/super-admin/tenants", label: "Super Admin", icon: Shield },
 ]
 
 function Sidebar() {

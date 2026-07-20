@@ -9,7 +9,12 @@ import { PrismaModule } from '../../../prisma/prisma.module';
 @Module({
   imports: [PrismaModule],
   controllers: [CatalogController],
-  providers: [CatalogService, ProductRepository, CategoryRepository, ProductVariantRepository],
+  providers: [
+    CatalogService,
+    ProductRepository,
+    CategoryRepository,
+    ProductVariantRepository,
+  ],
   exports: [CatalogService],
 })
 export class CatalogModule {}

@@ -14,7 +14,12 @@ export class BuilderService {
     return layout;
   }
 
-  async updatePageLayout(ctx: TenantContext, pageKey: string, sectionsJson: any, publish: boolean = false) {
+  async updatePageLayout(
+    ctx: TenantContext,
+    pageKey: string,
+    sectionsJson: any,
+    publish: boolean = false,
+  ) {
     const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
     const prisma = (this.layoutRepo as any).prisma;
 
@@ -25,7 +30,9 @@ export class BuilderService {
 
     if (existing) {
       return prisma.pageLayout.update({
-        where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey } },
+        where: {
+          tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
+        },
         data,
       });
     } else {
@@ -44,7 +51,9 @@ export class BuilderService {
     }
     const prisma = (this.layoutRepo as any).prisma;
     return prisma.pageLayout.update({
-      where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey } },
+      where: {
+        tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
+      },
       data: { published_at: new Date() },
     });
   }
@@ -56,7 +65,9 @@ export class BuilderService {
     }
     const prisma = (this.layoutRepo as any).prisma;
     return prisma.pageLayout.update({
-      where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey } },
+      where: {
+        tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
+      },
       data: { published_at: null },
     });
   }

@@ -1,4 +1,13 @@
-import { Controller, Post, Body, Param, HttpCode, HttpStatus, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
 
@@ -23,13 +32,17 @@ export class StorefrontCheckoutController {
     if (!cart || cart.tenant_id !== ctx.tenantId) {
       throw new NotFoundException('Cart not found');
     }
-    if (cart.status !== 'open') throw new BadRequestException('Cart is not open');
+    if (cart.status !== 'open')
+      throw new BadRequestException('Cart is not open');
     if (cart.items.length === 0) throw new BadRequestException('Cart is empty');
 
     for (const item of cart.items) {
-      const available = item.variant.stock_available - item.variant.stock_reserved;
+      const available =
+        item.variant.stock_available - item.variant.stock_reserved;
       if (available < item.quantity) {
-        throw new BadRequestException(`Insufficient stock for variant ${item.variant_id}`);
+        throw new BadRequestException(
+          `Insufficient stock for variant ${item.variant_id}`,
+        );
       }
     }
 

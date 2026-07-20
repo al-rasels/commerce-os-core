@@ -43,7 +43,11 @@ export abstract class TenantScopedRepository<T> {
     });
   }
 
-  async findUnique(ctx: TenantContext, id: string, args?: any): Promise<T | null> {
+  async findUnique(
+    ctx: TenantContext,
+    id: string,
+    args?: any,
+  ): Promise<T | null> {
     const record = await (this.prisma as any)[this.modelName].findUnique({
       where: { id },
       ...args,
@@ -63,11 +67,11 @@ export abstract class TenantScopedRepository<T> {
       where: { id, tenant_id: ctx.tenantId },
       data,
     });
-    
+
     if (result.count === 0) {
       throw new Error('Record not found or not owned by tenant');
     }
-    
+
     return this.findUnique(ctx, id) as Promise<T>;
   }
 
@@ -75,14 +79,24 @@ export abstract class TenantScopedRepository<T> {
     return this.update(ctx, id, { deleted_at: new Date() });
   }
 
+  async delete(ctx: TenantContext, id: string): Promise<void> {
+    const result = await (this.prisma as any)[this.modelName].deleteMany({
+      where: { id, tenant_id: ctx.tenantId },
+    });
+
+    if (result.count === 0) {
+      throw new Error('Record not found or not owned by tenant');
+    }
+  }
+
   async updateByTenant(ctx: TenantContext, data: any): Promise<void> {
     const result = await (this.prisma as any)[this.modelName].updateMany({
       where: { tenant_id: ctx.tenantId },
       data,
     });
-    
+
     if (result.count === 0) {
       throw new Error('Record not found or not owned by tenant');
     }
   }
-}
+}

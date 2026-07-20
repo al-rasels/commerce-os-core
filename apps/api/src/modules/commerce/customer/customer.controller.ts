@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
@@ -35,10 +45,7 @@ export class CustomerController {
 
   @Get(':id')
   @RequirePermissions('customers.read')
-  async get(
-    @GetTenantContext() ctx: TenantContext,
-    @Param('id') id: string,
-  ) {
+  async get(@GetTenantContext() ctx: TenantContext, @Param('id') id: string) {
     return this.customerService.get(ctx, id);
   }
 

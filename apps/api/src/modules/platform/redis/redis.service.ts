@@ -1,4 +1,9 @@
-import { Injectable, Logger, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleDestroy,
+  OnModuleInit,
+} from '@nestjs/common';
 import Redis from 'ioredis';
 
 @Injectable()
@@ -12,13 +17,16 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       this.client = new Redis({
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT || '6379', 10),
-        retryStrategy: (times) => (times > 3 ? null : Math.min(times * 200, 2000)),
+        retryStrategy: (times) =>
+          times > 3 ? null : Math.min(times * 200, 2000),
         lazyConnect: true,
       });
       await this.client.connect();
       this.logger.log('Connected to Redis');
     } catch {
-      this.logger.warn('Redis unavailable — using in-memory fallback for refresh tokens');
+      this.logger.warn(
+        'Redis unavailable — using in-memory fallback for refresh tokens',
+      );
       this.client = null;
     }
   }

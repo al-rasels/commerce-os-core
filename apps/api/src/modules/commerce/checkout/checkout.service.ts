@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
@@ -13,7 +18,9 @@ export class CheckoutService {
   ) {}
 
   async checkout(ctx: TenantContext, cartId: string) {
-    this.logger.log(`Starting checkout for cart ${cartId} (Tenant: ${ctx.tenantId})`);
+    this.logger.log(
+      `Starting checkout for cart ${cartId} (Tenant: ${ctx.tenantId})`,
+    );
 
     const cart = await this.prisma.cart.findFirst({
       where: { id: cartId, tenant_id: ctx.tenantId },
@@ -31,7 +38,8 @@ export class CheckoutService {
     }
 
     for (const item of cart.items) {
-      const available = item.variant.stock_available - item.variant.stock_reserved;
+      const available =
+        item.variant.stock_available - item.variant.stock_reserved;
       if (available < item.quantity) {
         throw new BadRequestException(
           `Insufficient stock for variant ${item.variant_id}`,
@@ -49,7 +57,7 @@ export class CheckoutService {
     const currency = cart.items[0]?.variant.currency || 'USD';
 
     this.logger.log(`Processing transaction for cart ${cartId}`);
-    
+
     const order = await this.prisma.$transaction(async (tx) => {
       const created = await tx.order.create({
         data: {
@@ -91,10 +99,10 @@ export class CheckoutService {
         });
       }
 
-      await tx.cartItem.deleteMany({ 
-        where: { cart_id: cartId, tenant_id: ctx.tenantId } 
+      await tx.cartItem.deleteMany({
+        where: { cart_id: cartId, tenant_id: ctx.tenantId },
       });
-      
+
       await tx.cart.updateMany({
         where: { id: cartId, tenant_id: ctx.tenantId },
         data: { status: 'converted' },

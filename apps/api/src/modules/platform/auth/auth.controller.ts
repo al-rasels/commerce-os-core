@@ -29,7 +29,10 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  async register(@GetTenantContext() ctx: TenantContext, @Body() dto: RegisterDto) {
+  async register(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: RegisterDto,
+  ) {
     return this.authService.register(ctx, dto);
   }
 
@@ -83,13 +86,19 @@ export class AuthController {
 
   @Post('forgot-password')
   @HttpCode(HttpStatus.OK)
-  async forgotPassword(@GetTenantContext() ctx: TenantContext, @Body() dto: ForgotPasswordDto) {
+  async forgotPassword(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: ForgotPasswordDto,
+  ) {
     return this.authService.forgotPassword(ctx, dto);
   }
 
   @Post('reset-password')
   @HttpCode(HttpStatus.OK)
-  async resetPassword(@GetTenantContext() ctx: TenantContext, @Body() dto: ResetPasswordDto) {
+  async resetPassword(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: ResetPasswordDto,
+  ) {
     return this.authService.resetPassword(ctx, dto);
   }
 

@@ -20,7 +20,9 @@ export class OrderRepository extends TenantScopedRepository<Order> {
       throw new Error('Order not found or not owned by tenant');
     }
 
-    return this.findUnique(ctx, id, { include: { items: true } }) as Promise<Order>;
+    return this.findUnique(ctx, id, {
+      include: { items: true },
+    }) as Promise<Order>;
   }
 
   async fulfillStock(ctx: TenantContext, orderId: string): Promise<void> {
@@ -53,10 +55,10 @@ export class OrderRepository extends TenantScopedRepository<Order> {
       });
 
       await this.prisma.stockReservation.deleteMany({
-        where: { 
-          order_id: orderId, 
-          variant_id: item.variant_id, 
-          tenant_id: ctx.tenantId 
+        where: {
+          order_id: orderId,
+          variant_id: item.variant_id,
+          tenant_id: ctx.tenantId,
         },
       });
     }

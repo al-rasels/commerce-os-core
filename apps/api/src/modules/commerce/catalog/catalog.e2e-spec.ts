@@ -28,17 +28,16 @@ describe('CatalogController (e2e)', () => {
       .expect(401);
   });
 
-  
   it('rejects a token minted for a different tenant', async () => {
     // 1. Get the JwtService from the Nest app context
     const jwtService = app.get('JwtService');
-    
+
     // 2. Mint a token for tenant2
     const tokenForTenantB = jwtService.sign({
       sub: 'user-123',
       tenant_id: 'tenant-2-uuid',
       email: 'test@example.com',
-      roles: ['admin']
+      roles: ['admin'],
     });
 
     // 3. Make request claiming to be tenant1 but providing tenant2's token
@@ -59,6 +58,6 @@ describe('CatalogController (e2e)', () => {
       .post('/v1/commerce/catalog/products')
       .set('Host', 'tenant1.localhost')
       .send({ invalid: 'payload' })
-      .expect(401); 
+      .expect(401);
   });
 });
