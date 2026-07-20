@@ -7,22 +7,26 @@ import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Package, ArrowLeft, LogOut } from 'lucide-react';
 
+interface OrderItem {
+  id: string;
+  variant?: { name: string; price_cents: number };
+  quantity: number;
+}
+
+interface Order {
+  id: string;
+  created_at: string;
+  status: string;
+  total_cents: number;
+  currency: string;
+  items: OrderItem[];
+}
+
 export default function OrderHistoryPage() {
     const router = useRouter();
-    const [orders, setOrders] = useState<any[]>([]);
+    const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<any>(null);
-
-    useEffect(() => {
-        const token = localStorage.getItem('auth_token');
-        const userData = localStorage.getItem('user');
-        if (!token || !userData) {
-            router.push('/account/login');
-            return;
-        }
-        setUser(JSON.parse(userData));
-        loadOrders();
-    }, []);
+    const [user, setUser] = useState<{ email: string } | null>(null);
 
     const loadOrders = async () => {
         try {
@@ -35,6 +39,17 @@ export default function OrderHistoryPage() {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('auth_token');
+        const userData = localStorage.getItem('user');
+        if (!token || !userData) {
+            router.push('/account/login');
+            return;
+        }
+        setUser(JSON.parse(userData));
+        loadOrders();
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('auth_token');
@@ -88,7 +103,7 @@ export default function OrderHistoryPage() {
                 </div>
             ) : (
                 <div className="space-y-4">
-                    {orders.map((order: any) => (
+                    {orders.map((order: Order) => (
                         <div
                             key={order.id}
                             className="border rounded-lg p-6 hover:border-primary/50 transition-colors"
@@ -120,7 +135,7 @@ export default function OrderHistoryPage() {
                             </div>
                             {(order.items ?? []).length > 0 && (
                                 <div className="border-t pt-4 space-y-2">
-                                    {order.items.map((item: any) => (
+                                    {order.items.map((item: OrderItem) => (
                                         <div
                                             key={item.id}
                                             className="flex justify-between text-sm"

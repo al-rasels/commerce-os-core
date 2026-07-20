@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
 import { SlidersHorizontal, ChevronRight } from "lucide-react";
 

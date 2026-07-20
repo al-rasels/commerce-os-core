@@ -4,12 +4,22 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@/lib/store';
 import { api } from '@/lib/api';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
+
+interface CartItem {
+  id: string;
+  variant?: { name: string; price_cents: number; currency: string };
+  quantity: number;
+}
+
+interface Cart {
+  id?: string;
+  items?: CartItem[];
+}
 
 export default function CartPage() {
   const { cartId, sessionId, setItemCount } = useCartStore();
-  const [cart, setCart] = useState<any>(null);
+  const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(true);
 
   const loadCart = async () => {
@@ -56,7 +66,7 @@ export default function CartPage() {
 
   const items = cart?.items ?? [];
   const total = items.reduce(
-    (sum: number, i: any) => sum + (i.variant?.price_cents ?? 0) * i.quantity,
+    (sum: number, i: CartItem) => sum + (i.variant?.price_cents ?? 0) * i.quantity,
     0,
   );
   const currency = items[0]?.variant?.currency ?? 'USD';
@@ -78,7 +88,7 @@ export default function CartPage() {
       ) : (
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-4">
-            {items.map((item: any) => (
+            {items.map((item: CartItem) => (
               <div
                 key={item.id}
                 className="flex gap-4 border rounded-lg p-4"

@@ -29,7 +29,7 @@ export default function SearchPage({
 
       {query && (
         <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Results for "{query}"</h2>
+          <h2 className="text-xl font-semibold">Results for &quot;{query}&quot;</h2>
           <Suspense fallback={<div>Searching...</div>}>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="text-muted-foreground">Search results...</div>

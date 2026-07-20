@@ -21,6 +21,18 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  auth: {
+    login: (email: string, password: string) =>
+      request<any>('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      }),
+    register: (email: string, password: string) =>
+      request<any>('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      }),
+  },
   products: {
     list: (category?: string) =>
       request<any[]>(`/products${category ? `?category=${category}` : ''}`),
@@ -59,5 +71,7 @@ export const api = {
   },
   orders: {
     get: (id: string) => request<any>(`/orders/${id}`),
+    listByEmail: (email: string) =>
+      request<any[]>(`/orders/by-email?email=${encodeURIComponent(email)}`),
   },
 };

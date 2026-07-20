@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { Check, ShieldCheck, Truck, ChevronDown, ChevronUp } from "lucide-react";
@@ -22,9 +23,9 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
       <div className="border-b border-border/50 py-4 mb-8">
         <div className="container mx-auto px-6">
           <div className="text-sm text-muted-foreground flex items-center gap-2">
-            <a href="/" className="hover:text-foreground transition-colors">Home</a>
+            <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
             <span>/</span>
-            <a href="/products" className="hover:text-foreground transition-colors">Products</a>
+            <Link href="/products" className="hover:text-foreground transition-colors">Products</Link>
             <span>/</span>
             <span className="text-foreground font-medium">{product.name}</span>
           </div>
@@ -165,7 +166,7 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
                       className="pt-4 text-sm text-muted-foreground leading-relaxed"
                     >
                       <p className="mb-2">We offer free standard shipping on all orders over $150. Expedited shipping is available at checkout.</p>
-                      <p>If you're not completely satisfied with your purchase, returns are accepted within 30 days of delivery in original condition.</p>
+                      <p>If you&apos;re not completely satisfied with your purchase, returns are accepted within 30 days of delivery in original condition.</p>
                     </motion.div>
                   )}
                 </div>

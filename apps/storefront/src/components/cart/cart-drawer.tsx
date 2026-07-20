@@ -4,10 +4,19 @@ import { useEffect, useState } from 'react';
 import { useCartStore } from '@/lib/store';
 import { api } from '@/lib/api';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { Trash2, ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
+
+interface CartItem {
+  id: string;
+  variant?: { name: string; price_cents: number; currency: string };
+  quantity: number;
+}
+
+interface Cart {
+  id?: string;
+  items?: CartItem[];
+}
 
 function formatPrice(cents: number, currency: string) {
   return new Intl.NumberFormat('en-US', {
@@ -24,7 +33,7 @@ export function CartDrawer({
   onOpenChange: (open: boolean) => void;
 }) {
   const { cartId, sessionId, setItemCount } = useCartStore();
-  const [cart, setCart] = useState<any>(null);
+  const [cart, setCart] = useState<Cart | null>(null);
   const [loading, setLoading] = useState(false);
 
   const loadCart = async () => {
@@ -65,7 +74,7 @@ export function CartDrawer({
 
   const items = cart?.items ?? [];
   const total = items.reduce(
-    (sum: number, i: any) => sum + (i.variant?.price_cents ?? 0) * i.quantity,
+    (sum: number, i: CartItem) => sum + (i.variant?.price_cents ?? 0) * i.quantity,
     0,
   );
   const currency = items[0]?.variant?.currency ?? 'USD';
@@ -96,7 +105,7 @@ export function CartDrawer({
         ) : (
           <>
             <div className="flex-1 overflow-auto px-4 space-y-4">
-              {items.map((item: any) => (
+              {items.map((item: CartItem) => (
                 <div key={item.id} className="flex gap-3">
                   <div className="h-16 w-16 rounded-lg bg-accent flex items-center justify-center flex-shrink-0 text-lg">
                     🛍

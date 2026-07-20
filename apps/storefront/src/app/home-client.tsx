@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
-import { ArrowRight, Star, Truck, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Truck, ShieldCheck, Zap } from "lucide-react";
 
 export function HomeClient({ products, categories }: { products: any[], categories: any[] }) {
   const containerVariants = {
@@ -90,7 +90,7 @@ export function HomeClient({ products, categories }: { products: any[], categori
             <div className="flex flex-col md:flex-row justify-between items-end mb-12">
               <div>
                 <h2 className="text-3xl font-bold tracking-tight mb-2">Shop by Category</h2>
-                <p className="text-muted-foreground">Find exactly what you're looking for.</p>
+                <p className="text-muted-foreground">Find exactly what you&apos;re looking for.</p>
               </div>
               <Link href="/categories" className="text-primary font-medium hover:underline flex items-center mt-4 md:mt-0">
                 View all categories <ArrowRight className="ml-1 w-4 h-4" />

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
-import { Lock, ArrowLeft, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Lock, ArrowLeft, ShieldCheck, CheckCircle2, ShoppingCart } from 'lucide-react';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -96,10 +96,10 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-background px-6">
         <div className="w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-6">
-          <ShoppingCartIcon className="w-10 h-10 text-muted-foreground" />
+          <ShoppingCart className="w-10 h-10 text-muted-foreground" />
         </div>
         <h2 className="text-3xl font-bold mb-4 text-foreground">Your cart is empty</h2>
-        <p className="text-muted-foreground mb-8 max-w-md text-center">Looks like you haven't added anything yet. Discover our premium collection and find something you love.</p>
+        <p className="text-muted-foreground mb-8 max-w-md text-center">Looks like you haven&apos;t added anything yet. Discover our premium collection and find something you love.</p>
         <Link
           href="/products"
           className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 text-base font-medium text-primary-foreground transition-transform hover:scale-105 active:scale-95"
@@ -273,108 +273,5 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
-  );
-}
-
-  orderId,
-  onSuccess,
-  onError,
-}: {
-  clientSecret: string;
-  orderId: string;
-  onSuccess: () => void;
-  onError: (msg: string) => void;
-}) {
-  const pk = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
-  const [stripeComponents, setStripeComponents] = useState<{
-    Elements: any;
-    PaymentElement: any;
-    useStripe: any;
-    useElements: any;
-  } | null>(null);
-  const [stripePromise, setStripePromise] = useState<any>(null);
-
-  useEffect(() => {
-    (async () => {
-      const [{ loadStripe }, rs] = await Promise.all([
-        import('@stripe/stripe-js'),
-        import('@stripe/react-stripe-js'),
-      ]);
-      setStripePromise(loadStripe(pk));
-      setStripeComponents(rs);
-    })();
-  }, [pk]);
-
-  if (!stripeComponents || !stripePromise) {
-    return (
-      <div className="text-center py-4 text-muted-foreground">
-        Loading payment form...
-      </div>
-    );
-  }
-
-  const { Elements } = stripeComponents;
-
-  return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <StripePaymentForm
-        stripeComponents={stripeComponents}
-        orderId={orderId}
-        onSuccess={onSuccess}
-        onError={onError}
-      />
-    </Elements>
-  );
-}
-
-function StripePaymentForm({
-  stripeComponents,
-  orderId,
-  onSuccess,
-  onError,
-}: {
-  stripeComponents: { PaymentElement: any; useStripe: any; useElements: any };
-  orderId: string;
-  onSuccess: () => void;
-  onError: (msg: string) => void;
-}) {
-  const { PaymentElement, useStripe, useElements } = stripeComponents;
-  const stripe = useStripe();
-  const elements = useElements();
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    if (!stripe || !elements) return;
-    setSubmitting(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: `${window.location.origin}/checkout/success?order_id=${orderId}`,
-      },
-    });
-
-    if (error) {
-      onError(error.message || 'Payment failed.');
-      setSubmitting(false);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className="border rounded-lg p-6 space-y-4">
-        <h2 className="text-lg font-semibold">Payment</h2>
-        <PaymentElement />
-        <Button
-          type="submit"
-          disabled={!stripe || !elements || submitting}
-          className="w-full"
-          size="lg"
-        >
-          {submitting ? 'Processing Payment...' : 'Pay Now'}
-        </Button>
-      </div>
-    </form>
   );
 }

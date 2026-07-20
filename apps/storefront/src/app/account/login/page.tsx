@@ -28,8 +28,8 @@ export default function LoginPage() {
             } else if (result.mfa_required) {
                 router.push(`/account/mfa?token=${result.mfa_token}`);
             }
-        } catch (err: any) {
-            setError(err.message || 'Login failed');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Login failed');
         } finally {
             setLoading(false);
         }
@@ -74,7 +74,7 @@ export default function LoginPage() {
             </form>
 
             <p className="text-center text-sm text-muted-foreground mt-6">
-                Don't have an account?{' '}
+                Don&apos;t have an account?{' '}
                 <Link href="/account/register" className="text-primary hover:underline">
                     Create one
                 </Link>
