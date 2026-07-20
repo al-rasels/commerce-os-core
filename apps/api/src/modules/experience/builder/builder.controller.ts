@@ -1,6 +1,6 @@
 import { Controller, Get, Put, Post, Body, Param, UseGuards } from '@nestjs/common';
 import { BuilderService } from './builder.service';
-import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator.js';
+import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';

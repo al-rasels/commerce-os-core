@@ -11,7 +11,7 @@ export class OrderRepository extends TenantScopedRepository<Order> {
   }
 
   async update(ctx: TenantContext, id: string, data: any): Promise<Order> {
-    const result = await (this.prisma as any).order.updateMany({
+    const result = await this.prisma.order.updateMany({
       where: { id, tenant_id: ctx.tenantId },
       data,
     });
@@ -24,13 +24,13 @@ export class OrderRepository extends TenantScopedRepository<Order> {
   }
 
   async fulfillStock(ctx: TenantContext, orderId: string): Promise<void> {
-    const items = await (this.prisma as any).orderItem.findMany({
-      where: { order_id: orderId },
+    const items = await this.prisma.orderItem.findMany({
+      where: { order_id: orderId, tenant_id: ctx.tenantId },
     });
 
     for (const item of items) {
-      await (this.prisma as any).productVariant.update({
-        where: { id: item.variant_id },
+      await this.prisma.productVariant.updateMany({
+        where: { id: item.variant_id, tenant_id: ctx.tenantId },
         data: {
           stock_reserved: { decrement: item.quantity },
           stock_available: { decrement: item.quantity },
@@ -40,20 +40,24 @@ export class OrderRepository extends TenantScopedRepository<Order> {
   }
 
   async releaseStock(ctx: TenantContext, orderId: string): Promise<void> {
-    const items = await (this.prisma as any).orderItem.findMany({
-      where: { order_id: orderId },
+    const items = await this.prisma.orderItem.findMany({
+      where: { order_id: orderId, tenant_id: ctx.tenantId },
     });
 
     for (const item of items) {
-      await (this.prisma as any).productVariant.update({
-        where: { id: item.variant_id },
+      await this.prisma.productVariant.updateMany({
+        where: { id: item.variant_id, tenant_id: ctx.tenantId },
         data: {
           stock_reserved: { decrement: item.quantity },
         },
       });
 
-      await (this.prisma as any).stockReservation.deleteMany({
-        where: { order_id: orderId, variant_id: item.variant_id },
+      await this.prisma.stockReservation.deleteMany({
+        where: { 
+          order_id: orderId, 
+          variant_id: item.variant_id, 
+          tenant_id: ctx.tenantId 
+        },
       });
     }
   }

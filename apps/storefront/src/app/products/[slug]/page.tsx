@@ -1,6 +1,8 @@
 import { api } from '@/lib/api';
 import { notFound } from 'next/navigation';
-import { AddToCartButton } from '@/components/add-to-cart-button';
+import { ProductClient } from './product-client';
+
+export const revalidate = 60; // SSR cache
 
 export default async function ProductPage({
   params,
@@ -21,43 +23,12 @@ export default async function ProductPage({
     : false;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="aspect-square rounded-lg bg-accent flex items-center justify-center text-4xl text-muted-foreground">
-          {product.images?.[0] ? (
-            <img
-              src={product.images[0]}
-              alt={product.name}
-              className="w-full h-full object-cover rounded-lg"
-            />
-          ) : (
-            '🖼'
-          )}
-        </div>
-
-        <div>
-          {product.category && (
-            <p className="text-sm text-muted-foreground mb-2">
-              {product.category.name}
-            </p>
-          )}
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <p className="text-2xl font-semibold mb-4">
-            {currency} {price}
-          </p>
-          <p className="text-muted-foreground mb-6">
-            {product.description || 'No description available.'}
-          </p>
-
-          {defaultVariant && (
-            <AddToCartButton
-              variantId={defaultVariant.id}
-              disabled={!inStock}
-              label={inStock ? 'Add to Cart' : 'Out of Stock'}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+    <ProductClient 
+      product={product} 
+      currency={currency} 
+      price={price} 
+      inStock={inStock} 
+      defaultVariant={defaultVariant} 
+    />
   );
 }

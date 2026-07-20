@@ -7,8 +7,11 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { PaymentsModule } from './payments/payments.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { StorefrontModule } from '../storefront/storefront.module';
+import { ShippingModule } from './shipping/shipping.module';
+import { TaxModule } from './tax/tax.module';
+import { PromotionsModule } from './promotions/promotions.module';
 
 @Module({
-  imports: [CatalogModule, CustomerModule, CartModule, OrderModule, CheckoutModule, PaymentsModule, DashboardModule, StorefrontModule],
+  imports: [CatalogModule, CustomerModule, CartModule, OrderModule, CheckoutModule, PaymentsModule, DashboardModule, StorefrontModule, ShippingModule, TaxModule, PromotionsModule],
 })
 export class CommerceModule {}

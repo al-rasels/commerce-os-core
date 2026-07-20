@@ -56,6 +56,9 @@ model Tenant {
   page_layouts       PageLayout[]
   stock_reservations StockReservation[]
   audit_logs         AuditLog[]
+  shipping_rules     ShippingRule[]
+  tax_rules          TaxRule[]
+  promotions         Promotion[]
 
   @@map("tenants")
 }
@@ -324,4 +327,57 @@ model AuditLog {
   actor      User     @relation(fields: [actor_id], references: [id])
 
   @@map("audit_log")
+}
+
+model ShippingRule {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String   @db.Uuid
+  name        String
+  type        String   // 'flat_rate' | 'weight_tier'
+  config      Json     // JSONB
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now()) @db.Timestamptz
+  updated_at  DateTime @updatedAt @db.Timestamptz
+
+  tenant      Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@map("shipping_rules")
+}
+
+model TaxRule {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String   @db.Uuid
+  name        String
+  type        String   // 'flat' | 'region'
+  rate        Float    // Percentage (e.g. 10.5 for 10.5%)
+  region      String?  // e.g. 'US-CA', 'UK'
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now()) @db.Timestamptz
+  updated_at  DateTime @updatedAt @db.Timestamptz
+
+  tenant      Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@map("tax_rules")
+}
+
+model Promotion {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String   @db.Uuid
+  code        String   @unique
+  type        String   // 'percentage' | 'fixed_amount'
+  value       Float    // e.g. 10 for 10%, or 500 for .00
+  min_order   Float?   // Minimum order subtotal to apply
+  max_uses    Int?     // Maximum number of times this code can be used
+  uses        Int      @default(0)
+  expires_at  DateTime? @db.Timestamptz
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now()) @db.Timestamptz
+  updated_at  DateTime @updatedAt @db.Timestamptz
+
+  tenant      Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id, code])
+  @@map("promotions")
 }

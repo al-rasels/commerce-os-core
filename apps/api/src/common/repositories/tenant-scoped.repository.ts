@@ -27,6 +27,22 @@ export abstract class TenantScopedRepository<T> {
     });
   }
 
+  async aggregate(ctx: TenantContext, args: any = {}): Promise<any> {
+    const { where, ...rest } = args;
+    return (this.prisma as any)[this.modelName].aggregate({
+      where: this.scope(ctx, where),
+      ...rest,
+    });
+  }
+
+  async groupBy(ctx: TenantContext, args: any = {}): Promise<any> {
+    const { where, ...rest } = args;
+    return (this.prisma as any)[this.modelName].groupBy({
+      where: this.scope(ctx, where),
+      ...rest,
+    });
+  }
+
   async findUnique(ctx: TenantContext, id: string, args?: any): Promise<T | null> {
     const record = await (this.prisma as any)[this.modelName].findUnique({
       where: { id },

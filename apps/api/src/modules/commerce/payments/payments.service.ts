@@ -11,11 +11,11 @@ export class PaymentsService {
   ) {}
 
   async createPaymentIntent(orderId: string, tenantId: string) {
-    const order = await (this.prisma as any).order.findUnique({
-      where: { id: orderId },
+    const order = await this.prisma.order.findFirst({
+      where: { id: orderId, tenant_id: tenantId },
     });
 
-    if (!order || order.tenant_id !== tenantId) {
+    if (!order) {
       throw new BadRequestException('Order not found');
     }
     if (order.status !== 'pending') {
@@ -62,14 +62,17 @@ export class PaymentsService {
 
   private async handlePaymentSucceeded(intent: any) {
     const orderId = intent.client_reference_id || intent.metadata?.order_id;
-    if (!orderId) {
-      this.logger.warn('No order reference in PaymentIntent', intent.id);
+    const tenantId = intent.metadata?.tenant_id;
+    
+    if (!orderId || !tenantId) {
+      this.logger.warn(`Missing order/tenant reference in PaymentIntent ${intent.id}`);
       return;
     }
 
-    const order = await (this.prisma as any).order.findUnique({
-      where: { id: orderId },
+    const order = await this.prisma.order.findFirst({
+      where: { id: orderId, tenant_id: tenantId },
     });
+    
     if (!order) {
       this.logger.warn(`Order ${orderId} not found for PaymentIntent ${intent.id}`);
       return;
@@ -79,8 +82,8 @@ export class PaymentsService {
       return;
     }
 
-    await (this.prisma as any).order.update({
-      where: { id: orderId },
+    await this.prisma.order.updateMany({
+      where: { id: orderId, tenant_id: tenantId },
       data: { status: 'paid' },
     });
 
@@ -89,10 +92,12 @@ export class PaymentsService {
 
   private async handlePaymentFailed(intent: any) {
     const orderId = intent.client_reference_id || intent.metadata?.order_id;
-    if (!orderId) return;
+    const tenantId = intent.metadata?.tenant_id;
+    
+    if (!orderId || !tenantId) return;
 
-    await (this.prisma as any).order.update({
-      where: { id: orderId },
+    await this.prisma.order.updateMany({
+      where: { id: orderId, tenant_id: tenantId },
       data: { status: 'cancelled' },
     });
 

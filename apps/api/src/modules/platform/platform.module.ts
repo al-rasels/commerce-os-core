@@ -8,8 +8,10 @@ import { HostResolverMiddleware } from './tenant/middlewares/host-resolver.middl
 import { TenantContextMiddleware } from './tenant/middlewares/tenant-context.middleware';
 import { TenantService } from './tenant/tenant.service';
 
+import { AdminModule } from './admin/admin.module';
+
 @Module({
-  imports: [TenantModule, AuthModule, UsersModule, RedisModule, AuditLogModule],
+  imports: [TenantModule, AuthModule, UsersModule, RedisModule, AuditLogModule, AdminModule],
 })
 export class PlatformModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

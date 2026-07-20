@@ -5,9 +5,21 @@ import { PrismaModule } from './prisma/prisma.module';
 import { PlatformModule } from './modules/platform/platform.module';
 import { CommerceModule } from './modules/commerce/commerce.module';
 import { ExperienceModule } from './modules/experience/experience.module';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
-  imports: [PrismaModule, PlatformModule, CommerceModule, ExperienceModule],
+  imports: [
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
+        transport: process.env.NODE_ENV !== 'production' ? { target: 'pino-pretty' } : undefined,
+      },
+    }),
+    PrismaModule, 
+    PlatformModule, 
+    CommerceModule, 
+    ExperienceModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
