@@ -11,6 +11,7 @@ import { TenantContext } from '../../platform/tenant/tenant-context';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { AddItemDto } from './dto/add-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
+import { CatalogService } from '../catalog/catalog.service';
 
 @Injectable()
 export class CartService {
@@ -19,7 +20,7 @@ export class CartService {
   constructor(
     private readonly cartRepo: CartRepository,
     private readonly cartItemRepo: CartItemRepository,
-    private readonly prisma: PrismaService,
+    private readonly catalogService: CatalogService,
   ) {}
 
   async create(ctx: TenantContext, dto: CreateCartDto) {
@@ -38,8 +39,7 @@ export class CartService {
   }
 
   async getWithItems(ctx: TenantContext, id: string) {
-    const cart = await this.prisma.cart.findFirst({
-      where: { id, tenant_id: ctx.tenantId },
+    const cart = await this.cartRepo.findUnique(ctx, id, {
       include: { items: { include: { variant: true } } },
     });
     if (!cart) {
@@ -55,9 +55,7 @@ export class CartService {
       throw new BadRequestException('Cart is not open for modifications');
     }
 
-    const variant = await this.prisma.productVariant.findFirst({
-      where: { id: dto.variant_id, tenant_id: ctx.tenantId },
-    });
+    const variant = await this.catalogService.getVariant(ctx, dto.variant_id);
 
     if (!variant) throw new NotFoundException('Variant not found');
     if (variant.stock_available - variant.stock_reserved < dto.quantity) {
@@ -101,9 +99,7 @@ export class CartService {
       return this.removeItem(ctx, cartId, itemId);
     }
 
-    const variant = await this.prisma.productVariant.findFirst({
-      where: { id: item.variant_id, tenant_id: ctx.tenantId },
-    });
+    const variant = await this.catalogService.getVariant(ctx, item.variant_id);
 
     if (
       variant &&
@@ -126,9 +122,7 @@ export class CartService {
     }
 
     this.logger.log(`Removing item ${itemId} from cart ${cartId}`);
-    await this.prisma.cartItem.deleteMany({
-      where: { id: itemId, tenant_id: ctx.tenantId },
-    });
+    await this.cartItemRepo.delete(ctx, itemId);
 
     return { removed: true };
   }
@@ -138,10 +132,18 @@ export class CartService {
     if (!cart) throw new NotFoundException('Cart not found');
 
     this.logger.log(`Clearing all items from cart ${cartId}`);
-    await this.prisma.cartItem.deleteMany({
-      where: { cart_id: cartId, tenant_id: ctx.tenantId },
-    });
+    await this.cartItemRepo.clearByCartId(ctx, cartId);
 
     return { cleared: true };
+  }
+
+  async convert(ctx: TenantContext, cartId: string) {
+    const cart = await this.cartRepo.findUnique(ctx, cartId);
+    if (!cart) throw new NotFoundException('Cart not found');
+    
+    await this.cartItemRepo.clearByCartId(ctx, cartId);
+    await this.cartRepo.update(ctx, cartId, { status: 'converted' });
+    
+    return { converted: true };
   }
 }

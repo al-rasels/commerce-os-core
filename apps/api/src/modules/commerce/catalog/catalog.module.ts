@@ -4,6 +4,7 @@ import { CatalogController } from './catalog.controller';
 import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
 import { ProductVariantRepository } from './repositories/product-variant.repository';
+import { StockReservationRepository } from './repositories/stock-reservation.repository';
 import { PrismaModule } from '../../../prisma/prisma.module';
 
 @Module({
@@ -14,6 +15,7 @@ import { PrismaModule } from '../../../prisma/prisma.module';
     ProductRepository,
     CategoryRepository,
     ProductVariantRepository,
+    StockReservationRepository,
   ],
   exports: [CatalogService, ProductRepository, ProductVariantRepository],
 })

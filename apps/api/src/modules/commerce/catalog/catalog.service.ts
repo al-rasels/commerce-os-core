@@ -6,6 +6,7 @@ import {
 import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
 import { ProductVariantRepository } from './repositories/product-variant.repository';
+import { StockReservationRepository } from './repositories/stock-reservation.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -20,6 +21,7 @@ export class CatalogService {
     private readonly productRepo: ProductRepository,
     private readonly categoryRepo: CategoryRepository,
     private readonly variantRepo: ProductVariantRepository,
+    private readonly stockReservationRepo: StockReservationRepository,
   ) {}
 
   async createProduct(ctx: TenantContext, dto: CreateProductDto) {
@@ -135,5 +137,36 @@ export class CatalogService {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
     return this.variantRepo.softDelete(ctx, id);
+  }
+
+  async getLowStockVariants(ctx: TenantContext) {
+    return this.variantRepo.findMany(ctx, {
+      where: { stock_available: { lt: 5 }, deleted_at: null },
+      include: { product: { select: { title: true } } },
+      take: 5,
+    });
+  }
+
+  async getVariant(ctx: TenantContext, id: string) {
+    const variant = await this.variantRepo.findUnique(ctx, id);
+    if (!variant) throw new NotFoundException('Variant not found');
+    return variant;
+  }
+
+  async reserveStock(ctx: TenantContext, variantId: string, quantity: number, orderId: string) {
+    const success = await this.variantRepo.incrementReservedStock(ctx, variantId, quantity);
+
+    if (!success) {
+      return false;
+    }
+
+    await this.stockReservationRepo.create(ctx, {
+      variant_id: variantId,
+      order_id: orderId,
+      quantity: quantity,
+      expires_at: new Date(Date.now() + 30 * 60 * 1000), // 30 mins
+    });
+
+    return true;
   }
 }

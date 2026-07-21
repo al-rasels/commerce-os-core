@@ -5,7 +5,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
-import { AuthService } from '../auth/auth.service';
+import { RoleRepository } from './role.repository';
+// AuthService removed to prevent circular dependency
 import { TenantContext } from '../tenant/tenant-context';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserStatusDto } from './dto/update-user-status.dto';
@@ -14,7 +15,7 @@ import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 export class UsersService {
   constructor(
     private readonly usersRepository: UsersRepository,
-    private readonly authService: AuthService,
+    private readonly roleRepository: RoleRepository,
   ) {}
 
   async list(
@@ -108,5 +109,40 @@ export class UsersService {
     if (!user) throw new NotFoundException('User not found');
 
     return this.usersRepository.updateUser(ctx, id, { status: dto.status });
+  }
+
+  // Wrapper methods for AuthService to maintain module boundaries
+  async findUniqueWithRoleFull(ctx: TenantContext, id: string) {
+    return this.usersRepository.findUniqueWithRoleFull(ctx, id);
+  }
+
+  async findManyWithRole(ctx: TenantContext, args: any) {
+    return this.usersRepository.findManyWithRole(ctx, args);
+  }
+
+  async findMany(ctx: TenantContext, args: any) {
+    return this.usersRepository.findMany(ctx, args);
+  }
+
+  async findByEmail(ctx: TenantContext, email: string) {
+    const users = await this.usersRepository.findMany(ctx, { where: { email } });
+    return users.length > 0 ? users[0] : null;
+  }
+
+  async findRoleByName(ctx: TenantContext, name: string) {
+    const roles = await this.roleRepository.findMany(ctx, { where: { name } });
+    return roles.length > 0 ? roles[0] : null;
+  }
+
+  async create(ctx: TenantContext, data: any) {
+    return this.usersRepository.create(ctx, data);
+  }
+
+  async updateUser(ctx: TenantContext, id: string, data: any) {
+    return this.usersRepository.updateUser(ctx, id, data);
+  }
+
+  async findUnique(ctx: TenantContext, id: string) {
+    return this.usersRepository.findUnique(ctx, id);
   }
 }

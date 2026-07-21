@@ -69,4 +69,10 @@ export class CustomerService {
     await this.get(ctx, id);
     return this.customerRepo.softDelete(ctx, id);
   }
+
+  async countActive(ctx: TenantContext) {
+    return this.customerRepo.count(ctx, {
+      where: { deleted_at: null },
+    });
+  }
 }

@@ -9,8 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 const { authenticator } = require('otplib');
 import * as QRCode from 'qrcode';
-import { UsersRepository } from '../users/users.repository';
-import { RoleRepository } from '../users/role.repository';
+import { UsersService } from '../users/users.service';
 import { RedisService } from '../redis/redis.service';
 import { TenantContext } from '../tenant/tenant-context';
 import { LoginDto } from './dto/login.dto';
@@ -25,27 +24,20 @@ import { InviteDto } from './dto/invite.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly usersRepo: UsersRepository,
-    private readonly roleRepo: RoleRepository,
+    private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,
   ) {}
 
   async register(ctx: TenantContext, dto: RegisterDto) {
-    const existing = (
-      await this.usersRepo.findMany(ctx, { where: { email: dto.email } })
-    )[0];
+    const existing = await this.usersService.findByEmail(ctx, dto.email);
     if (existing) throw new ConflictException('Email already registered');
 
-    const role = (
-      await this.roleRepo.findMany(ctx, {
-        where: { name: dto.roleName ?? 'member' },
-      })
-    )[0];
+    const role = await this.usersService.findRoleByName(ctx, dto.roleName ?? 'member');
     if (!role) throw new NotFoundException('Default role not found');
 
     const hash = await argon2.hash(dto.password);
-    const user = await this.usersRepo.create(ctx, {
+    const user = await this.usersService.create(ctx, {
       email: dto.email,
       password_hash: hash,
       role_id: role.id,
@@ -64,7 +56,7 @@ export class AuthService {
 
   async login(ctx: TenantContext, dto: LoginDto) {
     const user = (
-      await this.usersRepo.findManyWithRole(ctx, {
+      await this.usersService.findManyWithRole(ctx, {
         where: { email: dto.email },
       })
     )[0];
@@ -109,7 +101,7 @@ export class AuthService {
     if (!payload.mfa_pending)
       throw new UnauthorizedException('Invalid MFA token');
 
-    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, payload.sub);
+    const user = await this.usersService.findUniqueWithRoleFull(ctx, payload.sub);
     if (!user || !user.mfa_secret)
       throw new UnauthorizedException('MFA not configured');
 
@@ -133,7 +125,7 @@ export class AuthService {
     const otpauth = authenticator.keyuri(userId, appName, secret);
     const qrCode = await QRCode.toDataURL(otpauth);
 
-    await this.usersRepo.updateUser(ctx, userId, { mfa_secret: secret });
+    await this.usersService.updateUser(ctx, userId, { mfa_secret: secret });
 
     return { secret, qr_code: qrCode };
   }
@@ -143,25 +135,25 @@ export class AuthService {
     userId: string,
     dto: MfaVerifyDto,
   ) {
-    const user = await this.usersRepo.findUnique(ctx, userId);
+    const user = await this.usersService.findUnique(ctx, userId);
     if (!user || !user.mfa_secret)
       throw new NotFoundException('MFA not set up');
 
     const verified = authenticator.check(dto.token, user.mfa_secret);
     if (!verified) throw new UnauthorizedException('Invalid MFA code');
 
-    await this.usersRepo.updateUser(ctx, userId, { mfa_enabled: true });
+    await this.usersService.updateUser(ctx, userId, { mfa_enabled: true });
     return { message: 'MFA enabled successfully' };
   }
 
   async disableMfa(ctx: TenantContext, userId: string, dto: MfaDisableDto) {
-    const user = await this.usersRepo.findUnique(ctx, userId);
+    const user = await this.usersService.findUnique(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
     const valid = await argon2.verify(user.password_hash, dto.password);
     if (!valid) throw new UnauthorizedException('Invalid password');
 
-    await this.usersRepo.updateUser(ctx, userId, {
+    await this.usersService.updateUser(ctx, userId, {
       mfa_secret: null,
       mfa_enabled: false,
     });
@@ -169,9 +161,7 @@ export class AuthService {
   }
 
   async forgotPassword(ctx: TenantContext, dto: ForgotPasswordDto) {
-    const user = (
-      await this.usersRepo.findMany(ctx, { where: { email: dto.email } })
-    )[0];
+    const user = await this.usersService.findByEmail(ctx, dto.email);
     if (!user)
       return { message: 'If the email exists, a reset link has been sent' };
 
@@ -205,7 +195,7 @@ export class AuthService {
     await this.redis.del(key);
 
     const hash = await argon2.hash(dto.password);
-    await this.usersRepo.updateUser(ctx, payload.sub, { password_hash: hash });
+    await this.usersService.updateUser(ctx, payload.sub, { password_hash: hash });
 
     return { message: 'Password reset successfully' };
   }
@@ -215,7 +205,7 @@ export class AuthService {
     userId: string,
     dto: ChangePasswordDto,
   ) {
-    const user = await this.usersRepo.findUnique(ctx, userId);
+    const user = await this.usersService.findUnique(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
     const valid = await argon2.verify(user.password_hash, dto.currentPassword);
@@ -223,29 +213,23 @@ export class AuthService {
       throw new UnauthorizedException('Current password is incorrect');
 
     const hash = await argon2.hash(dto.newPassword);
-    await this.usersRepo.updateUser(ctx, userId, { password_hash: hash });
+    await this.usersService.updateUser(ctx, userId, { password_hash: hash });
 
     return { message: 'Password changed successfully' };
   }
 
   async invite(ctx: TenantContext, dto: InviteDto) {
-    const existing = (
-      await this.usersRepo.findMany(ctx, { where: { email: dto.email } })
-    )[0];
+    const existing = await this.usersService.findByEmail(ctx, dto.email);
     if (existing)
       throw new ConflictException('User already exists with this email');
 
-    const role = (
-      await this.roleRepo.findMany(ctx, {
-        where: { name: dto.roleName ?? 'member' },
-      })
-    )[0];
+    const role = await this.usersService.findRoleByName(ctx, dto.roleName ?? 'member');
     if (!role) throw new NotFoundException('Role not found');
 
     const tempPassword = crypto.randomUUID().slice(0, 12);
     const hash = await argon2.hash(tempPassword);
 
-    await this.usersRepo.create(ctx, {
+    await this.usersService.create(ctx, {
       email: dto.email,
       password_hash: hash,
       role_id: role.id,
@@ -272,7 +256,7 @@ export class AuthService {
       throw new UnauthorizedException('Refresh token revoked');
     }
 
-    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, payload.sub);
+    const user = await this.usersService.findUniqueWithRoleFull(ctx, payload.sub);
     if (!user) throw new UnauthorizedException('User not found');
 
     const tokens = await this.generateTokens(
@@ -284,7 +268,7 @@ export class AuthService {
   }
 
   async me(ctx: TenantContext, userId: string) {
-    const user = await this.usersRepo.findUniqueWithRoleFull(ctx, userId);
+    const user = await this.usersService.findUniqueWithRoleFull(ctx, userId);
     if (!user) throw new NotFoundException('User not found');
 
     const { password_hash, mfa_secret, ...rest } = user as any;

@@ -4,7 +4,9 @@ import {
   BadRequestException,
   Logger,
 } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { CartService } from '../cart/cart.service';
+import { CatalogService } from '../catalog/catalog.service';
+import { OrderService } from '../order/order.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
 
@@ -13,7 +15,9 @@ export class CheckoutService {
   private readonly logger = new Logger(CheckoutService.name);
 
   constructor(
-    private readonly prisma: PrismaService,
+    private readonly cartService: CartService,
+    private readonly catalogService: CatalogService,
+    private readonly orderService: OrderService,
     private readonly paymentsService: PaymentsService,
   ) {}
 
@@ -22,22 +26,19 @@ export class CheckoutService {
       `Starting checkout for cart ${cartId} (Tenant: ${ctx.tenantId})`,
     );
 
-    const cart = await this.prisma.cart.findFirst({
-      where: { id: cartId, tenant_id: ctx.tenantId },
-      include: { items: { include: { variant: true } } },
-    });
+    const cart = await this.cartService.getWithItems(ctx, cartId);
 
     if (!cart) {
       throw new NotFoundException('Cart not found');
     }
-    if (cart.status !== 'open') {
+    if ((cart as any).status !== 'open') {
       throw new BadRequestException('Cart is not open');
     }
-    if (cart.items.length === 0) {
+    if ((cart as any).items.length === 0) {
       throw new BadRequestException('Cart is empty');
     }
 
-    for (const item of cart.items) {
+    for (const item of (cart as any).items) {
       const available =
         item.variant.stock_available - item.variant.stock_reserved;
       if (available < item.quantity) {
@@ -47,69 +48,49 @@ export class CheckoutService {
       }
     }
 
-    const subtotalCents = cart.items.reduce(
+    const subtotalCents = (cart as any).items.reduce(
       (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
       0,
     );
     const taxCents = 0;
     const shippingCents = 0;
     const totalCents = subtotalCents + taxCents + shippingCents;
-    const currency = cart.items[0]?.variant.currency || 'USD';
+    const currency = (cart as any).items[0]?.variant.currency || 'USD';
 
     this.logger.log(`Processing transaction for cart ${cartId}`);
 
-    const order = await this.prisma.$transaction(async (tx) => {
-      const created = await tx.order.create({
-        data: {
+    const order = await this.orderService.createOrder(ctx, {
+      customer_id: (cart as any).customer_id!,
+      status: 'pending',
+      subtotal_cents: subtotalCents,
+      tax_cents: taxCents,
+      shipping_cents: shippingCents,
+      total_cents: totalCents,
+      currency,
+      channel: 'online',
+      items: {
+        create: (cart as any).items.map((i: any) => ({
           tenant_id: ctx.tenantId,
-          customer_id: cart.customer_id!,
-          status: 'pending',
-          subtotal_cents: subtotalCents,
-          tax_cents: taxCents,
-          shipping_cents: shippingCents,
-          total_cents: totalCents,
-          currency,
-          channel: 'online',
-          items: {
-            create: cart.items.map((i: any) => ({
-              tenant_id: ctx.tenantId,
-              variant_id: i.variant_id,
-              quantity: i.quantity,
-              unit_price_cents: i.variant.price_cents,
-            })),
-          },
-        },
-        include: { items: true },
-      });
-
-      for (const item of cart.items) {
-        await tx.productVariant.updateMany({
-          where: { id: item.variant_id, tenant_id: ctx.tenantId },
-          data: { stock_reserved: { increment: item.quantity } },
-        });
-
-        await tx.stockReservation.create({
-          data: {
-            tenant_id: ctx.tenantId,
-            variant_id: item.variant_id,
-            order_id: created.id,
-            quantity: item.quantity,
-            expires_at: new Date(Date.now() + 30 * 60 * 1000), // 30 mins
-          },
-        });
-      }
-
-      await tx.cartItem.deleteMany({
-        where: { cart_id: cartId, tenant_id: ctx.tenantId },
-      });
-
-      await tx.cart.updateMany({
-        where: { id: cartId, tenant_id: ctx.tenantId },
-        data: { status: 'converted' },
-      });
-
-      return created;
+          variant_id: i.variant_id,
+          quantity: i.quantity,
+          unit_price_cents: i.variant.price_cents,
+        })),
+      },
     });
+
+    for (const item of (cart as any).items) {
+      const reserved = await this.catalogService.reserveStock(
+        ctx,
+        item.variant_id,
+        item.quantity,
+        order.id
+      );
+      if (!reserved) {
+        throw new BadRequestException(`Failed to reserve stock for variant ${item.variant_id}`);
+      }
+    }
+
+    await this.cartService.convert(ctx, cartId);
 
     this.logger.log(`Order ${order.id} created, generating payment intent`);
     const { client_secret } = await this.paymentsService.createPaymentIntent(

@@ -186,6 +186,48 @@ diff_json     JSONB
 created_at    TIMESTAMPTZ
 ```
 
+## shipping_rules
+```
+id            UUID PK
+tenant_id     UUID FK -> tenants.id
+name          TEXT NOT NULL
+type          TEXT NOT NULL   -- 'flat_rate' | 'weight_tier'
+config        JSONB NOT NULL
+is_active     BOOLEAN NOT NULL DEFAULT true
+created_at    TIMESTAMPTZ
+updated_at    TIMESTAMPTZ
+```
+
+## tax_rules
+```
+id            UUID PK
+tenant_id     UUID FK -> tenants.id
+name          TEXT NOT NULL
+type          TEXT NOT NULL   -- 'flat' | 'region'
+rate          FLOAT NOT NULL  -- Percentage (e.g. 10.5 for 10.5%)
+region        TEXT NULLABLE   -- e.g. 'US-CA', 'UK'
+is_active     BOOLEAN NOT NULL DEFAULT true
+created_at    TIMESTAMPTZ
+updated_at    TIMESTAMPTZ
+```
+
+## promotions
+```
+id            UUID PK
+tenant_id     UUID FK -> tenants.id
+code          TEXT UNIQUE NOT NULL
+type          TEXT NOT NULL   -- 'percentage' | 'fixed_amount'
+value         FLOAT NOT NULL
+min_order     FLOAT NULLABLE
+max_uses      INT NULLABLE
+uses          INT NOT NULL DEFAULT 0
+expires_at    TIMESTAMPTZ NULLABLE
+is_active     BOOLEAN NOT NULL DEFAULT true
+created_at    TIMESTAMPTZ
+updated_at    TIMESTAMPTZ
+UNIQUE(tenant_id, code)
+```
+
 ## Global/Reference Tables (no tenant_id — `@Global()`)
 
 ```

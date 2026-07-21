@@ -5,6 +5,8 @@ import {
   Logger,
 } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
+import { OrderService } from '../order/order.service';
+import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
 export class PaymentsService {
@@ -13,23 +15,25 @@ export class PaymentsService {
   constructor(
     @Inject('STRIPE_CLIENT') private readonly stripe: any,
     private readonly prisma: PrismaService,
+    private readonly orderService: OrderService,
   ) {}
 
   async createPaymentIntent(orderId: string, tenantId: string) {
-    const order = await this.prisma.order.findFirst({
-      where: { id: orderId, tenant_id: tenantId },
-    });
-
-    if (!order) {
+    const dummyCtx = { tenantId } as TenantContext;
+    let order;
+    try {
+      order = await this.orderService.get(dummyCtx, orderId);
+    } catch {
       throw new BadRequestException('Order not found');
     }
+
     if (order.status !== 'pending') {
       throw new BadRequestException('Order is not pending');
     }
 
     const paymentIntent = await this.stripe.paymentIntents.create(
       {
-        amount: order.total_cents,
+        amount: order.total,
         currency: (order.currency || 'USD').toLowerCase(),
         client_reference_id: orderId,
         metadata: { order_id: orderId, tenant_id: tenantId },
@@ -76,25 +80,21 @@ export class PaymentsService {
       return;
     }
 
-    const order = await this.prisma.order.findFirst({
-      where: { id: orderId, tenant_id: tenantId },
-    });
-
-    if (!order) {
-      this.logger.warn(
-        `Order ${orderId} not found for PaymentIntent ${intent.id}`,
-      );
+    const dummyCtx = { tenantId } as TenantContext;
+    let order;
+    try {
+      order = await this.orderService.get(dummyCtx, orderId);
+    } catch {
+      this.logger.warn(`Order ${orderId} not found for PaymentIntent ${intent.id}`);
       return;
     }
+    
     if (order.status === 'paid') {
       this.logger.log(`Order ${orderId} already paid, skipping`);
       return;
     }
 
-    await this.prisma.order.updateMany({
-      where: { id: orderId, tenant_id: tenantId },
-      data: { status: 'paid' },
-    });
+    await this.orderService.updateStatus(dummyCtx, orderId, 'paid');
 
     this.logger.log(`Order ${orderId} marked as paid`);
   }
@@ -105,10 +105,8 @@ export class PaymentsService {
 
     if (!orderId || !tenantId) return;
 
-    await this.prisma.order.updateMany({
-      where: { id: orderId, tenant_id: tenantId },
-      data: { status: 'cancelled' },
-    });
+    const dummyCtx = { tenantId } as TenantContext;
+    await this.orderService.updateStatus(dummyCtx, orderId, 'cancelled');
 
     this.logger.warn(`Order ${orderId} payment failed, marked cancelled`);
   }

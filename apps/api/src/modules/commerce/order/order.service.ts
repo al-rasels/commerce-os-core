@@ -83,6 +83,45 @@ export class OrderService {
     return this.toDto(updated);
   }
 
+  async getDashboardStats(ctx: TenantContext) {
+    const [orderAgg, recentOrders, statusBreakdown] = await Promise.all([
+      this.orderRepo.aggregate(ctx, {
+        where: {
+          status: { in: ['paid', 'fulfilled'] },
+          deleted_at: null,
+        },
+        _sum: { total_cents: true },
+        _count: true,
+      }),
+      this.orderRepo.findMany(ctx, {
+        where: { deleted_at: null },
+        orderBy: { created_at: 'desc' },
+        take: 10,
+        include: {
+          items: true,
+          customer: {
+            select: {
+              id: true,
+              email: true,
+              first_name: true,
+              last_name: true,
+            },
+          },
+        },
+      }),
+      this.orderRepo.groupBy(ctx, {
+        by: ['status'],
+        where: { deleted_at: null },
+        _count: true,
+      }),
+    ]);
+    return { orderAgg, recentOrders, statusBreakdown };
+  }
+
+  async createOrder(ctx: TenantContext, data: any) {
+    return this.orderRepo.create(ctx, data);
+  }
+
   private toDto(order: any) {
     return {
       id: order.id,
