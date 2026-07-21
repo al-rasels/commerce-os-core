@@ -18,6 +18,9 @@ thorigen/
 # Nest CLI cache
 .nestcli.json
 
+# TypeScript incremental build cache
+*.tsbuildinfo
+
 # Turborepo cache
 .turbo/
 

@@ -10,12 +10,14 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    // Force a single React instance across all workspace packages
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime'],
   },
   server: {
-    port: 5174,
+    port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'http://localhost:3001',
         changeOrigin: true,
       },
     },

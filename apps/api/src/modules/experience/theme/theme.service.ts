@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ThemeTenantOverrideRepository } from './repositories/theme-override.repository';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { resolveOverride } from '../../../../../../packages/theme-engine/index';
+import { resolveOverride } from '@commerceos/theme-engine';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
