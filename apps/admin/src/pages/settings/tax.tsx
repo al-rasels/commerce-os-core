@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
+import { taxApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,7 +11,7 @@ export function TaxSettingsPage() {
 
   const loadRules = () => {
     setLoading(true);
-    api.tax.list()
+    taxApi.list()
       .then(setRules)
       .finally(() => setLoading(false));
   };

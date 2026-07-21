@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { DataTable as BaseDataTable, type Column as BaseColumn } from '@commerceos/components/data-table';
+import { DataTable as BaseDataTable, type Column as BaseColumn } from '@commerceos/components';
 
 interface TanStackColumn<T> {
   accessorKey: string;

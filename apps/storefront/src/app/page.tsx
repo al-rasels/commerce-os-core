@@ -7,7 +7,7 @@ export default async function HomePage() {
   const [page, productsResponse, categoriesResponse] = await Promise.all([
     serverApi.experience.getPage('homepage').catch(() => null),
     serverApi.products.list().catch(() => ({ data: [] })),
-    serverApi.categories.list().catch(() => ({ data: [] })),
+    serverApi.categories.list().catch(() => []),
   ]);
 
   if (!page || !page.data) {
@@ -19,7 +19,7 @@ export default async function HomePage() {
   }
 
   const products = productsResponse?.data || [];
-  const categories = categoriesResponse?.data || [];
+  const categories = Array.isArray(categoriesResponse) ? categoriesResponse : [];
 
   return <SectionRenderer nodes={page.data.sections || page.data.sections_json} dataContext={{ products, categories }} />;
 }

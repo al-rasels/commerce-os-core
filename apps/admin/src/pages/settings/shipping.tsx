@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
+import { shippingApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,7 +11,7 @@ export function ShippingSettingsPage() {
 
   const loadRules = () => {
     setLoading(true);
-    api.shipping.list()
+    shippingApi.list()
       .then(setRules)
       .finally(() => setLoading(false));
   };

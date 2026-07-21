@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { api } from '@/lib/api';
+import { superAdminApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { Badge } from '@/components/ui/badge';
@@ -10,8 +10,8 @@ export function TenantsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.superAdmin.listTenants()
-      .then(setTenants)
+    superAdminApi.listTenants()
+      .then((res) => setTenants(res.data))
       .finally(() => setLoading(false));
   }, []);
 

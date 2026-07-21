@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { api } from '@/lib/api';
+import { promotionsApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,7 +11,7 @@ export function PromotionsPage() {
 
   const loadPromotions = () => {
     setLoading(true);
-    api.promotions.list()
+    promotionsApi.list()
       .then(setPromotions)
       .finally(() => setLoading(false));
   };

@@ -64,7 +64,7 @@ export function ProvisionTenantDialog({ onProvisioned }: Props) {
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="plan">Plan</Label>
-            <Select value={plan} onValueChange={setPlan}>
+            <Select value={plan} onValueChange={(val) => val && setPlan(val)}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 {PLANS.map((p) => (

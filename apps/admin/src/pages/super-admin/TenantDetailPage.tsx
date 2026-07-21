@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { api } from '@/lib/api';
+import { superAdminApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,7 +13,7 @@ export function TenantDetailPage() {
   const load = () => {
     if (!id) return;
     setLoading(true);
-    api.superAdmin.getTenant(id)
+    superAdminApi.getTenant(id)
       .then(setTenant)
       .finally(() => setLoading(false));
   };
@@ -24,13 +24,13 @@ export function TenantDetailPage() {
 
   const handleSuspend = async () => {
     if (!id) return;
-    await api.superAdmin.suspendTenant(id);
+    await superAdminApi.suspendTenant(id);
     load();
   };
 
   const handleToggleFlag = async (key: string, is_enabled: boolean) => {
     if (!id) return;
-    await api.superAdmin.toggleFlag(id, key, !is_enabled);
+    await superAdminApi.toggleFlag(id, key, !is_enabled);
     load();
   };
 
