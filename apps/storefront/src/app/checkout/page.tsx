@@ -10,6 +10,43 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import { Lock, ArrowLeft, ShieldCheck, CheckCircle2, ShoppingCart } from 'lucide-react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_mock');
+
+function PaymentForm({ onSuccess }: { onSuccess: () => void }) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [error, setError] = useState('');
+  const [processing, setProcessing] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!stripe || !elements) return;
+    setProcessing(true);
+    const { error: err } = await stripe.confirmPayment({
+      elements,
+      redirect: 'if_required',
+    });
+    if (err) {
+      setError(err.message || 'Payment failed');
+      setProcessing(false);
+    } else {
+      onSuccess();
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <PaymentElement />
+      {error && <div className="text-destructive text-sm font-medium">{error}</div>}
+      <Button type="submit" disabled={!stripe || processing} className="w-full h-12 bg-primary text-primary-foreground rounded-xl">
+        {processing ? 'Processing...' : 'Pay now'}
+      </Button>
+    </form>
+  );
+}
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -199,12 +236,13 @@ export default function CheckoutPage() {
 
               {step === 2 && clientSecret && (
                 <div className="pl-9">
-                  <div className="bg-muted/30 border border-border/50 rounded-xl p-6 text-center">
-                    <Lock className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                    <p className="text-sm font-medium mb-4">Secure Payment Gateway Simulated</p>
-                    <Button onClick={handlePaymentSuccess} className="w-full h-12 bg-green-600 hover:bg-green-700 text-white rounded-xl">
-                      Simulate Successful Payment
-                    </Button>
+                  <div className="bg-muted/30 border border-border/50 rounded-xl p-6">
+                    <div className="flex justify-center mb-4">
+                      <Lock className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <Elements stripe={stripePromise} options={{ clientSecret }}>
+                      <PaymentForm onSuccess={handlePaymentSuccess} />
+                    </Elements>
                   </div>
                 </div>
               )}

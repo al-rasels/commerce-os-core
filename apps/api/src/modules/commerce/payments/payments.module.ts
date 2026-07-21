@@ -10,7 +10,7 @@ import { PaymentsWebhookController } from './payments.webhook.controller';
     {
       provide: 'STRIPE_CLIENT',
       useFactory: () => {
-        const Stripe = require('stripe');
+        const Stripe = require('stripe').default || require('stripe');
         return new Stripe(process.env.STRIPE_SECRET_KEY!, {
           apiVersion: '2025-02-24.acacia',
         });

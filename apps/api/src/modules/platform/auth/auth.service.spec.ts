@@ -7,6 +7,7 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { TenantContext } from '../tenant/tenant-context';
 import * as argon2 from 'argon2';
+import { UsersService } from '../users/users.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -45,10 +46,21 @@ describe('AuthService', () => {
     storagePrefix: 'tenant-t1/',
   });
 
+  const mockUsersService = {
+    findByEmail: jest.fn(),
+    findRoleByName: jest.fn(),
+    create: jest.fn(),
+    findManyWithRole: jest.fn(),
+    findUniqueWithRoleFull: jest.fn(),
+    updateUser: jest.fn(),
+    findUnique: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
+        { provide: UsersService, useValue: mockUsersService },
         { provide: PrismaService, useValue: mockPrisma },
         { provide: JwtService, useValue: mockJwt },
         { provide: RedisService, useValue: mockRedis },
@@ -67,7 +79,7 @@ describe('AuthService', () => {
   describe('login', () => {
     it('returns tokens when credentials are valid', async () => {
       const hash = await argon2.hash('password123');
-      mockPrisma.user.findUnique.mockResolvedValueOnce({
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
         id: 'u1',
         email: 'test@test.com',
         password_hash: hash,
@@ -89,7 +101,8 @@ describe('AuthService', () => {
     });
 
     it('throws UnauthorizedException when user not found', async () => {
-      mockPrisma.user.findUnique.mockResolvedValueOnce(null);
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([]);
+      mockUsersService.findByEmail.mockResolvedValueOnce(null);
 
       await expect(
         service.login(ctx, 'nonexistent@test.com', 'pass'),
@@ -98,7 +111,7 @@ describe('AuthService', () => {
 
     it('throws UnauthorizedException when password is wrong', async () => {
       const hash = await argon2.hash('correct');
-      mockPrisma.user.findUnique.mockResolvedValueOnce({
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
         id: 'u1',
         email: 'test@test.com',
         password_hash: hash,
@@ -114,12 +127,13 @@ describe('AuthService', () => {
 
   describe('register', () => {
     it('creates user and returns tokens', async () => {
-      mockPrisma.user.findUnique.mockResolvedValueOnce(null);
-      mockPrisma.role.findFirst.mockResolvedValueOnce({
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([]);
+      mockUsersService.findByEmail.mockResolvedValueOnce(null);
+      mockUsersService.findRoleByName.mockResolvedValueOnce({
         id: 'r1',
         name: 'Customer',
       });
-      mockPrisma.user.create.mockResolvedValueOnce({
+      mockUsersService.create.mockResolvedValueOnce({
         id: 'u1',
         email: 'new@test.com',
         tenant_id: 't1',
@@ -139,7 +153,7 @@ describe('AuthService', () => {
     });
 
     it('throws ConflictException when email exists', async () => {
-      mockPrisma.user.findUnique.mockResolvedValueOnce({ id: 'u1' });
+      mockUsersService.findByEmail.mockResolvedValueOnce({ id: 'u1' });
 
       await expect(
         service.register(ctx, {
@@ -154,7 +168,7 @@ describe('AuthService', () => {
     it('returns tokens when refresh token is valid', async () => {
       const refreshToken = 'valid-refresh-token';
       const hashed = await argon2.hash(refreshToken);
-      mockPrisma.user.findUnique.mockResolvedValueOnce({
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
         id: 'u1',
         email: 'test@test.com',
         tenant_id: 't1',
@@ -172,7 +186,7 @@ describe('AuthService', () => {
     });
 
     it('throws UnauthorizedException when user not in tenant', async () => {
-      mockPrisma.user.findUnique.mockResolvedValueOnce({
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
         id: 'u1',
         email: 'test@test.com',
         tenant_id: 't2',
@@ -185,7 +199,7 @@ describe('AuthService', () => {
     });
 
     it('throws UnauthorizedException when stored hash does not match', async () => {
-      mockPrisma.user.findUnique.mockResolvedValueOnce({
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
         id: 'u1',
         email: 'test@test.com',
         tenant_id: 't1',

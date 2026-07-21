@@ -18,7 +18,7 @@ import { GetTenantContext } from '../../../common/decorators/tenant-context.deco
 import { TenantContext } from './tenant-context';
 import { PrismaService } from '../../../prisma/prisma.service';
 
-@Controller('v1/admin/tenants')
+@Controller('v1/super-admin/tenants')
 @UseGuards(TenantAuthGuard, PermissionGuard)
 @RequirePermissions('super_admin')
 export class TenantAdminController {

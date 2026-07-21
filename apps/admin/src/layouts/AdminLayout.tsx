@@ -2,7 +2,6 @@ import { type ReactNode } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import {
   LayoutDashboard,
   Package,
@@ -15,8 +14,22 @@ import {
   Shield,
   LogOut,
   KeyRound,
-  ChevronRight,
 } from "lucide-react"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  SidebarInset
+} from "@/components/ui/sidebar"
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -30,46 +43,64 @@ const navItems = [
   { href: "/super-admin/tenants", label: "Super Admin", icon: Shield },
 ]
 
-function Sidebar() {
+function AppSidebar() {
   const location = useLocation()
 
   return (
-    <aside className="flex h-screen w-56 flex-col border-r bg-sidebar p-3">
-      <Link to="/" className="mb-6 flex items-center gap-2 px-2 pt-1">
-        <div className="flex size-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-          C
-        </div>
-        <span className="text-sm font-semibold">CommerceOS</span>
-      </Link>
-      <nav className="flex flex-1 flex-col gap-1">
-        {navItems.map((item) => {
-          const Icon = item.icon
-          const isActive = location.pathname.startsWith(item.href)
-          return (
-            <Link
-              key={item.href}
-              to={item.href}
-              data-active={isActive || undefined}
-              className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground data-active:bg-accent data-active:text-accent-foreground"
-            >
-              <Icon className="size-4" />
-              {item.label}
-              {isActive && <ChevronRight className="ml-auto size-3.5" />}
-            </Link>
-          )
-        })}
-      </nav>
-      <Separator className="my-3" />
-      <div className="space-y-1">
-        <Link
-          to="/change-password"
-          className="flex items-center gap-2 rounded-lg px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-        >
-          <KeyRound className="size-4" />
-          Change Password
-        </Link>
-      </div>
-    </aside>
+    <Sidebar variant="sidebar" collapsible="icon">
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" className="bg-transparent!" render={<Link to="/" />}>
+              <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+                C
+              </div>
+              <div className="flex flex-col items-start">
+                <span className="text-lg font-semibold text-nowrap">CommerceOS</span>
+                <span className="text-xs font-light text-nowrap">Admin Shell</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-sidebar-foreground/50 tracking-wider uppercase">Menu</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const isActive = location.pathname.startsWith(item.href) && (item.href !== "/" || location.pathname === "/")
+                
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton 
+                      tooltip={item.label} 
+                      isActive={isActive} 
+                      className="data-active:bg-primary/10!"
+                      render={<Link to={item.href} />}
+                    >
+                      <Icon className="size-4" />
+                      <span>{item.label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton tooltip="Change Password" render={<Link to="/change-password" />}>
+              <KeyRound className="size-4" />
+              <span>Change Password</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
   )
 }
 
@@ -78,10 +109,11 @@ function Topbar() {
   const navigate = useNavigate()
 
   return (
-    <header className="flex h-11 items-center justify-between border-b px-4">
-      <div />
+    <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4 bg-background">
+      <SidebarTrigger className="-ml-1" />
+      <div className="flex-1" />
       <Button variant="ghost" size="sm" onClick={() => { logout(); navigate("/login") }}>
-        <LogOut className="size-3.5" />
+        <LogOut className="mr-2 size-4" />
         Logout
       </Button>
     </header>
@@ -90,14 +122,14 @@ function Topbar() {
 
 export default function AdminLayout({ children }: { children?: ReactNode }) {
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <div className="flex flex-1 flex-col">
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
         <Topbar />
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 overflow-auto">
           {children ?? <Outlet />}
         </main>
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }
