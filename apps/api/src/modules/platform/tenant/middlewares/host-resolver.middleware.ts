@@ -1,19 +1,48 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, NotFoundException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { TenantService } from '../tenant.service';
+import { TenantContext } from '../tenant-context';
 
 @Injectable()
 export class HostResolverMiddleware implements NestMiddleware {
-  constructor(private tenantService: TenantService) {}
+  constructor(private tenantService: TenantService) { }
 
   async use(req: Request, res: Response, next: NextFunction) {
     const host = req.hostname;
 
-    const ctx = await this.tenantService.resolveTenant(host);
+    try {
+      const ctx = await this.tenantService.resolveTenant(host);
 
-    req['resolvedTenantId'] = ctx.tenantId;
-    req['resolvedDomain'] = host;
-    req['tenantContext'] = ctx;
+      req['resolvedTenantId'] = ctx.tenantId;
+      req['resolvedDomain'] = host;
+      req['tenantContext'] = ctx;
+    } catch (err) {
+      // In development mode, if we can't resolve a tenant for localhost,
+      // fall back to the first available tenant so the app is usable
+      if (host === 'localhost' || host === '127.0.0.1') {
+        const prisma = (await import('../../../../prisma/prisma.service.js')).PrismaService;
+        const ps = new prisma();
+        const firstTenant = await (ps as any).tenant.findFirst({ where: { status: 'active' } });
+        if (firstTenant) {
+          const ctx = new TenantContext({
+            tenantId: firstTenant.id,
+            plan: firstTenant.plan_id,
+            effectiveFlags: new Set(),
+            theme: { themeBaseId: '', overrides: {} },
+            locale: 'en-US',
+            currency: 'USD',
+            permissions: [],
+            domain: host,
+            storagePrefix: `tenant-${firstTenant.id}/`,
+          });
+          req['resolvedTenantId'] = ctx.tenantId;
+          req['resolvedDomain'] = host;
+          req['tenantContext'] = ctx;
+          return next();
+        }
+      }
+      throw err;
+    }
     next();
   }
 }

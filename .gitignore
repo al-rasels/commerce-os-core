@@ -21,6 +21,16 @@ thorigen/
 # TypeScript incremental build cache
 *.tsbuildinfo
 
+# Prisma seed compiled output
+apps/api/prisma/seed.js
+apps/api/prisma/seed.js.map
+apps/api/prisma/seed.d.ts
+
+# Package build outputs
+packages/*/index.js
+packages/*/index.d.ts
+packages/*/index.js.map
+
 # Turborepo cache
 .turbo/
 
