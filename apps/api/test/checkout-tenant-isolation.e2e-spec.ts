@@ -24,13 +24,17 @@ describe('Checkout Tenant Isolation (e2e)', () => {
       .overrideProvider('STRIPE_CLIENT')
       .useValue({
         paymentIntents: {
-          create: jest.fn().mockResolvedValue({ client_secret: 'pi_secret_test_mock' }),
+          create: jest
+            .fn()
+            .mockResolvedValue({ client_secret: 'pi_secret_test_mock' }),
         },
       })
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+    app.useGlobalPipes(
+      new ValidationPipe({ whitelist: true, transform: true }),
+    );
     prisma = moduleFixture.get<PrismaService>(PrismaService);
     jwtService = moduleFixture.get<JwtService>(JwtService);
     await app.init();
@@ -58,7 +62,12 @@ describe('Checkout Tenant Isolation (e2e)', () => {
       data: { tenant_id: tenantAId, email: 'a@test.com' },
     });
     const productA = await prisma.product.create({
-      data: { tenant_id: tenantAId, name: 'Product A', slug: 'product-a', status: 'active' },
+      data: {
+        tenant_id: tenantAId,
+        name: 'Product A',
+        slug: 'product-a',
+        status: 'active',
+      },
     });
     const variantA = await prisma.productVariant.create({
       data: {
@@ -74,7 +83,12 @@ describe('Checkout Tenant Isolation (e2e)', () => {
       data: { tenant_id: tenantAId, customer_id: customerA.id, status: 'open' },
     });
     await prisma.cartItem.create({
-      data: { tenant_id: tenantAId, cart_id: cartA.id, variant_id: variantA.id, quantity: 2 },
+      data: {
+        tenant_id: tenantAId,
+        cart_id: cartA.id,
+        variant_id: variantA.id,
+        quantity: 2,
+      },
     });
     cartAId = cartA.id;
 
@@ -83,7 +97,12 @@ describe('Checkout Tenant Isolation (e2e)', () => {
       data: { tenant_id: tenantBId, email: 'b@test.com' },
     });
     const productB = await prisma.product.create({
-      data: { tenant_id: tenantBId, name: 'Product B', slug: 'product-b', status: 'active' },
+      data: {
+        tenant_id: tenantBId,
+        name: 'Product B',
+        slug: 'product-b',
+        status: 'active',
+      },
     });
     const variantB = await prisma.productVariant.create({
       data: {
@@ -99,7 +118,12 @@ describe('Checkout Tenant Isolation (e2e)', () => {
       data: { tenant_id: tenantBId, customer_id: customerB.id, status: 'open' },
     });
     await prisma.cartItem.create({
-      data: { tenant_id: tenantBId, cart_id: cartB.id, variant_id: variantB.id, quantity: 1 },
+      data: {
+        tenant_id: tenantBId,
+        cart_id: cartB.id,
+        variant_id: variantB.id,
+        quantity: 1,
+      },
     });
     cartBId = cartB.id;
 
@@ -113,9 +137,15 @@ describe('Checkout Tenant Isolation (e2e)', () => {
   afterAll(async () => {
     if (!prisma) return;
     // Cleanup Tenant B
-    await prisma.cartItem.deleteMany({ where: { cart: { tenant_id: tenantBId } } });
-    await prisma.stockReservation.deleteMany({ where: { tenant_id: tenantBId } });
-    await prisma.orderItem.deleteMany({ where: { order: { tenant_id: tenantBId } } });
+    await prisma.cartItem.deleteMany({
+      where: { cart: { tenant_id: tenantBId } },
+    });
+    await prisma.stockReservation.deleteMany({
+      where: { tenant_id: tenantBId },
+    });
+    await prisma.orderItem.deleteMany({
+      where: { order: { tenant_id: tenantBId } },
+    });
     await prisma.order.deleteMany({ where: { tenant_id: tenantBId } });
     await prisma.cart.deleteMany({ where: { tenant_id: tenantBId } });
     await prisma.productVariant.deleteMany({ where: { tenant_id: tenantBId } });
@@ -123,9 +153,15 @@ describe('Checkout Tenant Isolation (e2e)', () => {
     await prisma.customer.deleteMany({ where: { tenant_id: tenantBId } });
 
     // Cleanup Tenant A
-    await prisma.cartItem.deleteMany({ where: { cart: { tenant_id: tenantAId } } });
-    await prisma.stockReservation.deleteMany({ where: { tenant_id: tenantAId } });
-    await prisma.orderItem.deleteMany({ where: { order: { tenant_id: tenantAId } } });
+    await prisma.cartItem.deleteMany({
+      where: { cart: { tenant_id: tenantAId } },
+    });
+    await prisma.stockReservation.deleteMany({
+      where: { tenant_id: tenantAId },
+    });
+    await prisma.orderItem.deleteMany({
+      where: { order: { tenant_id: tenantAId } },
+    });
     await prisma.order.deleteMany({ where: { tenant_id: tenantAId } });
     await prisma.cart.deleteMany({ where: { tenant_id: tenantAId } });
     await prisma.productVariant.deleteMany({ where: { tenant_id: tenantAId } });

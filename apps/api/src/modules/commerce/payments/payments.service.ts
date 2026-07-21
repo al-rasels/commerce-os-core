@@ -85,10 +85,12 @@ export class PaymentsService {
     try {
       order = await this.orderService.get(dummyCtx, orderId);
     } catch {
-      this.logger.warn(`Order ${orderId} not found for PaymentIntent ${intent.id}`);
+      this.logger.warn(
+        `Order ${orderId} not found for PaymentIntent ${intent.id}`,
+      );
       return;
     }
-    
+
     if (order.status === 'paid') {
       this.logger.log(`Order ${orderId} already paid, skipping`);
       return;

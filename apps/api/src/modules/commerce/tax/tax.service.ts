@@ -43,9 +43,14 @@ export class TaxService {
     });
 
     let taxAmountCents = 0;
-    const appliedRules: Array<{ id: string; name: string; rate: number; amount_cents: number }> = [];
+    const appliedRules: Array<{
+      id: string;
+      name: string;
+      rate: number;
+      amount_cents: number;
+    }> = [];
 
-    for (const rule of activeRules as any[]) {
+    for (const rule of activeRules) {
       if (
         rule.type === 'flat' ||
         (rule.type === 'region' && rule.region === region)

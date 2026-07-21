@@ -140,10 +140,10 @@ export class CartService {
   async convert(ctx: TenantContext, cartId: string) {
     const cart = await this.cartRepo.findUnique(ctx, cartId);
     if (!cart) throw new NotFoundException('Cart not found');
-    
+
     await this.cartItemRepo.clearByCartId(ctx, cartId);
     await this.cartRepo.update(ctx, cartId, { status: 'converted' });
-    
+
     return { converted: true };
   }
 }

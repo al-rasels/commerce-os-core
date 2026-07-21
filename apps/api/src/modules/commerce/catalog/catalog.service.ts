@@ -153,8 +153,17 @@ export class CatalogService {
     return variant;
   }
 
-  async reserveStock(ctx: TenantContext, variantId: string, quantity: number, orderId: string) {
-    const success = await this.variantRepo.incrementReservedStock(ctx, variantId, quantity);
+  async reserveStock(
+    ctx: TenantContext,
+    variantId: string,
+    quantity: number,
+    orderId: string,
+  ) {
+    const success = await this.variantRepo.incrementReservedStock(
+      ctx,
+      variantId,
+      quantity,
+    );
 
     if (!success) {
       return false;

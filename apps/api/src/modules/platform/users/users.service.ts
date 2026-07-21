@@ -125,7 +125,9 @@ export class UsersService {
   }
 
   async findByEmail(ctx: TenantContext, email: string) {
-    const users = await this.usersRepository.findMany(ctx, { where: { email } });
+    const users = await this.usersRepository.findMany(ctx, {
+      where: { email },
+    });
     return users.length > 0 ? users[0] : null;
   }
 

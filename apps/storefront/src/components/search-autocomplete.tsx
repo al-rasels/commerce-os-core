@@ -108,7 +108,7 @@ export function SearchAutocomplete() {
                 onClick={handleSubmit}
                 className="p-3 text-sm font-medium text-primary text-center hover:bg-muted/50 transition-colors bg-primary/5"
               >
-                View all results for "{query}"
+                View all results for &quot;{query}&quot;
               </button>
             </div>
           ) : (

@@ -10,7 +10,11 @@ export class ProductVariantRepository extends TenantScopedRepository<ProductVari
     super(prisma, 'productVariant');
   }
 
-  async incrementReservedStock(ctx: TenantContext, variantId: string, quantity: number) {
+  async incrementReservedStock(
+    ctx: TenantContext,
+    variantId: string,
+    quantity: number,
+  ) {
     const result = await this.prisma.$executeRaw`
       UPDATE product_variants
       SET stock_reserved = stock_reserved + ${quantity}

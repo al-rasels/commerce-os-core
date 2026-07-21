@@ -33,7 +33,10 @@ export class AuthService {
     const existing = await this.usersService.findByEmail(ctx, dto.email);
     if (existing) throw new ConflictException('Email already registered');
 
-    const role = await this.usersService.findRoleByName(ctx, dto.roleName ?? 'member');
+    const role = await this.usersService.findRoleByName(
+      ctx,
+      dto.roleName ?? 'member',
+    );
     if (!role) throw new NotFoundException('Default role not found');
 
     const hash = await argon2.hash(dto.password);
@@ -101,7 +104,10 @@ export class AuthService {
     if (!payload.mfa_pending)
       throw new UnauthorizedException('Invalid MFA token');
 
-    const user = await this.usersService.findUniqueWithRoleFull(ctx, payload.sub);
+    const user = await this.usersService.findUniqueWithRoleFull(
+      ctx,
+      payload.sub,
+    );
     if (!user || !user.mfa_secret)
       throw new UnauthorizedException('MFA not configured');
 
@@ -195,7 +201,9 @@ export class AuthService {
     await this.redis.del(key);
 
     const hash = await argon2.hash(dto.password);
-    await this.usersService.updateUser(ctx, payload.sub, { password_hash: hash });
+    await this.usersService.updateUser(ctx, payload.sub, {
+      password_hash: hash,
+    });
 
     return { message: 'Password reset successfully' };
   }
@@ -223,7 +231,10 @@ export class AuthService {
     if (existing)
       throw new ConflictException('User already exists with this email');
 
-    const role = await this.usersService.findRoleByName(ctx, dto.roleName ?? 'member');
+    const role = await this.usersService.findRoleByName(
+      ctx,
+      dto.roleName ?? 'member',
+    );
     if (!role) throw new NotFoundException('Role not found');
 
     const tempPassword = crypto.randomUUID().slice(0, 12);
@@ -256,7 +267,10 @@ export class AuthService {
       throw new UnauthorizedException('Refresh token revoked');
     }
 
-    const user = await this.usersService.findUniqueWithRoleFull(ctx, payload.sub);
+    const user = await this.usersService.findUniqueWithRoleFull(
+      ctx,
+      payload.sub,
+    );
     if (!user) throw new UnauthorizedException('User not found');
 
     const tokens = await this.generateTokens(

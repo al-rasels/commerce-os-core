@@ -75,6 +75,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^17.0.0",
     "jest": "^30.0.0",
+    "jest-node-exports-resolver": "^1.1.6",
     "prettier": "^3.4.2",
     "prisma": "^5.17.0",
     "source-map-support": "^0.5.21",
@@ -102,7 +103,13 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "testTimeout": 30000
+    "testTimeout": 30000,
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@scure|otplib|@otplib|@noble)/)"
+    ],
+    "setupFiles": [
+      "<rootDir>/../test/setup.ts"
+    ]
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"

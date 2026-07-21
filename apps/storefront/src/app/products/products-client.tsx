@@ -68,14 +68,16 @@ export function ProductsClient({
     updateFilters(activeCategory, selectedAttributes, e.target.value);
   };
 
-  let filteredProducts = [...products];
-  if (currentSort === 'price_asc') {
-    filteredProducts.sort((a, b) => (a.variants?.[0]?.price_cents || 0) - (b.variants?.[0]?.price_cents || 0));
-  } else if (currentSort === 'price_desc') {
-    filteredProducts.sort((a, b) => (b.variants?.[0]?.price_cents || 0) - (a.variants?.[0]?.price_cents || 0));
-  } else if (currentSort === 'newest') {
-    filteredProducts.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
-  }
+  const filteredProducts = [...products].sort((a, b) => {
+    if (currentSort === 'price_asc') {
+      return (a.variants?.[0]?.price_cents || 0) - (b.variants?.[0]?.price_cents || 0);
+    } else if (currentSort === 'price_desc') {
+      return (b.variants?.[0]?.price_cents || 0) - (a.variants?.[0]?.price_cents || 0);
+    } else if (currentSort === 'newest') {
+      return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime();
+    }
+    return 0;
+  });
 
   const containerVariants = {
     hidden: { opacity: 0 },

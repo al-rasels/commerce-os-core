@@ -83,10 +83,12 @@ export class CheckoutService {
         ctx,
         item.variant_id,
         item.quantity,
-        order.id
+        order.id,
       );
       if (!reserved) {
-        throw new BadRequestException(`Failed to reserve stock for variant ${item.variant_id}`);
+        throw new BadRequestException(
+          `Failed to reserve stock for variant ${item.variant_id}`,
+        );
       }
     }
 
