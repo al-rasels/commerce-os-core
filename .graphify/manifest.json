@@ -1,0 +1,1422 @@
+{
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/scripts/api_validator.py": {
+    "mtime": 1780894978000,
+    "hash": "efc1358746a9f52b5b0951e86c99100c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/scripts/schema_validator.py": {
+    "mtime": 1780894978000,
+    "hash": "2bc362c167358d81f8ca50d2cd06af0d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs": {
+    "mtime": 1783921161041.8396,
+    "hash": "379dbabc1f80d917fcf89df669706486"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/performance-profiling/scripts/lighthouse_audit.py": {
+    "mtime": 1780894978000,
+    "hash": "2405d35821970bf6723454e83dc7a036"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/condition-based-waiting-example.ts": {
+    "mtime": 1780894978000,
+    "hash": "b76b763289c6c9662d2c16b87d58b452"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/typescript-expert/references/utility-types.ts": {
+    "mtime": 1780894978000,
+    "hash": "77d2cd85f01ca8cabf2fa2e7bbe0c6e2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/typescript-expert/scripts/ts_diagnostic.py": {
+    "mtime": 1780894978000,
+    "hash": "dd752481b06d7d3ce469d64a7fdc3dd7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/App.tsx": {
+    "mtime": 1783919054614.527,
+    "hash": "5c13272980b103f8018c2b741616e7c1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/main.tsx": {
+    "mtime": 1783919054616.5325,
+    "hash": "df3369963799e47ef5a77cdca932abf0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/vite.config.ts": {
+    "mtime": 1783919054616.5325,
+    "hash": "c46e026af9136bb58b65793124e0f9bb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/eslint.config.mjs": {
+    "mtime": 1783919054618.5376,
+    "hash": "069d66f3fd2af0b03d917cf51a1f4c42"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/prisma/seed.ts": {
+    "mtime": 1783921948106.6138,
+    "hash": "e3666b3842aa963b87120700a6126a2d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/app.controller.spec.ts": {
+    "mtime": 1783919054620.5437,
+    "hash": "e91fed2ee35431d60d1adbf1d5739b83"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/app.controller.ts": {
+    "mtime": 1783919054620.5437,
+    "hash": "ae15d1c5a85e6ebfad68b7193766dfb5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/app.module.ts": {
+    "mtime": 1783926622626.7693,
+    "hash": "3f07aa4ee8523c993e95c77e27cbb118"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/app.service.ts": {
+    "mtime": 1783919054620.5437,
+    "hash": "08e985e831bca61f6be89c5c2ecef2fa"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/common/decorators/tenant-context.decorator.ts": {
+    "mtime": 1783925748993.823,
+    "hash": "933b560c0dffba30f0e83a213a08a12a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/common/repositories/tenant-scoped.repository.ts": {
+    "mtime": 1783921678336.708,
+    "hash": "7f44ef3814445701e9413a35d25a8260"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/main.ts": {
+    "mtime": 1783919054620.5437,
+    "hash": "513b1a8ccb913e8454d526755795b56e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/catalog.controller.ts": {
+    "mtime": 1783925794399.6028,
+    "hash": "3b34a5070c20806c25c493bee3d81385"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/catalog.e2e-spec.ts": {
+    "mtime": 1783925842433.0845,
+    "hash": "ea9b43f1ffb020f1ad4544f373d5c55e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/catalog.module.ts": {
+    "mtime": 1783925753029.3762,
+    "hash": "bf6465e09c146bb5ebf90af6d117a098"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/catalog.service.ts": {
+    "mtime": 1783925793178.6943,
+    "hash": "d9200c3a0a080c5721011d8eaf9ac7cc"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/dto/create-category.dto.ts": {
+    "mtime": 1783925779002.1987,
+    "hash": "3d76715d28eaf34f41ca447573ca5944"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/dto/create-product.dto.ts": {
+    "mtime": 1783925776991.729,
+    "hash": "1534680c787d9427ea02a56df420eb19"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/repositories/catalog.repository.spec.ts": {
+    "mtime": 1783925943477.1592,
+    "hash": "4e830a55f31460c9dd7fabccceba78a1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/repositories/category.repository.ts": {
+    "mtime": 1783925942186.2751,
+    "hash": "5c40121506dc75e5b0ade958bbf9162c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/repositories/product.repository.ts": {
+    "mtime": 1783925940855.2317,
+    "hash": "c1e291695907dd540cb3b3715daa9595"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/commerce.module.ts": {
+    "mtime": 1783925751010.7903,
+    "hash": "eb7f85507be6b0c2279a54b1fc1f6664"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/builder/builder.controller.ts": {
+    "mtime": 1783926603500.4153,
+    "hash": "730f9753a5c176d32f466271bd506bfb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/builder/builder.module.ts": {
+    "mtime": 1783926547048.7668,
+    "hash": "4aef3c6870f090b7d3b0232ee60892c6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/builder/builder.service.ts": {
+    "mtime": 1783926584332.8835,
+    "hash": "5a3b43cacc75aaeb7f1acf30b546c5fa"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/builder/repositories/page-layout.repository.spec.ts": {
+    "mtime": 1783926647021.1543,
+    "hash": "1f709ff094ff781b9d007cc4c25279b1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts": {
+    "mtime": 1783926563235.765,
+    "hash": "469563eb4a27e8983b45a823b6893db9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/experience.e2e-spec.ts": {
+    "mtime": 1783926648313.4973,
+    "hash": "a933eb0c5e5b8082be570189226f367c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/experience.module.ts": {
+    "mtime": 1783926543710.5105,
+    "hash": "21beb2682f10af393b05d1f0f76ff0fb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/theme/repositories/theme-override.repository.ts": {
+    "mtime": 1783926561891.7964,
+    "hash": "8c56c0f1c9f4c0f5a88d3c6e40358d56"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/theme/theme.controller.ts": {
+    "mtime": 1783926602266.7717,
+    "hash": "bd4a7577576ff532943134e008510537"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/theme/theme.module.ts": {
+    "mtime": 1783926545729.1292,
+    "hash": "b328cf0ddccce8c45acdfe7f4e5db0e0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/experience/theme/theme.service.ts": {
+    "mtime": 1783926583080.2422,
+    "hash": "22d26727024550506af0e5e8a87b1beb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.controller.ts": {
+    "mtime": 1783921924209.13,
+    "hash": "0c03142c5ad8d3d07ccd1bd928153a89"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.module.ts": {
+    "mtime": 1783921924207.1025,
+    "hash": "1d1c6642770271e42e9bc37ccb01f8cd"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.service.ts": {
+    "mtime": 1783921924208.1277,
+    "hash": "bdbd6b03cf4046d00d8b70f3bde07e70"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/decorators/permissions.decorator.ts": {
+    "mtime": 1783921924210.128,
+    "hash": "f70c385ddc788eb0a9b97dd597700c82"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/guards/permission.guard.ts": {
+    "mtime": 1783921924210.128,
+    "hash": "0e4d322fd738dbf851a50b1cb00e37be"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/guards/tenant-auth.guard.ts": {
+    "mtime": 1783921924209.13,
+    "hash": "c26dab6ae5f297fe185c6ea200bb60cf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/platform.module.ts": {
+    "mtime": 1783921678336.708,
+    "hash": "b8186c4edf23d7f34bfda811609d274f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/tenant/middlewares/host-resolver.middleware.ts": {
+    "mtime": 1783921678334.7024,
+    "hash": "decc541c4af7c160cf681e38ab4128bd"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/tenant/middlewares/tenant-context.middleware.ts": {
+    "mtime": 1783921678336.708,
+    "hash": "753a4019237155e550cf13bd2305d8ea"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/tenant/tenant-context.ts": {
+    "mtime": 1783921678334.7024,
+    "hash": "a76783a67f0662485ea65ca2edc3124d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/prisma/prisma.module.ts": {
+    "mtime": 1783921678332.6968,
+    "hash": "8b0b33a24401f425c4b6be86dfc4ddc1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/prisma/prisma.service.ts": {
+    "mtime": 1783921678332.6968,
+    "hash": "1344a054cd13926e2f2520007a68a817"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/test/app.e2e-spec.ts": {
+    "mtime": 1783919054622.0515,
+    "hash": "668094bf268e0395763312620e5638e8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/eslint.config.mjs": {
+    "mtime": 1783919054623.792,
+    "hash": "6c4307ffa009658f5c97f5629094c0c2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/next.config.ts": {
+    "mtime": 1783919054623.792,
+    "hash": "025f4fcb6024b3524d19492cf7ce54a2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/postcss.config.mjs": {
+    "mtime": 1783919054626.579,
+    "hash": "481fac0fdecd70e1821cc30b86030c1a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/src/app/layout.tsx": {
+    "mtime": 1783919054630.5933,
+    "hash": "e7595f79a62a5fbce0df374a5657c756"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/src/app/page.tsx": {
+    "mtime": 1783919054630.5933,
+    "hash": "e419f39454820aecadd947cef230146d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/components/index.ts": {
+    "mtime": 1783919054636.6238,
+    "hash": "605660d3d0d735359ecca2db55e79e0f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/components/registry.ts": {
+    "mtime": 1783919054636.6238,
+    "hash": "b76526f662ca6c19b86c1eb75b72508b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/components/utils.ts": {
+    "mtime": 1783919054636.6238,
+    "hash": "e3f848f1b39f863e6164cf58b5a8e752"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/design-tokens/index.ts": {
+    "mtime": 1783919054636.6238,
+    "hash": "907642fdcea3b0eb0ef4a611a14a476b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/shared-types/index.ts": {
+    "mtime": 1783919054638.63,
+    "hash": "07c71ad3b2bbf97bbbd784bb2e5d6514"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/theme-engine/index.spec.ts": {
+    "mtime": 1783926526187.9663,
+    "hash": "5a272402f965c9bc749acebe186ca8b3"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/theme-engine/index.ts": {
+    "mtime": 1783919054639.82,
+    "hash": "e1ca7ffece7c77c5d8e4ba3e496dbe67"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/packages/ui-config/index.js": {
+    "mtime": 1783919054639.82,
+    "hash": "f7af1a74d072b28cc244755d039cf530"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/AGENTS.md": {
+    "mtime": 1784101201108.3599,
+    "hash": "d004ba93378a65f725d95a3b69f54b2c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/README.md": {
+    "mtime": 1780894978000,
+    "hash": "52faf7aaf54f2425a07ef69fce460868"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "82eb4fe33b3ed3c42e7633372a79314d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/api-style.md": {
+    "mtime": 1780894978000,
+    "hash": "344040fe60482b585932c8c7ac436db2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/auth.md": {
+    "mtime": 1780894978000,
+    "hash": "30ecfa07b6c339decb37ad76062b316a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/documentation.md": {
+    "mtime": 1780894978000,
+    "hash": "fccf2500652b8b556c763bdad36c3fb4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/graphql.md": {
+    "mtime": 1780894978000,
+    "hash": "5d74792502426860410d930502f1af46"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/rate-limiting.md": {
+    "mtime": 1780894978000,
+    "hash": "801efd440cc5b640ab215f031383aa64"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/response.md": {
+    "mtime": 1780894978000,
+    "hash": "4c371c869d8c6b7b248e022ae2a99911"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/rest.md": {
+    "mtime": 1780894978000,
+    "hash": "d952c8bd331f51400c3bf1cef57aad96"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/security-testing.md": {
+    "mtime": 1780894978000,
+    "hash": "4e0ba12a8061446a792676ccf7b1ee8c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/trpc.md": {
+    "mtime": 1780894978000,
+    "hash": "08f4ce4eb2b8cd421687610ea2331c1c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-patterns/versioning.md": {
+    "mtime": 1780894978000,
+    "hash": "c0dcf556c803d959235a14b76653bd06"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/api-security-best-practices/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "7627fa58cfa010a7082855fa628f1286"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "be291df5fe034cf354c2d607b07e824b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/architecture-overview.md": {
+    "mtime": 1780894978000,
+    "hash": "94f3c4a414b1279da5265ae7c2aae068"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/async-and-errors.md": {
+    "mtime": 1780894978000,
+    "hash": "6a3a5e8594065642d1512592f88f45d2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/complete-examples.md": {
+    "mtime": 1780894978000,
+    "hash": "7db03e24df681c614b25c9419da90c08"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/configuration.md": {
+    "mtime": 1780894978000,
+    "hash": "3c183c9f11eb1c41a705d7bc763c9e16"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/database-patterns.md": {
+    "mtime": 1780894978000,
+    "hash": "39d38465182d35c86e52fdfc4b0ee765"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/middleware-guide.md": {
+    "mtime": 1780894978000,
+    "hash": "e2eb9d899b9ee3970e4fade11ca6cfc0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/routing-and-controllers.md": {
+    "mtime": 1780894978000,
+    "hash": "b5c4f52ef86e419fa8ab308ff88b93c6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/sentry-and-monitoring.md": {
+    "mtime": 1780894978000,
+    "hash": "df05e8a03c71e8eedc5be3c7ff59f274"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/services-and-repositories.md": {
+    "mtime": 1780894978000,
+    "hash": "6dbd9b3e8e04ca0f2febc4da23c00526"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/testing-guide.md": {
+    "mtime": 1780894978000,
+    "hash": "54e68b7184f32b2da47b9609e482b09e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/backend-dev-guidelines/resources/validation-patterns.md": {
+    "mtime": 1780894978000,
+    "hash": "96fdabe012ec516dc5840b373e8c2fc7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/before-you-build/SKILL.md": {
+    "mtime": 1783921190012.855,
+    "hash": "2a1e7266e8fb42d2967e73fb9e76ea4c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/brain-to-docs/SKILL.md": {
+    "mtime": 1783921190030.43,
+    "hash": "c979c4a16498a468ace861f2201b41b0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/brooks-lint/SKILL.md": {
+    "mtime": 1783921190043.6233,
+    "hash": "595e5e071cbfc44821dbfe004c6603c9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/caveman/README.md": {
+    "mtime": 1780284178000,
+    "hash": "3358f5119f61b24f5fa65a25de7b866b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/caveman/SKILL.md": {
+    "mtime": 1780284178000,
+    "hash": "90e5f9d97791c2080495926731e0f5ad"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/clean-code/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "db85693ee6446990629839eab6972a5b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/codebase-design/DEEPENING.md": {
+    "mtime": 1783921190621.0505,
+    "hash": "0622bf734fe6ba6958f26c57ead7557d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/codebase-design/DESIGN-IT-TWICE.md": {
+    "mtime": 1783921190622.0493,
+    "hash": "eb3285023df906edc324cf0aee04d972"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/codebase-design/SKILL.md": {
+    "mtime": 1783921190622.0493,
+    "hash": "c4d5e247f79d1ab61041f4a541ce6a21"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/codebase-mapper/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "56e9bbd5e679312b0e9f08d571d596be"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/context-compressor/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "cb88f2be1fe26c8d0fca20290b502da9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/context-fetch/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "06cf4a8463a353e645eab1e662f822df"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/context-health-monitor/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "3d563ac89407b0997a580dd64732c14e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "82396966532ba83cefcafd1ba2af759b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/database-selection.md": {
+    "mtime": 1780894978000,
+    "hash": "ed7294f1aaab6aad3943eaa1af43506b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/indexing.md": {
+    "mtime": 1780894978000,
+    "hash": "cb067a0668e6bfd6977bbae58c275eec"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/migrations.md": {
+    "mtime": 1780894978000,
+    "hash": "4d6e21cc0a5c5f6cb00aebd073824171"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/optimization.md": {
+    "mtime": 1780894978000,
+    "hash": "c124bf77288084d45579c265fce34d6c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/orm-selection.md": {
+    "mtime": 1780894978000,
+    "hash": "dee87596f93677bc0d8e86c4b943a83c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/database-design/schema-design.md": {
+    "mtime": 1780894978000,
+    "hash": "ffa4a6a26801fd198e83736aa18cf4fc"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/debugger/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "eab87b2b9ff045f92d772258882a8151"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/AUDIT.md": {
+    "mtime": 1783921161022.1404,
+    "hash": "7649a005e4e8f6728b543d1e58036da9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/BUNDLES.md": {
+    "mtime": 1783921161022.1404,
+    "hash": "1ea8cc672aa8f766a0b2efd0a8d6bbe9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/CATEGORIZATION_IMPLEMENTATION.md": {
+    "mtime": 1783921161023.5725,
+    "hash": "90008772df412a92831446a38b6fcd27"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/CI_DRIFT_FIX.md": {
+    "mtime": 1783921161023.5725,
+    "hash": "849aa2018968e55b521ad3ab6c6b4ec7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/COMMUNITY_GUIDELINES.md": {
+    "mtime": 1783921161024.8472,
+    "hash": "54b1718211b824848e8ee9581793bfd4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/DATE_TRACKING_IMPLEMENTATION.md": {
+    "mtime": 1783921161024.8472,
+    "hash": "4c4700b0c3bd84469e022c620bd4e870"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/EXAMPLES.md": {
+    "mtime": 1783921161025.846,
+    "hash": "0aebfe171e4201117be38df894340a01"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/FAQ.md": {
+    "mtime": 1783921161025.846,
+    "hash": "096a938317bf5d6ebe3e6c28f20dfa8c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/GETTING_STARTED.md": {
+    "mtime": 1783921161026.8447,
+    "hash": "8509b059cab9f174e2faa08787f7c84f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/KIRO_INTEGRATION.md": {
+    "mtime": 1783921161026.8447,
+    "hash": "8056ee25614eddabc68169c1b80113e4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/QUALITY_BAR.md": {
+    "mtime": 1783921161026.8447,
+    "hash": "02a21680f0f8f6564b44aa9a120c873f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/README.md": {
+    "mtime": 1783921161027.846,
+    "hash": "4fef3de285426a96a6dba39790bb363c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SECURITY_GUARDRAILS.md": {
+    "mtime": 1783921161027.846,
+    "hash": "c0a0e0a06a6be40e1c667a81b8ee01c3"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SEC_SKILLS.md": {
+    "mtime": 1783921161028.846,
+    "hash": "7fc0e21fb34e24cf711d1ec644862545"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SKILLS_DATE_TRACKING.md": {
+    "mtime": 1783921161028.846,
+    "hash": "e7cec9fea4a0b088c8b3a7d66059e562"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SKILL_ANATOMY.md": {
+    "mtime": 1783921161028.846,
+    "hash": "fc7079ff7d3ce6534cbc1e60f26af1f8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SKILL_TEMPLATE.md": {
+    "mtime": 1783921161029.8462,
+    "hash": "62f348a26206c2abbea32e46d21ea447"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SMART_AUTO_CATEGORIZATION.md": {
+    "mtime": 1783921161029.8462,
+    "hash": "8df56face5943bae2087ea2cf1ce355b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/SOURCES.md": {
+    "mtime": 1783921161030.8455,
+    "hash": "490212f1589a0c10b8f62ea0c6a5572d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/USAGE.md": {
+    "mtime": 1783921161030.8455,
+    "hash": "1df99ad44fc20cd1ab4b096f1fed8c8c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/VISUAL_GUIDE.md": {
+    "mtime": 1783921161031.8457,
+    "hash": "460f5cc757232e0b20a50f3d569c81d1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/WORKFLOWS.md": {
+    "mtime": 1783921161031.8457,
+    "hash": "2937722fa7ce691bc6a530a5a9a32627"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/community-guidelines.md": {
+    "mtime": 1783921161032.8474,
+    "hash": "f5037848a10ef6eec6993a9d172c26e5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/examples.md": {
+    "mtime": 1783921161032.8474,
+    "hash": "8e1ab26d2a8a9575f0d0246ee053ad8d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/quality-bar.md": {
+    "mtime": 1783921161033.8464,
+    "hash": "5368ef4d54bb0efe2a39a55953cf1846"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/security-guardrails.md": {
+    "mtime": 1783921161033.8464,
+    "hash": "cc7886c12dcc1523ea355207b5df3a42"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/skill-anatomy.md": {
+    "mtime": 1783921161034.846,
+    "hash": "a87cadc8dd74cca53dfa6f22f9ac3c65"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/skill-scoring.md": {
+    "mtime": 1783921161034.846,
+    "hash": "fbf3ec9edd9c6dd3d784130b1fa80122"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/contributors/skill-template.md": {
+    "mtime": 1783921161035.8452,
+    "hash": "75fc5190ea6e809618b898987cd66e6a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/integrations/jetski-cortex.md": {
+    "mtime": 1783921161036.8467,
+    "hash": "5e016f9f0129db24c3ddfce885d68f28"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/integrations/jetski-gemini-loader/README.md": {
+    "mtime": 1783921161040.8398,
+    "hash": "ae0bb7a4a3354249b724f8f7dc7b5b6b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/audit.md": {
+    "mtime": 1783921161042.8384,
+    "hash": "c6e42e2300cc4bf0fa5c7669a8b8458c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/backups/README-2026-06-02.md": {
+    "mtime": 1783921161044.8381,
+    "hash": "97da950035bcd5bd469fdae4b64aee09"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/categorization-implementation.md": {
+    "mtime": 1783921161044.8381,
+    "hash": "891f027a8eecbf13884649ef2cd1daec"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/ci-drift-fix.md": {
+    "mtime": 1783921161045.838,
+    "hash": "77a37b287535ec00fd2c0067e4455d6e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/date-tracking-implementation.md": {
+    "mtime": 1783921161045.838,
+    "hash": "fef42e6b0750585071bd2baafeaaa5aa"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/full-repo-audit-2026-05-23.md": {
+    "mtime": 1783921161047.7812,
+    "hash": "800e7b7d4a0c7a7f8f63bae4589646a4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/merge-batch.md": {
+    "mtime": 1783921161047.7812,
+    "hash": "175f845f217b499fb8c9caf5a755b02e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/merging-prs.md": {
+    "mtime": 1783921161048.828,
+    "hash": "84e6ddae8402580477f985400c2c0b80"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/release-notes-7.2.0.md": {
+    "mtime": 1783921161049.4812,
+    "hash": "b1f30472681e5d44358813ed28875def"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/release-process.md": {
+    "mtime": 1783921161049.8557,
+    "hash": "777325055d0301b3ae7923a36ef64877"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/repo-growth-seo.md": {
+    "mtime": 1783921161050.9219,
+    "hash": "0fa10f0ffe2c5002c3ca53a015cad833"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/rollback-procedure.md": {
+    "mtime": 1783921161050.9219,
+    "hash": "623062bd917b3b529539478922d5fed9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/security-findings-triage-2026-03-15.md": {
+    "mtime": 1783921161050.9219,
+    "hash": "34f096a9348cf126d4d7d32459ab81d5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/security-findings-triage-2026-03-18-addendum.md": {
+    "mtime": 1783921161052.93,
+    "hash": "cb35342926845e29e2f9725a423f10c5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/security-findings-triage-2026-03-29-addendum.md": {
+    "mtime": 1783921161052.93,
+    "hash": "9c5a41bf301d8b86335b68fb88b57770"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/security-findings-triage-2026-03-29-refresh.md": {
+    "mtime": 1783921161055.5732,
+    "hash": "d6b26162d24dc7159ce4de8215cfc8b0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/skills-date-tracking.md": {
+    "mtime": 1783921161056.5708,
+    "hash": "c7fc53e513ef962d0a038c2d91b461c6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/skills-import-2026-03-21.md": {
+    "mtime": 1783921161057.573,
+    "hash": "b56c4578ae86bacf897112d1fb07fd5b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/skills-update-guide.md": {
+    "mtime": 1783921161057.573,
+    "hash": "93e514564e146e02cd7643ca88e2f2ad"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/maintainers/smart-auto-categorization.md": {
+    "mtime": 1783921161058.572,
+    "hash": "a551e6e7543b6d636b2e35c57a86a0fb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/sources/sources.md": {
+    "mtime": 1783921161060.5708,
+    "hash": "565b1786076dc350a731dfa0b1d1aad7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/agent-overload-recovery.md": {
+    "mtime": 1783921161061.5708,
+    "hash": "338398b21cb20f1ae637f00dba0b2fe8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/ai-agent-skills.md": {
+    "mtime": 1783921161061.5708,
+    "hash": "4f631a5b119611c1000c01f9c49b2a84"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/antigravity-awesome-skills-vs-awesome-claude-skills.md": {
+    "mtime": 1783921161062.5715,
+    "hash": "4cf2bc0ada1b503e348f92bc75eb1c53"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/best-claude-code-skills-github.md": {
+    "mtime": 1783921161062.5715,
+    "hash": "472e4d2ba067701f3fb47971068fa9c3"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/best-cursor-skills-github.md": {
+    "mtime": 1783921161063.5715,
+    "hash": "554790b26409d30de2a9063353cfce4a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/bundles.md": {
+    "mtime": 1783921161064.5713,
+    "hash": "79e03fcbccaf4fc861b8d32865613eb5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/claude-code-skills.md": {
+    "mtime": 1783921161064.5713,
+    "hash": "e4464ddde6a39afa011cae52416b1bd3"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/codex-cli-skills.md": {
+    "mtime": 1783921161065.5706,
+    "hash": "dda766faed5751c13d3a0213a5fc5c26"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/cursor-skills.md": {
+    "mtime": 1783921161065.5706,
+    "hash": "58e215f3fca935816723d98093c02082"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/discovery-manifest.md": {
+    "mtime": 1783921161066.5713,
+    "hash": "543d8af2d16d3d38750db483b6b20429"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/faq.md": {
+    "mtime": 1783921161067.572,
+    "hash": "b60faac3625ceecf039a274f27e01d4f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/gemini-cli-skills.md": {
+    "mtime": 1783921161068.5708,
+    "hash": "9f9854877a2c180bfbe444bf7f9ad745"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/getting-started.md": {
+    "mtime": 1783921161068.5708,
+    "hash": "75f8af45ab2c7f08b1628afca71793a9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/kiro-integration.md": {
+    "mtime": 1783921161069.5713,
+    "hash": "edf47ede67b92755dc28d803291e2d1c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/local-config.md": {
+    "mtime": 1783921161070.5703,
+    "hash": "6cf390ef533483d7899b0cd1763ea65a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/plugins.md": {
+    "mtime": 1783921161073.572,
+    "hash": "86fdf66f0c0a9d7a2c4e1f2e08a5644f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/security-skills.md": {
+    "mtime": 1783921161074.572,
+    "hash": "d49f3f214ccdd72d21e9425009b77e67"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/skills-vs-mcp-tools.md": {
+    "mtime": 1783921161075.573,
+    "hash": "7c7c99628cb08d428621b1f0510c2721"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/specialized-plugin-roadmap.md": {
+    "mtime": 1783921161075.947,
+    "hash": "179f8a6a5baac53475c08ddd2e1cbf55"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/usage.md": {
+    "mtime": 1783921161076.9492,
+    "hash": "10b5224f2bef6704c8541e308a08d4ef"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/visual-guide.md": {
+    "mtime": 1783921161077.9465,
+    "hash": "c88f84843cece736bbd5cfbe0a4413cf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/walkthrough.md": {
+    "mtime": 1783921161077.9465,
+    "hash": "f8dc03c86343cf27b5b5729a6b158ec1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/windows-truncation-recovery.md": {
+    "mtime": 1783921161078.9468,
+    "hash": "7dfd03f820063a54d62461957c05ab52"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/users/workflows.md": {
+    "mtime": 1783921161079.947,
+    "hash": "074ef68eb304d6a11c2613d2551abab1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/BUNDLES.vi.md": {
+    "mtime": 1783921161079.947,
+    "hash": "89c13fa141a14b62b5e8e6a5343cbba1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/CONTRIBUTING.vi.md": {
+    "mtime": 1783921161080.9465,
+    "hash": "9f0439f271178159a9d721af387dab7b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/EXAMPLES.vi.md": {
+    "mtime": 1783921161080.9465,
+    "hash": "5d0f0243a4ebb76ce0821af6405a0192"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/FAQ.vi.md": {
+    "mtime": 1783921161081.9485,
+    "hash": "082edcdf33382212101c7aec8ce992b1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/GETTING_STARTED.vi.md": {
+    "mtime": 1783921161081.9485,
+    "hash": "fc909b62a9cfa967916300bcabbaa55f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/QUALITY_BAR.vi.md": {
+    "mtime": 1783921161082.9468,
+    "hash": "e151896af395131240e6bcc726de7222"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/README.vi.md": {
+    "mtime": 1783921161083.9453,
+    "hash": "ccc908e487eee00d829b3d234b6be191"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/SECURITY.vi.md": {
+    "mtime": 1783921161083.9453,
+    "hash": "f8932b6effc2828a62f5dac3133c8c3c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/SECURITY_GUARDRAILS.vi.md": {
+    "mtime": 1783921161083.9453,
+    "hash": "5720ba2748d2e25ece227778bbbb456e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/SKILLS_README.vi.md": {
+    "mtime": 1783921161084.9463,
+    "hash": "7f8ea8d68f0f220181541e77999bd57e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/SKILL_ANATOMY.vi.md": {
+    "mtime": 1783921161085.947,
+    "hash": "4f61305ac447a9036358635396d89306"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/SOURCES.vi.md": {
+    "mtime": 1783921161085.947,
+    "hash": "888c6814727a11060802efdd5e93f89f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/TRANSLATION_PLAN.vi.md": {
+    "mtime": 1783921161085.947,
+    "hash": "761f032bfde2ff97a77647658ec51ed9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/vietnamese/VISUAL_GUIDE.vi.md": {
+    "mtime": 1783921161086.9463,
+    "hash": "5e19c783853b2bf3870cd9fb7f0d4dbf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/docs/walkthrough.md": {
+    "mtime": 1783921161088.4292,
+    "hash": "a2d9ec8a9d134f833a99d9ea8665180b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/domain-driven-design/SKILL.md": {
+    "mtime": 1783921191405.2185,
+    "hash": "260218b601b2e9f61bafc10dc2363ea7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/domain-driven-design/references/ddd-deliverables.md": {
+    "mtime": 1783921191405.911,
+    "hash": "615f3b57b945e602da1de837e290e322"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/domain-modeling/ADR-FORMAT.md": {
+    "mtime": 1783921191407.024,
+    "hash": "3c49999a3715a7b65fe8521d4bf9e188"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/domain-modeling/CONTEXT-FORMAT.md": {
+    "mtime": 1783921191408.0205,
+    "hash": "469f1fb6e9e7e94ecb41dc64b6d09032"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/domain-modeling/SKILL.md": {
+    "mtime": 1783921191408.0205,
+    "hash": "96652ad5b744d9663a60c23657073c25"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/empirical-validation/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "0e945fe831fb622bd67a12462d34ae2b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/executor/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "32de1849f79c3c29af21cf62e1533688"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-design/LICENSE.txt": {
+    "mtime": 1780894978000,
+    "hash": "29256199be2a609aac596980ffc11996"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-design/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "e6a80e7dd7658012a5c487bfc63ca812"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "18a35c874465304f7246690938744860"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/common-patterns.md": {
+    "mtime": 1780894978000,
+    "hash": "2e9ad4dcb373879c028f51d3c3508c50"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/complete-examples.md": {
+    "mtime": 1780894978000,
+    "hash": "372eccedbdbdc1b44467d97d6f90de60"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/component-patterns.md": {
+    "mtime": 1780894978000,
+    "hash": "ae748fddf7c2fefcfe7f682bf45c9085"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/data-fetching.md": {
+    "mtime": 1780894978000,
+    "hash": "99c3fbf0a390585eaf38b7dd48c84ee4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/file-organization.md": {
+    "mtime": 1780894978000,
+    "hash": "d5b73090165ea6ab8bceee66418a5081"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/loading-and-error-states.md": {
+    "mtime": 1780894978000,
+    "hash": "178ca24b90ead249c20c4638654f9f0c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/performance.md": {
+    "mtime": 1780894978000,
+    "hash": "95dc69acac220bd03ea2fbb65b966bcf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/routing-guide.md": {
+    "mtime": 1780894978000,
+    "hash": "55b26c441a1b7aae1fe32fc197ec607b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/styling-guide.md": {
+    "mtime": 1780894978000,
+    "hash": "894d22c8cf7462ace1c766b75f8dc692"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/frontend-dev-guidelines/resources/typescript-standards.md": {
+    "mtime": 1780894978000,
+    "hash": "91f02af69f21776a1be8779c5a7a755f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/goal-loop/SKILL.md": {
+    "mtime": 1783921192051.4734,
+    "hash": "181031d1594e192b9037179d270ec287"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/indexing-issue-auditor/SKILL.md": {
+    "mtime": 1783921192336.1052,
+    "hash": "3a52112c714ddcbd83fd25691e8c9386"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/interview-style-doc-building/SKILL.md": {
+    "mtime": 1783921192373.8242,
+    "hash": "0a7c3683d3fe130780064826e064bbd1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/javascript-mastery/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "95ce42207c17c39a25082191fcc2d7d6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/nextjs-best-practices/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "604e25ebab4dcb09e3c85e4db81476e8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/nodejs-best-practices/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "f7ac5fd3bbeb79b53ed5f0cfee01a522"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/override-merge-algorithm/SKILL.md": {
+    "mtime": 1783919360068.9001,
+    "hash": "64acfc65e66ec8cba2424d51ef2b479b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/performance-profiling/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "1baf338e79ec10e497c056a208bca729"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/plan-checker/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "a9edd1c8bd15729816e3b814b76056a4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/planner/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "e8141aa23907b49a650263563e271b11"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/prisma-expert/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "fd6a45b15b4e307ac55903b6c52176e4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/react-patterns/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "65439dc7905b3c01745613a145df3c45"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/react-ui-patterns/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "e5ff273339b6bcfba98d1aeab4e031a9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/read-all-adrs/SKILL.md": {
+    "mtime": 1783921198814.187,
+    "hash": "0bb1610203a086b72c34de51de410a69"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/single-coding-convention/SKILL.md": {
+    "mtime": 1783998956206.4397,
+    "hash": "dd2ba0ed8220f0f7ef1145580b34d73f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/software-architecture/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "6eb678912c4d8f5faacb9147940499dc"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/squirrel/SKILL.md": {
+    "mtime": 1783921199158.6787,
+    "hash": "915002fb78d5661ad5047e9a437735ad"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/stock-reservation-algorithm/SKILL.md": {
+    "mtime": 1783919360070.6677,
+    "hash": "f6b6d3d17432f7e6c449f78d99c05172"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/CREATION-LOG.md": {
+    "mtime": 1780894978000,
+    "hash": "233e10ab611123ed22988cec5110300c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "4eecd2bd5ce68894746de336ec5acbf2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/condition-based-waiting.md": {
+    "mtime": 1780894978000,
+    "hash": "bb6e3fad746062e8a66703016a6ec38a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/defense-in-depth.md": {
+    "mtime": 1780894978000,
+    "hash": "c9c65f1cbe6186d828e300c57a90687a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/root-cause-tracing.md": {
+    "mtime": 1780894978000,
+    "hash": "79cbd6d02cbf7056e886bb28452accc9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/test-academic.md": {
+    "mtime": 1780894978000,
+    "hash": "518b29316fa889342f27a948ecd6a274"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/test-pressure-1.md": {
+    "mtime": 1780894978000,
+    "hash": "9f7b82ffdfb5193e2453fa823a121d20"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/test-pressure-2.md": {
+    "mtime": 1780894978000,
+    "hash": "4fe0449a71be1c28e7df333fc384e9cc"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/systematic-debugging/test-pressure-3.md": {
+    "mtime": 1780894978000,
+    "hash": "1c8e4e18dc1c5aebd185b39212f9d9a9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/tailwind-patterns/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "db69539730c28d9c8be3e2b60dd76693"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/task-intelligence/SKILL.md": {
+    "mtime": 1783921199437.8958,
+    "hash": "be4611f23369e5e6710708a72837567a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/task-intelligence/references/problem-catalog.md": {
+    "mtime": 1783921199438.896,
+    "hash": "fd99e4dda553ac4e8033ba568438a245"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/task-intelligence/references/time-patterns.md": {
+    "mtime": 1783921199445.4324,
+    "hash": "fe92d51b13dd0951c8f3a043e0a4308a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/tdd-workflow/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "ec926241a9625b7cd1f3c1dbde932b8b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/tenant-scoped-entity/SKILL.md": {
+    "mtime": 1783919360066.8997,
+    "hash": "71bc8f6c657f1e73ec6fac0d39060825"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/test-driven-development/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "e2c23834a2b675646bb2d5131eee59f2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/test-driven-development/testing-anti-patterns.md": {
+    "mtime": 1780894978000,
+    "hash": "edfef3a24f0d0653443afc8f6e596d69"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/test-fixing/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "b754156636f14636e43ccfadf7f66308"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/testing-patterns/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "02f62b3b73ac00060276ca103bdb307d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/token-budget/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "c55e0720fb8f98f8dc840d549f15544f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/typescript-expert/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "7545f0539b3d01c86fa6b10657caf8f4"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/typescript-expert/references/typescript-cheatsheet.md": {
+    "mtime": 1780894978000,
+    "hash": "d005f97d565f1ab36170a33f86ee745b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/using-superpowers/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "80735a5c5f0d629975ab9a82df8d4708"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/verifier/SKILL.md": {
+    "mtime": 1780894952000,
+    "hash": "0590ea9b47a05b7c13475cc8a04cb1c2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/web-performance-optimization/SKILL.md": {
+    "mtime": 1780894978000,
+    "hash": "4a5d5d0fe6d47b40f2192c4c6f637384"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.agents/skills/web-project-brainstorming/SKILL.md": {
+    "mtime": 1783921201325.4614,
+    "hash": "aca92f438b3adf5dae3b9d714b5ab941"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/AGENT_SKILLS.md": {
+    "mtime": 1783998956206.958,
+    "hash": "ff5d542ae8971cd696c886ef1f79d751"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/API_CONVENTIONS.md": {
+    "mtime": 1783998956207.4768,
+    "hash": "0c9046a8195344333d13eb2162f8fe0d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/ARCHITECTURE.md": {
+    "mtime": 1783998956207.996,
+    "hash": "06ccd828bdb5bd6843a85af4d04d14d1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/CODE_REVIEW_CHECKLIST.md": {
+    "mtime": 1783998956208.515,
+    "hash": "d797faefc3c560ef2a5510b05a31dd70"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/CODING_STYLE.md": {
+    "mtime": 1783998956208.515,
+    "hash": "14417f391f8ff61cd552f61132c0c2fa"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/FOLDER_STRUCTURE.md": {
+    "mtime": 1783998956209.035,
+    "hash": "8b31269ee19e3058a2dd7b57db9ca65d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/SECURITY_RULES.md": {
+    "mtime": 1783998956209.5547,
+    "hash": "f8e1bda813ea3e86aa6c2ea9e1eae45a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/SYSTEM.md": {
+    "mtime": 1783998956210.0764,
+    "hash": "ea4e808bd0aff414e0fcb81a2938fcea"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/TESTING_GUIDELINES.md": {
+    "mtime": 1783998956210.0764,
+    "hash": "5caf0df132b0286cf8a9abfcdc91623b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.ai/UI_GUIDELINES.md": {
+    "mtime": 1783998956211.1194,
+    "hash": "e873f12a5371a289697d148d9de1855d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/README.md": {
+    "mtime": 1783919054589.442,
+    "hash": "c25922ff1a9b90660d98dc17c9aea393"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/backlog/session-04-core-schema-isolation.md": {
+    "mtime": 1783919054589.8706,
+    "hash": "2e73f090aa502a2eb4c87ccd54959a54"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/backlog/session-05-catalog-crud.md": {
+    "mtime": 1783919054590.5962,
+    "hash": "19b3952098686514a3febcc436686ab0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/backlog/session-07-theme-engine.md": {
+    "mtime": 1783919054590.5962,
+    "hash": "954ffa20e87589723d4e0077433fbc65"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/backlog/session-08-page-layout-storefront.md": {
+    "mtime": 1783919054590.5962,
+    "hash": "06fa7f3f95494a917470f26f6c7ccd2a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/backlog/ui-component-creation.md": {
+    "mtime": 1783935278205.2036,
+    "hash": "79462b52a526715e03c9aaea2a59bea0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-00-prerequisites.md": {
+    "mtime": 1783919054592.6042,
+    "hash": "54d4ee4a3e836b3a1d59be536330ca37"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-01-repo-scaffold.md": {
+    "mtime": 1783919054592.6042,
+    "hash": "bb4333c8913ea8bf840128bfddc12e22"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/session-02-tenant-resolution.md": {
+    "mtime": 1783919054592.6042,
+    "hash": "c55855a288fa8b06f14c1fb3f7dbe442"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/session-03-auth-rbac.md": {
+    "mtime": 1783919054592.6042,
+    "hash": "9b2e65faf532a7660ec1a275bce296ef"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/AGENTS.md": {
+    "mtime": 1784100936104.165,
+    "hash": "0af9d7147f0374176f42289c55aa8409"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/rules/01-tenant-isolation.md": {
+    "mtime": 1783919054594.6116,
+    "hash": "046088659f2bd6fe34f051c5ac6a48f0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/rules/02-module-boundaries.md": {
+    "mtime": 1783919054594.6116,
+    "hash": "d66c1dee481cbb25d83221cd4dd2e6c2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/rules/03-naming-conventions.md": {
+    "mtime": 1783919054594.6116,
+    "hash": "342e3851565296928b90c4e64432dba2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/rules/04-testing-requirements.md": {
+    "mtime": 1783919054594.6116,
+    "hash": "ff5cec3c4a042a01d3c7143f942dc31b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/skills/01-tenant-scoped-entity-template.md": {
+    "mtime": 1783919054596.6174,
+    "hash": "b957bb104310f7e6f97c70a01ac5474b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/skills/02-override-merge-algorithm.md": {
+    "mtime": 1783919054596.6174,
+    "hash": "abea7b061b91c526c1a75a6bb0b763e6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/skills/03-stock-reservation-algorithm.md": {
+    "mtime": 1783919054596.6174,
+    "hash": "198bed5565f46baf40721a3a1f1069ab"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/00-MASTER-INDEX.md": {
+    "mtime": 1784093409830.8745,
+    "hash": "fc29080c44a3c94a1e02313a7aeda4ba"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/00-README.md": {
+    "mtime": 1784100746322.6226,
+    "hash": "10822cf22050956bf9c53c675e8ef5e6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/01-platform-engine-tasks.md": {
+    "mtime": 1784094610002.998,
+    "hash": "dd9ed920b35a652572049dc492699ef3"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/02-commerce-engine-tasks.md": {
+    "mtime": 1784093409862.4822,
+    "hash": "9f0745fc07ab26ed04148de4a1fbfabf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/03-experience-engine-tasks.md": {
+    "mtime": 1784094621414.545,
+    "hash": "3e5edf90de661dafa1b12436bfb3e280"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/04-quality-devops-docs-tasks.md": {
+    "mtime": 1784093409880.5571,
+    "hash": "984a2676ef61917dba4f1c22be2303cf"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/05-traceability-and-gap-analysis.md": {
+    "mtime": 1784094635630.7324,
+    "hash": "8901e2c3867a1ff99bc34baacf715608"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/06-phase-2-5-epic-backlog.md": {
+    "mtime": 1784093409898.5085,
+    "hash": "250756cb3ba2b0b19b7daadc830ca648"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/01-vision-strategy/01-vision.md": {
+    "mtime": 1783999437433.2327,
+    "hash": "6fb2b4579c32d44f6e4dc91b9c65c947"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/01-vision-strategy/02-business-model.md": {
+    "mtime": 1783919054598.6226,
+    "hash": "aeeb6fc0e97528e41deea23864688871"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/02-architecture/01-system-architecture.md": {
+    "mtime": 1783927089837.8992,
+    "hash": "78f2bc3e4f883423289c1da7ee22b1ed"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/02-architecture/02-extensibility-and-plugins.md": {
+    "mtime": 1783927002141.4663,
+    "hash": "58d7c9ca6b4228c00acb4cfccf2f00b2"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/02-architecture/03-caching-and-edge.md": {
+    "mtime": 1783927004333.697,
+    "hash": "7b2d163d692a305d04466d73ac78490e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/03-multi-tenant/01-multi-tenant-architecture.md": {
+    "mtime": 1783919054598.6226,
+    "hash": "7202b7905c37dbce5f6840f472ff32da"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/04-database-security/01-database-architecture.md": {
+    "mtime": 1783919054598.6226,
+    "hash": "3ef2cdaed6208c63dfe21a5cef0f5dc5"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/04-database-security/02-security-authentication.md": {
+    "mtime": 1783919054598.6226,
+    "hash": "15220a7ff6ecef35abcfac760ceb55e0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/01-design-system.md": {
+    "mtime": 1783919054600.6294,
+    "hash": "aa2bb5a8c91389f7d2b6561773c39d4f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/02-component-library.md": {
+    "mtime": 1783923890586.9421,
+    "hash": "e583ccb2b7b733b1314511fe0c73556b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/03-theme-engine.md": {
+    "mtime": 1783923901101.9822,
+    "hash": "54c3d4304f5005991f5a3c221422fe5a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/04-template-engine.md": {
+    "mtime": 1783919054600.6294,
+    "hash": "2f1c988dbe32a175683d0bf83396624e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/05-page-builder.md": {
+    "mtime": 1784001042366.7754,
+    "hash": "f75c6671b7c94adf3046451bc89f0fef"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/05-experience-engine/06-ui-architecture-analysis.md": {
+    "mtime": 1783935554524.1113,
+    "hash": "284e0b6e0dc1d043dcb1f913253e674d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/06-commerce-business-engines/01-commerce-engine.md": {
+    "mtime": 1783919054602.635,
+    "hash": "db60a8ea17fb6d3e46d4fb5eee08a74a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/06-commerce-business-engines/02-business-erp-engine.md": {
+    "mtime": 1783919054602.635,
+    "hash": "7d3cb1b6b9756ce55d559b734997211c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/06-commerce-business-engines/03-intelligence-engine.md": {
+    "mtime": 1783919054602.635,
+    "hash": "7e83dc51c380d97fe22a29a0a8220bc7"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/07-agent-guide/01-agent-guide.md": {
+    "mtime": 1783919054602.635,
+    "hash": "56ebd8d42d221f1f091e79143c8eef77"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/08-skills/01-skill-catalog.md": {
+    "mtime": 1783919054602.635,
+    "hash": "152eb3c55821c7487ba8aa555dd5cb9c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/09-dev-standards/01-development-standards.md": {
+    "mtime": 1783919054604.6426,
+    "hash": "4efb9a5dfd1703f55e4c1693ad654b88"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/10-roadmap/01-implementation-roadmap.md": {
+    "mtime": 1783999450751.6426,
+    "hash": "d4911b777249fea68d50f7b3d7dc752e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/10-roadmap/02-phase1-mvp-spec.md": {
+    "mtime": 1783926811007.456,
+    "hash": "dc45ef92f2ce4f38185b7740ea3c98a0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/11-build-guide/01-session-by-session-build-guide.md": {
+    "mtime": 1783926813031.0278,
+    "hash": "c5dfc232c96607646f49608cd122a576"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/12-tech-stack-and-packages/01-folder-structure-theming.md": {
+    "mtime": 1783919054606.5022,
+    "hash": "adef7fc2c34a9d1552460a530de57d68"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/12-tech-stack-and-packages/02-package-catalog.md": {
+    "mtime": 1784094607973.546,
+    "hash": "184a47cc7cbee7ee7ec7858dc5dc926f"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/13-resources/01-reference-implementations-and-starters.md": {
+    "mtime": 1783919054608.5085,
+    "hash": "73f9a3cda9c094cc0e6e9303e8bebd74"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/14-data-contracts/01-phase1-entities.md": {
+    "mtime": 1783927063041.3306,
+    "hash": "706f0124d449a25a8b83ac6467815644"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/14-data-contracts/02-api-contracts.md": {
+    "mtime": 1783919054608.5085,
+    "hash": "1f4049a1e13d8035d5cb68a54aba85cd"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/14-data-contracts/03-component-contracts.md": {
+    "mtime": 1784001022796.341,
+    "hash": "cb223d44c9cd95eb0b76a5c602295a22"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/14-data-contracts/04-checkout-state-machine.md": {
+    "mtime": 1783919054608.5085,
+    "hash": "a87eae3899b2689923a2ff78d86d136a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/15-system-and-database-design/01-system-design-diagrams.md": {
+    "mtime": 1784094894581.2964,
+    "hash": "fec8813ab7826814c86014b8e1563d3c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/15-system-and-database-design/02-database-entity-relationship.md": {
+    "mtime": 1784094914339.0303,
+    "hash": "e7534e0aa2beab2ff12226c937e69ded"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/15-system-and-database-design/03-backend-api-service-design.md": {
+    "mtime": 1784095094372.9546,
+    "hash": "ce8a9ac5b54c4eb29408cc0a45f2b068"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/15-system-and-database-design/04-frontend-routing-design.md": {
+    "mtime": 1784095112790.0757,
+    "hash": "d5ca52d54521d9fd6cff93bf5f6f2a96"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/README.md": {
+    "mtime": 1784095125835.5203,
+    "hash": "05bfae9a732ecf568a485173dfb3684e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/README.md": {
+    "mtime": 1783919054610.5142,
+    "hash": "3a8e2f41658852c43fdce93a22bc2f90"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/index.html": {
+    "mtime": 1783919054610.5142,
+    "hash": "f160e057730727441040898a4ae99f22"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/README.md": {
+    "mtime": 1783919054616.5325,
+    "hash": "ad12c0560e2e514d356da443998e8208"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/AGENTS.md": {
+    "mtime": 1783919054623.792,
+    "hash": "9346a4897ff955555ddedb7bebf77adb"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/CLAUDE.md": {
+    "mtime": 1783919054623.792,
+    "hash": "771faa62feb60b7de901a397aebb29b0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/README.md": {
+    "mtime": 1783919054623.792,
+    "hash": "9162add00befbcdb432430f405c4ad8d"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/public/favicon.svg": {
+    "mtime": 1783919054612.521,
+    "hash": "7e840862161341271697daa99a40d76b"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/public/icons.svg": {
+    "mtime": 1783919054612.521,
+    "hash": "21c7473c592c67dc87223d49892c8f0a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/assets/hero.png": {
+    "mtime": 1783919054614.527,
+    "hash": "aead493361b27e7510691c5d7072dfc1"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/assets/react.svg": {
+    "mtime": 1783919054614.527,
+    "hash": "f0402b67b6ce880f65666bb49e841696"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/assets/vite.svg": {
+    "mtime": 1783919054614.527,
+    "hash": "6d5180a782d64c8cf51ba01c2a2184d8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/public/file.svg": {
+    "mtime": 1783919054626.579,
+    "hash": "d09f95206c3fa0bb9bd9fefabfd0ea71"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/public/globe.svg": {
+    "mtime": 1783919054626.579,
+    "hash": "2aaafa6a49b6563925fe440891e32717"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/public/next.svg": {
+    "mtime": 1783919054626.579,
+    "hash": "8e061864f388b47f33a1c3780831193e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/public/vercel.svg": {
+    "mtime": 1783919054628.587,
+    "hash": "c0af2f507b369b085b35ef4bbe3bcf1e"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/public/window.svg": {
+    "mtime": 1783919054628.587,
+    "hash": "a2760511c65806022ad20adf74370ff3"
+  }
+}

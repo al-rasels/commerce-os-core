@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "branchName": "main",
+  "worktreePath": "D:\\Rasel Mahmud Shanto\\commerce-os-core",
+  "upstream": "origin/main",
+  "mergeBase": "24a34d045a14d261a746ac5d5928be948832036d",
+  "firstSeenHead": "24a34d045a14d261a746ac5d5928be948832036d",
+  "lastSeenHead": "24a34d045a14d261a746ac5d5928be948832036d",
+  "lastAnalyzedHead": "24a34d045a14d261a746ac5d5928be948832036d",
+  "stale": false,
+  "staleReason": null,
+  "staleSince": null,
+  "lifecycleEvent": null,
+  "createdAt": "2026-07-15T07:42:56.485Z",
+  "updatedAt": "2026-07-15T07:42:56.485Z"
+}
