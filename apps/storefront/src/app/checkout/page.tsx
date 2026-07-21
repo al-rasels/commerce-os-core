@@ -111,7 +111,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-muted/10 min-h-screen">
+    <div className="bg-muted/10 min-h-screen pb-24 lg:pb-0">
       <div className="container mx-auto px-6 py-12 max-w-6xl">
         <div className="mb-8">
           <Link href="/cart" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
@@ -271,6 +271,25 @@ export default function CheckoutPage() {
           </div>
 
         </div>
+      </div>
+      
+      {/* Mobile Sticky Summary */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-background border-t border-border/50 p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40 flex items-center justify-between">
+        <div className="flex flex-col">
+          <span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Total due</span>
+          <span className="text-xl font-bold tracking-tight text-foreground">
+            {currency} {(total / 100).toFixed(2)}
+          </span>
+        </div>
+        <Button 
+          onClick={() => {
+            // Smooth scroll to the current active step form
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }} 
+          className="rounded-full px-6"
+        >
+          Review Order
+        </Button>
       </div>
     </div>
   );

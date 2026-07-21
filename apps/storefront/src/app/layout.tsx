@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartBadge } from "@/components/cart-badge";
+import { SearchAutocomplete } from "@/components/search-autocomplete";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
+import { TenantThemeProvider } from "@/components/tenant-theme-provider";
+import { serverApi } from "@/lib/server-api";
 import { Footer } from "@commerceos/components";
 import { ShoppingBag } from "lucide-react";
 
@@ -48,11 +51,13 @@ const footerColumns = [
   },
 ];
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const resolvedTheme = await serverApi.experience.getTheme().catch(() => undefined);
+
   return (
     <html
       lang="en"
@@ -61,6 +66,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <TenantThemeProvider theme={resolvedTheme?.data || resolvedTheme}>
           <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 shadow-sm transition-all duration-300">
             <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
               <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
@@ -77,10 +83,10 @@ export default function RootLayout({
                 <Link href="/categories" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                   Categories
                 </Link>
-                <Link href="/search" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Search
-                </Link>
               </nav>
+              <div className="flex-1 max-w-sm mx-8 hidden lg:block">
+                <SearchAutocomplete />
+              </div>
               <div className="flex items-center gap-4">
                 <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
                   Account
@@ -100,6 +106,7 @@ export default function RootLayout({
               { platform: "twitter", href: "#" },
             ]}
           />
+          </TenantThemeProvider>
         </ThemeProvider>
       </body>
     </html>

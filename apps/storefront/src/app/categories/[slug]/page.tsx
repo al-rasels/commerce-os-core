@@ -1,14 +1,28 @@
-import { api } from '@/lib/api';
+import { serverApi } from '@/lib/server-api';
 import { ProductCard } from '@/components/product-card';
+import type { Metadata } from 'next';
 
 export const revalidate = 60;
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const categories = await serverApi.categories.list().catch(() => []);
+  const category = categories.find((c: any) => c.slug === slug);
+  const name = category?.name || slug.replace('-', ' ');
+  
+  return {
+    title: `${name} | CommerceOS Storefront`,
+    description: category?.description || `Explore our premium selection of ${name}.`,
+  };
+}
+
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [products, categories] = await Promise.all([
-    api.products.list({ category: slug }).catch(() => []),
-    api.categories.list().catch(() => []),
+  const [productsResponse, categories] = await Promise.all([
+    serverApi.products.list({ category: slug }).catch(() => ({ data: [] })),
+    serverApi.categories.list().catch(() => []),
   ]);
+  const products = productsResponse.data || productsResponse;
   const category = categories.find((c: any) => c.slug === slug);
 
   return (

@@ -7,6 +7,7 @@ export interface ProductCardProps {
   currency: string;
   imageUrl: string;
   variant?: "default" | "compact";
+  LinkComponent?: React.ElementType;
 }
 
 function formatPrice(cents: number, currency: string) {
@@ -23,9 +24,10 @@ export function ProductCard({
   currency,
   imageUrl,
   variant = "default",
+  LinkComponent = "a",
 }: ProductCardProps) {
   return (
-    <a
+    <LinkComponent
       href={`/products/${productId}`}
       className={cn(
         "group block rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg",
@@ -60,6 +62,6 @@ export function ProductCard({
           </button>
         )}
       </div>
-    </a>
+    </LinkComponent>
   );
 }

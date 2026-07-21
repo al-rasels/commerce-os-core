@@ -104,12 +104,15 @@ export const api = {
       }),
   },
   products: {
-    list: (params?: { category?: string; q?: string }) => {
+    list: (params?: { category?: string; q?: string; attributes?: Record<string, string> }) => {
       const search = new URLSearchParams();
       if (params?.category) search.set('category', params.category);
       if (params?.q) search.set('q', params.q);
+      if (params?.attributes && Object.keys(params.attributes).length > 0) {
+        search.set('attributes', JSON.stringify(params.attributes));
+      }
       const qs = search.toString();
-      return request<any[]>(`/products${qs ? `?${qs}` : ''}`);
+      return request<{ data: any[], facets: any }>(`/products${qs ? `?${qs}` : ''}`);
     },
     get: (slug: string) => request<any>(`/products/${slug}`),
   },

@@ -11,9 +11,10 @@ export default async function SearchPage({
 }) {
   const { q } = await searchParams;
   const query = q || '';
-  const products = query
-    ? await api.products.list({ q: query }).catch(() => [])
-    : [];
+  const response = query
+    ? await api.products.list({ q: query }).catch(() => ({ data: [], facets: {} }))
+    : { data: [], facets: {} };
+  const products = response.data;
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-6xl">

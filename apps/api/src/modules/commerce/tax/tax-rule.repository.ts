@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { TenantScopedRepository } from '../../../common/repositories/tenant-scoped.repository';
-import { TaxRule } from '@prisma/client';
 
 @Injectable()
-export class TaxRuleRepository extends TenantScopedRepository<TaxRule> {
+export class TaxRuleRepository extends TenantScopedRepository<any> {
   constructor(prisma: PrismaService) {
-    super(prisma, 'taxRule');
+    super(prisma, 'tax_rule');
   }
 }

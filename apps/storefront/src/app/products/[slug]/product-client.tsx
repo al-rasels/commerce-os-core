@@ -1,13 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
 import { AddToCartButton } from "@/components/add-to-cart-button";
 import { Check, ShieldCheck, Truck, ChevronDown, ChevronUp } from "lucide-react";
 
-export function ProductClient({ product, currency, price, inStock, defaultVariant }: any) {
-  const [activeImage, setActiveImage] = useState(product.images?.[0] || "");
+export function ProductClient({ product, currency }: any) {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ loop: true });
+  const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
+    containScroll: "keepSnaps",
+    dragFree: true,
+  });
+
+  const onThumbClick = useCallback(
+    (index: number) => {
+      if (!emblaMainApi || !emblaThumbsApi) return;
+      emblaMainApi.scrollTo(index);
+    },
+    [emblaMainApi, emblaThumbsApi]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaMainApi || !emblaThumbsApi) return;
+    setActiveImageIndex(emblaMainApi.selectedScrollSnap());
+    emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
+  }, [emblaMainApi, emblaThumbsApi, setActiveImageIndex]);
+
+  useEffect(() => {
+    if (!emblaMainApi) return;
+    onSelect();
+    emblaMainApi.on("select", onSelect);
+    emblaMainApi.on("reInit", onSelect);
+  }, [emblaMainApi, onSelect]);
+
   const [accordionState, setAccordionState] = useState<Record<string, boolean>>({
     details: true,
     shipping: false,
@@ -16,6 +44,26 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
   const toggleAccordion = (section: string) => {
     setAccordionState(prev => ({ ...prev, [section]: !prev[section] }));
   };
+
+  const optionsMap = useMemo(() => {
+    const map: Record<string, Set<string>> = {};
+    product.variants?.forEach((v: any) => {
+      if (v.attributes_json) {
+        Object.entries(v.attributes_json).forEach(([key, value]) => {
+          if (!map[key]) map[key] = new Set();
+          map[key].add(value as string);
+        });
+      }
+    });
+    return map;
+  }, [product.variants]);
+
+  const { selectedVariant, selectedOptions, handleOptionSelect } = product;
+
+  const displayPrice = selectedVariant ? (selectedVariant.price_cents / 100).toFixed(2) : (product.variants?.[0]?.price_cents / 100 || 0).toFixed(2);
+  const stockAvailable = selectedVariant ? (selectedVariant.stock_available - selectedVariant.stock_reserved) : 0;
+  const displayInStock = stockAvailable > 0;
+  const isLowStock = stockAvailable > 0 && stockAvailable <= 5;
 
   return (
     <div className="bg-background min-h-screen pb-24">
@@ -38,29 +86,40 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
           {/* Left Column - Sticky Gallery */}
           <div className="flex flex-col gap-4 relative">
             <div className="sticky top-24">
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.98 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="aspect-[4/5] md:aspect-square w-full rounded-2xl overflow-hidden bg-muted relative mb-4"
-              >
-                {activeImage ? (
-                  <img src={activeImage} alt={product.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-6xl opacity-20">🖼</div>
-                )}
-              </motion.div>
+              {/* Main Image Carousel */}
+              <div className="overflow-hidden rounded-2xl bg-muted mb-4 relative" ref={emblaMainRef}>
+                <div className="flex touch-pan-y">
+                  {product.images && product.images.length > 0 ? (
+                    product.images.map((img: string, idx: number) => (
+                      <div className="flex-[0_0_100%] min-w-0" key={idx}>
+                        <div className="aspect-[4/5] md:aspect-square w-full relative">
+                          <img src={img} alt={`${product.name} ${idx}`} className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="flex-[0_0_100%] min-w-0">
+                      <div className="aspect-[4/5] md:aspect-square w-full flex items-center justify-center text-6xl opacity-20">🖼</div>
+                    </div>
+                  )}
+                </div>
+              </div>
               
+              {/* Thumbnails Carousel */}
               {product.images && product.images.length > 1 && (
-                <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
-                  {product.images.map((img: string, idx: number) => (
-                    <button 
-                      key={idx} 
-                      onClick={() => setActiveImage(img)}
-                      className={`relative aspect-square w-20 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeImage === img ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'}`}
-                    >
-                      <img src={img} alt={`${product.name} ${idx}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+                <div className="overflow-hidden" ref={emblaThumbsRef}>
+                  <div className="flex gap-4 touch-pan-y">
+                    {product.images.map((img: string, idx: number) => (
+                      <button 
+                        key={idx} 
+                        onClick={() => onThumbClick(idx)}
+                        className={`flex-[0_0_5rem] min-w-0 relative aspect-square shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeImageIndex === idx ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                      >
+                        <img src={img} alt={`${product.name} thumbnail ${idx}`} className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -84,12 +143,19 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
               
               <div className="flex items-center gap-4 mb-8">
                 <span className="text-3xl font-bold">
-                  {currency} {price}
+                  {currency} {displayPrice}
                 </span>
-                {inStock ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-600 text-sm font-medium">
-                    <Check className="w-4 h-4" /> In Stock
-                  </span>
+                {displayInStock ? (
+                  <div className="flex flex-col gap-1">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-600 text-sm font-medium">
+                      <Check className="w-4 h-4" /> In Stock
+                    </span>
+                    {isLowStock && (
+                      <span className="text-xs font-semibold text-orange-500 animate-pulse ml-1 mt-1">
+                        Only {stockAvailable} left in stock — order soon!
+                      </span>
+                    )}
+                  </div>
                 ) : (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/10 text-red-600 text-sm font-medium">
                     Out of Stock
@@ -101,14 +167,36 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
                 {product.description || 'No description available for this product.'}
               </div>
 
+              {/* Variant Selector */}
+              {Object.entries(optionsMap).length > 0 && (
+                <div className="mb-8 space-y-6">
+                  {Object.entries(optionsMap).map(([key, set]) => (
+                    <div key={key}>
+                      <h3 className="text-sm font-semibold mb-3">{key}</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {Array.from(set).map(value => (
+                          <button
+                            key={value}
+                            onClick={() => handleOptionSelect(key, value)}
+                            className={`px-4 py-2 text-sm font-medium rounded-md border transition-colors ${selectedOptions[key] === value ? 'border-primary bg-primary/5 text-primary' : 'border-border/50 text-muted-foreground hover:border-foreground'}`}
+                          >
+                            {value}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Add to Cart Section */}
               <div className="pb-8 border-b border-border/50 mb-8">
                 <div className="flex flex-col gap-4">
-                  {defaultVariant && (
+                  {selectedVariant && (
                     <AddToCartButton
-                      variantId={defaultVariant.id}
-                      disabled={!inStock}
-                      label={inStock ? 'Add to Cart — ' + currency + ' ' + price : 'Out of Stock'}
+                      variantId={selectedVariant.id}
+                      disabled={!displayInStock}
+                      label={displayInStock ? 'Add to Cart — ' + currency + ' ' + displayPrice : 'Out of Stock'}
                     />
                   )}
                   
@@ -145,7 +233,7 @@ export function ProductClient({ product, currency, price, inStock, defaultVarian
                         <li>Premium materials and craftsmanship</li>
                         <li>Designed for everyday durability</li>
                         <li>Imported high-quality components</li>
-                        <li>SKU: {defaultVariant?.sku || 'N/A'}</li>
+                        <li>SKU: {selectedVariant?.sku || 'N/A'}</li>
                       </ul>
                     </motion.div>
                   )}

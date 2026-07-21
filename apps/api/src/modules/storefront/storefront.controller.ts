@@ -9,6 +9,7 @@ export class StorefrontController {
     @GetTenantContext() ctx: TenantContext,
     @Query('category') categorySlug?: string,
     @Query('q') searchQuery?: string,
+    @Query('attributes') attributesJson?: string,
   ) {
     const prisma = (await import('../../prisma/prisma.service.js'))
       .PrismaService;
@@ -30,11 +31,43 @@ export class StorefrontController {
       });
       if (category) where.category_id = category.id;
     }
-    return (service as any).product.findMany({
+
+    let parsedAttributes: Record<string, string> | null = null;
+    if (attributesJson) {
+      try {
+        parsedAttributes = JSON.parse(attributesJson);
+        const variantWhere: any = {};
+        if (parsedAttributes) {
+          for (const [k, v] of Object.entries(parsedAttributes)) {
+            variantWhere.attributes_json = { path: [k], equals: v };
+          }
+          where.variants = { some: variantWhere };
+        }
+      } catch (e) {
+        // ignore invalid json
+      }
+    }
+
+    const products = await (service as any).product.findMany({
       where,
       include: { category: true, variants: true },
       orderBy: { created_at: 'desc' },
     });
+
+    // Compute simple facets in-memory for MVP
+    const facets: Record<string, Record<string, number>> = {};
+    products.forEach((p: any) => {
+      p.variants?.forEach((v: any) => {
+        if (v.attributes_json) {
+          Object.entries(v.attributes_json).forEach(([key, val]) => {
+            if (!facets[key]) facets[key] = {};
+            facets[key][val as string] = (facets[key][val as string] || 0) + 1;
+          });
+        }
+      });
+    });
+
+    return { data: products, facets };
   }
 
   @Get('products/:slug')
