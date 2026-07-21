@@ -15,6 +15,6 @@ import { PrismaModule } from '../../../prisma/prisma.module';
     CategoryRepository,
     ProductVariantRepository,
   ],
-  exports: [CatalogService],
+  exports: [CatalogService, ProductRepository, ProductVariantRepository],
 })
 export class CatalogModule {}
