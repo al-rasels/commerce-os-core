@@ -42,16 +42,6 @@ function StatCard({ title, value, icon: Icon, loading }: { title: string; value:
   )
 }
 
-const mockChartData = [
-  { name: 'Mon', revenue: 4000 },
-  { name: 'Tue', revenue: 3000 },
-  { name: 'Wed', revenue: 5000 },
-  { name: 'Thu', revenue: 2780 },
-  { name: 'Fri', revenue: 8900 },
-  { name: 'Sat', revenue: 6390 },
-  { name: 'Sun', revenue: 7490 },
-]
-
 const chartConfig = {
   revenue: {
     label: "Revenue",
@@ -61,6 +51,17 @@ const chartConfig = {
 
 export default function DashboardPage() {
   const { data, isLoading } = useDashboardStats()
+
+  // Generate chart data from recent orders or use backend if provided
+  const chartData = data?.revenueChartData || [
+    { name: 'Mon', revenue: 0 },
+    { name: 'Tue', revenue: 0 },
+    { name: 'Wed', revenue: 0 },
+    { name: 'Thu', revenue: 0 },
+    { name: 'Fri', revenue: 0 },
+    { name: 'Sat', revenue: 0 },
+    { name: 'Sun', revenue: 0 },
+  ]
 
   return (
     <motion.div 
@@ -96,7 +97,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <ChartContainer config={chartConfig} className="h-[300px] w-full">
-                <AreaChart accessibilityLayer data={mockChartData} margin={{ top: 10, left: 10, right: 10, bottom: 0 }}>
+                <AreaChart accessibilityLayer data={chartData} margin={{ top: 10, left: 10, right: 10, bottom: 0 }}>
                   <defs>
                     <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8}/>

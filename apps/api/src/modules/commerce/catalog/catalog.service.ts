@@ -7,6 +7,7 @@ import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
 import { ProductVariantRepository } from './repositories/product-variant.repository';
 import { StockReservationRepository } from './repositories/stock-reservation.repository';
+import { BundleRepository } from './repositories/bundle.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -22,6 +23,7 @@ export class CatalogService {
     private readonly categoryRepo: CategoryRepository,
     private readonly variantRepo: ProductVariantRepository,
     private readonly stockReservationRepo: StockReservationRepository,
+    private readonly bundleRepo: BundleRepository,
   ) {}
 
   async createProduct(ctx: TenantContext, dto: CreateProductDto) {
@@ -177,5 +179,24 @@ export class CatalogService {
     });
 
     return true;
+  }
+
+  async getBundleItems(ctx: TenantContext, parentVariantId: string) {
+    return this.bundleRepo.findMany(ctx, {
+      where: { parent_variant_id: parentVariantId },
+      include: {
+        child_variant: {
+          include: { product: true },
+        },
+      },
+    });
+  }
+
+  async setBundleItems(
+    ctx: TenantContext,
+    parentVariantId: string,
+    items: { child_variant_id: string; quantity: number }[],
+  ) {
+    await this.bundleRepo.setBundleItems(ctx, parentVariantId, items);
   }
 }

@@ -151,4 +151,23 @@ export class CatalogController {
   ) {
     return this.catalogService.deleteVariant(ctx, id);
   }
+
+  @Get('variants/:id/bundle')
+  @RequirePermissions('catalog.read')
+  async getBundleItems(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    return this.catalogService.getBundleItems(ctx, id);
+  }
+
+  @Post('variants/:id/bundle')
+  @RequirePermissions('catalog.write')
+  async setBundleItems(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+    @Body() dto: { items: { child_variant_id: string; quantity: number }[] },
+  ) {
+    return this.catalogService.setBundleItems(ctx, id, dto.items);
+  }
 }
