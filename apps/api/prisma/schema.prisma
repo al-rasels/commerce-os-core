@@ -384,7 +384,7 @@ model TaxRule {
 model Promotion {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tenant_id  String    @db.Uuid
-  code       String    @unique
+  code       String
   type       String // 'percentage' | 'fixed_amount'
   value      Float // e.g. 10 for 10%, or 500 for .00
   min_order  Float? // Minimum order subtotal to apply
