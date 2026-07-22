@@ -61,4 +61,13 @@ export class PromotionsController {
   ) {
     return this.promotionsService.deletePromotion(ctx, id);
   }
+
+  @Post('validate')
+  async validate(
+    @GetTenantContext() ctx: TenantContext,
+    @Body('code') code: string,
+    @Body('subtotal_cents') subtotal_cents: number,
+  ) {
+    return this.promotionsService.validateAndApply(ctx, code, subtotal_cents);
+  }
 }

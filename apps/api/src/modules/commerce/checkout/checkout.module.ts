@@ -4,9 +4,10 @@ import { CheckoutController } from './checkout.controller';
 import { CartModule } from '../cart/cart.module';
 import { OrderModule } from '../order/order.module';
 import { PaymentsModule } from '../payments/payments.module';
+import { PromotionsModule } from '../promotions/promotions.module';
 
 @Module({
-  imports: [CartModule, OrderModule, PaymentsModule],
+  imports: [CartModule, OrderModule, PaymentsModule, PromotionsModule],
   controllers: [CheckoutController],
   providers: [CheckoutService],
 })

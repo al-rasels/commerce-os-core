@@ -9,6 +9,7 @@ import { CatalogService } from '../catalog/catalog.service';
 import { OrderService } from '../order/order.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
+import { PromotionsService } from '../promotions/promotions.service';
 
 @Injectable()
 export class CheckoutService {
@@ -19,6 +20,7 @@ export class CheckoutService {
     private readonly catalogService: CatalogService,
     private readonly orderService: OrderService,
     private readonly paymentsService: PaymentsService,
+    private readonly promotionsService: PromotionsService,
   ) {}
 
   async checkout(ctx: TenantContext, cartId: string) {
@@ -48,13 +50,26 @@ export class CheckoutService {
       }
     }
 
-    const subtotalCents = (cart as any).items.reduce(
+    let subtotalCents = (cart as any).items.reduce(
       (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
       0,
     );
     const taxCents = 0;
     const shippingCents = 0;
-    const totalCents = subtotalCents + taxCents + shippingCents;
+    let discountCents = 0;
+    
+    // Apply promotion if attached to cart
+    if ((cart as any).promotion) {
+      const promo = (cart as any).promotion;
+      if (promo.type === 'percentage') {
+        discountCents = Math.round(subtotalCents * (promo.value / 100));
+      } else if (promo.type === 'fixed_amount') {
+        discountCents = promo.value;
+      }
+      discountCents = Math.min(discountCents, subtotalCents);
+    }
+
+    const totalCents = subtotalCents + taxCents + shippingCents - discountCents;
     const currency = (cart as any).items[0]?.variant.currency || 'USD';
 
     this.logger.log(`Processing transaction for cart ${cartId}`);
@@ -65,6 +80,7 @@ export class CheckoutService {
       subtotal_cents: subtotalCents,
       tax_cents: taxCents,
       shipping_cents: shippingCents,
+      discount_cents: discountCents,
       total_cents: totalCents,
       currency,
       channel: 'online',
@@ -90,6 +106,10 @@ export class CheckoutService {
           `Failed to reserve stock for variant ${item.variant_id}`,
         );
       }
+    }
+
+    if ((cart as any).promotion) {
+      await this.promotionsService.incrementUsage(ctx, (cart as any).promotion.id);
     }
 
     await this.cartService.convert(ctx, cartId);
