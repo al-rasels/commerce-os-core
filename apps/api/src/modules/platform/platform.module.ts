@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RedisModule } from './redis/redis.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
+import { QueueModule } from './queue/queue.module';
 import { HostResolverMiddleware } from './tenant/middlewares/host-resolver.middleware';
 import { TenantContextMiddleware } from './tenant/middlewares/tenant-context.middleware';
 import { TenantService } from './tenant/tenant.service';
@@ -17,6 +18,7 @@ import { AdminModule } from './admin/admin.module';
     UsersModule,
     RedisModule,
     AuditLogModule,
+    QueueModule,
     AdminModule,
   ],
 })
