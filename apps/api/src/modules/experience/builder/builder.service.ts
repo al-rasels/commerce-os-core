@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PageLayoutRepository } from './repositories/page-layout.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
+import { ComponentMetadata, PlanTier } from '@commerceos/shared-types';
 
 @Injectable()
 export class BuilderService {
@@ -14,12 +19,44 @@ export class BuilderService {
     return layout;
   }
 
+  private validatePlanRequirements(node: any, tenantPlan: string) {
+    if (!node) return;
+
+    if (node.component) {
+      const meta = ComponentMetadata[node.component];
+      if (meta?.minPlan) {
+        const planWeight: Record<string, number> = {
+          trial: 0,
+          starter: 1,
+          pro: 2,
+          enterprise: 3,
+        };
+        const tenantWeight = planWeight[tenantPlan] ?? 0;
+        const requiredWeight = planWeight[meta.minPlan] ?? 0;
+
+        if (tenantWeight < requiredWeight) {
+          throw new ForbiddenException(
+            `Component '${node.component}' requires ${meta.minPlan} plan or higher.`,
+          );
+        }
+      }
+    }
+
+    if (Array.isArray(node.children)) {
+      for (const child of node.children) {
+        this.validatePlanRequirements(child, tenantPlan);
+      }
+    }
+  }
+
   async updatePageLayout(
     ctx: TenantContext,
     pageKey: string,
     sectionsJson: any,
     publish: boolean = false,
   ) {
+    this.validatePlanRequirements(sectionsJson, ctx.plan);
+
     const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
     const prisma = (this.layoutRepo as any).prisma;
 

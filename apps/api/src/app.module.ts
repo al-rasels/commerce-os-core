@@ -8,6 +8,8 @@ import { PlatformModule } from './modules/platform/platform.module';
 import { CommerceModule } from './modules/commerce/commerce.module';
 import { ExperienceModule } from './modules/experience/experience.module';
 import { LoggerModule } from 'nestjs-pino';
+import { B2bModule } from './modules/business/b2b/b2b.module';
+import { SubscriptionsModule } from './modules/business/subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { LoggerModule } from 'nestjs-pino';
     PlatformModule,
     CommerceModule,
     ExperienceModule,
+    B2bModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [

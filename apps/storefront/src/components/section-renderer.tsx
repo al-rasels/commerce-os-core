@@ -2,11 +2,17 @@ import React from 'react';
 import { componentRegistry, type ComponentRegistryKey } from '@commerceos/components';
 import { ProductClient } from '@/app/products/[slug]/product-client';
 
+type VisibilityRule = {
+  if: string; // e.g., "segment == 'vip'"
+  action: 'show' | 'hide';
+};
+
 type Node = {
   id: string;
   component: string;
   props?: Record<string, any>;
   children?: Node[];
+  rules?: VisibilityRule[];
 };
 
 type SectionRendererProps = {
@@ -40,6 +46,22 @@ export function SectionRenderer({ nodes, dataContext = {} }: SectionRendererProp
   return (
     <>
       {nodes.map((node) => {
+        if (node.rules && node.rules.length > 0) {
+          let shouldShow = true;
+          for (const rule of node.rules) {
+            const match = rule.if.match(/(\w+)\s*==\s*'([^']+)'/);
+            if (match) {
+              const [_, key, val] = match;
+              const actualValue = resolveBind(key, dataContext);
+              const conditionMet = String(actualValue) === val;
+              
+              if (rule.action === 'show' && !conditionMet) shouldShow = false;
+              if (rule.action === 'hide' && conditionMet) shouldShow = false;
+            }
+          }
+          if (!shouldShow) return null;
+        }
+
         const registryEntry = localRegistry[node.component] || componentRegistry[node.component as ComponentRegistryKey];
         
         if (!registryEntry) {

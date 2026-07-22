@@ -10,6 +10,8 @@ import { StorefrontModule } from '../storefront/storefront.module';
 import { ShippingModule } from './shipping/shipping.module';
 import { TaxModule } from './tax/tax.module';
 import { PromotionsModule } from './promotions/promotions.module';
+import { InventoryModule } from './inventory/inventory.module';
+import { ReturnsModule } from './returns/returns.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { PromotionsModule } from './promotions/promotions.module';
     ShippingModule,
     TaxModule,
     PromotionsModule,
+    InventoryModule,
+    ReturnsModule,
   ],
 })
 export class CommerceModule {}

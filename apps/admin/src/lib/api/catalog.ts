@@ -4,6 +4,7 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
+  product_type: 'physical' | 'digital' | 'bundle';
   status: 'draft' | 'active' | 'archived';
   category_id: string | null;
   description: string | null;
@@ -15,6 +16,7 @@ export interface Product {
 export interface ProductInput {
   name: string;
   slug: string;
+  product_type?: 'physical' | 'digital' | 'bundle';
   status?: 'draft' | 'active' | 'archived';
   category_id?: string | null;
   description?: string | null;

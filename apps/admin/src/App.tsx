@@ -22,6 +22,12 @@ import UserDetailPage from "@/pages/users/UserDetailPage"
 import UserInvitePage from "@/pages/users/UserInvitePage"
 import { TenantsPage } from "@/pages/super-admin/TenantsPage"
 import { TenantDetailPage } from "@/pages/super-admin/TenantDetailPage"
+import CompanyProfilesListPage from "@/pages/b2b/CompanyProfilesListPage"
+import PriceListsPage from "@/pages/b2b/PriceListsPage"
+import DraftOrdersPage from "@/pages/b2b/DraftOrdersPage"
+import SubscriptionsListPage from "@/pages/subscriptions/SubscriptionsListPage"
+import LocationsListPage from "@/pages/settings/locations/LocationsListPage"
+import ReturnsListPage from "@/pages/orders/returns/ReturnsListPage"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
@@ -44,6 +50,7 @@ export default function App() {
             <Route path="products/:id/edit" element={<ProductFormPage />} />
             <Route path="categories" element={<CategoryListPage />} />
             <Route path="orders" element={<OrderListPage />} />
+            <Route path="orders/returns" element={<ReturnsListPage />} />
             <Route path="orders/:id" element={<OrderDetailPage />} />
             <Route path="customers" element={<CustomerListPage />} />
             <Route path="customers/new" element={<CustomerFormPage />} />
@@ -56,6 +63,11 @@ export default function App() {
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />
+            <Route path="settings/locations" element={<LocationsListPage />} />
+            <Route path="b2b/companies" element={<CompanyProfilesListPage />} />
+            <Route path="b2b/price-lists" element={<PriceListsPage />} />
+            <Route path="b2b/draft-orders" element={<DraftOrdersPage />} />
+            <Route path="subscriptions" element={<SubscriptionsListPage />} />
             <Route path="super-admin/tenants" element={<TenantsPage />} />
             <Route path="super-admin/tenants/:id" element={<TenantDetailPage />} />
           </Route>

@@ -14,6 +14,10 @@ import {
   Shield,
   LogOut,
   KeyRound,
+  Building2,
+  RefreshCw,
+  MapPin,
+  FileClock,
 } from "lucide-react"
 import {
   Sidebar,
@@ -36,10 +40,14 @@ const navItems = [
   { href: "/products", label: "Products", icon: Package },
   { href: "/categories", label: "Categories", icon: FolderTree },
   { href: "/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/subscriptions", label: "Subscriptions", icon: RefreshCw },
+  { href: "/b2b/companies", label: "B2B Companies", icon: Building2 },
+  { href: "/b2b/draft-orders", label: "B2B Drafts", icon: FileClock },
   { href: "/customers", label: "Customers", icon: Users },
   { href: "/users", label: "Users", icon: UserCog },
   { href: "/theme", label: "Theme", icon: Palette },
   { href: "/settings/pages", label: "Pages", icon: FileText },
+  { href: "/settings/locations", label: "Locations", icon: MapPin },
   { href: "/super-admin/tenants", label: "Super Admin", icon: Shield },
 ]
 

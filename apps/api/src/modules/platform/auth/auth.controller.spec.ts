@@ -39,10 +39,7 @@ describe('AuthController', () => {
 
       const result = await controller.login(ctx, dto);
 
-      expect(authService.login).toHaveBeenCalledWith(
-        ctx,
-        dto,
-      );
+      expect(authService.login).toHaveBeenCalledWith(ctx, dto);
       expect(result).toEqual({ access_token: 'token' });
     });
   });

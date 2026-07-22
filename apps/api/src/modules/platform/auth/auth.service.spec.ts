@@ -26,6 +26,7 @@ describe('AuthService', () => {
 
   const mockJwt = {
     signAsync: jest.fn(),
+    verifyAsync: jest.fn(),
   };
 
   const mockRedis = {
@@ -79,17 +80,17 @@ describe('AuthService', () => {
   describe('login', () => {
     it('returns tokens when credentials are valid', async () => {
       const hash = await argon2.hash('password123');
-      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
         id: 'u1',
         email: 'test@test.com',
         password_hash: hash,
         tenant_id: 't1',
         role: { name: 'Store Owner' },
-      });
+      }]);
       mockJwt.signAsync.mockResolvedValue('token');
       mockRedis.set.mockResolvedValueOnce(undefined);
 
-      const result = await service.login(ctx, 'test@test.com', 'password123');
+      const result = await service.login(ctx, { email: 'test@test.com', password: 'password123' });
 
       expect(result.access_token).toBe('token');
       expect(result.refresh_token).toBe('token');
@@ -102,32 +103,30 @@ describe('AuthService', () => {
 
     it('throws UnauthorizedException when user not found', async () => {
       mockUsersService.findManyWithRole.mockResolvedValueOnce([]);
-      mockUsersService.findByEmail.mockResolvedValueOnce(null);
 
       await expect(
-        service.login(ctx, 'nonexistent@test.com', 'pass'),
+        service.login(ctx, { email: 'nonexistent@test.com', password: 'pass' }),
       ).rejects.toThrow(UnauthorizedException);
     });
 
     it('throws UnauthorizedException when password is wrong', async () => {
       const hash = await argon2.hash('correct');
-      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
         id: 'u1',
         email: 'test@test.com',
         password_hash: hash,
         tenant_id: 't1',
         role: { name: 'Store Owner' },
-      });
+      }]);
 
       await expect(
-        service.login(ctx, 'test@test.com', 'wrong'),
+        service.login(ctx, { email: 'test@test.com', password: 'wrong' }),
       ).rejects.toThrow(UnauthorizedException);
     });
   });
 
   describe('register', () => {
     it('creates user and returns tokens', async () => {
-      mockUsersService.findManyWithRole.mockResolvedValueOnce([]);
       mockUsersService.findByEmail.mockResolvedValueOnce(null);
       mockUsersService.findRoleByName.mockResolvedValueOnce({
         id: 'r1',
@@ -174,40 +173,32 @@ describe('AuthService', () => {
         tenant_id: 't1',
         role: { name: 'Store Owner' },
       });
-      mockRedis.get.mockResolvedValueOnce(hashed);
-      mockRedis.del.mockResolvedValueOnce(undefined);
+      mockJwt.verifyAsync.mockResolvedValueOnce({ sub: 'u1' });
+      mockRedis.get.mockResolvedValueOnce(refreshToken);
       mockJwt.signAsync.mockResolvedValue('new-token');
       mockRedis.set.mockResolvedValueOnce(undefined);
 
-      const result = await service.refresh(ctx, 'u1', refreshToken);
+      const result = await service.refresh(ctx, refreshToken);
 
       expect(result.access_token).toBe('new-token');
       expect(result.refresh_token).toBe('new-token');
     });
 
-    it('throws UnauthorizedException when user not in tenant', async () => {
-      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
-        id: 'u1',
-        email: 'test@test.com',
-        tenant_id: 't2',
-        role: { name: 'Store Owner' },
-      });
+    it('throws UnauthorizedException when user not found', async () => {
+      mockJwt.verifyAsync.mockResolvedValueOnce({ sub: 'u1' });
+      mockRedis.get.mockResolvedValueOnce('token');
+      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce(null);
 
-      await expect(service.refresh(ctx, 'u1', 'token')).rejects.toThrow(
+      await expect(service.refresh(ctx, 'token')).rejects.toThrow(
         UnauthorizedException,
       );
     });
 
     it('throws UnauthorizedException when stored hash does not match', async () => {
-      mockUsersService.findUniqueWithRoleFull.mockResolvedValueOnce({
-        id: 'u1',
-        email: 'test@test.com',
-        tenant_id: 't1',
-        role: { name: 'Store Owner' },
-      });
-      mockRedis.get.mockResolvedValueOnce('different-hash');
+      mockJwt.verifyAsync.mockResolvedValueOnce({ sub: 'u1' });
+      mockRedis.get.mockResolvedValueOnce('different-token');
 
-      await expect(service.refresh(ctx, 'u1', 'wrong-token')).rejects.toThrow(
+      await expect(service.refresh(ctx, 'wrong-token')).rejects.toThrow(
         UnauthorizedException,
       );
     });

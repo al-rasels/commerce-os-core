@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select"
 import { RichTextEditor } from "@/components/RichTextEditor"
 import { VariantEditor } from "@/components/VariantEditor"
+import { ProductBundleEditor } from "@/components/ProductBundleEditor"
 import { ArrowLeft, Loader2 } from "lucide-react"
 
 export default function ProductFormPage() {
@@ -29,9 +30,11 @@ export default function ProductFormPage() {
   const navigate = useNavigate()
   const { data: product, isLoading: loadingProduct } = useProduct(isEdit ? id : undefined)
   const [description, setDescription] = useState("")
+  const [productType, setProductType] = useState<"physical" | "digital" | "bundle">("physical")
 
   useEffect(() => {
     if (product?.description) setDescription(product.description)
+    if (product?.product_type) setProductType(product.product_type as any)
   }, [product])
   const { data: categories } = useCategories()
   const createProduct = useCreateProduct()
@@ -46,6 +49,7 @@ export default function ProductFormPage() {
       name: form.get("name") as string,
       slug: form.get("slug") as string,
       status: (form.get("status") as "draft" | "active" | "archived") || "draft",
+      product_type: productType,
       category_id: (form.get("category_id") as string) || null,
       description: description || null,
     }
@@ -99,6 +103,21 @@ export default function ProductFormPage() {
               />
             </div>
             <div className="flex flex-col gap-1.5">
+              <Label htmlFor="product_type">Product Type</Label>
+              <select
+                id="product_type"
+                name="product_type"
+                value={productType}
+                onChange={(e) => setProductType(e.target.value as any)}
+                className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
+                required
+              >
+                <option value="physical">Physical</option>
+                <option value="digital">Digital</option>
+                <option value="bundle">Bundle</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-1.5">
               <Label htmlFor="status">Status</Label>
               <select
                 id="status"
@@ -142,6 +161,11 @@ export default function ProductFormPage() {
             {isEdit && (
               <div className="border-t pt-4">
                 <VariantEditor productId={id!} />
+              </div>
+            )}
+            {isEdit && productType === "bundle" && (
+              <div className="border-t pt-4">
+                <ProductBundleEditor productId={id!} />
               </div>
             )}
           </CardContent>

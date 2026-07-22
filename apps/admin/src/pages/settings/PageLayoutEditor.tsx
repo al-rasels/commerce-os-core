@@ -132,6 +132,15 @@ export default function PageLayoutEditorPage() {
     [selectedId],
   )
 
+  const handleRulesChange = useCallback(
+    (rules: { if: string; action: 'show' | 'hide' }[]) => {
+      setSections((prev) =>
+        prev.map((s) => (s.id === selectedId ? { ...s, rules } : s)),
+      )
+    },
+    [selectedId],
+  )
+
   function handleSaveDraft() {
     saveMutation.mutate(
       { sections, publish: false },
@@ -315,6 +324,74 @@ export default function PageLayoutEditorPage() {
                       />
                     ))
                   )}
+                </div>
+                
+                <Separator />
+                
+                <div className="mb-8">
+                  <h3 className="text-sm font-semibold mb-2">Visibility Rules</h3>
+                  <div className="flex flex-col gap-2">
+                    {(selectedSection.rules || []).map((rule, idx) => (
+                      <div key={idx} className="flex flex-col gap-2 p-3 border rounded-md bg-muted/20">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold">Rule {idx + 1}</span>
+                          <Button 
+                            variant="ghost" 
+                            size="icon-sm" 
+                            className="h-6 w-6 text-destructive hover:bg-destructive/10"
+                            onClick={() => {
+                              const newRules = [...(selectedSection.rules || [])];
+                              newRules.splice(idx, 1);
+                              handleRulesChange(newRules);
+                            }}
+                          >
+                            <Ban className="size-3" />
+                          </Button>
+                        </div>
+                        <div className="flex gap-2">
+                          <div className="flex-1">
+                            <label className="text-[10px] uppercase text-muted-foreground font-semibold mb-1 block">Condition (If)</label>
+                            <input 
+                              className="flex h-8 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                              placeholder="segment == 'vip'"
+                              value={rule.if}
+                              onChange={(e) => {
+                                const newRules = [...(selectedSection.rules || [])];
+                                newRules[idx].if = e.target.value;
+                                handleRulesChange(newRules);
+                              }}
+                            />
+                          </div>
+                          <div className="w-24">
+                            <label className="text-[10px] uppercase text-muted-foreground font-semibold mb-1 block">Action</label>
+                            <select 
+                              className="flex h-8 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                              value={rule.action}
+                              onChange={(e) => {
+                                const newRules = [...(selectedSection.rules || [])];
+                                newRules[idx].action = e.target.value as 'show' | 'hide';
+                                handleRulesChange(newRules);
+                              }}
+                            >
+                              <option value="show">Show</option>
+                              <option value="hide">Hide</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="w-full text-xs h-8 mt-1 border-dashed"
+                      onClick={() => {
+                        const newRules = [...(selectedSection.rules || []), { if: '', action: 'hide' as const }];
+                        handleRulesChange(newRules);
+                      }}
+                    >
+                      <Plus className="size-3 mr-1" /> Add Rule
+                    </Button>
+                  </div>
                 </div>
               </div>
             </ScrollArea>
