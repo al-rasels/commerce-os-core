@@ -11,6 +11,7 @@ import CategoryListPage from "@/pages/categories/CategoryListPage"
 import ThemeEditorPage from "@/pages/theme/ThemeEditorPage"
 import PageLayoutListPage from "@/pages/settings/PageLayoutList"
 import PageLayoutEditorPage from "@/pages/settings/PageLayoutEditor"
+import PageBuilder from "@/pages/builder/PageBuilder"
 import OrderListPage from "@/pages/orders/OrderListPage"
 import OrderDetailPage from "@/pages/orders/OrderDetailPage"
 import CustomerListPage from "@/pages/customers/CustomerListPage"
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />
+            <Route path="settings/pages/:pageKey/builder" element={<PageBuilder />} />
             <Route path="settings/locations" element={<LocationsListPage />} />
             <Route path="b2b/companies" element={<CompanyProfilesListPage />} />
             <Route path="b2b/price-lists" element={<PriceListsPage />} />
