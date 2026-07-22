@@ -6,25 +6,25 @@ Expand the Phase 1 MVP into a robust, high-performance storefront platform. This
 ## Core Tasks
 
 ### Epic 1: Advanced Experience Engine (Page Builder)
-- [ ] Research `dnd-kit` vs `react-beautiful-dnd` for the nested recursive component tree structure.
-- [ ] Implement `apps/admin/src/pages/builder/PageBuilder.tsx` drag-and-drop canvas.
-- [ ] Implement `PropertyPanel.tsx` with dynamic schema-driven form generation based on `PropSchema`.
-- [ ] Implement Data Binding Panel UI to allow merchants to map `{ "$bind": "product.title" }`.
-- [ ] Implement Responsive Breakpoint Editor UI for per-breakpoint styling overrides.
+- [x] Research `dnd-kit` vs `react-beautiful-dnd` for the nested recursive component tree structure.
+- [x] Implement `apps/admin/src/pages/builder/PageBuilder.tsx` drag-and-drop canvas.
+- [x] Implement `PropertyPanel.tsx` with dynamic schema-driven form generation based on `PropSchema`.
+- [x] Implement Data Binding Panel UI to allow merchants to map `{ "$bind": "product.title" }`.
+- [x] Implement Responsive Breakpoint Editor UI for per-breakpoint styling overrides.
 - [ ] Implement Real-Time Preview Staging (evaluate against staging tenant context, bypass production cache).
 - [ ] Add 30+ new UI components to the `@commerceos/components` library.
 
 ### Epic 2: Infrastructure & Performance
-- [ ] Setup Redis-backed BullMQ queue workers in `apps/api/src/modules/platform/queue`.
-- [ ] Define job interfaces with mandatory `tenantId` field to maintain isolation.
-- [ ] Implement Search Engine (Meilisearch or Elasticsearch) module in `apps/api/src/modules/commerce/search`.
-- [ ] Create sync workers to index Products, Categories, and Pages upon creation/update.
+- [x] Setup Redis-backed BullMQ queue workers in `apps/api/src/modules/platform/queue`.
+- [x] Define job interfaces with mandatory `tenantId` field to maintain isolation.
+- [x] Implement Search Engine (Meilisearch or Elasticsearch) module in `apps/api/src/modules/commerce/search`.
+- [x] Create sync workers to index Products, Categories, and Pages upon creation/update.
 - [ ] Setup Storefront Image Optimization (`next/image` with custom CDN loader).
 
 ### Epic 3: Expanded Commerce Features
-- [ ] Design Prisma schema for `Promotion` and `Coupon` (must be tenant-scoped).
-- [ ] Implement Promotions module REST API (`create`, `update`, `validate`).
-- [ ] Hook Promotions engine into the Checkout State machine.
+- [x] Design Prisma schema for `Promotion` and `Coupon` (must be tenant-scoped).
+- [x] Implement Promotions module REST API (`create`, `update`, `validate`).
+- [x] Hook Promotions engine into the Checkout State machine.
 - [ ] Implement Multiple Themes support in `packages/theme-engine` (foundation for template marketplace).
 
 ## Exit Criteria
