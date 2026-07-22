@@ -12,6 +12,7 @@ import { TaxModule } from './tax/tax.module';
 import { PromotionsModule } from './promotions/promotions.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { ReturnsModule } from './returns/returns.module';
+import { SearchModule } from './search/search.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ReturnsModule } from './returns/returns.module';
     PromotionsModule,
     InventoryModule,
     ReturnsModule,
+    SearchModule,
   ],
 })
 export class CommerceModule {}
