@@ -1,17 +1,48 @@
-export function PropertyPanel({ selectedNodeId }: { selectedNodeId: string | null }) {
-  if (!selectedNodeId) {
+import { sectionSchemas } from '@commerceos/components';
+import { PropEditor } from '@/components/page-editor/PropEditor';
+import { type PageNode } from './components/BuilderNode';
+
+interface PropertyPanelProps {
+  selectedNode: PageNode | null;
+  onChange: (key: string, value: any) => void;
+}
+
+export function PropertyPanel({ selectedNode, onChange }: PropertyPanelProps) {
+  if (!selectedNode) {
     return (
       <div className="text-sm text-muted-foreground text-center py-8">
-        Select a component to edit its properties.
+        Select an element on the canvas to edit its properties.
+      </div>
+    );
+  }
+
+  const schema = sectionSchemas[selectedNode.component];
+
+  if (!schema) {
+    return (
+      <div className="text-sm text-muted-foreground text-center py-8">
+        No schema found for component "{selectedNode.component}".
       </div>
     );
   }
 
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-sm font-semibold">Component Settings</h3>
-      {/* Dynamic schema-driven form will go here */}
-      <div className="text-sm">Editing: {selectedNodeId}</div>
+      <div className="flex flex-col gap-1">
+        <h3 className="text-sm font-semibold">{schema.name}</h3>
+        <p className="text-xs text-muted-foreground">{schema.description}</p>
+      </div>
+      
+      <div className="space-y-4">
+        {schema.props.map(propSchema => (
+          <PropEditor
+            key={propSchema.key}
+            schema={propSchema}
+            value={selectedNode.props[propSchema.key]}
+            onChange={onChange}
+          />
+        ))}
+      </div>
     </div>
   );
 }
