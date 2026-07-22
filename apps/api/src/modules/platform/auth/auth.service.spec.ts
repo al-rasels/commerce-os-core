@@ -80,17 +80,22 @@ describe('AuthService', () => {
   describe('login', () => {
     it('returns tokens when credentials are valid', async () => {
       const hash = await argon2.hash('password123');
-      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
-        id: 'u1',
-        email: 'test@test.com',
-        password_hash: hash,
-        tenant_id: 't1',
-        role: { name: 'Store Owner' },
-      }]);
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([
+        {
+          id: 'u1',
+          email: 'test@test.com',
+          password_hash: hash,
+          tenant_id: 't1',
+          role: { name: 'Store Owner' },
+        },
+      ]);
       mockJwt.signAsync.mockResolvedValue('token');
       mockRedis.set.mockResolvedValueOnce(undefined);
 
-      const result = await service.login(ctx, { email: 'test@test.com', password: 'password123' });
+      const result = await service.login(ctx, {
+        email: 'test@test.com',
+        password: 'password123',
+      });
 
       expect(result.access_token).toBe('token');
       expect(result.refresh_token).toBe('token');
@@ -111,13 +116,15 @@ describe('AuthService', () => {
 
     it('throws UnauthorizedException when password is wrong', async () => {
       const hash = await argon2.hash('correct');
-      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
-        id: 'u1',
-        email: 'test@test.com',
-        password_hash: hash,
-        tenant_id: 't1',
-        role: { name: 'Store Owner' },
-      }]);
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([
+        {
+          id: 'u1',
+          email: 'test@test.com',
+          password_hash: hash,
+          tenant_id: 't1',
+          role: { name: 'Store Owner' },
+        },
+      ]);
 
       await expect(
         service.login(ctx, { email: 'test@test.com', password: 'wrong' }),

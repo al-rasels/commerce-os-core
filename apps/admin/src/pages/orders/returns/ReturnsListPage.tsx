@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, Loader2 } from "lucide-react";
+import { useReturns } from "@/hooks/useReturns";
+import { format } from "date-fns";
 
 export default function ReturnsListPage() {
+  const { data: returns, isLoading } = useReturns();
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between border-b pb-4">
@@ -14,12 +18,46 @@ export default function ReturnsListPage() {
           Create Return
         </Button>
       </div>
-      <div className="flex h-[400px] items-center justify-center rounded-xl border border-dashed text-muted-foreground">
-        <div className="flex flex-col items-center gap-2">
-          <p>The backend API for Returns is pending implementation.</p>
-          <p className="text-xs">Phase 1 MVP - Returns Scaffold</p>
+
+      {isLoading ? (
+        <div className="flex h-[400px] items-center justify-center rounded-xl border border-dashed">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
         </div>
-      </div>
+      ) : returns?.length === 0 ? (
+        <div className="flex h-[400px] items-center justify-center rounded-xl border border-dashed text-muted-foreground">
+          <div className="flex flex-col items-center gap-2">
+            <p>No returns found.</p>
+            <p className="text-xs">Click "Create Return" to create one.</p>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-md border">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b bg-muted/50 text-left text-sm">
+                <th className="py-2 px-3 font-medium">Order ID</th>
+                <th className="py-2 px-3 font-medium">Customer ID</th>
+                <th className="py-2 px-3 font-medium">Status</th>
+                <th className="py-2 px-3 font-medium">Reason</th>
+                <th className="py-2 px-3 font-medium text-right">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {returns?.map((rma) => (
+                <tr key={rma.id} className="border-b">
+                  <td className="py-2 px-3">{rma.order_id}</td>
+                  <td className="py-2 px-3">{rma.customer_id}</td>
+                  <td className="py-2 px-3 capitalize">{rma.status}</td>
+                  <td className="py-2 px-3">{rma.reason}</td>
+                  <td className="py-2 px-3 text-right">
+                    {format(new Date(rma.created_at), "MMM d, yyyy")}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

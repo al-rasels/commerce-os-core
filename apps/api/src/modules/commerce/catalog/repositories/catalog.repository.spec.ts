@@ -29,7 +29,7 @@ describe('isolation: products & categories (TenantScopedRepository)', () => {
     );
 
   it("never returns another tenant's rows", async () => {
-    // Note: Integration tests require an active database. 
+    // Note: Integration tests require an active database.
     // This is a placeholder for isolation tests that verify TenantScopedRepository behavior.
     expect(true).toBe(true);
   });

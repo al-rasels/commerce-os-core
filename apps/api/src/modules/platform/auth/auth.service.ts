@@ -262,7 +262,9 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const stored = await this.redis.get(`refresh:${ctx.tenantId}:${payload.sub}`);
+    const stored = await this.redis.get(
+      `refresh:${ctx.tenantId}:${payload.sub}`,
+    );
     if (!stored || stored !== refreshToken) {
       throw new UnauthorizedException('Refresh token revoked');
     }
@@ -308,7 +310,11 @@ export class AuthService {
       expiresIn: '7d',
     });
 
-    await this.redis.set(`refresh:${tenantId}:${userId}`, refreshToken, 7 * 24 * 3600);
+    await this.redis.set(
+      `refresh:${tenantId}:${userId}`,
+      refreshToken,
+      7 * 24 * 3600,
+    );
 
     return { access_token: accessToken, refresh_token: refreshToken };
   }
