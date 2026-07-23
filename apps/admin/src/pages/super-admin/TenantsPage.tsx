@@ -57,7 +57,9 @@ export function TenantsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Super Admin: Tenants</h1>
-        <Button>Provision Tenant</Button>
+        <Link to="/super-admin/create-store">
+          <Button>Provision Tenant</Button>
+        </Link>
       </div>
       
       <div className="border rounded-md">

@@ -23,6 +23,7 @@ export interface ProvisionTenantInput {
   name: string;
   plan_id: string;
   domain?: string;
+  template_id?: string;
 }
 
 export const superAdminApi = {

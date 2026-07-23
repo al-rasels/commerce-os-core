@@ -30,7 +30,7 @@ export class AdminController {
 
   @Post('tenants')
   async provisionTenant(
-    @Body() data: { name: string; domain: string; plan_id: string },
+    @Body() data: { name: string; domain: string; plan_id: string; template_id?: string },
   ) {
     return this.adminService.provisionTenant(data);
   }

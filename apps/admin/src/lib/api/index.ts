@@ -16,6 +16,8 @@ export { userApi } from './users';
 export type { User, UserListResponse, UserDetail, ListUsersParams, InviteUserInput, UpdateUserInput, UpdateUserStatusInput } from './users';
 export { superAdminApi } from './superAdmin';
 export type { Tenant, TenantListResponse, TenantDetail } from './superAdmin';
+export { templatesApi } from './templates';
+export type { TemplateBase } from './templates';
 export { promotionsApi } from './promotions';
 export type { Promotion } from './promotions';
 export { shippingApi } from './shipping';

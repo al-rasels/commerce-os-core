@@ -6,12 +6,16 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
+import { TemplateService } from '../../experience/template/template.service';
 
 @Injectable()
 export class AdminService {
   private readonly logger = new Logger(AdminService.name);
 
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly templateService: TemplateService,
+  ) {}
 
   async listTenants() {
     this.logger.debug('Fetching tenant list');
@@ -47,6 +51,7 @@ export class AdminService {
     name: string;
     domain: string;
     plan_id: string;
+    template_id?: string;
   }) {
     this.logger.log(
       `Provisioning new tenant: ${data.name} with domain ${data.domain}`,
@@ -64,8 +69,8 @@ export class AdminService {
     }
 
     try {
-      return await this.prisma.$transaction(async (tx) => {
-        const tenant = await tx.tenant.create({
+      const tenant = await this.prisma.$transaction(async (tx) => {
+        const t = await tx.tenant.create({
           data: {
             name: data.name,
             plan_id: data.plan_id,
@@ -79,10 +84,15 @@ export class AdminService {
           },
         });
 
-        // Audit log
-        this.logger.log(`Tenant provisioned successfully: ${tenant.id}`);
-        return tenant;
+        this.logger.log(`Tenant provisioned successfully: ${t.id}`);
+        return t;
       });
+
+      if (data.template_id) {
+        await this.templateService.applyTemplate(tenant.id, data.template_id);
+      }
+
+      return this.getTenant(tenant.id);
     } catch (error) {
       this.logger.error(`Failed to provision tenant: ${data.name}`, error);
       throw new InternalServerErrorException('Failed to provision tenant');

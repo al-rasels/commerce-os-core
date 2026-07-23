@@ -24,7 +24,7 @@ export class TenantService {
         tenant: {
           include: {
             flags: true,
-            theme_overrides: { take: 1, orderBy: { updated_at: 'desc' } },
+            theme_overrides: true,
           },
         },
       },
@@ -35,7 +35,7 @@ export class TenantService {
     }
 
     const { tenant } = domainRecord;
-    const themeOverride = tenant.theme_overrides[0];
+    const themeOverride = tenant.theme_overrides;
     const ctx = new TenantContext({
       tenantId: tenant.id,
       plan: tenant.plan_id,
