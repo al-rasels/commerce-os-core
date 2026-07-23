@@ -9,7 +9,7 @@ export class TenantService {
   constructor(
     private prisma: PrismaService,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-  ) {}
+  ) { }
 
   async resolveTenant(hostname: string): Promise<TenantContext> {
     const cacheKey = `tenant:domain:${hostname}`;
@@ -44,9 +44,9 @@ export class TenantService {
       ),
       theme: themeOverride
         ? {
-            themeBaseId: themeOverride.theme_base_id,
-            overrides: themeOverride.overrides_json as Record<string, unknown>,
-          }
+          themeBaseId: themeOverride.theme_base_id,
+          overrides: themeOverride.overrides_json as Record<string, unknown>,
+        }
         : { themeBaseId: '', overrides: {} },
       locale: 'en-US',
       currency: 'USD',
@@ -61,5 +61,9 @@ export class TenantService {
 
   async invalidateCache(hostname: string): Promise<void> {
     await this.cacheManager.del(`tenant:domain:${hostname}`);
+  }
+
+  async findFirstActiveTenant(): Promise<{ id: string; plan_id: string } | null> {
+    return this.prisma.tenant.findFirst({ where: { status: 'active' } });
   }
 }

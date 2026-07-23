@@ -20,9 +20,7 @@ export class HostResolverMiddleware implements NestMiddleware {
       // In development mode, if we can't resolve a tenant for localhost,
       // fall back to the first available tenant so the app is usable
       if (host === 'localhost' || host === '127.0.0.1') {
-        const prisma = (await import('../../../../prisma/prisma.service.js')).PrismaService;
-        const ps = new prisma();
-        const firstTenant = await (ps as any).tenant.findFirst({ where: { status: 'active' } });
+        const firstTenant = await this.tenantService.findFirstActiveTenant();
         if (firstTenant) {
           const ctx = new TenantContext({
             tenantId: firstTenant.id,
@@ -40,6 +38,7 @@ export class HostResolverMiddleware implements NestMiddleware {
           req['tenantContext'] = ctx;
           return next();
         }
+        throw new NotFoundException(`No active tenant found for domain: ${host}`);
       }
       throw err;
     }

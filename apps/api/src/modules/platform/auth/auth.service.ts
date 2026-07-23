@@ -111,7 +111,7 @@ export class AuthService {
     if (!user || !user.mfa_secret)
       throw new UnauthorizedException('MFA not configured');
 
-    const verified = authenticator.check(dto.token, user.mfa_secret);
+    const verified = authenticator.check(dto.code, user.mfa_secret);
     if (!verified) throw new UnauthorizedException('Invalid MFA code');
 
     const tokens = await this.generateTokens(
@@ -145,7 +145,7 @@ export class AuthService {
     if (!user || !user.mfa_secret)
       throw new NotFoundException('MFA not set up');
 
-    const verified = authenticator.check(dto.token, user.mfa_secret);
+    const verified = authenticator.check(dto.code, user.mfa_secret);
     if (!verified) throw new UnauthorizedException('Invalid MFA code');
 
     await this.usersService.updateUser(ctx, userId, { mfa_enabled: true });

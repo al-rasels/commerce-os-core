@@ -33,27 +33,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   });
 
   const login = useCallback(async (email: string, password: string) => {
-    const res = await fetch('/api/v1/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const res = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'Login failed');
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || `Login failed with status ${res.status}`);
+      }
+
+      const data = await res.json();
+
+      if (data.mfa_required) {
+        return { mfa_token: data.mfa_token, user_id: data.user?.id || data.user_id, email } as MfaState;
+      }
+
+      localStorage.setItem(TOKEN_KEY, data.access_token);
+      localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user?.id, email: data.user?.email }));
+      setToken(data.access_token);
+      setUser({ id: data.user?.id, email: data.user?.email });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Login failed';
+      if (message.includes('Failed to fetch') || message.includes('NetworkError')) {
+        throw new Error('Cannot connect to server. Please ensure the API server is running on port 3001.');
+      }
+      console.error('Login error:', error);
+      throw error;
     }
-
-    const data = await res.json();
-
-    if (data.mfa_token) {
-      return { mfa_token: data.mfa_token, user_id: data.user_id, email } as MfaState;
-    }
-
-    localStorage.setItem(TOKEN_KEY, data.access_token);
-    localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user_id, email }));
-    setToken(data.access_token);
-    setUser({ id: data.user_id, email });
   }, []);
 
   const mfaVerify = useCallback(async (mfaToken: string, code: string) => {
