@@ -1,4 +1,5 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
@@ -78,6 +79,11 @@ export class TemplateService {
               });
               if (cat) categoryId = cat.id;
             }
+            const metafields: Record<string, unknown> = {};
+            if (prod.badge) metafields.badge = prod.badge;
+            if (prod.images) metafields.images = prod.images;
+            if (prod.tags) metafields.tags = prod.tags;
+
             const product = await tx.product.create({
               data: {
                 tenant_id: tenantId,
@@ -86,10 +92,14 @@ export class TemplateService {
                 description: prod.description ?? null,
                 status: prod.status ?? 'draft',
                 category_id: categoryId,
+                metafields_json: Object.keys(metafields).length > 0 ? metafields as Prisma.InputJsonValue : undefined,
               },
             });
             if (prod.variants && Array.isArray(prod.variants)) {
               for (const v of prod.variants) {
+                const attrs = { ...(typeof v.attributes_json === 'object' && v.attributes_json !== null ? v.attributes_json : {}) };
+                if (v.compare_at_cents != null) attrs.compareAtPriceCents = v.compare_at_cents;
+
                 await tx.productVariant.create({
                   data: {
                     tenant_id: tenantId,
@@ -98,7 +108,7 @@ export class TemplateService {
                     price_cents: v.price_cents,
                     currency: v.currency ?? 'USD',
                     stock_available: v.stock_available ?? 0,
-                    attributes_json: v.attributes_json ?? null,
+                    attributes_json: attrs,
                   },
                 });
               }

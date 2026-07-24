@@ -27,6 +27,27 @@ function getSampleProductCount(template: TemplateBase): number {
   return template.layout_json?.sample_products?.length ?? 0;
 }
 
+function getPageLayouts(template: TemplateBase): Record<string, unknown[]> {
+  return (template.layout_json?.page_layouts ?? {}) as Record<string, unknown[]>;
+}
+
+function getSectionCount(template: TemplateBase): number {
+  const layouts = getPageLayouts(template);
+  return Object.values(layouts).reduce((sum, sections) => sum + (Array.isArray(sections) ? sections.length : 0), 0);
+}
+
+const pageLayoutLabels: Record<string, string> = {
+  homepage: 'Homepage',
+  products: 'Category / Listing',
+  product_detail: 'Product Detail',
+  cart: 'Cart',
+  checkout: 'Checkout',
+  account: 'Account',
+  about: 'About Us',
+  contact: 'Contact',
+  lookbook: 'Lookbook',
+};
+
 function TemplateCard({
   template,
   selected,
@@ -37,31 +58,44 @@ function TemplateCard({
   onSelect: () => void;
 }) {
   const colorScheme = template.layout_json?.theme?.colorScheme;
+  const primaryColor = template.layout_json?.theme?.primary ?? '#6366f1';
   const schemeInfo = colorSchemeMap[colorScheme] ?? { label: 'Neutral', variant: 'outline' as const };
+  const layouts = getPageLayouts(template);
+  const layoutKeys = Object.keys(layouts);
+  const totalSections = getSectionCount(template);
 
   return (
     <Card
-      className={`cursor-pointer transition-all hover:shadow-md ${selected ? 'ring-2 ring-primary shadow-lg' : ''}`}
+      className={`cursor-pointer transition-all hover:shadow-lg overflow-hidden ${selected ? 'ring-2 ring-primary shadow-xl' : ''}`}
       onClick={onSelect}
     >
+      <div className="h-2" style={{ background: `linear-gradient(90deg, ${primaryColor}, ${primaryColor}88)` }} />
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div>
+          <div className="flex-1 min-w-0">
             <CardTitle className="text-lg">{template.name}</CardTitle>
-            <CardDescription className="mt-1">{template.description}</CardDescription>
+            <CardDescription className="mt-1 line-clamp-2">{template.description}</CardDescription>
           </div>
           {selected && (
-            <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center">
+            <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center shrink-0 ml-2">
               <Check className="h-4 w-4 text-primary-foreground" />
             </div>
           )}
         </div>
       </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
+      <CardContent className="space-y-3">
+        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
           <Badge variant={schemeInfo.variant}>{schemeInfo.label}</Badge>
-          <span>{getCategoryCount(template)} categories</span>
-          <span>{getSampleProductCount(template)} sample products</span>
+          <Badge variant="outline">{getCategoryCount(template)} categories</Badge>
+          <Badge variant="outline">{getSampleProductCount(template)} products</Badge>
+          <Badge variant="outline">{totalSections} sections</Badge>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {layoutKeys.map((key) => (
+            <span key={key} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+              {pageLayoutLabels[key] ?? key} · {Array.isArray(layouts[key]) ? layouts[key].length : 0}
+            </span>
+          ))}
         </div>
       </CardContent>
     </Card>
@@ -282,12 +316,34 @@ export function CreateStoreWizard() {
                     <div className="flex flex-wrap gap-2">
                       <Badge variant="outline">{getCategoryCount(selectedTemplate)} categories</Badge>
                       <Badge variant="outline">{getSampleProductCount(selectedTemplate)} sample products</Badge>
-                      <Badge variant="outline">{Object.keys(selectedTemplate.layout_json?.page_layouts ?? {}).length} page layouts</Badge>
+                      <Badge variant="outline">{getSectionCount(selectedTemplate)} total sections</Badge>
                     </div>
                   </div>
-                  {selectedTemplate.description && (
-                    <p className="text-sm text-muted-foreground border-t pt-4">{selectedTemplate.description}</p>
-                  )}
+                  <div className="border-t pt-4">
+                    <p className="text-sm font-medium mb-2">Page layouts:</p>
+                    <div className="space-y-1.5">
+                      {Object.entries(getPageLayouts(selectedTemplate)).map(([key, sections]) => (
+                        <div key={key} className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">{pageLayoutLabels[key] ?? key}</span>
+                          <Badge variant="outline" className="text-xs">
+                            {Array.isArray(sections) ? sections.length : 0} sections
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="border-t pt-4">
+                    <p className="text-sm font-medium mb-1">Template</p>
+                    <div className="flex items-center gap-3 text-sm">
+                      <Badge variant="outline">
+                        {colorSchemeMap[selectedTemplate.layout_json?.theme?.colorScheme]?.label ?? 'Neutral'}
+                      </Badge>
+                      <span className="text-muted-foreground">v{selectedTemplate.version}</span>
+                    </div>
+                    {selectedTemplate.description && (
+                      <p className="text-sm text-muted-foreground mt-2">{selectedTemplate.description}</p>
+                    )}
+                  </div>
                 </>
               )}
             </CardContent>
