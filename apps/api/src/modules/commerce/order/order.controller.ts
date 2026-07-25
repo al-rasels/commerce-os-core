@@ -11,13 +11,14 @@ import {
 import { OrderService } from './order.service';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
+import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { ListOrdersQueryDto } from './dto/list-orders-query.dto';
 import { OrderStatusDto } from './dto/order-status.dto';
 
 @Controller('v1/commerce/orders')
-@UseGuards(TenantAuthGuard)
+@UseGuards(TenantAuthGuard, PermissionGuard)
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 

@@ -13,11 +13,12 @@ import { CustomerService } from './customer.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
+import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Controller('v1/commerce/customers')
-@UseGuards(TenantAuthGuard)
+@UseGuards(TenantAuthGuard, PermissionGuard)
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 

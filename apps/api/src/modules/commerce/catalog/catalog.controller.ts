@@ -18,10 +18,11 @@ import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
+import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 
 @Controller('v1/commerce/catalog')
-@UseGuards(TenantAuthGuard)
+@UseGuards(TenantAuthGuard, PermissionGuard)
 export class CatalogController {
   constructor(private readonly catalogService: CatalogService) {}
 

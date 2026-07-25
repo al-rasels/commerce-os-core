@@ -11,6 +11,7 @@ import { BuilderService } from './builder.service';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
+import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 
 @Controller('v1/experience/builder/pages')
@@ -27,7 +28,7 @@ export class BuilderController {
   }
 
   @Put(':key')
-  @UseGuards(TenantAuthGuard)
+  @UseGuards(TenantAuthGuard, PermissionGuard)
   @RequirePermissions('builder.write')
   async updatePageLayout(
     @GetTenantContext() ctx: TenantContext,
@@ -44,7 +45,7 @@ export class BuilderController {
   }
 
   @Post(':key/publish')
-  @UseGuards(TenantAuthGuard)
+  @UseGuards(TenantAuthGuard, PermissionGuard)
   @RequirePermissions('builder.write')
   async publishPageLayout(
     @GetTenantContext() ctx: TenantContext,
@@ -54,7 +55,7 @@ export class BuilderController {
   }
 
   @Post(':key/unpublish')
-  @UseGuards(TenantAuthGuard)
+  @UseGuards(TenantAuthGuard, PermissionGuard)
   @RequirePermissions('builder.write')
   async unpublishPageLayout(
     @GetTenantContext() ctx: TenantContext,

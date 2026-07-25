@@ -3,11 +3,12 @@ import { CheckoutService } from './checkout.service';
 import { CheckoutDto } from './dto/checkout.dto';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
+import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Controller('v1/commerce/checkout')
-@UseGuards(TenantAuthGuard)
+@UseGuards(TenantAuthGuard, PermissionGuard)
 export class CheckoutController {
   constructor(private readonly checkoutService: CheckoutService) {}
 
