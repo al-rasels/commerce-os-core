@@ -73,16 +73,20 @@ export function DataTable<T extends Record<string, unknown>>({
     <div className={cn("space-y-3", className)}>
       {searchable && (
         <div className="relative">
+          <label htmlFor="data-table-search" className="sr-only">
+            {searchPlaceholder}
+          </label>
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
-            type="text"
+            id="data-table-search"
+            type="search"
             placeholder={searchPlaceholder}
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
               setPage(0);
             }}
-            className="h-10 w-full rounded-lg border border-border bg-background pl-10 pr-3 text-sm outline-none focus:ring-2 focus:ring-primary/50"
+            className="h-10 w-full rounded-lg border border-border bg-background pl-10 pr-3 text-sm outline-none transition-all placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20"
           />
         </div>
       )}
@@ -95,28 +99,33 @@ export function DataTable<T extends Record<string, unknown>>({
                 <th
                   key={col.key}
                   className={cn(
-                    "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground",
-                    col.sortable && "cursor-pointer select-none hover:text-foreground",
+                    "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground whitespace-nowrap",
                     col.className,
                   )}
-                  onClick={() => col.sortable && toggleSort(col.key)}
+                  aria-sort={sortKey === col.key ? (sortDir === "asc" ? "ascending" : "descending") : "none"}
                 >
-                  <span className="inline-flex items-center gap-1">
-                    {col.label}
-                    {col.sortable && (
-                      <>
+                  {col.sortable ? (
+                    <button
+                      type="button"
+                      onClick={() => toggleSort(col.key)}
+                      className="group inline-flex w-full items-center gap-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary hover:text-foreground"
+                    >
+                      {col.label}
+                      <span className="flex-none rounded bg-muted/0 text-muted-foreground group-hover:bg-muted/50 group-hover:text-foreground transition-colors">
                         {sortKey === col.key ? (
                           sortDir === "asc" ? (
-                            <ChevronUp className="h-3.5 w-3.5" />
+                            <ChevronUp className="h-4 w-4" />
                           ) : (
-                            <ChevronDown className="h-3.5 w-3.5" />
+                            <ChevronDown className="h-4 w-4" />
                           )
                         ) : (
-                          <ChevronsUpDown className="h-3.5 w-3.5 opacity-40" />
+                          <ChevronsUpDown className="h-4 w-4 opacity-0 group-hover:opacity-100" />
                         )}
-                      </>
-                    )}
-                  </span>
+                      </span>
+                    </button>
+                  ) : (
+                    <span className="inline-flex items-center gap-1">{col.label}</span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -135,10 +144,10 @@ export function DataTable<T extends Record<string, unknown>>({
               paginated.map((row) => (
                 <tr
                   key={String(row[keyField])}
-                  className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors"
+                  className="group border-b border-border last:border-0 hover:bg-muted/40 transition-colors"
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className={cn("px-4 py-3", col.className)}>
+                    <td key={col.key} className={cn("px-4 py-3 relative", col.className)}>
                       {col.render ? col.render(row) : String(row[col.key] ?? "")}
                     </td>
                   ))}
@@ -158,16 +167,18 @@ export function DataTable<T extends Record<string, unknown>>({
             <button
               type="button"
               disabled={safePage === 0}
+              aria-label="Previous page"
               onClick={() => setPage((p) => p - 1)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm disabled:opacity-30 hover:bg-muted transition-colors"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm disabled:opacity-30 hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               &lsaquo;
             </button>
             <button
               type="button"
               disabled={safePage >= totalPages - 1}
+              aria-label="Next page"
               onClick={() => setPage((p) => p + 1)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm disabled:opacity-30 hover:bg-muted transition-colors"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm disabled:opacity-30 hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               &rsaquo;
             </button>

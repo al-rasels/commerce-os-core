@@ -12,6 +12,7 @@ import { motion } from 'framer-motion';
 import { Lock, ArrowLeft, ShieldCheck, CheckCircle2, ShoppingCart } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import Image from 'next/image';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_mock');
 
@@ -59,6 +60,13 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [step, setStep] = useState(1);
+  const [shippingMethod, setShippingMethod] = useState('standard');
+  const [emailValid, setEmailValid] = useState(false);
+
+  // Simple email validation
+  useEffect(() => {
+    setEmailValid(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  }, [email]);
 
   useEffect(() => {
     const load = async () => {
@@ -80,18 +88,24 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!cartId || !email) return;
-    setSubmitting(true);
-    setError('');
-    try {
-      const result = await api.checkout.submit(cartId, email, sessionId);
-      setOrderId(result.order?.id);
-      setClientSecret(result.client_secret);
-      setStep(2); // Move to payment step
-    } catch (e: any) {
-      setError(e.message || 'Checkout failed. Please try again.');
-    } finally {
-      setSubmitting(false);
+    if (step === 1 && emailValid) {
+      setStep(2); // Go to shipping
+      return;
+    }
+    if (step === 2) {
+      if (!cartId || !email) return;
+      setSubmitting(true);
+      setError('');
+      try {
+        const result = await api.checkout.submit(cartId, email, sessionId);
+        setOrderId(result.order?.id);
+        setClientSecret(result.client_secret);
+        setStep(3); // Move to payment step
+      } catch (e: any) {
+        setError(e.message || 'Checkout failed. Please try again.');
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
@@ -165,13 +179,14 @@ export default function CheckoutPage() {
             
             {/* Step 1: Customer Info */}
             <motion.div 
+              layout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className={`bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-border/50 mb-8 transition-all ${step !== 1 && 'opacity-60 grayscale-[50%]'}`}
+              className={`bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-border/50 mb-8 transition-all overflow-hidden ${step !== 1 && 'opacity-60 grayscale-[50%]'}`}
             >
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-semibold flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold">1</span>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${step === 1 ? 'bg-primary text-primary-foreground' : 'bg-primary/20 text-primary'}`}>1</span>
                   Contact Information
                 </h2>
                 {step > 1 && (
@@ -179,7 +194,7 @@ export default function CheckoutPage() {
                 )}
               </div>
 
-              {step === 1 ? (
+              <motion.div animate={{ height: step === 1 ? "auto" : 0 }} className="overflow-hidden">
                 <form onSubmit={handlePlaceOrder}>
                   {error && (
                     <div className="bg-destructive/10 text-destructive text-sm font-medium rounded-lg p-4 mb-6 flex items-start gap-3">
@@ -189,52 +204,131 @@ export default function CheckoutPage() {
                   )}
 
                   <div className="space-y-4 mb-8">
-                    <div className="space-y-2">
+                    <div className="space-y-2 relative">
                       <Label htmlFor="email">Email address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="h-12 bg-muted/50 border-border/50 focus:bg-background"
-                      />
+                      <div className="relative">
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="you@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          className={`h-12 bg-muted/50 focus:bg-background pr-10 transition-colors ${email.length > 0 ? (emailValid ? 'border-green-500/50 focus-visible:ring-green-500' : 'border-destructive/50 focus-visible:ring-destructive') : 'border-border/50'}`}
+                        />
+                        {email.length > 0 && (
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                            {emailValid ? (
+                              <CheckCircle2 className="w-5 h-5 text-green-500" />
+                            ) : (
+                              <div className="w-5 h-5 rounded-full border-2 border-destructive text-destructive flex items-center justify-center text-xs font-bold">!</div>
+                            )}
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
 
                   <Button 
                     type="submit" 
                     className="w-full h-12 text-base font-semibold rounded-xl" 
-                    disabled={submitting || !email}
+                    disabled={submitting || !emailValid}
                   >
-                    {submitting ? 'Processing...' : 'Continue to Payment'}
+                    Continue to Shipping
                   </Button>
                 </form>
-              ) : (
-                <div className="pl-9 text-sm text-muted-foreground flex items-center gap-2">
+              </motion.div>
+              {step > 1 && (
+                <div className="pl-9 text-sm text-muted-foreground flex items-center gap-2 mt-4">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
                   {email}
                 </div>
               )}
             </motion.div>
 
-            {/* Step 2: Payment */}
+            {/* Step 2: Shipping */}
             <motion.div 
+              layout
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className={`bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-border/50 mb-8 transition-all overflow-hidden ${step < 2 ? 'opacity-50 pointer-events-none' : step > 2 ? 'opacity-60 grayscale-[50%]' : ''}`}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold flex items-center gap-3">
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${step === 2 ? 'bg-primary text-primary-foreground' : step > 2 ? 'bg-primary/20 text-primary' : 'bg-muted text-muted-foreground'}`}>2</span>
+                  Shipping Method
+                </h2>
+                {step > 2 && (
+                  <button onClick={() => setStep(2)} className="text-sm font-medium text-primary hover:underline">Edit</button>
+                )}
+              </div>
+
+              <motion.div animate={{ height: step === 2 ? "auto" : 0 }} className="overflow-hidden">
+                <form onSubmit={handlePlaceOrder}>
+                  <div className="space-y-3 mb-8">
+                    <label className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-colors ${shippingMethod === 'standard' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border/50 hover:border-foreground/30'}`}>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${shippingMethod === 'standard' ? 'border-primary' : 'border-muted-foreground'}`}>
+                          {shippingMethod === 'standard' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                        </div>
+                        <div>
+                          <p className="font-medium">Standard Shipping</p>
+                          <p className="text-sm text-muted-foreground">3-5 business days</p>
+                        </div>
+                      </div>
+                      <span className="font-semibold">{subtotal > 15000 ? 'Free' : '$15.00'}</span>
+                      <input type="radio" name="shipping" value="standard" checked={shippingMethod === 'standard'} onChange={(e) => setShippingMethod(e.target.value)} className="hidden" />
+                    </label>
+                    <label className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-colors ${shippingMethod === 'express' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border/50 hover:border-foreground/30'}`}>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${shippingMethod === 'express' ? 'border-primary' : 'border-muted-foreground'}`}>
+                          {shippingMethod === 'express' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                        </div>
+                        <div>
+                          <p className="font-medium">Express Shipping</p>
+                          <p className="text-sm text-muted-foreground">1-2 business days</p>
+                        </div>
+                      </div>
+                      <span className="font-semibold">$25.00</span>
+                      <input type="radio" name="shipping" value="express" checked={shippingMethod === 'express'} onChange={(e) => setShippingMethod(e.target.value)} className="hidden" />
+                    </label>
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full h-12 text-base font-semibold rounded-xl" 
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Preparing Order...' : 'Continue to Payment'}
+                  </Button>
+                </form>
+              </motion.div>
+              {step > 2 && (
+                <div className="pl-9 text-sm text-muted-foreground flex items-center gap-2 mt-4">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  {shippingMethod === 'standard' ? 'Standard Shipping' : 'Express Shipping'}
+                </div>
+              )}
+            </motion.div>
+
+            {/* Step 3: Payment */}
+            <motion.div 
+              layout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className={`bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-border/50 ${step === 1 && 'opacity-50 pointer-events-none'}`}
+              className={`bg-background rounded-2xl p-6 md:p-8 shadow-sm border border-border/50 overflow-hidden ${step < 3 && 'opacity-50 pointer-events-none'}`}
             >
               <div className="mb-6">
                 <h2 className="text-xl font-semibold flex items-center gap-3">
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${step === 2 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>2</span>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${step === 3 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>3</span>
                   Payment Details
                 </h2>
                 <p className="text-sm text-muted-foreground mt-2 pl-9">All transactions are secure and encrypted.</p>
               </div>
 
-              {step === 2 && clientSecret && (
+              <motion.div animate={{ height: step === 3 ? "auto" : 0 }} className="overflow-hidden">
+              {step === 3 && clientSecret && (
                 <div className="pl-9">
                   <div className="bg-muted/30 border border-border/50 rounded-xl p-6">
                     <div className="flex justify-center mb-4">
@@ -246,6 +340,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               )}
+              </motion.div>
             </motion.div>
           </div>
 
@@ -259,7 +354,7 @@ export default function CheckoutPage() {
                   <div key={item.id} className="flex gap-4 items-start">
                     <div className="relative w-16 h-16 rounded-lg bg-muted overflow-hidden shrink-0 border border-border/50">
                       {item.variant?.product?.images?.[0] ? (
-                        <img src={item.variant.product.images[0]} alt="" className="w-full h-full object-cover" />
+                        <Image src={item.variant.product.images[0]} alt="" fill className="object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center opacity-20">🖼</div>
                       )}

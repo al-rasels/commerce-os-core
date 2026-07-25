@@ -159,7 +159,6 @@ export class CatalogService {
     ctx: TenantContext,
     variantId: string,
     quantity: number,
-    orderId: string,
   ) {
     const success = await this.variantRepo.incrementReservedStock(
       ctx,
@@ -168,17 +167,34 @@ export class CatalogService {
     );
 
     if (!success) {
-      return false;
+      return null;
     }
 
-    await this.stockReservationRepo.create(ctx, {
+    const reservation = await this.stockReservationRepo.create(ctx, {
       variant_id: variantId,
-      order_id: orderId,
       quantity: quantity,
-      expires_at: new Date(Date.now() + 30 * 60 * 1000), // 30 mins
+      expires_at: new Date(Date.now() + 15 * 60 * 1000), // 15 mins (matching RESERVATION_TTL_MS)
     });
 
-    return true;
+    return reservation.id;
+  }
+
+  async confirmReservation(ctx: TenantContext, reservationId: string, orderId: string) {
+    await this.stockReservationRepo.update(ctx, reservationId, {
+      order_id: orderId,
+    });
+  }
+
+  async releaseReservation(ctx: TenantContext, reservationId: string) {
+    const res = await this.stockReservationRepo.findUnique(ctx, reservationId);
+    if (!res) return;
+
+    // Decrement reserved stock, increment available
+    await this.variantRepo.update(ctx, res.variant_id, {
+      stock_reserved: { decrement: res.quantity },
+    });
+
+    await this.stockReservationRepo.delete(ctx, reservationId);
   }
 
   async getBundleItems(ctx: TenantContext, parentVariantId: string) {

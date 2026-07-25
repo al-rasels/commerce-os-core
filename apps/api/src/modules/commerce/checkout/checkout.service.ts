@@ -72,40 +72,62 @@ export class CheckoutService {
     const totalCents = subtotalCents + taxCents + shippingCents - discountCents;
     const currency = (cart as any).items[0]?.variant.currency || 'USD';
 
-    this.logger.log(`Processing transaction for cart ${cartId}`);
+    const reservationIds: string[] = [];
 
-    const order = await this.orderService.createOrder(ctx, {
-      customer_id: (cart as any).customer_id!,
-      status: 'pending',
-      subtotal_cents: subtotalCents,
-      tax_cents: taxCents,
-      shipping_cents: shippingCents,
-      discount_cents: discountCents,
-      total_cents: totalCents,
-      currency,
-      channel: 'online',
-      items: {
-        create: (cart as any).items.map((i: any) => ({
-          tenant_id: ctx.tenantId,
-          variant_id: i.variant_id,
-          quantity: i.quantity,
-          unit_price_cents: i.variant.price_cents,
-        })),
-      },
-    });
-
+    // PHASE 1: Reserve all stock FIRST
     for (const item of (cart as any).items) {
-      const reserved = await this.catalogService.reserveStock(
+      const reservationId = await this.catalogService.reserveStock(
         ctx,
         item.variant_id,
         item.quantity,
-        order.id,
       );
-      if (!reserved) {
+      if (!reservationId) {
+        // Rollback previous reservations
+        for (const resId of reservationIds) {
+          await this.catalogService.releaseReservation(ctx, resId);
+        }
         throw new BadRequestException(
-          `Failed to reserve stock for variant ${item.variant_id}`,
+          `Failed to reserve stock for variant ${item.variant_id} (Out of Stock)`,
         );
       }
+      reservationIds.push(reservationId);
+    }
+
+    this.logger.log(`Processing transaction for cart ${cartId}`);
+
+    let order;
+    try {
+      // PHASE 2: Create Order
+      order = await this.orderService.createOrder(ctx, {
+        customer_id: (cart as any).customer_id!,
+        status: 'pending',
+        subtotal_cents: subtotalCents,
+        tax_cents: taxCents,
+        shipping_cents: shippingCents,
+        discount_cents: discountCents,
+        total_cents: totalCents,
+        currency,
+        channel: 'online',
+        items: {
+          create: (cart as any).items.map((i: any) => ({
+            tenant_id: ctx.tenantId,
+            variant_id: i.variant_id,
+            quantity: i.quantity,
+            unit_price_cents: i.variant.price_cents,
+          })),
+        },
+      });
+
+      // PHASE 3: Confirm Reservations
+      for (const resId of reservationIds) {
+        await this.catalogService.confirmReservation(ctx, resId, order.id);
+      }
+    } catch (e) {
+      // Rollback on Order Creation Failure
+      for (const resId of reservationIds) {
+        await this.catalogService.releaseReservation(ctx, resId);
+      }
+      throw e;
     }
 
     if ((cart as any).promotion) {

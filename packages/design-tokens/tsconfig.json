@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
@@ -10,5 +10,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["index.ts", "tokens.ts"]
+  "include": [
+    "index.ts",
+    "tokens.ts"
+  ]
 }

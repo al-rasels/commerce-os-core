@@ -1,11 +1,15 @@
 import { serverApi } from '@/lib/server-api';
 import { SectionRenderer } from '@/components/section-renderer';
+import { draftMode } from 'next/headers';
 
 export const revalidate = 60; // SSR with 60s cache
 
 export default async function HomePage() {
+  const draft = await draftMode();
+  const isDraft = draft.isEnabled;
+
   const [page, productsResponse, categoriesResponse] = await Promise.all([
-    serverApi.experience.getPage('homepage').catch(() => null),
+    serverApi.experience.getPage('homepage', isDraft).catch(() => null),
     serverApi.products.list().catch(() => ({ data: [] })),
     serverApi.categories.list().catch(() => []),
   ]);

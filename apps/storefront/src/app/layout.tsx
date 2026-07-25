@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TenantThemeProvider } from "@/components/tenant-theme-provider";
 import { serverApi } from "@/lib/server-api";
 import { Footer } from "@commerceos/components";
-import { ShoppingBag } from "lucide-react";
+import { FloatingHeader } from "@/components/floating-header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,36 +67,10 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col bg-background text-foreground transition-colors duration-300">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <TenantThemeProvider theme={resolvedTheme?.data || resolvedTheme}>
-          <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 shadow-sm transition-all duration-300">
-            <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-              <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
-                <ShoppingBag className="w-6 h-6 text-primary" />
-                <span>Commerce<span className="text-muted-foreground">OS</span></span>
-              </Link>
-              <nav className="hidden md:flex items-center gap-8">
-                <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Home
-                </Link>
-                <Link href="/products" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Shop
-                </Link>
-                <Link href="/categories" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Categories
-                </Link>
-              </nav>
-              <div className="flex-1 max-w-sm mx-8 hidden lg:block">
-                <SearchAutocomplete />
-              </div>
-              <div className="flex items-center gap-4">
-                <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
-                  Account
-                </Link>
-                <CartBadge />
-              </div>
-            </div>
-          </header>
-          
-          <main className="flex-1 flex flex-col">{children}</main>
+          <FloatingHeader />
+          <div className="pt-16">
+            <main className="flex-1 flex flex-col min-h-screen">{children}</main>
+          </div>
           
           <Footer 
             columns={footerColumns} 

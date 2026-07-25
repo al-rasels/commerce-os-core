@@ -26,7 +26,7 @@ import { Select } from "./select";
 import { EmptyState } from "./empty-state";
 import { DataTable } from "./data-table";
 import { FormRenderer } from "./form-renderer";
-import { Toast, ToastContainer } from "./toast";
+import { Toaster, toast } from "./toast";
 
 export type ComponentRegistryEntry = {
   component: ComponentType<any>;
@@ -61,8 +61,7 @@ export const componentRegistry = {
   "empty-state.v1": { component: EmptyState },
   "data-table.v1": { component: DataTable, minPlan: "pro" },
   "form-renderer.v1": { component: FormRenderer, minPlan: "pro" },
-  "toast.v1": { component: Toast },
-  "toast-container.v1": { component: ToastContainer },
+  "toast.v1": { component: Toaster },
 } as const satisfies Record<string, ComponentRegistryEntry>;
 
 export type ComponentRegistryKey = keyof typeof componentRegistry;

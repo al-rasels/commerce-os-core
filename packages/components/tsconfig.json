@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ES2022",
-    "moduleResolution": "bundler",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
@@ -11,6 +11,13 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "react-jsx"
   },
-  "include": ["*.ts", "*.tsx"],
-  "exclude": ["*.spec.ts", "*.spec.tsx", "vitest.setup.ts"]
+  "include": [
+    "*.ts",
+    "*.tsx"
+  ],
+  "exclude": [
+    "*.spec.ts",
+    "*.spec.tsx",
+    "vitest.setup.ts"
+  ]
 }

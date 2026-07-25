@@ -40,18 +40,28 @@ const buttonVariants = cva(
   }
 )
 
+export interface ButtonProps extends ButtonPrimitive.Props, VariantProps<typeof buttonVariants> {
+  isLoading?: boolean;
+}
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  isLoading,
+  children,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      disabled={isLoading || props.disabled}
       {...props}
-    />
+    >
+      {isLoading && <span className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />}
+      {children}
+    </ButtonPrimitive>
   )
 }
 

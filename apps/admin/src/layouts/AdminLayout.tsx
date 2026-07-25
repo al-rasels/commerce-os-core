@@ -1,5 +1,6 @@
-import { type ReactNode } from "react"
+import { type ReactNode, useEffect, useState } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Command } from "cmdk"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,6 +19,7 @@ import {
   RefreshCw,
   MapPin,
   FileClock,
+  Search,
 } from "lucide-react"
 import {
   Sidebar,
@@ -128,6 +130,70 @@ function Topbar() {
   )
 }
 
+function CommandMenu() {
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpen((open) => !open)
+      }
+    }
+
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
+
+  if (!open) return null
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] bg-black/40 backdrop-blur-sm">
+      <div className="w-full max-w-lg rounded-xl border border-border bg-background shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
+        <Command
+          className="flex flex-col bg-transparent"
+          onKeyDown={(e) => {
+            if (e.key === "Escape") setOpen(false)
+          }}
+        >
+          <div className="flex items-center border-b border-border px-3">
+            <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+            <Command.Input
+              autoFocus
+              className="flex h-12 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+              placeholder="Type a command or search..."
+            />
+          </div>
+          <Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden p-2">
+            <Command.Empty className="py-6 text-center text-sm text-muted-foreground">
+              No results found.
+            </Command.Empty>
+            <Command.Group heading="Navigation" className="px-2 text-xs font-medium text-muted-foreground">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                return (
+                  <Command.Item
+                    key={item.href}
+                    onSelect={() => {
+                      navigate(item.href)
+                      setOpen(false)
+                    }}
+                    className="flex cursor-default select-none items-center rounded-sm px-2 py-2 text-sm outline-none aria-selected:bg-primary/10 aria-selected:text-primary data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                  >
+                    <Icon className="mr-2 h-4 w-4" />
+                    {item.label}
+                  </Command.Item>
+                )
+              })}
+            </Command.Group>
+          </Command.List>
+        </Command>
+      </div>
+    </div>
+  )
+}
+
 export default function AdminLayout({ children }: { children?: ReactNode }) {
   return (
     <SidebarProvider>
@@ -138,6 +204,7 @@ export default function AdminLayout({ children }: { children?: ReactNode }) {
           {children ?? <Outlet />}
         </main>
       </SidebarInset>
+      <CommandMenu />
     </SidebarProvider>
   )
 }

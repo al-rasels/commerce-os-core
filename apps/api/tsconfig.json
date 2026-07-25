@@ -21,9 +21,5 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "paths": {
-      "@commerceos/shared-types": ["../../packages/shared-types/index.ts"],
-      "@commerceos/theme-engine": ["../../packages/theme-engine/index.ts"]
-    }
   }
 }

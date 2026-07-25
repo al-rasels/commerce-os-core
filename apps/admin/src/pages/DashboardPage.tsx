@@ -24,17 +24,21 @@ const itemVariants = {
 
 function StatCard({ title, value, icon: Icon, loading }: { title: string; value: string; icon: React.ElementType; loading: boolean }) {
   return (
-    <motion.div variants={itemVariants}>
-      <Card className="overflow-hidden relative shadow-xs">
+    <motion.div variants={itemVariants} whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300 }}>
+      <Card className="overflow-hidden relative shadow-sm hover:shadow-md transition-shadow">
         <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-          <CardTitle className="text-sm font-medium">{title}</CardTitle>
-          <Icon className="size-4 text-muted-foreground" />
+          <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
+          <div className="p-2 bg-primary/10 rounded-full">
+            <Icon className="size-4 text-primary" />
+          </div>
         </CardHeader>
         <CardContent>
           {loading ? (
-            <Skeleton className="h-8 w-24" />
+            <div className="space-y-1">
+              <Skeleton className="h-8 w-24" />
+            </div>
           ) : (
-            <div className="text-2xl font-bold">{value}</div>
+            <div className="text-3xl font-bold tracking-tight">{value}</div>
           )}
         </CardContent>
       </Card>
@@ -96,37 +100,54 @@ export default function DashboardPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <ChartContainer config={chartConfig} className="h-[300px] w-full">
-                <AreaChart accessibilityLayer data={chartData} margin={{ top: 10, left: 10, right: 10, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8}/>
-                      <stop offset="95%" stopColor="var(--color-revenue)" stopOpacity={0.1}/>
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid vertical={false} />
-                  <XAxis 
-                    dataKey="name" 
-                    tickLine={false} 
-                    axisLine={false} 
-                    tickMargin={8}
-                  />
-                  <YAxis 
-                    tickLine={false} 
-                    axisLine={false} 
-                    tickMargin={8}
-                    tickFormatter={(value) => `$${value}`} 
-                  />
-                  <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
-                  <Area 
-                    type="monotone" 
-                    dataKey="revenue" 
-                    stroke="var(--color-revenue)" 
-                    fill="url(#fillRevenue)" 
-                    fillOpacity={1}
-                  />
-                </AreaChart>
-              </ChartContainer>
+              {isLoading ? (
+                <div className="h-[300px] w-full flex items-end gap-2 pb-4 pt-10">
+                  {[40, 70, 45, 90, 65, 85, 100].map((h, i) => (
+                    <Skeleton key={i} className="w-full rounded-t-sm" style={{ height: `${h}%` }} />
+                  ))}
+                </div>
+              ) : (
+                <ChartContainer config={chartConfig} className="h-[300px] w-full">
+                  <AreaChart accessibilityLayer data={chartData} margin={{ top: 10, left: 10, right: 10, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="fillRevenue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="var(--color-revenue)" stopOpacity={0.8}/>
+                        <stop offset="95%" stopColor="var(--color-revenue)" stopOpacity={0.1}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid vertical={false} strokeDasharray="3 3" opacity={0.5} />
+                    <XAxis 
+                      dataKey="name" 
+                      tickLine={false} 
+                      axisLine={false} 
+                      tickMargin={8}
+                    />
+                    <YAxis 
+                      tickLine={false} 
+                      axisLine={false} 
+                      tickMargin={8}
+                      tickFormatter={(value) => `$${value}`} 
+                    />
+                    <ChartTooltip 
+                      cursor={{ stroke: 'var(--color-revenue)', strokeWidth: 1, strokeDasharray: '4 4' }} 
+                      content={
+                        <ChartTooltipContent 
+                          indicator="dot" 
+                          formatter={(val) => `$${Number(val).toFixed(2)}`} 
+                        />
+                      } 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="revenue" 
+                      stroke="var(--color-revenue)" 
+                      fill="url(#fillRevenue)" 
+                      fillOpacity={1}
+                      animationDuration={1500}
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              )}
             </CardContent>
           </Card>
         </motion.div>

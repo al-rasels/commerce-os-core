@@ -5,6 +5,7 @@ import {
   Post,
   Body,
   Param,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { BuilderService } from './builder.service';
@@ -22,8 +23,9 @@ export class BuilderController {
   async getPageLayout(
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,
+    @Query('draft') draft?: string,
   ) {
-    return this.builderService.getPageLayout(ctx, pageKey);
+    return this.builderService.getPageLayout(ctx, pageKey, draft === 'true');
   }
 
   @Put(':key')

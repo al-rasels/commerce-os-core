@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../../../../../prisma/prisma.service';
-import { TenantContext } from '../../../../platform/tenant/tenant-context';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { TenantContext } from '../../../modules/platform/tenant/tenant-context';
 import { v4 as uuidv4 } from 'uuid';
 // Note: Imports for the actual repository might need adjusting based on relative path
 
@@ -12,23 +12,25 @@ describe('isolation: order', () => {
       tenantId: uuidv4(),
       plan: 'starter',
       effectiveFlags: new Set(),
-      theme: null,
+      theme: { themeBaseId: 'default', overrides: {} },
       locale: 'en-US',
       currency: 'USD',
       permissions: [],
       domain: 'tenantA',
       storagePrefix: 'tenantA',
+      hasFeature: () => false,
     };
     const tenantB: TenantContext = {
       tenantId: uuidv4(),
       plan: 'starter',
       effectiveFlags: new Set(),
-      theme: null,
+      theme: { themeBaseId: 'default', overrides: {} },
       locale: 'en-US',
       currency: 'USD',
       permissions: [],
       domain: 'tenantB',
       storagePrefix: 'tenantB',
+      hasFeature: () => false,
     };
 
     // In a real e2e/integration suite, you would use Prisma to insert rows here.

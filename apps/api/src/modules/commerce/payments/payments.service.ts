@@ -3,6 +3,7 @@ import {
   Inject,
   BadRequestException,
   Logger,
+  forwardRef,
 } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { OrderService } from '../order/order.service';
@@ -15,6 +16,7 @@ export class PaymentsService {
   constructor(
     @Inject('STRIPE_CLIENT') private readonly stripe: any,
     private readonly prisma: PrismaService,
+    @Inject(forwardRef(() => OrderService))
     private readonly orderService: OrderService,
   ) {}
 

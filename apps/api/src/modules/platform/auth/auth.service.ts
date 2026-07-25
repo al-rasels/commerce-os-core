@@ -4,6 +4,8 @@ import {
   InternalServerErrorException,
   NotFoundException,
   UnauthorizedException,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
@@ -24,6 +26,7 @@ import { InviteDto } from './dto/invite.dto';
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,

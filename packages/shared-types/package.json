@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "echo 'build shared-types'"
+    "build": "tsc"
   },
   "dependencies": {
     "zod": "^3.23.8"

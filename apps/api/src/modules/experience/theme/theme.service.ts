@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ThemeTenantOverrideRepository } from './repositories/theme-override.repository';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { resolveOverride } from '../../../../../../packages/theme-engine/index';
+import { resolveOverride, ThemeRegistry, ThemeBaseId } from '@commerceos/theme-engine';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
@@ -12,23 +12,21 @@ export class ThemeService {
   ) {}
 
   async getResolvedTheme(ctx: TenantContext) {
-    // 1. Fetch base theme. Currently assuming a single global base 'v1' or resolving from tenant.
-    // In a full implementation, `ctx.theme.themeBaseId` points to the exact base.
-    const baseTheme = await this.prisma.themeBase.findFirst({
-      orderBy: { version: 'desc' },
-    });
+    // 1. Fetch base theme from ThemeRegistry using context
+    const themeBaseId = (ctx.theme?.themeBaseId || 'default') as ThemeBaseId;
+    const baseTheme = ThemeRegistry[themeBaseId];
 
     if (!baseTheme) {
-      throw new NotFoundException('Base theme not found');
+      throw new NotFoundException(`Base theme '${themeBaseId}' not found in registry`);
     }
 
     // 2. Fetch tenant override using strictly isolated repo
     const overrides = await this.overrideRepo.findMany(ctx, {
-      theme_base_id: baseTheme.id,
+      theme_base_id: themeBaseId,
     });
     const tenantOverride = overrides.length > 0 ? overrides[0] : null;
 
-    const baseJson = (baseTheme.tokens_json as Record<string, unknown>) || {};
+    const baseJson = (baseTheme as Record<string, unknown>) || {};
     const overrideJson = tenantOverride
       ? (tenantOverride.overrides_json as Record<string, unknown>)
       : {};
@@ -37,8 +35,8 @@ export class ThemeService {
     const { resolved, conflicts } = resolveOverride(baseJson, overrideJson);
 
     return {
-      id: baseTheme.id,
-      version: baseTheme.version,
+      id: themeBaseId,
+      version: '1.0.0', // Hardcoded version since it's from code now
       tokens: resolved,
       conflicts,
     };
