@@ -1,8 +1,10 @@
 import helmet from 'helmet';
+import * as cookieParser from 'cookie-parser';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { PrismaClientExceptionFilter } from './common/filters/prisma-client-exception.filter';
+import { SensitiveFieldsInterceptor } from './common/interceptors/sensitive-fields.interceptor';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
 async function bootstrap() {
@@ -13,7 +15,10 @@ async function bootstrap() {
 
   const logger = app.get(Logger);
   app.useLogger(logger);
-  app.useGlobalInterceptors(new LoggerErrorInterceptor());
+  app.useGlobalInterceptors(
+    new LoggerErrorInterceptor(),
+    new SensitiveFieldsInterceptor(),
+  );
 
   app.setGlobalPrefix('api');
 
@@ -24,6 +29,7 @@ async function bootstrap() {
   });
 
   app.use(helmet());
+  app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
