@@ -10,6 +10,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card"
+import { ShoppingBag } from "lucide-react"
 
 export default function LoginPage() {
   const { login, mfaVerify } = useAuth()
@@ -55,10 +56,18 @@ export default function LoginPage() {
 
   if (mfaToken) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Card className="w-full max-w-sm">
-          <CardHeader>
-            <CardTitle>Two-factor authentication</CardTitle>
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <Card className="w-full max-w-sm border-border/50 shadow-xl">
+          <CardHeader className="space-y-1 text-center">
+            <div className="flex justify-center mb-2">
+              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-primary-foreground" />
+              </div>
+            </div>
+            <CardTitle className="text-xl">Two-factor authentication</CardTitle>
+            <p className="text-sm text-muted-foreground font-normal">
+              Enter the code from your authenticator app.
+            </p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleMfaSubmit} className="flex flex-col gap-4">
@@ -76,7 +85,7 @@ export default function LoginPage() {
                 />
               </div>
               {error && <p className="text-sm text-destructive">{error}</p>}
-              <Button type="submit" disabled={loading}>
+              <Button type="submit" disabled={loading} className="w-full">
                 {loading ? "Verifying..." : "Verify"}
               </Button>
             </form>
@@ -87,10 +96,18 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Sign in to CommerceOS</CardTitle>
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <Card className="w-full max-w-sm border-border/50 shadow-xl">
+        <CardHeader className="space-y-1 text-center">
+          <div className="flex justify-center mb-2">
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+              <ShoppingBag className="w-5 h-5 text-primary-foreground" />
+            </div>
+          </div>
+          <CardTitle className="text-xl">Sign in to CommerceOS</CardTitle>
+          <p className="text-sm text-muted-foreground font-normal">
+            Enter your credentials to access the dashboard.
+          </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -116,10 +133,10 @@ export default function LoginPage() {
               />
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="w-full">
               {loading ? "Signing in..." : "Sign in"}
             </Button>
-            <Link to="/forgot-password" className="text-center text-sm text-muted-foreground hover:underline">
+            <Link to="/forgot-password" className="text-center text-sm text-muted-foreground hover:text-foreground transition-colors">
               Forgot password?
             </Link>
           </form>

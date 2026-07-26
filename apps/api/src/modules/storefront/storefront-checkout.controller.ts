@@ -20,6 +20,16 @@ export class StorefrontCheckoutController {
     @Param('cartId') cartId: string,
     @Body('email') email?: string,
     @Body('session_id') sessionId?: string,
+    @Body('shipping_first_name') shippingFirstName?: string,
+    @Body('shipping_last_name') shippingLastName?: string,
+    @Body('shipping_address_line1') shippingAddressLine1?: string,
+    @Body('shipping_address_line2') shippingAddressLine2?: string,
+    @Body('shipping_city') shippingCity?: string,
+    @Body('shipping_state') shippingState?: string,
+    @Body('shipping_postal_code') shippingPostalCode?: string,
+    @Body('shipping_country') shippingCountry?: string,
+    @Body('shipping_phone') shippingPhone?: string,
+    @Body('billing_same_as_shipping') billingSameAsShipping?: boolean,
   ) {
     const { PrismaService } = await import('../../prisma/prisma.service.js');
     const prisma = new PrismaService();
@@ -68,11 +78,28 @@ export class StorefrontCheckoutController {
       }
     }
 
+    const shippingAddress = {
+      first_name: shippingFirstName || null,
+      last_name: shippingLastName || null,
+      address_line1: shippingAddressLine1 || null,
+      address_line2: shippingAddressLine2 || null,
+      city: shippingCity || null,
+      state: shippingState || null,
+      postal_code: shippingPostalCode || null,
+      country: shippingCountry || null,
+      phone: shippingPhone || null,
+    };
+
+    const billingAddress = billingSameAsShipping
+      ? shippingAddress
+      : {};
+
     const order = await (prisma as any).$transaction(async (tx: any) => {
       const created = await tx.order.create({
         data: {
           tenant_id: ctx.tenantId,
           customer_id: customerId,
+          customer_email: email || null,
           status: 'pending',
           subtotal_cents: subtotalCents,
           tax_cents: 0,
@@ -80,6 +107,8 @@ export class StorefrontCheckoutController {
           total_cents: totalCents,
           currency,
           channel: 'online',
+          shipping_address: shippingAddress,
+          billing_address: billingAddress,
           items: {
             create: cart.items.map((i: any) => ({
               tenant_id: ctx.tenantId,
@@ -127,6 +156,12 @@ export class StorefrontCheckoutController {
         currency: currency.toLowerCase(),
         metadata: { order_id: order.id, tenant_id: ctx.tenantId },
       });
+
+      await (prisma as any).order.update({
+        where: { id: order.id },
+        data: { stripe_payment_intent_id: paymentIntent.id },
+      });
+
       return { order, client_secret: paymentIntent.client_secret };
     } catch {
       return { order, client_secret: null };

@@ -142,10 +142,21 @@ export const api = {
       request<any>(`/cart/${cartId}/items/${itemId}`, { method: 'DELETE' }),
   },
   checkout: {
-    submit: (cartId: string, email: string, sessionId: string) =>
+    submit: (cartId: string, email: string, sessionId: string, addressData?: {
+      shipping_first_name?: string;
+      shipping_last_name?: string;
+      shipping_address_line1?: string;
+      shipping_address_line2?: string;
+      shipping_city?: string;
+      shipping_state?: string;
+      shipping_postal_code?: string;
+      shipping_country?: string;
+      shipping_phone?: string;
+      billing_same_as_shipping?: boolean;
+    }) =>
       request<any>(`/checkout/${cartId}`, {
         method: 'POST',
-        body: JSON.stringify({ email, session_id: sessionId }),
+        body: JSON.stringify({ email, session_id: sessionId, ...addressData }),
       }),
   },
   orders: {

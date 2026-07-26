@@ -2,9 +2,11 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { OrderRepository } from './order.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
+import { AuditLogService } from '../../platform/audit-log/audit-log.service';
 import { ListOrdersQueryDto } from './dto/list-orders-query.dto';
 
 const VALID_TRANSITIONS: Record<string, string[]> = {
@@ -17,7 +19,12 @@ const VALID_TRANSITIONS: Record<string, string[]> = {
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly orderRepo: OrderRepository) {}
+  private readonly logger = new Logger(OrderService.name);
+
+  constructor(
+    private readonly orderRepo: OrderRepository,
+    private readonly auditLog: AuditLogService,
+  ) {}
 
   async get(ctx: TenantContext, id: string) {
     const order = await this.orderRepo.findUnique(ctx, id, {
@@ -80,6 +87,18 @@ export class OrderService {
     }
 
     const updated = await this.orderRepo.update(ctx, id, { status: newStatus });
+
+    await this.auditLog.log(
+      ctx,
+      'order.status_changed',
+      'order',
+      id,
+      'system',
+      { from: order.status, to: newStatus },
+    );
+
+    this.logger.log(`Order ${id} status changed: ${order.status} → ${newStatus}`);
+
     return this.toDto(updated);
   }
 
@@ -134,6 +153,10 @@ export class OrderService {
       total: order.total_cents,
       currency: order.currency,
       channel: order.channel,
+      stripe_payment_intent_id: order.stripe_payment_intent_id,
+      customer_email: order.customer_email,
+      shipping_address: order.shipping_address,
+      billing_address: order.billing_address,
       items: (order.items ?? []).map((item: any) => ({
         id: item.id,
         variant_id: item.variant_id,

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartBadge } from "@/components/cart-badge";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
+import { MobileNav } from "@/components/mobile-nav";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TenantThemeProvider } from "@/components/tenant-theme-provider";
@@ -87,8 +88,9 @@ export default async function RootLayout({
               <div className="flex-1 max-w-sm mx-8 hidden lg:block">
                 <SearchAutocomplete />
               </div>
-              <div className="flex items-center gap-4">
-                <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+              <div className="flex items-center gap-2">
+                <MobileNav />
+                <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hidden sm:inline">
                   Account
                 </Link>
                 <CartBadge />

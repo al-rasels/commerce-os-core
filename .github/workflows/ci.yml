@@ -1,23 +1,30 @@
-name: CommerceOS CI
+name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
   pull_request:
-    branches: ["main"]
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 22
+  TURBO_CACHE_KEY: turbo-${{ github.ref_name }}
 
 jobs:
-  build-and-test:
-    name: Build, Lint, and Test
+  quality:
+    name: Lint & Build & Test
     runs-on: ubuntu-latest
-    
-    # We require a postgres database and redis for the isolation tests to run properly
+    timeout-minutes: 20
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: password
+          POSTGRES_USER: commerceos
+          POSTGRES_PASSWORD: commerceos
           POSTGRES_DB: commerceos_test
         ports:
           - 5432:5432
@@ -26,9 +33,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
       redis:
-        image: redis:7
+        image: redis:7-alpine
         ports:
           - 6379:6379
         options: >-
@@ -38,24 +44,44 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
 
-      - name: Install Dependencies
-        run: npm ci
+      - run: npm ci
 
-      - name: Turborepo Pipeline (Lint, Test, Build)
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
         env:
-          API_DATABASE_URL: postgresql://root:password@localhost:5432/commerceos_test?schema=public
-          API_REDIS_URL: redis://localhost:6379
-        run: npx turbo run lint test build
+          NEXT_TELEMETRY_DISABLED: 1
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN || '' }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG || '' }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT || '' }}
 
-      - name: Ensure Tenant Isolation Tests Passed
-        # This acts as a manual check to ensure testing didn't skip the regression suite
-        run: echo "Verification Complete: Tenant isolation tests are enforced by the API test suite."
+      - name: Generate Prisma client
+        working-directory: apps/api
+        run: npx prisma generate
+        env:
+          DATABASE_URL: postgresql://commerceos:commerceos@localhost:5432/commerceos_test
+
+      - name: Test
+        run: npm test
+        env:
+          DATABASE_URL: postgresql://commerceos:commerceos@localhost:5432/commerceos_test
+          REDIS_URL: redis://localhost:6379
+          JWT_SECRET: test-jwt-secret-for-ci
+          JWT_REFRESH_SECRET: test-jwt-refresh-secret-for-ci
+          STRIPE_SECRET_KEY: sk_test_placeholder
+          STRIPE_WEBHOOK_SECRET: whsec_placeholder
+          ENCRYPTION_KEY: test-encryption-key-for-ci-0123456789abcd
+          RESEND_API_KEY: re_placeholder
+          AWS_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: test-access-key
+          AWS_SECRET_ACCESS_KEY: test-secret-key
+          S3_BUCKET: test-bucket

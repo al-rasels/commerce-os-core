@@ -18,6 +18,11 @@ export class CheckoutController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CheckoutDto,
   ) {
-    return this.checkoutService.checkout(ctx, dto.cart_id);
+    return this.checkoutService.checkout(
+      ctx,
+      dto.cart_id,
+      dto.shipping_rule_id,
+      dto.promo_code,
+    );
   }
 }

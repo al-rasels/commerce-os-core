@@ -3,9 +3,10 @@ import { PaymentsService } from './payments.service';
 import { PaymentsController } from './payments.controller';
 import { PaymentsWebhookController } from './payments.webhook.controller';
 import { OrderModule } from '../order/order.module';
+import { AuditLogModule } from '../../platform/audit-log/audit-log.module';
 
 @Module({
-  imports: [OrderModule],
+  imports: [OrderModule, AuditLogModule],
   controllers: [PaymentsController, PaymentsWebhookController],
   providers: [
     PaymentsService,

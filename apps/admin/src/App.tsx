@@ -23,6 +23,9 @@ import UserInvitePage from "@/pages/users/UserInvitePage"
 import { TenantsPage } from "@/pages/super-admin/TenantsPage"
 import { TenantDetailPage } from "@/pages/super-admin/TenantDetailPage"
 import { CreateStoreWizard } from "@/components/store-setup/CreateStoreWizard"
+import ShippingPage from "@/pages/settings/shipping"
+import TaxPage from "@/pages/settings/tax"
+import PromotionsPage from "@/pages/marketing/promotions"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
@@ -57,6 +60,9 @@ export default function App() {
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />
+            <Route path="settings/shipping" element={<ShippingPage />} />
+            <Route path="settings/tax" element={<TaxPage />} />
+            <Route path="marketing/promotions" element={<PromotionsPage />} />
             <Route path="super-admin/tenants" element={<TenantsPage />} />
             <Route path="super-admin/tenants/:id" element={<TenantDetailPage />} />
             <Route path="super-admin/create-store" element={<CreateStoreWizard />} />

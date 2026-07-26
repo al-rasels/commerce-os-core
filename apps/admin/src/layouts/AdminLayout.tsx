@@ -16,6 +16,9 @@ import {
   LogOut,
   KeyRound,
   ChevronRight,
+  Truck,
+  Percent,
+  Tag,
 } from "lucide-react"
 
 const navItems = [
@@ -27,6 +30,9 @@ const navItems = [
   { href: "/users", label: "Users", icon: UserCog },
   { href: "/theme", label: "Theme", icon: Palette },
   { href: "/settings/pages", label: "Pages", icon: FileText },
+  { href: "/settings/shipping", label: "Shipping", icon: Truck },
+  { href: "/settings/tax", label: "Tax", icon: Percent },
+  { href: "/marketing/promotions", label: "Promotions", icon: Tag },
   { href: "/super-admin/tenants", label: "Super Admin", icon: Shield },
 ]
 
@@ -34,7 +40,7 @@ function Sidebar() {
   const location = useLocation()
 
   return (
-    <aside className="flex h-screen w-56 flex-col border-r bg-sidebar p-3">
+    <aside className="flex h-screen w-56 flex-col border-r bg-sidebar p-3" aria-label="Sidebar navigation">
       <Link to="/" className="mb-6 flex items-center gap-2 px-2 pt-1">
         <div className="flex size-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
           C

@@ -4,6 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store';
 import { api } from '@/lib/api';
+import { getStripe } from '@/lib/stripe';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutPaymentForm from '@/components/checkout-payment-form';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,6 +25,18 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [step, setStep] = useState(1);
+
+  // Address fields
+  const [shippingFirstName, setShippingFirstName] = useState('');
+  const [shippingLastName, setShippingLastName] = useState('');
+  const [shippingAddressLine1, setShippingAddressLine1] = useState('');
+  const [shippingAddressLine2, setShippingAddressLine2] = useState('');
+  const [shippingCity, setShippingCity] = useState('');
+  const [shippingState, setShippingState] = useState('');
+  const [shippingPostalCode, setShippingPostalCode] = useState('');
+  const [shippingCountry, setShippingCountry] = useState('US');
+  const [shippingPhone, setShippingPhone] = useState('');
+  const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
 
   useEffect(() => {
     const load = async () => {
@@ -47,7 +62,18 @@ export default function CheckoutPage() {
     setSubmitting(true);
     setError('');
     try {
-      const result = await api.checkout.submit(cartId, email, sessionId);
+      const result = await api.checkout.submit(cartId, email, sessionId, {
+        shipping_first_name: shippingFirstName,
+        shipping_last_name: shippingLastName,
+        shipping_address_line1: shippingAddressLine1,
+        shipping_address_line2: shippingAddressLine2,
+        shipping_city: shippingCity,
+        shipping_state: shippingState,
+        shipping_postal_code: shippingPostalCode,
+        shipping_country: shippingCountry,
+        shipping_phone: shippingPhone,
+        billing_same_as_shipping: billingSameAsShipping,
+      });
       setOrderId(result.order?.id);
       setClientSecret(result.client_secret);
       setStep(2); // Move to payment step
@@ -164,6 +190,131 @@ export default function CheckoutPage() {
                         className="h-12 bg-muted/50 border-border/50 focus:bg-background"
                       />
                     </div>
+
+                    <div className="border-t border-border/50 pt-6">
+                      <h3 className="text-base font-semibold mb-4">Shipping Address</h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_first_name">First name</Label>
+                          <Input
+                            id="shipping_first_name"
+                            placeholder="John"
+                            value={shippingFirstName}
+                            onChange={(e) => setShippingFirstName(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_last_name">Last name</Label>
+                          <Input
+                            id="shipping_last_name"
+                            placeholder="Doe"
+                            value={shippingLastName}
+                            onChange={(e) => setShippingLastName(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="shipping_address_line1">Address line 1</Label>
+                        <Input
+                          id="shipping_address_line1"
+                          placeholder="123 Main St"
+                          value={shippingAddressLine1}
+                          onChange={(e) => setShippingAddressLine1(e.target.value)}
+                          required
+                          className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                        />
+                      </div>
+
+                      <div className="space-y-2 mt-4">
+                        <Label htmlFor="shipping_address_line2">Address line 2 (optional)</Label>
+                        <Input
+                          id="shipping_address_line2"
+                          placeholder="Apt 4B"
+                          value={shippingAddressLine2}
+                          onChange={(e) => setShippingAddressLine2(e.target.value)}
+                          className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_city">City</Label>
+                          <Input
+                            id="shipping_city"
+                            placeholder="New York"
+                            value={shippingCity}
+                            onChange={(e) => setShippingCity(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_state">State</Label>
+                          <Input
+                            id="shipping_state"
+                            placeholder="NY"
+                            value={shippingState}
+                            onChange={(e) => setShippingState(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_postal_code">ZIP code</Label>
+                          <Input
+                            id="shipping_postal_code"
+                            placeholder="10001"
+                            value={shippingPostalCode}
+                            onChange={(e) => setShippingPostalCode(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_country">Country</Label>
+                          <Input
+                            id="shipping_country"
+                            placeholder="US"
+                            value={shippingCountry}
+                            onChange={(e) => setShippingCountry(e.target.value)}
+                            required
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="shipping_phone">Phone (optional)</Label>
+                          <Input
+                            id="shipping_phone"
+                            type="tel"
+                            placeholder="+1 555-123-4567"
+                            value={shippingPhone}
+                            onChange={(e) => setShippingPhone(e.target.value)}
+                            className="h-11 bg-muted/50 border-border/50 focus:bg-background"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 mt-4">
+                        <input
+                          id="billing_same_as_shipping"
+                          type="checkbox"
+                          checked={billingSameAsShipping}
+                          onChange={(e) => setBillingSameAsShipping(e.target.checked)}
+                          className="w-4 h-4 rounded border-border"
+                        />
+                        <Label htmlFor="billing_same_as_shipping" className="text-sm font-normal cursor-pointer">
+                          Billing address is the same as shipping
+                        </Label>
+                      </div>
+                    </div>
                   </div>
 
                   <Button 
@@ -175,9 +326,19 @@ export default function CheckoutPage() {
                   </Button>
                 </form>
               ) : (
-                <div className="pl-9 text-sm text-muted-foreground flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  {email}
+                <div className="pl-9 space-y-2">
+                  <div className="text-sm text-muted-foreground flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    {email}
+                  </div>
+                  <div className="text-sm text-muted-foreground pl-6">
+                    {shippingFirstName} {shippingLastName}
+                    <br />
+                    {shippingAddressLine1}
+                    {shippingAddressLine2 && <>, {shippingAddressLine2}</>}
+                    <br />
+                    {shippingCity}, {shippingState} {shippingPostalCode}
+                  </div>
                 </div>
               )}
             </motion.div>
@@ -199,13 +360,29 @@ export default function CheckoutPage() {
 
               {step === 2 && clientSecret && (
                 <div className="pl-9">
-                  <div className="bg-muted/30 border border-border/50 rounded-xl p-6 text-center">
-                    <Lock className="w-8 h-8 text-muted-foreground mx-auto mb-3" />
-                    <p className="text-sm font-medium mb-4">Secure Payment Gateway Simulated</p>
-                    <Button onClick={handlePaymentSuccess} className="w-full h-12 bg-green-600 hover:bg-green-700 text-white rounded-xl">
-                      Simulate Successful Payment
-                    </Button>
-                  </div>
+                  <Elements
+                    stripe={getStripe()}
+                    options={{
+                      clientSecret,
+                      appearance: {
+                        theme: 'stripe',
+                        variables: {
+                          colorPrimary: '#000000',
+                          colorBackground: '#ffffff',
+                          colorText: '#000000',
+                          colorDanger: '#dc2626',
+                          fontFamily: 'system-ui, sans-serif',
+                          borderRadius: '8px',
+                        },
+                      },
+                    }}
+                  >
+                    <CheckoutPaymentForm
+                      orderId={orderId}
+                      clientSecret={clientSecret}
+                      onSuccess={handlePaymentSuccess}
+                    />
+                  </Elements>
                 </div>
               )}
             </motion.div>

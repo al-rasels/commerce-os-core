@@ -223,7 +223,11 @@ model Order {
   currency           String
   channel            String             @default("online")
   created_at         DateTime           @default(now()) @db.Timestamptz(6)
-  metafields_json    Json?              @default("{}")
+  customer_email           String?            @db.VarChar(255)
+  shipping_address         Json?              @default("{}")
+  billing_address          Json?              @default("{}")
+  stripe_payment_intent_id String?            @db.VarChar(255)
+  metafields_json          Json?              @default("{}")
   items              OrderItem[]
   customer           Customer           @relation(fields: [customer_id], references: [id])
   tenant             Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)

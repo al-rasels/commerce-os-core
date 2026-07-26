@@ -9,6 +9,10 @@ import { CatalogService } from '../catalog/catalog.service';
 import { OrderService } from '../order/order.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
+import { ShippingService } from '../shipping/shipping.service';
+import { TaxService } from '../tax/tax.service';
+import { PromotionsService } from '../promotions/promotions.service';
+import { AuditLogService } from '../../platform/audit-log/audit-log.service';
 
 @Injectable()
 export class CheckoutService {
@@ -19,9 +23,18 @@ export class CheckoutService {
     private readonly catalogService: CatalogService,
     private readonly orderService: OrderService,
     private readonly paymentsService: PaymentsService,
+    private readonly shippingService: ShippingService,
+    private readonly taxService: TaxService,
+    private readonly promotionsService: PromotionsService,
+    private readonly auditLog: AuditLogService,
   ) {}
 
-  async checkout(ctx: TenantContext, cartId: string) {
+  async checkout(
+    ctx: TenantContext,
+    cartId: string,
+    shippingRuleId?: string,
+    promoCode?: string,
+  ) {
     this.logger.log(
       `Starting checkout for cart ${cartId} (Tenant: ${ctx.tenantId})`,
     );
@@ -52,10 +65,47 @@ export class CheckoutService {
       (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
       0,
     );
-    const taxCents = 0;
-    const shippingCents = 0;
-    const totalCents = subtotalCents + taxCents + shippingCents;
     const currency = (cart as any).items[0]?.variant.currency || 'USD';
+
+    let shippingCents = 0;
+    let selectedShippingRuleId: string | null = null;
+    if (shippingRuleId) {
+      const shippingOptions =
+        await this.shippingService.calculateShippingOptions(
+          ctx,
+          subtotalCents,
+          0,
+        );
+      const selected = shippingOptions.find(
+        (o: any) => o.id === shippingRuleId,
+      );
+      if (!selected) {
+        throw new BadRequestException('Invalid shipping rule selected');
+      }
+      shippingCents = selected.price_cents;
+      selectedShippingRuleId = shippingRuleId;
+    }
+
+    let discountCents = 0;
+    let appliedPromotionId: string | null = null;
+    if (promoCode) {
+      const result = await this.promotionsService.validateAndApply(
+        ctx,
+        promoCode,
+        subtotalCents,
+      );
+      discountCents = result.discount_cents;
+      appliedPromotionId = result.id;
+    }
+
+    const taxableAmount = subtotalCents - discountCents;
+    const taxResult = await this.taxService.calculateTax(
+      ctx,
+      Math.max(taxableAmount, 0),
+    );
+
+    const totalCents =
+      Math.max(taxableAmount, 0) + taxResult.total_tax_cents + shippingCents;
 
     this.logger.log(`Processing transaction for cart ${cartId}`);
 
@@ -63,11 +113,19 @@ export class CheckoutService {
       customer_id: (cart as any).customer_id!,
       status: 'pending',
       subtotal_cents: subtotalCents,
-      tax_cents: taxCents,
+      tax_cents: taxResult.total_tax_cents,
       shipping_cents: shippingCents,
       total_cents: totalCents,
       currency,
       channel: 'online',
+      metafields_json: {
+        discount_cents: discountCents,
+        ...(appliedPromotionId && { promotion_id: appliedPromotionId }),
+        ...(promoCode && { promo_code: promoCode }),
+        ...(selectedShippingRuleId && {
+          shipping_rule_id: selectedShippingRuleId,
+        }),
+      },
       items: {
         create: (cart as any).items.map((i: any) => ({
           tenant_id: ctx.tenantId,
@@ -77,6 +135,10 @@ export class CheckoutService {
         })),
       },
     });
+
+    if (appliedPromotionId) {
+      await this.promotionsService.incrementUsage(ctx, appliedPromotionId);
+    }
 
     for (const item of (cart as any).items) {
       const reserved = await this.catalogService.reserveStock(
@@ -98,6 +160,21 @@ export class CheckoutService {
     const { client_secret } = await this.paymentsService.createPaymentIntent(
       order.id,
       ctx.tenantId,
+    );
+
+    await this.auditLog.log(
+      ctx,
+      'checkout.completed',
+      'order',
+      order.id,
+      'system',
+      {
+        cart_id: cartId,
+        total_cents: totalCents,
+        currency,
+        ...(selectedShippingRuleId && { shipping_rule_id: selectedShippingRuleId }),
+        ...(appliedPromotionId && { promotion_id: appliedPromotionId }),
+      },
     );
 
     return { order, client_secret };

@@ -1,6 +1,7 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { CreatePaymentIntentDto } from './dto/create-payment-intent.dto';
+import { CreateRefundDto } from './dto/create-refund.dto';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { RequirePermissions } from '../../platform/auth/decorators/permissions.decorator';
 import { PermissionGuard } from '../../platform/auth/guards/permission.guard';
@@ -19,5 +20,18 @@ export class PaymentsController {
     @Body() dto: CreatePaymentIntentDto,
   ) {
     return this.paymentsService.createPaymentIntent(dto.order_id, ctx.tenantId);
+  }
+
+  @Post('refund')
+  @RequirePermissions('payment.write')
+  async refund(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: CreateRefundDto,
+  ) {
+    return this.paymentsService.refund(
+      dto.order_id,
+      ctx.tenantId,
+      dto.amount_cents,
+    );
   }
 }

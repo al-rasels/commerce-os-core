@@ -23,8 +23,8 @@ const itemVariants = {
 function StatCard({ title, value, icon: Icon, loading }: { title: string; value: string; icon: React.ElementType; loading: boolean }) {
   return (
     <motion.div variants={itemVariants}>
-      <Card className="glass overflow-hidden relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
+      <Card className="relative overflow-hidden border-border/50 bg-gradient-to-br from-card to-card/80 shadow-sm hover:shadow-md transition-shadow">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/[0.03] to-transparent pointer-events-none" />
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
           <div className="p-2 bg-white/5 rounded-full ring-1 ring-white/10">
@@ -81,7 +81,7 @@ export default function DashboardPage() {
 
       <div className="grid gap-6 md:grid-cols-7 lg:grid-cols-7">
         <motion.div variants={itemVariants} className="md:col-span-4 lg:col-span-5">
-          <Card className="glass h-full">
+          <Card className="border-border/50 bg-gradient-to-br from-card to-card/80 shadow-sm h-full">
             <CardHeader>
               <CardTitle>Revenue Over Time</CardTitle>
             </CardHeader>
@@ -91,13 +91,13 @@ export default function DashboardPage() {
                   <AreaChart data={mockChartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(0 0% 98%)" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="hsl(0 0% 98%)" stopOpacity={0}/>
+                        <stop offset="5%" stopColor="oklch(0.6 0.18 270 / 0.6)" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="oklch(0.6 0.18 270 / 0.1)" stopOpacity={0}/>
                       </linearGradient>
                     </defs>
-                    <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value}`} />
-                    <Tooltip contentStyle={{ backgroundColor: 'hsl(240 10% 3.9%)', borderColor: 'hsl(240 3.7% 15.9%)', color: '#fff' }} />
+                    <XAxis dataKey="name" stroke="oklch(0.65 0.015 260)" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="oklch(0.65 0.015 260)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${value}`} />
+                    <Tooltip contentStyle={{ backgroundColor: 'oklch(0.15 0.015 270)', borderColor: 'oklch(0.25 0.015 270)', color: 'oklch(0.96 0.005 260)' }} />
                     <Area type="monotone" dataKey="revenue" stroke="hsl(0 0% 98%)" fillOpacity={1} fill="url(#colorRevenue)" />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -107,7 +107,7 @@ export default function DashboardPage() {
         </motion.div>
 
         <motion.div variants={itemVariants} className="md:col-span-3 lg:col-span-2 space-y-6">
-          <Card className="glass">
+          <Card className="border-border/50 bg-gradient-to-br from-card to-card/80 shadow-sm">
             <CardHeader>
               <CardTitle>Recent Orders</CardTitle>
             </CardHeader>
@@ -130,7 +130,7 @@ export default function DashboardPage() {
                           {order.customer?.email || 'Guest'}
                         </span>
                         <span className="text-xs text-muted-foreground">
-                          ${(order.total_cents / 100).toFixed(2)}
+                          ${(order.total / 100).toFixed(2)}
                         </span>
                       </div>
                       <StatusBadge status={order.status} />
