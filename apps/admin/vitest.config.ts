@@ -7,6 +7,11 @@ export default defineConfig({
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.test.{ts,tsx}", "src/**/*.spec.{ts,tsx}"],
+    server: {
+      deps: {
+        inline: true,
+      },
+    },
   },
   resolve: {
     alias: {

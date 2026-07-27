@@ -23,9 +23,9 @@ import UserInvitePage from "@/pages/users/UserInvitePage"
 import { TenantsPage } from "@/pages/super-admin/TenantsPage"
 import { TenantDetailPage } from "@/pages/super-admin/TenantDetailPage"
 import { CreateStoreWizard } from "@/components/store-setup/CreateStoreWizard"
-import ShippingPage from "@/pages/settings/shipping"
-import TaxPage from "@/pages/settings/tax"
-import PromotionsPage from "@/pages/marketing/promotions"
+import { ShippingSettingsPage as ShippingPage } from "@/pages/settings/shipping"
+import { TaxSettingsPage as TaxPage } from "@/pages/settings/tax"
+import { PromotionsPage } from "@/pages/marketing/promotions"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
