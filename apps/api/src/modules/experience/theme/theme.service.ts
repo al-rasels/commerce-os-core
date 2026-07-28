@@ -24,7 +24,7 @@ export class ThemeService {
 
     // 2. Fetch tenant override using strictly isolated repo
     const overrides = await this.overrideRepo.findMany(ctx, {
-      theme_base_id: baseTheme.id,
+      where: { theme_base_id: baseTheme.id },
     });
     const tenantOverride = overrides.length > 0 ? overrides[0] : null;
 
@@ -52,7 +52,7 @@ export class ThemeService {
     // TenantScopedRepository ensures this only updates this tenant's override
     // We check if it exists via findMany to keep isolation intact
     const existing = await this.overrideRepo.findMany(ctx, {
-      theme_base_id: themeBaseId,
+      where: { theme_base_id: themeBaseId },
     });
 
     if (existing.length > 0) {
