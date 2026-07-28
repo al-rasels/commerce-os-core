@@ -9,12 +9,15 @@ export function TenantDetailPage() {
   const { id } = useParams();
   const [tenant, setTenant] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const load = () => {
     if (!id) return;
     setLoading(true);
+    setError(null);
     superAdminApi.getTenant(id)
       .then(setTenant)
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -24,14 +27,22 @@ export function TenantDetailPage() {
 
   const handleSuspend = async () => {
     if (!id) return;
-    await superAdminApi.suspendTenant(id);
-    load();
+    try {
+      await superAdminApi.suspendTenant(id);
+      load();
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   const handleToggleFlag = async (key: string, is_enabled: boolean) => {
     if (!id) return;
-    await superAdminApi.toggleFlag(id, key, !is_enabled);
-    load();
+    try {
+      await superAdminApi.toggleFlag(id, key, !is_enabled);
+      load();
+    } catch (err: any) {
+      setError(err.message);
+    }
   };
 
   if (loading) return <div>Loading...</div>;

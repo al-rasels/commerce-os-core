@@ -7,7 +7,7 @@ import { User } from '@prisma/client';
 @Injectable()
 export class UsersRepository extends TenantScopedRepository<User> {
   private readonly include = {
-    role: { select: { id: true, name: true } },
+    role: { select: { id: true, name: true, permissions: true } },
   };
 
   constructor(protected readonly prisma: PrismaService) {

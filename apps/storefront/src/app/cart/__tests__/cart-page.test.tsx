@@ -59,6 +59,8 @@ describe('CartPage', () => {
     render(<CartPage />);
     expect(await screen.findByText('P1')).toBeInTheDocument();
     expect(screen.getByText('P2')).toBeInTheDocument();
-    expect(screen.getByText('USD 109.97')).toBeInTheDocument();
+    const totals = screen.getAllByText('USD 109.97');
+    expect(totals.length).toBe(2);
+    expect(totals[0]).toBeInTheDocument();
   });
 });

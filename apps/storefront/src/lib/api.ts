@@ -1,5 +1,5 @@
 // NestJS backend has setGlobalPrefix('api') in main.ts, so all routes are prefixed with /api
-const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001') + '/api';
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000') + '/api';
 
 class ApiError extends Error {
   status: number;
@@ -51,10 +51,10 @@ export const api = {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       }),
-    register: (email: string, password: string) =>
+    register: (email: string, password: string, name?: string) =>
       authRequest<any>('/register', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name }),
       }),
     forgotPassword: (email: string) =>
       authRequest<any>('/forgot-password', {

@@ -27,7 +27,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,
-  ) {}
+  ) { }
 
   async register(ctx: TenantContext, dto: RegisterDto) {
     const existing = await this.usersService.findByEmail(ctx, dto.email);
@@ -42,6 +42,7 @@ export class AuthService {
     const hash = await argon2.hash(dto.password);
     const user = await this.usersService.create(ctx, {
       email: dto.email,
+      name: dto.name || null,
       password_hash: hash,
       role_id: role.id,
     });
@@ -52,7 +53,7 @@ export class AuthService {
       ((role as any).permissions as string[]) || [],
     );
     return {
-      user: { id: user.id, email: user.email, role: role.name },
+      user: { id: user.id, email: user.email, name: user.name, role: role.name },
       ...tokens,
     };
   }
