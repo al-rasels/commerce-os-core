@@ -72,8 +72,8 @@
     "hash": "b7cf2ee84ed0768d0d1bc80c8671979b"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/main.ts": {
-    "mtime": 1784601453668.891,
-    "hash": "39dce7fb7c3efcadd293911b4e90dbfd"
+    "mtime": 1785318742269.387,
+    "hash": "c0477dfcbf23424ef7388381f4c2389b"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/catalog/catalog.controller.ts": {
     "mtime": 1784712487654.0703,
@@ -160,16 +160,16 @@
     "hash": "b7b9b6137d899ef62345e1988f4e6b08"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.controller.ts": {
-    "mtime": 1784601453686.6028,
-    "hash": "59b4a5ea21f70cbd790dcfe15fdd7df1"
+    "mtime": 1785318783547.5425,
+    "hash": "b545a26abb127ac4214bf482f1c63b62"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.module.ts": {
     "mtime": 1784968257721.9333,
     "hash": "867980aedc701e8e22f9d86d2fbb5d2a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/auth.service.ts": {
-    "mtime": 1784968257723.9395,
-    "hash": "20b20ee4f048792600264a96f4493033"
+    "mtime": 1785318646421.8777,
+    "hash": "8adac9998401e3327c2211da28812a40"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/platform/auth/decorators/permissions.decorator.ts": {
     "mtime": 1784601453689.7751,
@@ -1112,8 +1112,8 @@
     "hash": "e873f12a5371a289697d148d9de1855d"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/README.md": {
-    "mtime": 1783919054589.442,
-    "hash": "c25922ff1a9b90660d98dc17c9aea393"
+    "mtime": 1785317495524.7273,
+    "hash": "f54aebeacfb53800b5acd8b5ea26661c"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-00-prerequisites.md": {
     "mtime": 1783919054592.6042,
@@ -1156,8 +1156,8 @@
     "hash": "198bed5565f46baf40721a3a1f1069ab"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/00-MASTER-INDEX.md": {
-    "mtime": 1784093409830.8745,
-    "hash": "fc29080c44a3c94a1e02313a7aeda4ba"
+    "mtime": 1785317874827.6172,
+    "hash": "c874ea539175619a738adfc6fd14945b"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/00-enterprise-plan/00-README.md": {
     "mtime": 1784100746322.6226,
@@ -1548,8 +1548,8 @@
     "hash": "498f1fcb6267150c8026b8e17a400607"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/contexts/AuthContext.tsx": {
-    "mtime": 1784601453650.7402,
-    "hash": "5c811e74414f0ca0900c1c05e9ff6689"
+    "mtime": 1785318912894.6062,
+    "hash": "a4ef315994e5e8e8e5b3124ebb9ffb7d"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/hooks/useCategories.ts": {
     "mtime": 1784601453650.7402,
@@ -1588,16 +1588,16 @@
     "hash": "feaf647e14894267b283bfbf7695ad8f"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/layouts/AdminLayout.tsx": {
-    "mtime": 1784968257709.302,
-    "hash": "6a186c65219e40d4bb63a25fc1b57ee8"
+    "mtime": 1785318856624.5554,
+    "hash": "41fc662a5136c3d69ae92738b9e4e20a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/lib/api/catalog.ts": {
     "mtime": 1784712505598.8577,
     "hash": "0e095e1168ecf192a840b17b2db4ed2a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/lib/api/client.ts": {
-    "mtime": 1784352088712.0215,
-    "hash": "241bfa436044df938ba32160efc7d6a1"
+    "mtime": 1785318957368.3735,
+    "hash": "b46727d7299d422a38c76fef1b8ba548"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/lib/api/customers.ts": {
     "mtime": 1784352088712.0215,
@@ -1656,8 +1656,8 @@
     "hash": "f6b38826bb1b13b6e0735f70454cf21e"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/pages/LoginPage.tsx": {
-    "mtime": 1784601453662.8684,
-    "hash": "e8bf7ba360f724fabd2a59b897be8547"
+    "mtime": 1785318941586.7615,
+    "hash": "f89ca2682126add7060ca4db708b81fe"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/admin/src/pages/categories/CategoryListPage.tsx": {
     "mtime": 1784352088719.4348,
@@ -1828,12 +1828,12 @@
     "hash": "c9386bde1a44b92e936a507f4d04df7f"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/checkout/checkout.module.ts": {
-    "mtime": 1784968257715.9102,
-    "hash": "5b37f5b5f77a8c788ba7eb75b8aa56ab"
+    "mtime": 1785317495545.834,
+    "hash": "d886cd4d3dfe3b7d0e5fac2292c237c5"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/checkout/checkout.service.ts": {
-    "mtime": 1784968257715.9102,
-    "hash": "57de99f736f2e54f5b93a106e3c9d9dd"
+    "mtime": 1785317495545.834,
+    "hash": "2c7f4269f1b9c3467b7b5bf8a648ba6c"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/checkout/dto/checkout.dto.ts": {
     "mtime": 1784352088754.2788,
@@ -1908,8 +1908,8 @@
     "hash": "87003cc19b51597c2f992ed93639e449"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/order/order.service.ts": {
-    "mtime": 1784626944295.0703,
-    "hash": "5bacf4bd406cc98ced0956b4278f7206"
+    "mtime": 1785318412612.9531,
+    "hash": "0718839d48d46bf2fefbfb144f1cc409"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/payments/dto/create-payment-intent.dto.ts": {
     "mtime": 1784352088762.3118,
@@ -1924,8 +1924,8 @@
     "hash": "ff4300b7b2a7a0e6e02b0d1098f3d90b"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/payments/payments.service.ts": {
-    "mtime": 1784968257717.9187,
-    "hash": "bc860ce8ca5f1d845203ab961373dff5"
+    "mtime": 1785318412613.7566,
+    "hash": "d1590ce108f3a9f2a47db7e8a39f70da"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/payments/payments.webhook.controller.ts": {
     "mtime": 1784352088763.3418,
@@ -2168,8 +2168,8 @@
     "hash": "dec57a2e2ce8e972fba60f1cd8e63208"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/src/app/account/login/page.tsx": {
-    "mtime": 1784601453702.8616,
-    "hash": "982f52e1f005183857b1ec8a102f9bf3"
+    "mtime": 1785319007115.1106,
+    "hash": "6c62661a00562b96f3522def7ed34469"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/storefront/src/app/account/mfa/page.tsx": {
     "mtime": 1784601453702.8616,
@@ -2564,108 +2564,108 @@
     "hash": "f7d11216509a961012d7dd0bb6578099"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-01-environment-setup.md": {
-    "mtime": 1784352088668.046,
-    "hash": "0918d17fc39f946cbfa4bf514bc75f01"
+    "mtime": 1785317495524.7273,
+    "hash": "edbc0cccd28afcda60626f238b9c7bc7"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-02-tenant-resolution.md": {
-    "mtime": 1784352088670.0532,
-    "hash": "759e63fd33c09ff3cca2a434dc88246d"
+    "mtime": 1785317495525.7263,
+    "hash": "96b51e2d874234602614a7bb51a71b94"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-03-auth-rbac.md": {
-    "mtime": 1784352088670.0532,
-    "hash": "9eddc0a2107664406f4a87b17abfb184"
+    "mtime": 1785317495527.7305,
+    "hash": "2b5518577e61ae774c94e626965c45fd"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-04-core-schema-isolation.md": {
-    "mtime": 1784352088672.0605,
-    "hash": "2e73f090aa502a2eb4c87ccd54959a54"
+    "mtime": 1785317495528.7275,
+    "hash": "a7d87996a2da128b0e2c322bd91eca4e"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-05-catalog-crud.md": {
-    "mtime": 1784352088672.0605,
-    "hash": "19b3952098686514a3febcc436686ab0"
+    "mtime": 1785317495528.7275,
+    "hash": "22823a7b56832360917ad5ce1f8f0402"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-05a-admin-catalog-ui.md": {
-    "mtime": 1784352088672.0605,
-    "hash": "e35a4fee05ddfd543396ff921ab6f3a1"
+    "mtime": 1785317495529.7273,
+    "hash": "7bd49f78afc90db05f6c387444dd5282"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-05b-admin-customer-management.md": {
-    "mtime": 1784448587784.3142,
-    "hash": "5b1d9c00937dfbca6d51afd214bbeae7"
+    "mtime": 1785317495529.7273,
+    "hash": "92f6c21f967ba754c8dda7975143bcdd"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-06a-storefront-components.md": {
-    "mtime": 1784352088672.0605,
-    "hash": "7c7eb383ea0d52b403e2a82f1938a5f6"
+    "mtime": 1785317495530.726,
+    "hash": "b9ee7fa01c3cfb32e65fb5a747d37202"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-07-theme-engine.md": {
-    "mtime": 1784352088672.0605,
-    "hash": "954ffa20e87589723d4e0077433fbc65"
+    "mtime": 1785317495531.7273,
+    "hash": "4f0da83d90afc6cb73af9f373bff1355"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-07a-admin-theme-editor.md": {
     "mtime": 1784352088674.0925,
     "hash": "5e30c089c3917e209d49bdded064fff2"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-08-page-layout-storefront.md": {
-    "mtime": 1784352088674.0925,
-    "hash": "06fa7f3f95494a917470f26f6c7ccd2a"
+    "mtime": 1785317495531.7273,
+    "hash": "78e091d0cbc9f0fece6b41f72edf5ddd"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-08a-admin-page-layout-editor.md": {
-    "mtime": 1784448587784.3142,
-    "hash": "fd047f997d9d95fc16c00e7db36cecfb"
+    "mtime": 1785317495532.7263,
+    "hash": "1150514633657bcd79de3a4056c58f49"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-09-backend-cart-checkout-orders-payments.md": {
     "mtime": 1784352088674.0925,
     "hash": "0f41e323be2caa02df30ed83120b958a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-09a-admin-order-management.md": {
-    "mtime": 1784448587785.314,
-    "hash": "918433dc045bfaab81b90886d11a250d"
+    "mtime": 1785317495532.7263,
+    "hash": "5356ffcedc94c3612d43de616050e0bf"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-09b-storefront-cart-checkout.md": {
-    "mtime": 1784352088662.209,
-    "hash": "6f09aa3b9ce2f4adf7e0b907a0cd9b63"
+    "mtime": 1785317495533.7285,
+    "hash": "e8526d2f3ec6b61731b448f9cddbcaac"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-09c-auth-gaps.md": {
-    "mtime": 1784352088662.209,
-    "hash": "5429feea923ca46186a7f551fc4842ee"
+    "mtime": 1785317495533.7285,
+    "hash": "ed6a2419428d5a681afd545066891251"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-10-super-admin.md": {
-    "mtime": 1784352088662.209,
-    "hash": "7afdebd55a605556c3cd2ec3a2d4a1c4"
+    "mtime": 1785317495534.7273,
+    "hash": "92c3aad37eb19e92ec5b99726f3c92fd"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-11-storefront-core-pages.md": {
-    "mtime": 1784352088665.3176,
-    "hash": "5326f28a05141984ee439508e9843d8d"
+    "mtime": 1785317495534.7273,
+    "hash": "8650a610de605177b5cde927715c080a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-12-infrastructure-devops.md": {
-    "mtime": 1784352088668.046,
-    "hash": "ea83c21245cdac20c57b701d4426a814"
+    "mtime": 1785317495535.7273,
+    "hash": "0119444f57efab3cbd60c49949d12419"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-13-shipping-module.md": {
-    "mtime": 1784352088668.046,
-    "hash": "18773e402b079567d251da1b44b56791"
+    "mtime": 1785317495535.7273,
+    "hash": "a03cda874fb59f732a2328a182b1ade2"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-14-tax-module.md": {
-    "mtime": 1784352088668.046,
-    "hash": "40646d25652de81f42fac611cf3c597a"
+    "mtime": 1785317495536.7263,
+    "hash": "f52b4aaa15438488e899df82af90b21e"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-15-discounts-promotions.md": {
-    "mtime": 1784352088668.046,
-    "hash": "1e94f9d5fe961a098637e16c375c0201"
+    "mtime": 1785317495536.7263,
+    "hash": "e34bb66874d0ca0344ee536e0c45d149"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-16-admin-dashboard.md": {
-    "mtime": 1784352088668.046,
-    "hash": "1e440764a186d4ab3ddec791825f1964"
+    "mtime": 1785317495537.7268,
+    "hash": "0281b7e8d987bfbe416224b39ae449df"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/session-17-regression-e2e.md": {
-    "mtime": 1784352088668.046,
-    "hash": "b0f88a60428153e115b9c2f1a37e69d0"
+    "mtime": 1785317495537.7268,
+    "hash": "d79a36f0cb684a34118e3edba83d3c23"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/tech-debt-analysis.md": {
     "mtime": 1784368579235.003,
     "hash": "af9f420e4ea851cb89957944b27939bf"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/completed/ui-component-creation.md": {
-    "mtime": 1784352088674.0925,
-    "hash": "674ce23a77cb6926bfba3bfa3ed7ae29"
+    "mtime": 1785317495538.7263,
+    "hash": "f52a3ae14129f97628436a226e938288"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/CommerceOS-Docs/.agent/skills/04-ui-component-template.md": {
     "mtime": 1784100735731.846,
@@ -2688,12 +2688,12 @@
     "hash": "bad4f87fa9154e470020d2c7a05b77e7"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/MASTER_TASKLIST.md": {
-    "mtime": 1784601453648.7332,
-    "hash": "ee5c36011e2143cf8f212b83b0e67b56"
+    "mtime": 1785316709271.0654,
+    "hash": "55b4d71ff8357574cc80522775a804c7"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/PROGRESS_REPORT.md": {
-    "mtime": 1784601453648.7332,
-    "hash": "b94440e53807e094714c9a7b090a77b7"
+    "mtime": 1785316709367.5,
+    "hash": "db89f5b61d53f41324e7685150f550da"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/docker-compose.yml": {
     "mtime": 1784352088803.9065,
@@ -2880,12 +2880,12 @@
     "hash": "47ba6da2cd53744b4dc21943f3dfcbb3"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/inventory/inventory.module.ts": {
-    "mtime": 1784712156223.6458,
-    "hash": "3e9179dfd77c09534b0d8aaa21f894c9"
+    "mtime": 1785317495547.8445,
+    "hash": "1c4c13de4df73bfa5898120d8486c858"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/inventory/inventory.service.ts": {
-    "mtime": 1784712137328.396,
-    "hash": "7d1fb3b33509bd0ca502db7408373382"
+    "mtime": 1785318412611.9067,
+    "hash": "2637f7d0c7265f0f374920f959269768"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/inventory/repositories/inventory-level.repository.ts": {
     "mtime": 1784712034398.3887,
@@ -2900,16 +2900,16 @@
     "hash": "9611a54f01530d9744f4c3c9bb895344"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/returns/returns.controller.ts": {
-    "mtime": 1784712175267.964,
-    "hash": "45dadb8e15f36ce6ce809151da5acea6"
+    "mtime": 1785318412614.3105,
+    "hash": "de18e3d7377ced37dd041efaa5712c9a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/returns/returns.module.ts": {
-    "mtime": 1784712185214.785,
-    "hash": "8c4e5aa1fdfd1b84d85765ffcb1cc19c"
+    "mtime": 1785318412614.9932,
+    "hash": "0770fd89d14b2f56b4cb53925a0b93af"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/returns/returns.service.ts": {
-    "mtime": 1784712164724.295,
-    "hash": "75168cb661259a671bc59c46f088fe5a"
+    "mtime": 1785318412615.5183,
+    "hash": "af37e056f7a58452ba5a9cb274b89d40"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/search/index.ts": {
     "mtime": 1784714204327.4775,
@@ -3084,179 +3084,247 @@
     "hash": "173ad2097689f745e257ed2ae1a475d9"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/GRAPH_REPORT.md": {
-    "mtime": 1784626944268.062,
-    "hash": "dce7100884d5cdf49b97ed9b3bd7970a"
+    "mtime": 1785317495397.2097,
+    "hash": "f1a2a0c30761d444f38ca8e3506dab92"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-000.md": {
-    "mtime": 1784626944272.072,
-    "hash": "f98de6785a2edcabc0d3bcfd4f73fbee"
+    "mtime": 1785317495470.2126,
+    "hash": "a8afdbd2f0ff0f3d21596c9b216d94b1"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-001.md": {
-    "mtime": 1784626944272.072,
-    "hash": "d3b3baede98efebac120bac29f51469c"
+    "mtime": 1785317495471.2126,
+    "hash": "23cc33bc40d112ffd3dc6258c198330a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-002.md": {
-    "mtime": 1784626944273.0684,
-    "hash": "9c46467958f9172d1558d4ecc8ae7a08"
+    "mtime": 1785317495471.2126,
+    "hash": "3d67378ed15f41cd4b84bc684517629a"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-003.md": {
-    "mtime": 1784626944273.0684,
-    "hash": "a62f39647d05ce2d3d5173e5e0152a50"
+    "mtime": 1785317495472.213,
+    "hash": "34ac987bde22f56a55d222d1a918f1b0"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-004.md": {
-    "mtime": 1784626944274.0693,
-    "hash": "fcf515b16c77723a654b0babad1f6d5c"
+    "mtime": 1785317495472.213,
+    "hash": "26cd6f9c8a084e8254a4bc4846e25fed"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-005.md": {
-    "mtime": 1784626944275.0686,
-    "hash": "097e3db42d6d4631edda758d17d8b31a"
+    "mtime": 1785317495473.2126,
+    "hash": "c417c0de101b79c34e93db669cb149be"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-006.md": {
-    "mtime": 1784626944275.0686,
-    "hash": "1e361209c8ecef727c1d347a1bfc7993"
+    "mtime": 1785317495473.2126,
+    "hash": "09a3320234d8e9b7c0a10905c2bcb66f"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-007.md": {
-    "mtime": 1784626944276.0698,
-    "hash": "321a6e0251df48ab6b40ab7cd6b2e43f"
+    "mtime": 1785317495474.2144,
+    "hash": "0f3f5f1d91744f8cc3edee1a17ab0641"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-008.md": {
-    "mtime": 1784626913749.0356,
-    "hash": "b54c7eeba5f7df99d231c8fe834aa12a"
+    "mtime": 1785317495474.2144,
+    "hash": "98c42ebf4b2761029a6af0f3c36668a3"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-009.md": {
-    "mtime": 1784626913749.0356,
-    "hash": "f7d9c6063e825a663b6b1e0bfaf179b0"
+    "mtime": 1785317495475.2131,
+    "hash": "7d75c5fa3e455496efa227674c065387"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-010.md": {
-    "mtime": 1784626913749.0356,
-    "hash": "28de195392c4934d240e95341d9235fc"
+    "mtime": 1785317495475.2131,
+    "hash": "12792348bbf12a7a816dbb62e4c32bc0"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-011.md": {
-    "mtime": 1784626913750.0364,
-    "hash": "b85da59bdd34d09a25cab6362fa9ecea"
+    "mtime": 1785317495476.213,
+    "hash": "7759a2987225e37ca0ff6ab21d2e8f53"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-012.md": {
-    "mtime": 1784626913750.0364,
-    "hash": "6a8669014487e4142b726122e25875f2"
+    "mtime": 1785317495479.2134,
+    "hash": "b7dba9cb75dfe2bbe155aef2cf55efb5"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-013.md": {
-    "mtime": 1784626913751.0369,
-    "hash": "648bde23831317901f2d265ca907736d"
+    "mtime": 1785317495481.7278,
+    "hash": "9e39134eb2c3ee88a3b2f7d88b13ed71"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-014.md": {
-    "mtime": 1784626913751.0369,
-    "hash": "f9d681540b469c7074b9bcc69705dc28"
+    "mtime": 1785317495481.7278,
+    "hash": "e155e75b747550dc3278efc581d67f34"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-015.md": {
-    "mtime": 1784626913754.2864,
-    "hash": "edab0f91689cba4356e2da4d07c0a31a"
+    "mtime": 1785317495482.7273,
+    "hash": "c4251a1265f5085fe0804f6c50941332"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-016.md": {
-    "mtime": 1784626913755.31,
-    "hash": "5928eb3a5e7b92142f0a55b8f4f8411f"
+    "mtime": 1785317495484.7256,
+    "hash": "674cc999f7b6513fb1d881172f1251e9"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-017.md": {
-    "mtime": 1784626913755.31,
-    "hash": "87e40f401572e14dd5366a362766ff41"
+    "mtime": 1785317495485.7283,
+    "hash": "909260867c0f7f877ff3e7f2d4f082da"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-018.md": {
-    "mtime": 1784626913756.3193,
-    "hash": "7f7a92c2d14febc799cac2ca442994d7"
+    "mtime": 1785317495485.7283,
+    "hash": "ea26b584e6213f5507fd3a6fc6939162"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-019.md": {
-    "mtime": 1784626913756.9087,
-    "hash": "98e13e5418429f01e400565c7fae6c71"
+    "mtime": 1785317495486.7278,
+    "hash": "df1f2897e74b96a723b6a0217c40bc36"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-020.md": {
-    "mtime": 1784626913756.9087,
-    "hash": "e8adba1468a6ba3348e47de983c0ec80"
+    "mtime": 1785317495487.7268,
+    "hash": "0119196aec4a479848c130b4ce272169"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-021.md": {
-    "mtime": 1784626913756.9087,
-    "hash": "03a58437121c93347293710f12069470"
+    "mtime": 1785317495487.7268,
+    "hash": "1f55ab2c5b576050b78413513b93c1b8"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-022.md": {
-    "mtime": 1784626913758.0122,
-    "hash": "6132cb62387097fb7a132401e3144c38"
+    "mtime": 1785317495488.7278,
+    "hash": "82971f77f8e1efab6e31f4900d6a892d"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-023.md": {
-    "mtime": 1784626913758.0122,
-    "hash": "8018dfd3996140fd49735582aa231b39"
+    "mtime": 1785317495489.7285,
+    "hash": "a4c787df6de5de119bc609fb15440c16"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-024.md": {
-    "mtime": 1784626913758.0122,
-    "hash": "eaba1bdf47db0e555c5875eb7567e412"
+    "mtime": 1785317495489.7285,
+    "hash": "28a3c6919a34dad270ed894ffd033be8"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-025.md": {
-    "mtime": 1784626913758.0122,
-    "hash": "1e70141d7002822e46e7298cda0ab64a"
+    "mtime": 1785317495490.7273,
+    "hash": "81d8f7cf77a12b181b1c190541ba1018"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-026.md": {
-    "mtime": 1784626913760.0544,
-    "hash": "69014bd93230ca5954244c5fffce6446"
+    "mtime": 1785317495491.7273,
+    "hash": "dc9ca59b283c3e733e743f8b545785a2"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-027.md": {
-    "mtime": 1784626913760.0544,
-    "hash": "fc712eadf54b1b7453e5e8c6dbd93be8"
+    "mtime": 1785317495491.7273,
+    "hash": "85dd4a24dc3d0807577429d781013a26"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-028.md": {
-    "mtime": 1784626913760.0544,
-    "hash": "9b4cf40388454a5c09f0bff4379c7892"
+    "mtime": 1785317495492.7266,
+    "hash": "b0e7fb4eedb8b141583b5b60fe03baeb"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-029.md": {
-    "mtime": 1784626913760.0544,
-    "hash": "83e57257b7097bc1fab2b810cf984fa8"
+    "mtime": 1785317495494.728,
+    "hash": "3bd4cdc04889452ef80532b4810daa83"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-030.md": {
-    "mtime": 1784626913760.0544,
-    "hash": "95c9f863600323d9fa30245ff2e6be22"
+    "mtime": 1785317495494.728,
+    "hash": "0c407f38b16b89ca3d12299ef6c15a79"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-031.md": {
-    "mtime": 1784626913762.063,
-    "hash": "e89122219764008d864b970b98f74003"
+    "mtime": 1785317495495.7297,
+    "hash": "1553650fb6f2325a020ac5332408af5e"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-032.md": {
-    "mtime": 1784626913762.063,
-    "hash": "61b4c8aed4755998c1ebbafa211dfbd5"
+    "mtime": 1785317495496.727,
+    "hash": "8dd9a8c521ee9d94e6afa0b4a70db764"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-033.md": {
-    "mtime": 1784626913762.063,
-    "hash": "a5f1a9712a7a37bec66d8973a5ef68d6"
+    "mtime": 1785317495497.7266,
+    "hash": "65b1f5bb45c06983a5fee3e98cb2cf09"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-034.md": {
-    "mtime": 1784626913762.063,
-    "hash": "25ec67ecb287b7b1edf7527e19cc8631"
+    "mtime": 1785317495498.7266,
+    "hash": "95504eaab96645575c488b05d3ac678c"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-035.md": {
-    "mtime": 1784626913762.063,
-    "hash": "ef695e8bd67ea4146884e8c97d5c5ccb"
+    "mtime": 1785317495498.7266,
+    "hash": "42edf28bcab0c9673ed63cc8f93cb666"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-036.md": {
-    "mtime": 1784626913764.0708,
-    "hash": "a171a015828aabd5f61aaa1994f75252"
+    "mtime": 1785317495499.7285,
+    "hash": "04e7d92183f532e88ef0f20b4a17f413"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/label-instructions/communities.md": {
-    "mtime": 1784626944285.0684,
-    "hash": "48cc42800ea20848ee11466d747c3bc3"
+    "mtime": 1785317495521.7278,
+    "hash": "a9316fb39d510214493e844ac1cc9d76"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.gsd/TODO.md": {
     "mtime": 1784711097914.688,
     "hash": "eba70713988928ba092d85e7b37ab2c8"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/01-phase2-spec.md": {
-    "mtime": 1784714944467.0352,
-    "hash": "2eafd9bde7d64fbeb1ef2d6a3b257f8e"
+    "mtime": 1785317495538.7263,
+    "hash": "54e57bb8de8a8e533858a11ab5580301"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/02-phase3-spec.md": {
-    "mtime": 1784714955470.8271,
-    "hash": "c71a73c67a9283d31cf42f51c748ce04"
+    "mtime": 1785317495539.7295,
+    "hash": "7de6ce92af9a3cf1082aab5090cd61a5"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/03-phase4-spec.md": {
-    "mtime": 1784714967177.9478,
-    "hash": "da24440c5a5e44ea39fecd1cf1849fac"
+    "mtime": 1785317495540.7285,
+    "hash": "4ce7fdb0db0980d7216ade4f7273346c"
   },
   "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/04-phase5-spec.md": {
-    "mtime": 1784714977565.9187,
-    "hash": "4086d0e42b34a71e62f988e490623978"
+    "mtime": 1785317495540.7285,
+    "hash": "8bfeec607d389b76e606a27b2ecf8134"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/inventory/inventory.service.spec.ts": {
+    "mtime": 1785317495547.8445,
+    "hash": "3e7213e2f471cfa1b9ff949545eac0b8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/apps/api/src/modules/commerce/inventory/inventory.worker.ts": {
+    "mtime": 1785317495549.844,
+    "hash": "10c66bc6570afb7c0f9c358137389334"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-037.md": {
+    "mtime": 1785317495499.7285,
+    "hash": "5ea87389fc3e4da79625f8be882f277a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-038.md": {
+    "mtime": 1785317495501.7314,
+    "hash": "f2efba795f698b503d9552d3e5c6cfe9"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-039.md": {
+    "mtime": 1785317495501.7314,
+    "hash": "392a655add24d04eee18a4aa4c058052"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-040.md": {
+    "mtime": 1785317495502.7307,
+    "hash": "f85180e86aea3b01bca47829e0619c52"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-041.md": {
+    "mtime": 1785317495503.73,
+    "hash": "f75a438482e8e90c1ddbc96325ec4e75"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-042.md": {
+    "mtime": 1785317495503.73,
+    "hash": "31ff3cf3df54841b670ef8948d38cdf8"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-043.md": {
+    "mtime": 1785317495504.728,
+    "hash": "60975a7dc7beb24c7deb57ac29169935"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-044.md": {
+    "mtime": 1785317495504.728,
+    "hash": "cb6395b9711051714d127ccbbbe9949a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-045.md": {
+    "mtime": 1785317495504.728,
+    "hash": "750d638048c92d74bcf0ab6a06611a88"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-046.md": {
+    "mtime": 1785317495505.7278,
+    "hash": "185650a063d17803875b71500764c89a"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-047.md": {
+    "mtime": 1785317495505.7278,
+    "hash": "2000d6746d1cf9eb7ccf040c9fab514c"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-048.md": {
+    "mtime": 1785317495506.7253,
+    "hash": "b7bcd91745f3c27f412c32de93deecd0"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-049.md": {
+    "mtime": 1785317495506.7253,
+    "hash": "8a859e352837fb4e283573d3d7683325"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.graphify/description-instructions/batch-050.md": {
+    "mtime": 1785317495506.7253,
+    "hash": "2b7a3fecae8c3b4a302a5f328b0260d6"
+  },
+  "D:/Rasel Mahmud Shanto/commerce-os-core/.tasks/next/05-phase6-professional-features.md": {
+    "mtime": 1785317811792.7063,
+    "hash": "21350f73c8fce944b6bfbac9180fb7b8"
   }
 }

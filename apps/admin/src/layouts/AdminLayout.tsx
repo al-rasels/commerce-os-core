@@ -1,8 +1,9 @@
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useEffect, useState, Suspense } from "react"
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { Command } from "cmdk"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
 import {
   LayoutDashboard,
   Package,
@@ -20,6 +21,7 @@ import {
   MapPin,
   FileClock,
   Search,
+  Loader2,
 } from "lucide-react"
 import {
   Sidebar,
@@ -36,6 +38,15 @@ import {
   SidebarTrigger,
   SidebarInset
 } from "@/components/ui/sidebar"
+
+function GlobalLoader() {
+  return (
+    <div className="flex h-[50vh] w-full flex-col items-center justify-center gap-4 text-muted-foreground animate-in fade-in duration-500">
+      <Loader2 className="h-8 w-8 animate-spin text-primary/50" />
+      <p className="text-sm font-medium tracking-tight">Loading content...</p>
+    </div>
+  )
+}
 
 const navItems = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -201,7 +212,11 @@ export default function AdminLayout({ children }: { children?: ReactNode }) {
       <SidebarInset>
         <Topbar />
         <main className="flex-1 p-6 overflow-auto">
-          {children ?? <Outlet />}
+          <ErrorBoundary>
+            <Suspense fallback={<GlobalLoader />}>
+              {children ?? <Outlet />}
+            </Suspense>
+          </ErrorBoundary>
         </main>
       </SidebarInset>
       <CommandMenu />

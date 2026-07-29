@@ -240,6 +240,7 @@ model Order {
   total_cents        Int
   currency           String
   channel            String             @default("online") // 'online' | 'pos'
+  payment_intent_id  String?
   created_at         DateTime           @default(now()) @db.Timestamptz
   metafields_json    Json?              @default("{}")
   tenant             Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)

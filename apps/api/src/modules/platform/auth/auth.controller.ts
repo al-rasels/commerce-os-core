@@ -7,7 +7,11 @@ import {
   Param,
   Post,
   UseGuards,
+  Res,
+  Req,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -38,8 +42,25 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@GetTenantContext() ctx: TenantContext, @Body() dto: LoginDto) {
-    return this.authService.login(ctx, dto);
+  async login(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authService.login(ctx, dto);
+    
+    if (result.refresh_token) {
+      res.cookie('refresh_token', result.refresh_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 3600 * 1000,
+      });
+      // Optionally remove it from JSON response if frontend relies entirely on cookie
+      // But we will return it for backward compatibility / explicit handling if needed
+    }
+    
+    return result;
   }
 
   @Post('mfa/verify')
@@ -125,9 +146,27 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async refresh(
     @GetTenantContext() ctx: TenantContext,
-    @Body('refresh_token') refreshToken: string,
+    @Req() req: Request,
+    @Body('refresh_token') bodyRefreshToken: string,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.refresh(ctx, refreshToken);
+    // Prefer cookie over body
+    const refreshToken = req.cookies?.refresh_token || bodyRefreshToken;
+    if (!refreshToken) {
+      // Throw 401 if no token provided
+      throw new UnauthorizedException('No refresh token provided');
+    }
+    
+    const tokens = await this.authService.refresh(ctx, refreshToken);
+    
+    res.cookie('refresh_token', tokens.refresh_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 3600 * 1000,
+    });
+    
+    return tokens;
   }
 
   @Get('me')
@@ -145,7 +184,9 @@ export class AuthController {
   async logout(
     @GetTenantContext() ctx: TenantContext,
     @Body('user_id') userId: string,
+    @Res({ passthrough: true }) res: Response,
   ) {
+    res.clearCookie('refresh_token');
     return this.authService.logout(ctx, userId);
   }
 }

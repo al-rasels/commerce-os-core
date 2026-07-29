@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, UseGuards } from '@nestjs/common';
 import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import { GetTenantContext } from '../../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../../platform/tenant/tenant-context';
@@ -12,5 +12,38 @@ export class ReturnsController {
   @Get()
   async getReturns(@GetTenantContext() ctx: TenantContext) {
     return this.returnsService.getReturns(ctx);
+  }
+
+  @Post(':orderId')
+  async createReturnRequest(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('orderId') orderId: string,
+    @Body('reason') reason: string,
+  ) {
+    return this.returnsService.createReturnRequest(ctx, orderId, reason);
+  }
+
+  @Post(':id/approve')
+  async approveReturnRequest(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    return this.returnsService.approveReturnRequest(ctx, id);
+  }
+
+  @Post(':id/receive')
+  async receiveReturnItem(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    return this.returnsService.receiveReturnItem(ctx, id);
+  }
+
+  @Post(':id/refund')
+  async processRefund(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    return this.returnsService.processRefund(ctx, id);
   }
 }

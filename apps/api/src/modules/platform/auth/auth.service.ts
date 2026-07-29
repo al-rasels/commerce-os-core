@@ -33,7 +33,8 @@ export class AuthService {
   ) {}
 
   async register(ctx: TenantContext, dto: RegisterDto) {
-    const existing = await this.usersService.findByEmail(ctx, dto.email);
+    const normalizedEmail = dto.email.toLowerCase().trim();
+    const existing = await this.usersService.findByEmail(ctx, normalizedEmail);
     if (existing) throw new ConflictException('Email already registered');
 
     const role = await this.usersService.findRoleByName(
@@ -44,7 +45,7 @@ export class AuthService {
 
     const hash = await argon2.hash(dto.password);
     const user = await this.usersService.create(ctx, {
-      email: dto.email,
+      email: normalizedEmail,
       password_hash: hash,
       role_id: role.id,
     });
@@ -61,20 +62,21 @@ export class AuthService {
   }
 
   async login(ctx: TenantContext, dto: LoginDto) {
+    const normalizedEmail = dto.email.toLowerCase().trim();
     const user = (
       await this.usersService.findManyWithRole(ctx, {
-        where: { email: dto.email },
+        where: { email: normalizedEmail },
       })
     )[0];
-    if (!user) throw new UnauthorizedException('Invalid credentials');
+    if (!user) throw new UnauthorizedException('Incorrect email or password');
 
     if (user.status === 'suspended')
-      throw new UnauthorizedException('Account suspended');
+      throw new UnauthorizedException('Account is suspended');
     if (user.status === 'pending')
-      throw new UnauthorizedException('Account not yet activated');
+      throw new UnauthorizedException('Account is not yet activated');
 
     const valid = await argon2.verify(user.password_hash, dto.password);
-    if (!valid) throw new UnauthorizedException('Invalid credentials');
+    if (!valid) throw new UnauthorizedException('Incorrect email or password');
 
     if (user.mfa_enabled) {
       const mfaToken = await this.jwtService.signAsync(
@@ -230,7 +232,8 @@ export class AuthService {
   }
 
   async invite(ctx: TenantContext, dto: InviteDto) {
-    const existing = await this.usersService.findByEmail(ctx, dto.email);
+    const normalizedEmail = dto.email.toLowerCase().trim();
+    const existing = await this.usersService.findByEmail(ctx, normalizedEmail);
     if (existing)
       throw new ConflictException('User already exists with this email');
 
@@ -244,7 +247,7 @@ export class AuthService {
     const hash = await argon2.hash(tempPassword);
 
     await this.usersService.create(ctx, {
-      email: dto.email,
+      email: normalizedEmail,
       password_hash: hash,
       role_id: role.id,
       status: 'pending',
@@ -265,11 +268,16 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
-    const stored = await this.redis.get(
-      `refresh:${ctx.tenantId}:${payload.sub}`,
-    );
-    if (!stored || stored !== refreshToken) {
-      throw new UnauthorizedException('Refresh token revoked');
+    try {
+      const stored = await this.redis.get(
+        `refresh:${ctx.tenantId}:${payload.sub}`,
+      );
+      if (!stored || stored !== refreshToken) {
+        throw new UnauthorizedException('Refresh token revoked');
+      }
+    } catch (error) {
+      if (error instanceof UnauthorizedException) throw error;
+      console.warn('Redis error during refresh, proceeding with JWT validation only:', error);
     }
 
     const user = await this.usersService.findUniqueWithRoleFull(
@@ -313,11 +321,15 @@ export class AuthService {
       expiresIn: '7d',
     });
 
-    await this.redis.set(
-      `refresh:${tenantId}:${userId}`,
-      refreshToken,
-      7 * 24 * 3600,
-    );
+    try {
+      await this.redis.set(
+        `refresh:${tenantId}:${userId}`,
+        refreshToken,
+        7 * 24 * 3600,
+      );
+    } catch (error) {
+      console.error('Failed to store refresh token in Redis:', error);
+    }
 
     return { access_token: accessToken, refresh_token: refreshToken };
   }

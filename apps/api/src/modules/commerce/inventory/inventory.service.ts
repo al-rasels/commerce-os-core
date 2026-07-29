@@ -86,4 +86,13 @@ export class InventoryService {
       this.prisma.stockReservation.delete({ where: { id: reservationId } }),
     ]);
   }
+
+  async restock(ctx: TenantContext, variantId: string, qty: number) {
+    await this.prisma.$executeRaw`
+      UPDATE product_variants
+      SET stock_available = stock_available + ${qty}
+      WHERE id = ${variantId}::uuid
+        AND tenant_id = ${ctx.tenantId}::uuid
+    `;
+  }
 }

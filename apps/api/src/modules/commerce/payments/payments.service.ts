@@ -43,7 +43,28 @@ export class PaymentsService {
       { idempotency_key: `create_intent_${orderId}` },
     );
 
+    await this.orderService.updatePaymentIntentId(dummyCtx, orderId, paymentIntent.id);
+
     return { client_secret: paymentIntent.client_secret };
+  }
+
+  async initiateRefund(ctx: TenantContext, orderId: string, amountCents: number) {
+    const order = await this.orderService.get(ctx, orderId);
+    if (!order.payment_intent_id) {
+      throw new BadRequestException('Order does not have an associated payment intent');
+    }
+
+    try {
+      const refund = await this.stripe.refunds.create({
+        payment_intent: order.payment_intent_id,
+        amount: amountCents,
+        reason: 'requested_by_customer',
+      });
+      return refund;
+    } catch (e: any) {
+      this.logger.error(`Failed to initiate refund for order ${orderId}: ${e.message}`);
+      throw new BadRequestException('Failed to process refund with payment gateway');
+    }
   }
 
   async handleWebhook(payload: Buffer, signature: string) {

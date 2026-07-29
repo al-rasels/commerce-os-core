@@ -83,6 +83,11 @@ export class OrderService {
     return this.toDto(updated);
   }
 
+  async updatePaymentIntentId(ctx: TenantContext, id: string, paymentIntentId: string) {
+    const updated = await this.orderRepo.update(ctx, id, { payment_intent_id: paymentIntentId });
+    return this.toDto(updated);
+  }
+
   async getDashboardStats(ctx: TenantContext) {
     const [orderAgg, recentOrders, statusBreakdown] = await Promise.all([
       this.orderRepo.aggregate(ctx, {
@@ -134,6 +139,7 @@ export class OrderService {
       total: order.total_cents,
       currency: order.currency,
       channel: order.channel,
+      payment_intent_id: order.payment_intent_id,
       items: (order.items ?? []).map((item: any) => ({
         id: item.id,
         variant_id: item.variant_id,
