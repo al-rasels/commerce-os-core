@@ -69,17 +69,19 @@ Section/Element Registry (available blocks & primitives)
   → Publish (atomic swap of pageJson version)
 ```
 
-## 5. Monetization & Premium Assets (Phase 2)
+## 5. Monetization & Premium Assets (Implemented)
 
-To support premium business models, the builder enforces a "Live Preview but Gated Publish" workflow for premium components and templates:
-- **Premium Components:** Defined in the Component Registry with a `minPlan` requirement (e.g., `"minPlan": "pro"`).
-- **Premium Templates:** A template is considered premium if its pre-saved JSON tree contains any premium components.
-- **Workflow (Live Preview):** Merchants on lower tiers can freely load and interact with premium templates in the builder using their real staging data, maximizing upsell potential.
-- **Workflow (Gated Publish):** The `PUT /api/v1/experience/page-layout` endpoint strictly validates the incoming JSON against the `TenantContext.plan`. If unauthorized components are present, the API rejects the request with a `403 Forbidden`, prompting the UI to show an upgrade modal.
+To support premium business models, the builder natively enforces a "Live Preview but Gated Publish" workflow:
+- **Premium Components:** Defined in `@commerceos/shared-types` via `ComponentMetadata` (e.g., `{ minPlan: "pro" }`).
+- **Workflow (Live Preview):** Merchants on lower tiers can freely load and interact with premium components in the builder.
+- **Workflow (Gated Publish):** The `BuilderService` deeply traverses the layout JSON during the `updatePageLayout` API call. It maps the tenant's current plan against the required `minPlan` weights. If unauthorized components are present, it immediately throws a `ForbiddenException`, preventing the save and prompting the UI to show an upgrade modal.
 
-## 6. Visibility Rules & Personalization (Phase 3)
+## 6. Visibility Rules & Personalization (Implemented)
 
-Node-level `visible` can later become a rule (`visible_if: { segment: "returning_customer" }`).
+Node-level visibility is fully dynamic, driven by the `rules` array on any Node.
+- **Data Model:** `rules?: { if: string, action: 'show' | 'hide' }[]`
+- **Execution (Zero Client Overhead):** The `SectionRenderer` natively evaluates these rules during the React Server Component (RSC) pass against the active `dataContext` (e.g., `{ if: "segment == 'vip'" }`).
+- **Performance:** Hidden nodes are structurally omitted during the SSR phase. They do not render invisible DOM nodes, nor do they send component JavaScript to the browser, perfectly preserving Core Web Vitals (CWV).
 
 ## 7. Non-Negotiables
 

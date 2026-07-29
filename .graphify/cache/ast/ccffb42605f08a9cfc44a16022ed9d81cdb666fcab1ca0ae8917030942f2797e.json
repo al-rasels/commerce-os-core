@@ -1,0 +1,83 @@
+{
+  "nodes": [
+    {
+      "id": "b2b_page",
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "b2b_page_b2bportalpage",
+      "label": "B2BPortalPage()",
+      "file_type": "code",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L8"
+    }
+  ],
+  "edges": [
+    {
+      "source": "b2b_page",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "link",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_storefront_src_lib_api_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "lib_api_api",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_storefront_src_components_ui_button_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "ui_button_button",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "b2b_page",
+      "target": "b2b_page_b2bportalpage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/storefront/src/app/(auth)/b2b/page.tsx",
+      "source_location": "L8",
+      "weight": 1
+    }
+  ]
+}

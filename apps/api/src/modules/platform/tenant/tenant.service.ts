@@ -35,7 +35,7 @@ export class TenantService {
     }
 
     const { tenant } = domainRecord;
-    const themeOverride = tenant.theme_overrides;
+    const themeOverride = tenant.theme_overrides?.[0];
     const ctx = new TenantContext({
       tenantId: tenant.id,
       plan: tenant.plan_id,

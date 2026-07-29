@@ -1,19 +1,20 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
+import { PrismaModule } from '../../../prisma/prisma.module';
+import { OrderModule } from '../order/order.module';
 import { PaymentsService } from './payments.service';
 import { PaymentsController } from './payments.controller';
 import { PaymentsWebhookController } from './payments.webhook.controller';
-import { OrderModule } from '../order/order.module';
 import { AuditLogModule } from '../../platform/audit-log/audit-log.module';
 
 @Module({
-  imports: [OrderModule, AuditLogModule],
+  imports: [PrismaModule, forwardRef(() => OrderModule), AuditLogModule],
   controllers: [PaymentsController, PaymentsWebhookController],
   providers: [
     PaymentsService,
     {
       provide: 'STRIPE_CLIENT',
       useFactory: () => {
-        const Stripe = require('stripe');
+        const Stripe = require('stripe').default || require('stripe');
         return new Stripe(process.env.STRIPE_SECRET_KEY!, {
           apiVersion: '2025-02-24.acacia',
         });

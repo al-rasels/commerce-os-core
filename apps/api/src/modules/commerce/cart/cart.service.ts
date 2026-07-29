@@ -40,7 +40,7 @@ export class CartService {
 
   async getWithItems(ctx: TenantContext, id: string) {
     const cart = await this.cartRepo.findUnique(ctx, id, {
-      include: { items: { include: { variant: true } } },
+      include: { items: { include: { variant: true } }, promotion: true },
     });
     if (!cart) {
       throw new NotFoundException('Cart not found');

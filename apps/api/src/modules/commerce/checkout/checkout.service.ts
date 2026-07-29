@@ -7,6 +7,7 @@ import {
 import { CartService } from '../cart/cart.service';
 import { CatalogService } from '../catalog/catalog.service';
 import { OrderService } from '../order/order.service';
+import { InventoryService } from '../inventory/inventory.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
 import { ShippingService } from '../shipping/shipping.service';
@@ -26,6 +27,7 @@ export class CheckoutService {
     private readonly shippingService: ShippingService,
     private readonly taxService: TaxService,
     private readonly promotionsService: PromotionsService,
+    private readonly inventoryService: InventoryService,
     private readonly auditLog: AuditLogService,
   ) {}
 
@@ -61,7 +63,7 @@ export class CheckoutService {
       }
     }
 
-    const subtotalCents = (cart as any).items.reduce(
+    let subtotalCents = (cart as any).items.reduce(
       (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
       0,
     );
@@ -104,54 +106,69 @@ export class CheckoutService {
       Math.max(taxableAmount, 0),
     );
 
-    const totalCents =
-      Math.max(taxableAmount, 0) + taxResult.total_tax_cents + shippingCents;
+    const taxCents = taxResult.total_tax_cents;
+    const totalCents = Math.max(taxableAmount, 0) + taxCents + shippingCents;
 
-    this.logger.log(`Processing transaction for cart ${cartId}`);
+    const reservationIds: string[] = [];
 
-    const order = await this.orderService.createOrder(ctx, {
-      customer_id: (cart as any).customer_id!,
-      status: 'pending',
-      subtotal_cents: subtotalCents,
-      tax_cents: taxResult.total_tax_cents,
-      shipping_cents: shippingCents,
-      total_cents: totalCents,
-      currency,
-      channel: 'online',
-      metafields_json: {
-        discount_cents: discountCents,
-        ...(appliedPromotionId && { promotion_id: appliedPromotionId }),
-        ...(promoCode && { promo_code: promoCode }),
-        ...(selectedShippingRuleId && {
-          shipping_rule_id: selectedShippingRuleId,
-        }),
-      },
-      items: {
-        create: (cart as any).items.map((i: any) => ({
-          tenant_id: ctx.tenantId,
-          variant_id: i.variant_id,
-          quantity: i.quantity,
-          unit_price_cents: i.variant.price_cents,
-        })),
-      },
-    });
-
-    if (appliedPromotionId) {
-      await this.promotionsService.incrementUsage(ctx, appliedPromotionId);
-    }
-
+    // PHASE 1: Reserve all stock FIRST
     for (const item of (cart as any).items) {
-      const reserved = await this.catalogService.reserveStock(
+      const reservationId = await this.inventoryService.reserveStock(
         ctx,
         item.variant_id,
         item.quantity,
-        order.id,
       );
-      if (!reserved) {
+      if (!reservationId) {
+        // Rollback previous reservations
+        for (const resId of reservationIds) {
+          await this.inventoryService.releaseReservation(ctx, resId);
+        }
         throw new BadRequestException(
-          `Failed to reserve stock for variant ${item.variant_id}`,
+          `Failed to reserve stock for variant ${item.variant_id} (Out of Stock)`,
         );
       }
+      reservationIds.push(reservationId);
+    }
+
+    this.logger.log(`Processing transaction for cart ${cartId}`);
+
+    let order;
+    try {
+      // PHASE 2: Create Order
+      order = await this.orderService.createOrder(ctx, {
+        customer_id: (cart as any).customer_id!,
+        status: 'pending',
+        subtotal_cents: subtotalCents,
+        tax_cents: taxCents,
+        shipping_cents: shippingCents,
+        discount_cents: discountCents,
+        total_cents: totalCents,
+        currency,
+        channel: 'online',
+        items: {
+          create: (cart as any).items.map((i: any) => ({
+            tenant_id: ctx.tenantId,
+            variant_id: i.variant_id,
+            quantity: i.quantity,
+            unit_price_cents: i.variant.price_cents,
+          })),
+        },
+      });
+
+      // PHASE 3: Confirm Reservations
+      for (const resId of reservationIds) {
+        await this.inventoryService.confirmReservation(ctx, resId, order.id);
+      }
+    } catch (e) {
+      // Rollback on Order Creation Failure
+      for (const resId of reservationIds) {
+        await this.inventoryService.releaseReservation(ctx, resId);
+      }
+      throw e;
+    }
+
+    if (appliedPromotionId) {
+      await this.promotionsService.incrementUsage(ctx, appliedPromotionId);
     }
 
     await this.cartService.convert(ctx, cartId);

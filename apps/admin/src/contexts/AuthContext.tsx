@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import { api } from '@/lib/api/client';
 
 interface AuthUser {
   id: string;
@@ -31,9 +32,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const raw = localStorage.getItem(USER_KEY);
     return raw ? JSON.parse(raw) : null;
   });
+  
+  // Sync state if localStorage changes in another tab
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === TOKEN_KEY) setToken(e.newValue);
+      if (e.key === USER_KEY) setUser(e.newValue ? JSON.parse(e.newValue) : null);
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const login = useCallback(async (email: string, password: string) => {
     try {
+      // Note: We use raw fetch here because api client might intercept 401s and redirect to /login
       const res = await fetch('/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,23 +54,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `Login failed with status ${res.status}`);
+        throw new Error(err.message || 'Incorrect email or password');
       }
 
       const data = await res.json();
 
-      if (data.mfa_required) {
+      if (data.mfa_token || data.mfa_required) {
         return { mfa_token: data.mfa_token, user_id: data.user?.id || data.user_id, email } as MfaState;
       }
 
       localStorage.setItem(TOKEN_KEY, data.access_token);
-      localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user?.id, email: data.user?.email }));
+      localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user?.id || data.user_id, email: data.user?.email || email }));
+      
+      // React state flush is queued. The component calling login() can safely rely on localStorage 
+      // or use AuthContext next render.
       setToken(data.access_token);
-      setUser({ id: data.user?.id, email: data.user?.email });
+      setUser({ id: data.user?.id || data.user_id, email: data.user?.email || email });
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Login failed';
       if (message.includes('Failed to fetch') || message.includes('NetworkError')) {
-        throw new Error('Cannot connect to server. Please ensure the API server is running on port 3001.');
+        throw new Error('Cannot connect to server. Please ensure the API server is running.');
       }
       console.error('Login error:', error);
       throw error;
@@ -84,12 +99,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser({ id: data.user_id, email: data.email });
   }, []);
 
-  const logout = useCallback(() => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-    setToken(null);
-    setUser(null);
-  }, []);
+  const logout = useCallback(async () => {
+    try {
+      if (user) {
+        await fetch('/api/v1/auth/logout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ user_id: user.id }),
+        });
+      }
+    } catch (e) {
+      // Ignore network errors on logout
+    } finally {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      setToken(null);
+      setUser(null);
+    }
+  }, [user, token]);
 
   return (
     <AuthContext.Provider value={{ user, token, login, mfaVerify, logout, isAuthenticated: !!token }}>

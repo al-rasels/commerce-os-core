@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Search, Loader2 } from "lucide-react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { api } from "@/lib/api";
@@ -89,9 +90,9 @@ export function SearchAutocomplete() {
                   onClick={() => setIsOpen(false)}
                   className="flex items-center gap-3 p-3 hover:bg-muted/50 transition-colors border-b border-border/50 last:border-0"
                 >
-                  <div className="w-10 h-10 rounded bg-muted overflow-hidden shrink-0">
+                  <div className="relative w-10 h-10 rounded bg-muted overflow-hidden shrink-0">
                     {product.images?.[0] ? (
-                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" />
+                      <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center opacity-20">🖼</div>
                     )}

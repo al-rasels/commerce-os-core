@@ -100,4 +100,49 @@ export class StorefrontController {
       orderBy: { sort_order: 'asc' },
     });
   }
+
+  @Get('orders/by-email')
+  async listOrdersByEmail(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('email') email: string,
+  ) {
+    if (!email) return [];
+    const prisma = (await import('../../prisma/prisma.service.js'))
+      .PrismaService;
+    const service = new prisma();
+    return (service as any).order.findMany({
+      where: {
+        tenant_id: ctx.tenantId,
+        customer: { email },
+      },
+      include: {
+        items: {
+          include: { variant: { include: { product: true } } },
+        },
+      },
+      orderBy: { created_at: 'desc' },
+    });
+  }
+
+  @Get('orders/:id')
+  async getOrder(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    const prisma = (await import('../../prisma/prisma.service.js'))
+      .PrismaService;
+    const service = new prisma();
+    const order = await (service as any).order.findFirst({
+      where: {
+        id,
+        tenant_id: ctx.tenantId,
+      },
+      include: {
+        items: {
+          include: { variant: { include: { product: true } } },
+        },
+      },
+    });
+    return order ?? { notFound: true };
+  }
 }

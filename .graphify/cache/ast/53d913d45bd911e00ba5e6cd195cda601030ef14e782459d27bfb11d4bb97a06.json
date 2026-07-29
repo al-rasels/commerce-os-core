@@ -1,0 +1,158 @@
+{
+  "nodes": [
+    {
+      "id": "inventory_inventory_controller",
+      "label": "inventory.controller.ts",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "inventory_inventory_controller_inventorycontroller",
+      "label": "InventoryController",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "inventory_inventory_controller_inventorycontroller_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "inventory_inventory_controller_inventorycontroller_getlocations",
+      "label": ".getLocations()",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "inventory_inventory_controller_inventorycontroller_getlevels",
+      "label": ".getLevels()",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L18"
+    }
+  ],
+  "edges": [
+    {
+      "source": "inventory_inventory_controller",
+      "target": "common",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_platform_auth_guards_tenant_auth_guard",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "guards_tenant_auth_tenantauthguard",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_common_decorators_tenant_context_decorator",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "decorators_tenant_context_gettenantcontext",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_platform_tenant_tenant_context_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "tenant_tenant_context_tenantcontext",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_commerce_inventory_inventory_service",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "inventory_inventory_inventoryservice",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller",
+      "target": "inventory_inventory_controller_inventorycontroller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller_inventorycontroller",
+      "target": "inventory_inventory_controller_inventorycontroller_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L10",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller_inventorycontroller",
+      "target": "inventory_inventory_controller_inventorycontroller_getlocations",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L13",
+      "weight": 1
+    },
+    {
+      "source": "inventory_inventory_controller_inventorycontroller",
+      "target": "inventory_inventory_controller_inventorycontroller_getlevels",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/commerce/inventory/inventory.controller.ts",
+      "source_location": "L18",
+      "weight": 1
+    }
+  ]
+}

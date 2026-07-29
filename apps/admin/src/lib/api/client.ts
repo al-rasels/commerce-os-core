@@ -14,6 +14,20 @@ function getToken(): string | null {
   return localStorage.getItem('admin_token');
 }
 
+let isRefreshing = false;
+let failedQueue: { resolve: (token: string) => void; reject: (err: any) => void }[] = [];
+
+function processQueue(error: Error | null, token: string | null = null) {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token!);
+    }
+  });
+  failedQueue = [];
+}
+
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   const headers: Record<string, string> = {
@@ -25,7 +39,45 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  let res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+
+  if (res.status === 401 && !path.includes('/auth/login') && !path.includes('/auth/refresh')) {
+    if (isRefreshing) {
+      try {
+        const newToken = await new Promise<string>((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        });
+        headers['Authorization'] = `Bearer ${newToken}`;
+        res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+      } catch (err) {
+        throw new ApiError(401, 'Unauthorized');
+      }
+    } else {
+      isRefreshing = true;
+      try {
+        // Try refreshing
+        const refreshRes = await fetch(`${API_BASE}/api/v1/auth/refresh`, { method: 'POST' });
+        if (!refreshRes.ok) throw new Error('Refresh failed');
+        
+        const data = await refreshRes.json();
+        localStorage.setItem('admin_token', data.access_token);
+        // Sync to AuthContext handled via storage event natively
+        
+        processQueue(null, data.access_token);
+        
+        headers['Authorization'] = `Bearer ${data.access_token}`;
+        res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+      } catch (err) {
+        processQueue(err as Error, null);
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        window.location.href = '/login';
+        throw new ApiError(401, 'Unauthorized');
+      } finally {
+        isRefreshing = false;
+      }
+    }
+  }
 
   if (res.status === 401) {
     localStorage.removeItem('admin_token');

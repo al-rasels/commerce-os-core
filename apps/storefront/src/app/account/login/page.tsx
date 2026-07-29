@@ -1,34 +1,70 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Eye, EyeOff, Loader2, ShoppingBag } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Eye, EyeOff, Loader2, Mail, Lock, CheckCircle2, ArrowRight } from 'lucide-react';
 
 export default function LoginPage() {
     const router = useRouter();
+    const emailRef = useRef<HTMLInputElement>(null);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [capsLock, setCapsLock] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    // Autofocus email on mount
+    useEffect(() => {
+        if (emailRef.current) emailRef.current.focus();
+    }, []);
+
+    // Detect caps lock
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"));
+        const handleKeyUp = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"));
+        
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("keyup", handleKeyUp);
+        
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!email || !password) {
+            setError("Please enter both email and password");
+            return;
+        }
+
         setError('');
         setLoading(true);
         try {
             const result = await api.auth.login(email, password);
             if (result.access_token) {
                 localStorage.setItem('auth_token', result.access_token);
-                localStorage.setItem('user', JSON.stringify(result.user));
-                router.push('/account/orders');
-            } else if (result.mfa_required) {
-                router.push(`/account/mfa?token=${result.mfa_token}`);
+                if (result.user) localStorage.setItem('user', JSON.stringify(result.user));
+                
+                setSuccess(true);
+                setTimeout(() => {
+                    router.push('/account/orders');
+                }, 600);
+            } else if (result.mfa_required || result.mfa_token) {
+                setSuccess(true);
+                setTimeout(() => {
+                    router.push(`/account/mfa?token=${result.mfa_token}`);
+                }, 400);
             }
         } catch (err: unknown) {
             if (err instanceof Error) {
@@ -51,97 +87,128 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-[80vh] flex items-center justify-center px-4">
-            <div className="w-full max-w-md">
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center size-14 rounded-2xl bg-primary/10 mb-4">
-                        <ShoppingBag className="size-7 text-primary" />
-                    </div>
-                    <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
-                    <p className="text-muted-foreground mt-1.5 text-sm">
-                        Sign in to your account to continue
-                    </p>
-                </div>
-
-                {error && (
-                    <div className="bg-destructive/10 border border-destructive/20 text-destructive rounded-xl p-4 mb-6 text-sm flex items-start gap-3">
-                        <span className="mt-0.5 size-4 rounded-full bg-destructive/20 flex items-center justify-center text-[10px] font-bold flex-shrink-0">!</span>
-                        <span>{error}</span>
-                    </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="space-y-2">
-                        <Label htmlFor="email" className="text-sm font-medium">Email</Label>
-                        <Input
-                            id="email"
-                            type="email"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            autoComplete="email"
-                            className="h-11"
-                        />
-                    </div>
-
-                    <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                            <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-                            <Link href="/account/forgot-password" className="text-xs text-primary hover:underline font-medium">
-                                Forgot password?
-                            </Link>
+        <div className="flex min-h-[80vh] items-center justify-center px-4 py-12">
+            <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="w-full max-w-[420px]"
+            >
+                <div className="rounded-2xl border bg-card text-card-foreground shadow-2xl overflow-hidden relative">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
+                    
+                    <div className="p-8">
+                        <div className="flex flex-col items-center space-y-2 text-center mb-10">
+                            <h1 className="text-3xl font-bold tracking-tight text-foreground">Welcome back</h1>
+                            <p className="text-sm text-muted-foreground font-medium">
+                                Sign in to your account
+                            </p>
                         </div>
-                        <div className="relative">
-                            <Input
-                                id="password"
-                                type={showPassword ? 'text' : 'password'}
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                autoComplete="current-password"
-                                className="h-11 pr-10"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                                tabIndex={-1}
-                                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                            >
-                                {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                            </button>
-                        </div>
-                    </div>
 
-                    <Button type="submit" className="w-full h-11 rounded-xl" disabled={loading}>
-                        {loading ? (
-                            <span className="flex items-center gap-2">
-                                <Loader2 className="size-4 animate-spin" />
-                                Signing in...
-                            </span>
-                        ) : (
-                            'Sign In'
-                        )}
-                    </Button>
-                </form>
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div className="space-y-2">
+                                <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email address</Label>
+                                <div className="relative group">
+                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                                    <Input
+                                        ref={emailRef}
+                                        id="email"
+                                        type="email"
+                                        placeholder="you@example.com"
+                                        autoComplete="email"
+                                        className="pl-10 h-12 bg-muted/50 focus:bg-background transition-colors"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                    <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Password</Label>
+                                    <Link href="/account/forgot-password" className="text-xs font-medium text-primary hover:underline transition-all">
+                                        Forgot password?
+                                    </Link>
+                                </div>
+                                <div className="relative group">
+                                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                                    <Input
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
+                                        autoComplete="current-password"
+                                        className="pl-10 pr-10 h-12 bg-muted/50 focus:bg-background transition-colors"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                                    </button>
+                                </div>
+                                {capsLock && (
+                                    <motion.p 
+                                        initial={{ opacity: 0, height: 0 }} 
+                                        animate={{ opacity: 1, height: "auto" }} 
+                                        className="text-xs text-amber-500 font-medium pt-1"
+                                    >
+                                        Caps lock is on
+                                    </motion.p>
+                                )}
+                            </div>
 
-                <div className="relative my-8">
-                    <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-border/50" />
+                            <AnimatePresence>
+                                {error && (
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-sm text-destructive font-medium bg-destructive/10 p-3 rounded-md border border-destructive/20"
+                                    >
+                                        {error}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+
+                            <div className="pt-2">
+                                <Button 
+                                    type="submit" 
+                                    className="w-full h-12 text-base font-semibold transition-all relative overflow-hidden" 
+                                    disabled={loading || success}
+                                >
+                                    <AnimatePresence mode="wait">
+                                        {loading ? (
+                                            <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                                                <Loader2 className="mr-2 size-5 animate-spin" /> Signing In...
+                                            </motion.div>
+                                        ) : success ? (
+                                            <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center">
+                                                <CheckCircle2 className="mr-2 size-5" /> Success
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                                                Sign In <ArrowRight className="ml-2 size-4" />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </Button>
+                            </div>
+                        </form>
                     </div>
-                    <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-background px-4 text-muted-foreground">New here?</span>
+                    
+                    <div className="bg-muted/50 p-6 border-t text-center text-sm text-muted-foreground">
+                        Don't have an account?{' '}
+                        <Link href="/account/register" className="text-primary hover:underline font-medium transition-all">
+                            Create one
+                        </Link>
                     </div>
                 </div>
-
-                <Link href="/account/register">
-                    <Button variant="outline" className="w-full h-11 rounded-xl">
-                        Create an account
-                    </Button>
-                </Link>
-            </div>
+            </motion.div>
         </div>
     );
 }

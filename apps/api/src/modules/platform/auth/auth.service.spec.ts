@@ -8,6 +8,7 @@ import { PrismaService } from '../../../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
 import { TenantContext } from '../tenant/tenant-context';
 import * as argon2 from 'argon2';
+import { UsersService } from '../users/users.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -55,10 +56,21 @@ describe('AuthService', () => {
     storagePrefix: 'tenant-t1/',
   });
 
+  const mockUsersService = {
+    findByEmail: jest.fn(),
+    findRoleByName: jest.fn(),
+    create: jest.fn(),
+    findManyWithRole: jest.fn(),
+    findUniqueWithRoleFull: jest.fn(),
+    updateUser: jest.fn(),
+    findUnique: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
+        { provide: UsersService, useValue: mockUsersService },
         { provide: PrismaService, useValue: mockPrisma },
         { provide: JwtService, useValue: mockJwt },
         { provide: RedisService, useValue: mockRedis },

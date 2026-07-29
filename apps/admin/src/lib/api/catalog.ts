@@ -4,6 +4,7 @@ export interface Product {
   id: string;
   name: string;
   slug: string;
+  product_type: 'physical' | 'digital' | 'bundle';
   status: 'draft' | 'active' | 'archived';
   category_id: string | null;
   description: string | null;
@@ -15,6 +16,7 @@ export interface Product {
 export interface ProductInput {
   name: string;
   slug: string;
+  product_type?: 'physical' | 'digital' | 'bundle';
   status?: 'draft' | 'active' | 'archived';
   category_id?: string | null;
   description?: string | null;
@@ -85,4 +87,10 @@ export const catalogApi = {
       api.patch<ProductVariant>(`/api/v1/commerce/catalog/variants/${id}`, data),
     delete: (id: string) => api.delete<void>(`/api/v1/commerce/catalog/variants/${id}`),
   },
+  bundles: {
+    list: (variantId: string) =>
+      api.get<any[]>(`/api/v1/commerce/catalog/variants/${variantId}/bundle`),
+    set: (variantId: string, items: { child_variant_id: string; quantity: number }[]) =>
+      api.post<void>(`/api/v1/commerce/catalog/variants/${variantId}/bundle`, { items }),
+  }
 };

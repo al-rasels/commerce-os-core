@@ -1,41 +1,78 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card"
-import { ShoppingBag } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { toast } from "sonner"
+import { Eye, EyeOff, Loader2, Mail, Lock, CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react"
 
 export default function LoginPage() {
   const { login, mfaVerify } = useAuth()
   const navigate = useNavigate()
+  const emailRef = useRef<HTMLInputElement>(null)
+  
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [mfaCode, setMfaCode] = useState("")
   const [mfaToken, setMfaToken] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [capsLock, setCapsLock] = useState(false)
+  const [success, setSuccess] = useState(false)
+
+  // Autofocus email on mount
+  useEffect(() => {
+    if (emailRef.current) emailRef.current.focus()
+  }, [])
+
+  // Detect caps lock
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"))
+    const handleKeyUp = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"))
+    
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keyup", handleKeyUp)
+    
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("keyup", handleKeyUp)
+    }
+  }, [])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (!email || !password) {
+      setError("Please enter both email and password")
+      return
+    }
+    
     setError("")
     setLoading(true)
+    
     try {
       const mfaState = await login(email, password)
+      
       if (mfaState && mfaState.mfa_token) {
         setMfaToken(mfaState.mfa_token)
+        setLoading(false)
         return
       }
-      navigate("/products", { replace: true })
+      
+      setSuccess(true)
+      toast.success("Welcome back!", { icon: <CheckCircle2 className="size-4 text-green-500" /> })
+      
+      // Delay navigation slightly for success animation
+      setTimeout(() => {
+        navigate("/", { replace: true })
+      }, 600)
     } catch (err: any) {
-      setError(err.message)
-    } finally {
+      // Meaningful error handling
+      const message = err.message || "An unexpected network error occurred."
+      setError(message)
+      toast.error("Authentication Failed", { description: message })
       setLoading(false)
     }
   }
@@ -46,102 +83,219 @@ export default function LoginPage() {
     setLoading(true)
     try {
       await mfaVerify(mfaToken, mfaCode)
-      navigate("/products", { replace: true })
+      setSuccess(true)
+      setTimeout(() => {
+        navigate("/", { replace: true })
+      }, 600)
     } catch (err: any) {
-      setError(err.message)
-    } finally {
+      setError(err.message || "Invalid authentication code")
       setLoading(false)
     }
   }
 
   if (mfaToken) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <Card className="w-full max-w-sm border-border/50 shadow-xl">
-          <CardHeader className="space-y-1 text-center">
-            <div className="flex justify-center mb-2">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <ShoppingBag className="w-5 h-5 text-primary-foreground" />
+
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-[400px]"
+        >
+          <div className="rounded-2xl border bg-card text-card-foreground shadow-xl overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-1 bg-primary" />
+            <div className="p-8">
+              <div className="flex flex-col items-center justify-center space-y-3 text-center mb-8">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <ShieldCheck className="size-6 text-primary" />
+                </div>
+                <h1 className="text-2xl font-bold tracking-tight">Two-Factor Auth</h1>
+                <p className="text-sm text-muted-foreground">
+                  Enter the 6-digit code from your authenticator app to continue.
+                </p>
               </div>
+
+              <form onSubmit={handleMfaSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="code" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Authentication Code</Label>
+                  <div className="relative">
+                    <Input
+                      id="code"
+                      type="text"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      placeholder="000 000"
+                      className="text-center text-2xl tracking-widest h-14"
+                      maxLength={6}
+                      value={mfaCode}
+                      onChange={(e) => setMfaCode(e.target.value.replace(/\D/g, ''))}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <AnimatePresence>
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="text-sm text-destructive font-medium bg-destructive/10 p-3 rounded-md text-center"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
+                <Button type="submit" className="w-full h-11 text-base relative overflow-hidden" disabled={loading || success || mfaCode.length < 6}>
+                  <AnimatePresence mode="wait">
+                    {loading ? (
+                      <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                        <Loader2 className="mr-2 size-5 animate-spin" /> Verifying
+                      </motion.div>
+                    ) : success ? (
+                      <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center">
+                        <CheckCircle2 className="mr-2 size-5" /> Success
+                      </motion.div>
+                    ) : (
+                      <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                        Verify Code <ArrowRight className="ml-2 size-4" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Button>
+              </form>
             </div>
-            <CardTitle className="text-xl">Two-factor authentication</CardTitle>
-            <p className="text-sm text-muted-foreground font-normal">
-              Enter the code from your authenticator app.
-            </p>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleMfaSubmit} className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <Label htmlFor="code">Authentication code</Label>
-                <Input
-                  id="code"
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  placeholder="000000"
-                  value={mfaCode}
-                  onChange={(e) => setMfaCode(e.target.value)}
-                  required
-                />
-              </div>
-              {error && <p className="text-sm text-destructive">{error}</p>}
-              <Button type="submit" disabled={loading} className="w-full">
-                {loading ? "Verifying..." : "Verify"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+          </div>
+        </motion.div>
       </div>
     )
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <Card className="w-full max-w-sm border-border/50 shadow-xl">
-        <CardHeader className="space-y-1 text-center">
-          <div className="flex justify-center mb-2">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <ShoppingBag className="w-5 h-5 text-primary-foreground" />
+
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="w-full max-w-[420px]"
+      >
+        <div className="rounded-2xl border bg-card text-card-foreground shadow-2xl overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/50 via-primary to-primary/50" />
+          
+          <div className="p-8">
+            <div className="flex flex-col items-center space-y-2 text-center mb-10">
+              <div className="flex size-12 items-center justify-center rounded-xl bg-primary shadow-inner mb-2">
+                <span className="text-xl font-bold text-primary-foreground tracking-tighter">C</span>
+              </div>
+              <h1 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h1>
+              <p className="text-sm text-muted-foreground font-medium">
+                Sign in to your CommerceOS admin panel
+              </p>
             </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email address</Label>
+                <div className="relative group">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Input
+                    ref={emailRef}
+                    id="email"
+                    type="email"
+                    placeholder="admin@example.com"
+                    autoComplete="email"
+                    className="pl-10 h-12 bg-muted/50 focus:bg-background transition-colors"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Password</Label>
+                  <Link to="/forgot-password" className="text-xs font-medium text-primary hover:underline transition-all">
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="relative group">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    className="pl-10 pr-10 h-12 bg-muted/50 focus:bg-background transition-colors"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                  </button>
+                </div>
+                {capsLock && (
+                  <motion.p 
+                    initial={{ opacity: 0, height: 0 }} 
+                    animate={{ opacity: 1, height: "auto" }} 
+                    className="text-xs text-amber-500 font-medium pt-1"
+                  >
+                    Caps lock is on
+                  </motion.p>
+                )}
+              </div>
+
+              <AnimatePresence>
+                {error && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="text-sm text-destructive font-medium bg-destructive/10 p-3 rounded-md border border-destructive/20"
+                  >
+                    {error}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className="pt-2">
+                <Button 
+                  type="submit" 
+                  className="w-full h-12 text-base font-semibold transition-all relative overflow-hidden" 
+                  disabled={loading || success}
+                >
+                  <AnimatePresence mode="wait">
+                    {loading ? (
+                      <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                        <Loader2 className="mr-2 size-5 animate-spin" /> Authenticating...
+                      </motion.div>
+                    ) : success ? (
+                      <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center">
+                        <CheckCircle2 className="mr-2 size-5" /> Signed In
+                      </motion.div>
+                    ) : (
+                      <motion.div key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
+                        Sign In
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Button>
+              </div>
+            </form>
           </div>
-          <CardTitle className="text-xl">Sign in to CommerceOS</CardTitle>
-          <p className="text-sm text-muted-foreground font-normal">
-            Enter your credentials to access the dashboard.
-          </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="admin@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Signing in..." : "Sign in"}
-            </Button>
-            <Link to="/forgot-password" className="text-center text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Forgot password?
-            </Link>
-          </form>
-        </CardContent>
-      </Card>
+          
+          <div className="bg-muted/50 p-4 border-t text-center text-xs text-muted-foreground">
+            Protected by CommerceOS Security. 
+          </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

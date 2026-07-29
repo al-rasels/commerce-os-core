@@ -33,7 +33,7 @@ async function serverRequest<T>(path: string, options?: RequestInit): Promise<T>
 export const serverApi = {
   experience: {
     getTheme: () => serverRequest<any>('/experience/theme'),
-    getPage: (pageKey: string) => serverRequest<any>(`/experience/pages/${pageKey}/published`),
+    getPage: (pageKey: string, draft?: boolean) => serverRequest<any>(`/experience/builder/pages/${pageKey}${draft ? '?draft=true' : ''}`),
   },
   products: {
     list: (params?: { category?: string; q?: string; page?: number; limit?: number; attributes?: Record<string, string> }) => {

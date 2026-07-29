@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from './../src/app.module';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -54,7 +54,7 @@ describe('Tenant Isolation (e2e)', () => {
       await prisma.product.create({
         data: {
           tenant_id: tenantBId,
-          title: 'Tenant B Product',
+          name: 'Tenant B Product',
           slug: 'b-product',
           status: 'active',
         },

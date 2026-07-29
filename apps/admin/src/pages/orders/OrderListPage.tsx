@@ -2,15 +2,7 @@ import { useState, useMemo } from "react"
 import { Link } from "react-router-dom"
 import { useOrders } from "@/hooks/useOrders"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table"
+import { DataTable, type Column } from "@commerceos/components"
 import {
   Card,
   CardHeader,
@@ -18,12 +10,9 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { StatusBadge } from "@/components/orders/StatusBadge"
-import { Search, ChevronLeft, ChevronRight, Eye } from "lucide-react"
-
-const PAGE_SIZE = 15
+import { Eye, Calendar, Filter } from "lucide-react"
 
 export default function OrderListPage() {
-  const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("")
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
@@ -32,7 +21,7 @@ export default function OrderListPage() {
   const params = useMemo(() => {
     const p: Record<string, string | number> = {
       page: page + 1,
-      limit: PAGE_SIZE,
+      limit: 100, // Load more for client side search in this MVP
     }
     if (statusFilter) p.status = statusFilter
     if (dateFrom) p.date_from = dateFrom
@@ -42,125 +31,112 @@ export default function OrderListPage() {
 
   const { data, isLoading } = useOrders(params)
 
-  const filtered = useMemo(() => {
-    if (!data?.data) return []
-    if (!search) return data.data
-    const q = search.toLowerCase()
-    return data.data.filter(
-      (o) => o.id.toLowerCase().includes(q) || o.customer_id?.toLowerCase().includes(q)
-    )
-  }, [data, search])
-
-  const pageCount = data ? Math.ceil(data.total / PAGE_SIZE) : 0
+  const columns: Column<any>[] = [
+    {
+      key: "id",
+      label: "Order ID",
+      sortable: true,
+      render: (o) => <span className="font-mono text-xs">{o.id.slice(0, 8)}…</span>,
+    },
+    {
+      key: "customer_id",
+      label: "Customer",
+      sortable: true,
+      render: (o) => <span className="text-muted-foreground">{o.customer_id ? `${o.customer_id.slice(0, 8)}…` : "-"}</span>,
+    },
+    {
+      key: "status",
+      label: "Status",
+      sortable: true,
+      render: (o) => <StatusBadge status={o.status} />,
+    },
+    {
+      key: "total",
+      label: "Total",
+      sortable: true,
+      className: "text-right",
+      render: (o) => <span className="font-medium">{(o.total / 100).toFixed(2)} {o.currency}</span>,
+    },
+    {
+      key: "created_at",
+      label: "Date",
+      sortable: true,
+      render: (o) => <span className="text-muted-foreground text-sm">{new Date(o.created_at).toLocaleDateString()}</span>,
+    },
+    {
+      key: "actions",
+      label: "Actions",
+      className: "text-right w-20",
+      render: (o) => (
+        <div className="flex justify-end">
+          <Link to={`/orders/${o.id}`}>
+            <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-primary/10 hover:text-primary">
+              <Eye className="size-4" />
+              <span className="sr-only">View</span>
+            </Button>
+          </Link>
+        </div>
+      ),
+    },
+  ]
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Orders</CardTitle>
-        <div className="flex items-center gap-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search by order ID or customer..."
-              className="pl-8"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+    <Card className="border-border shadow-sm">
+      <CardHeader className="flex flex-row items-center justify-between pb-6">
+        <CardTitle className="text-xl font-semibold">Orders</CardTitle>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 bg-muted/30 rounded-lg p-1 border border-border">
+            <div className="relative">
+              <Calendar className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="date"
+                className="h-9 w-[140px] rounded-md bg-transparent pl-8 pr-2 text-sm outline-none focus:bg-background focus:ring-2 focus:ring-primary/20 transition-all"
+                value={dateFrom}
+                onChange={(e) => { setDateFrom(e.target.value); setPage(0) }}
+                title="From date"
+              />
+            </div>
+            <span className="text-muted-foreground/50">-</span>
+            <div className="relative">
+              <input
+                type="date"
+                className="h-9 w-[130px] rounded-md bg-transparent px-2 text-sm outline-none focus:bg-background focus:ring-2 focus:ring-primary/20 transition-all"
+                value={dateTo}
+                onChange={(e) => { setDateTo(e.target.value); setPage(0) }}
+                title="To date"
+              />
+            </div>
           </div>
-          <input
-            type="date"
-            className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
-            value={dateFrom}
-            onChange={(e) => { setDateFrom(e.target.value); setPage(0) }}
-            title="From date"
-          />
-          <input
-            type="date"
-            className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
-            value={dateTo}
-            onChange={(e) => { setDateTo(e.target.value); setPage(0) }}
-            title="To date"
-          />
-          <select
-            className="h-8 rounded-lg border border-input bg-transparent px-2 text-sm"
-            value={statusFilter}
-            onChange={(e) => { setStatusFilter(e.target.value); setPage(0) }}
-          >
-            <option value="">All status</option>
-            <option value="pending">Pending</option>
-            <option value="paid">Paid</option>
-            <option value="fulfilled">Fulfilled</option>
-            <option value="cancelled">Cancelled</option>
-            <option value="refunded">Refunded</option>
-          </select>
+          <div className="relative">
+            <Filter className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <select
+              className="h-10 w-[140px] appearance-none rounded-lg border border-border bg-background pl-8 pr-8 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+              value={statusFilter}
+              onChange={(e) => { setStatusFilter(e.target.value); setPage(0) }}
+            >
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="paid">Paid</option>
+              <option value="fulfilled">Fulfilled</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="refunded">Refunded</option>
+            </select>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Total</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="w-20 text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isLoading ? (
-              <TableRow>
-                <TableCell colSpan={6} className="text-center text-muted-foreground">
-                  Loading...
-                </TableCell>
-              </TableRow>
-            ) : filtered.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={6} className="text-center text-muted-foreground">
-                  No orders found
-                </TableCell>
-              </TableRow>
-            ) : (
-              filtered.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-mono text-xs">{order.id.slice(0, 8)}…</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {order.customer_id ? `${order.customer_id.slice(0, 8)}…` : "-"}
-                  </TableCell>
-                  <TableCell>
-                    <StatusBadge status={order.status} />
-                  </TableCell>
-                  <TableCell className="text-right font-medium">
-                    {(order.total / 100).toFixed(2)} {order.currency}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    {new Date(order.created_at).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Link to={`/orders/${order.id}`}>
-                      <Button variant="ghost" size="icon-sm">
-                        <Eye className="size-3.5" />
-                      </Button>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-        {pageCount > 1 && (
-          <div className="flex items-center justify-between pt-4 text-sm text-muted-foreground">
-            <span>{data?.total ?? 0} order{(data?.total ?? 0) !== 1 ? "s" : ""}</span>
-            <div className="flex items-center gap-1">
-              <Button variant="ghost" size="icon-sm" disabled={page === 0} onClick={() => setPage(page - 1)}>
-                <ChevronLeft className="size-4" />
-              </Button>
-              <span className="px-2">{page + 1} / {pageCount}</span>
-              <Button variant="ghost" size="icon-sm" disabled={page >= pageCount - 1} onClick={() => setPage(page + 1)}>
-                <ChevronRight className="size-4" />
-              </Button>
-            </div>
-          </div>
+        {isLoading ? (
+          <div className="py-12 text-center text-muted-foreground">Loading orders...</div>
+        ) : (
+          <DataTable 
+            columns={columns} 
+            data={data?.data || []} 
+            keyField="id" 
+            searchable 
+            searchPlaceholder="Search orders by ID or customer..."
+            pageSize={10}
+            emptyMessage="No orders match your filters."
+          />
         )}
       </CardContent>
     </Card>

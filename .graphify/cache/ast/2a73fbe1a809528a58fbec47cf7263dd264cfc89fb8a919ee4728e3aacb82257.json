@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "id": "api_inventory",
+      "label": "inventory.ts",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "api_inventory_inventorylocation",
+      "label": "InventoryLocation",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "api_inventory_inventorylocationinput",
+      "label": "InventoryLocationInput",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "api_inventory_inventorylevel",
+      "label": "InventoryLevel",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "api_inventory_inventorylevelinput",
+      "label": "InventoryLevelInput",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L34"
+    },
+    {
+      "id": "api_inventory_inventoryapi",
+      "label": "inventoryApi",
+      "file_type": "code",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L41"
+    }
+  ],
+  "edges": [
+    {
+      "source": "api_inventory",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_admin_src_lib_api_client_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_client_api",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_inventory_inventorylocation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_inventory_inventorylocationinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L15",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_inventory_inventorylevel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L23",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_inventory_inventorylevelinput",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L34",
+      "weight": 1
+    },
+    {
+      "source": "api_inventory",
+      "target": "api_inventory_inventoryapi",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/lib/api/inventory.ts",
+      "source_location": "L41",
+      "weight": 1
+    }
+  ]
+}

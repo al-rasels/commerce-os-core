@@ -22,40 +22,84 @@ export function HomeClient({ products, categories }: { products: any[], categori
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-background">
-        <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background z-0" />
+      <section className="relative w-full h-[85vh] min-h-[700px] flex items-center justify-center overflow-hidden bg-background">
+        {/* Dynamic Background Elements */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background z-0" 
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, 0],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[100px] z-0 mix-blend-screen pointer-events-none"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, -5, 0],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] z-0 mix-blend-screen pointer-events-none"
+        />
         
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center mt-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
             className="max-w-4xl flex flex-col items-center"
           >
-            <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 uppercase tracking-wider inline-block">
+            <motion.span 
+              variants={itemVariants}
+              className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 uppercase tracking-wider inline-block backdrop-blur-md border border-primary/20"
+            >
               Welcome to the future of retail
-            </span>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/60 leading-tight">
+            </motion.span>
+            
+            <motion.h1 
+              variants={itemVariants}
+              className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-br from-foreground via-foreground to-foreground/50 leading-[1.1] pb-2"
+            >
               Premium Commerce, <br className="hidden md:block" /> Elevated Experience.
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl font-medium leading-relaxed">
+            </motion.h1>
+            
+            <motion.p 
+              variants={itemVariants}
+              className="text-lg md:text-2xl text-muted-foreground mb-10 max-w-2xl font-medium leading-relaxed"
+            >
               Discover our curated collection of high-end products designed for the modern lifestyle. Quality meets aesthetic perfection.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            </motion.p>
+            
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link
                 href="/products"
-                className="group relative inline-flex items-center justify-center rounded-full bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:scale-105 active:scale-95"
+                className="group relative inline-flex items-center justify-center rounded-full bg-foreground px-8 py-4 text-base font-semibold text-background shadow-2xl transition-all hover:bg-foreground/90 hover:scale-105 active:scale-95 w-full sm:w-auto"
               >
                 Shop Collection
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/categories"
-                className="inline-flex items-center justify-center rounded-full bg-secondary px-8 py-3.5 text-base font-semibold text-secondary-foreground transition-all hover:bg-secondary/80 hover:scale-105 active:scale-95"
+                className="inline-flex items-center justify-center rounded-full bg-secondary/80 backdrop-blur-md px-8 py-4 text-base font-semibold text-secondary-foreground border border-border/50 transition-all hover:bg-secondary hover:scale-105 active:scale-95 w-full sm:w-auto"
               >
                 Browse Categories
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

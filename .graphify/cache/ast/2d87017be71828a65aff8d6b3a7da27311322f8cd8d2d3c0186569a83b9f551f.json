@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "id": "components_checkbox",
+      "label": "checkbox.tsx",
+      "file_type": "code",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_checkbox_checkbox",
+      "label": "Checkbox()",
+      "file_type": "code",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L8"
+    }
+  ],
+  "edges": [
+    {
+      "source": "components_checkbox",
+      "target": "checkbox",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "components_checkbox",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_utils_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "components_checkbox",
+      "target": "components_utils_cn",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "components_checkbox",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "components_checkbox",
+      "target": "components_checkbox_checkbox",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/checkbox.tsx",
+      "source_location": "L8",
+      "weight": 1
+    }
+  ]
+}

@@ -42,7 +42,9 @@ export const ProductSchema = z.object({
   tenant_id: z.string().uuid(),
   name: z.string().min(1),
   slug: z.string().min(1),
+  product_type: z.enum(["physical", "digital", "bundle"]).default("physical"),
   status: z.enum(["draft", "active", "archived"]).default("draft"),
+  description: z.string().nullable().optional(),
   category_id: z.string().uuid().nullable(),
   created_at: z.date(),
   updated_at: z.date(),
@@ -72,3 +74,13 @@ export const CategorySchema = z.object({
   parent_id: z.string().uuid().nullable()
 });
 export type Category = z.infer<typeof CategorySchema>;
+
+// Experience Engine - Component Metadata
+export type PlanTier = "trial" | "starter" | "pro" | "enterprise";
+
+export const ComponentMetadata: Record<string, { minPlan?: PlanTier }> = {
+  "gallery.v1": { minPlan: "pro" },
+  "sidebar.v1": { minPlan: "pro" },
+  "data-table.v1": { minPlan: "pro" },
+  "form-renderer.v1": { minPlan: "pro" }
+};

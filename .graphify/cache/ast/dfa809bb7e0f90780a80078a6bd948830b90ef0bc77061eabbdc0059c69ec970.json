@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "id": "builder_databindingpanel",
+      "label": "DataBindingPanel.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "builder_databindingpanel_databindingpanel",
+      "label": "DataBindingPanel()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L5"
+    }
+  ],
+  "edges": [
+    {
+      "source": "builder_databindingpanel",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "builder_databindingpanel",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_admin_src_pages_builder_components_buildernode_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "builder_databindingpanel",
+      "target": "components_buildernode_pagenode",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "builder_databindingpanel",
+      "target": "select",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "builder_databindingpanel",
+      "target": "builder_databindingpanel_databindingpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/DataBindingPanel.tsx",
+      "source_location": "L5",
+      "weight": 1
+    }
+  ]
+}

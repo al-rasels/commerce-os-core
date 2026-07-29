@@ -8,6 +8,7 @@ export interface DashboardStats {
   orderCount: number
   recentOrders: Order[]
   ordersByStatus: { status: string; count: number }[]
+  revenueChartData?: { name: string; revenue: number }[]
 }
 
 export const dashboardApi = {

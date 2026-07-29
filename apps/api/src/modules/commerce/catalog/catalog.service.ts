@@ -7,6 +7,7 @@ import { ProductRepository } from './repositories/product.repository';
 import { CategoryRepository } from './repositories/category.repository';
 import { ProductVariantRepository } from './repositories/product-variant.repository';
 import { StockReservationRepository } from './repositories/stock-reservation.repository';
+import { BundleRepository } from './repositories/bundle.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -22,6 +23,7 @@ export class CatalogService {
     private readonly categoryRepo: CategoryRepository,
     private readonly variantRepo: ProductVariantRepository,
     private readonly stockReservationRepo: StockReservationRepository,
+    private readonly bundleRepo: BundleRepository,
   ) {}
 
   async createProduct(ctx: TenantContext, dto: CreateProductDto) {
@@ -157,7 +159,6 @@ export class CatalogService {
     ctx: TenantContext,
     variantId: string,
     quantity: number,
-    orderId: string,
   ) {
     const success = await this.variantRepo.incrementReservedStock(
       ctx,
@@ -166,16 +167,52 @@ export class CatalogService {
     );
 
     if (!success) {
-      return false;
+      return null;
     }
 
-    await this.stockReservationRepo.create(ctx, {
+    const reservation = await this.stockReservationRepo.create(ctx, {
       variant_id: variantId,
-      order_id: orderId,
       quantity: quantity,
-      expires_at: new Date(Date.now() + 30 * 60 * 1000), // 30 mins
+      expires_at: new Date(Date.now() + 15 * 60 * 1000), // 15 mins (matching RESERVATION_TTL_MS)
     });
 
-    return true;
+    return reservation.id;
+  }
+
+  async confirmReservation(ctx: TenantContext, reservationId: string, orderId: string) {
+    await this.stockReservationRepo.update(ctx, reservationId, {
+      order_id: orderId,
+    });
+  }
+
+  async releaseReservation(ctx: TenantContext, reservationId: string) {
+    const res = await this.stockReservationRepo.findUnique(ctx, reservationId);
+    if (!res) return;
+
+    // Decrement reserved stock, increment available
+    await this.variantRepo.update(ctx, res.variant_id, {
+      stock_reserved: { decrement: res.quantity },
+    });
+
+    await this.stockReservationRepo.delete(ctx, reservationId);
+  }
+
+  async getBundleItems(ctx: TenantContext, parentVariantId: string) {
+    return this.bundleRepo.findMany(ctx, {
+      where: { parent_variant_id: parentVariantId },
+      include: {
+        child_variant: {
+          include: { product: true },
+        },
+      },
+    });
+  }
+
+  async setBundleItems(
+    ctx: TenantContext,
+    parentVariantId: string,
+    items: { child_variant_id: string; quantity: number }[],
+  ) {
+    await this.bundleRepo.setBundleItems(ctx, parentVariantId, items);
   }
 }

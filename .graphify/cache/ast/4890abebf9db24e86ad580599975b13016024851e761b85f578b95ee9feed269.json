@@ -1,0 +1,369 @@
+{
+  "nodes": [
+    {
+      "id": "ui_timeline",
+      "label": "timeline.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_timeline_timelinevariants",
+      "label": "timelineVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "ui_timeline_timelineprops",
+      "label": "TimelineProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "ui_timeline_timeline",
+      "label": "Timeline",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "ui_timeline_timelineitemvariants",
+      "label": "timelineItemVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "ui_timeline_timelineitemprops",
+      "label": "TimelineItemProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L48"
+    },
+    {
+      "id": "ui_timeline_timelineitem",
+      "label": "TimelineItem",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L50"
+    },
+    {
+      "id": "ui_timeline_timelinedotvariants",
+      "label": "timelineDotVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L56"
+    },
+    {
+      "id": "ui_timeline_timelinedotprops",
+      "label": "TimelineDotProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L76"
+    },
+    {
+      "id": "ui_timeline_timelinedot",
+      "label": "TimelineDot",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L89"
+    },
+    {
+      "id": "ui_timeline_timelinetagvariants",
+      "label": "timelineTagVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L108"
+    },
+    {
+      "id": "ui_timeline_timelinetagprops",
+      "label": "TimelineTagProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L120"
+    },
+    {
+      "id": "ui_timeline_timelinetag",
+      "label": "TimelineTag",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L122"
+    },
+    {
+      "id": "ui_timeline_timelinecontentvariants",
+      "label": "timelineContentVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L132"
+    },
+    {
+      "id": "ui_timeline_timelinecontentprops",
+      "label": "TimelineContentProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L144"
+    },
+    {
+      "id": "ui_timeline_timelinecontent",
+      "label": "TimelineContent",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L147"
+    },
+    {
+      "id": "ui_timeline_timelineheadingvariants",
+      "label": "timelineHeadingVariants",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L153"
+    },
+    {
+      "id": "ui_timeline_timelineheadingprops",
+      "label": "TimelineHeadingProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L170"
+    },
+    {
+      "id": "ui_timeline_timelineheading",
+      "label": "TimelineHeading",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L173"
+    },
+    {
+      "id": "ui_timeline_timelinelineprops",
+      "label": "TimelineLineProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L187"
+    },
+    {
+      "id": "ui_timeline_timelineline",
+      "label": "TimelineLine",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L191"
+    }
+  ],
+  "edges": [
+    {
+      "source": "ui_timeline",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "class_variance_authority",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "utils",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L7",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinevariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L22",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timeline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineitemvariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L36",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineitemprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L48",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineitem",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L50",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinedotvariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L56",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinedotprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L76",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinedot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L89",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinetagvariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L108",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinetagprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L120",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinetag",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L122",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinecontentvariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L132",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinecontentprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L144",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinecontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L147",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineheadingvariants",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L153",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineheadingprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L170",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineheading",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L173",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelinelineprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L187",
+      "weight": 1
+    },
+    {
+      "source": "ui_timeline",
+      "target": "ui_timeline_timelineline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/ui/timeline.tsx",
+      "source_location": "L191",
+      "weight": 1
+    }
+  ]
+}

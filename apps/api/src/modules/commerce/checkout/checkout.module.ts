@@ -9,6 +9,7 @@ import { ShippingModule } from '../shipping/shipping.module';
 import { TaxModule } from '../tax/tax.module';
 import { PromotionsModule } from '../promotions/promotions.module';
 import { AuditLogModule } from '../../platform/audit-log/audit-log.module';
+import { InventoryModule } from '../inventory/inventory.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuditLogModule } from '../../platform/audit-log/audit-log.module';
     TaxModule,
     PromotionsModule,
     AuditLogModule,
+    InventoryModule,
   ],
   controllers: [CheckoutController],
   providers: [CheckoutService],

@@ -102,6 +102,11 @@ export class OrderService {
     return this.toDto(updated);
   }
 
+  async updatePaymentIntentId(ctx: TenantContext, id: string, paymentIntentId: string) {
+    const updated = await this.orderRepo.update(ctx, id, { payment_intent_id: paymentIntentId });
+    return this.toDto(updated);
+  }
+
   async getDashboardStats(ctx: TenantContext) {
     const [orderAgg, recentOrders, statusBreakdown] = await Promise.all([
       this.orderRepo.aggregate(ctx, {
@@ -154,6 +159,7 @@ export class OrderService {
       currency: order.currency,
       channel: order.channel,
       stripe_payment_intent_id: order.stripe_payment_intent_id,
+      payment_intent_id: order.payment_intent_id,
       customer_email: order.customer_email,
       shipping_address: order.shipping_address,
       billing_address: order.billing_address,

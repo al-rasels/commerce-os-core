@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "queue_index",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/platform/queue/index.ts",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "queue_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_platform_queue_queue_module",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/platform/queue/index.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "queue_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_platform_queue_queue_service",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/platform/queue/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "context": "re-export"
+    }
+  ]
+}

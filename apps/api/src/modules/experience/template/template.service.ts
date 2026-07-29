@@ -10,7 +10,7 @@ export class TemplateService {
 
   async listTemplates() {
     return this.prisma.templateBase.findMany({
-      orderBy: { name: 'asc' },
+      orderBy: { id: 'asc' },
     });
   }
 
@@ -129,6 +129,6 @@ export class TemplateService {
     });
 
     this.logger.log(`Template ${templateId} applied to tenant ${tenantId}`);
-    return { success: true, template: template.name };
+    return { success: true, template: template.id };
   }
 }

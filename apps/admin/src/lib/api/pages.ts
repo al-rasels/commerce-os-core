@@ -4,6 +4,7 @@ export interface PageSection {
   id: string;
   component: string;
   visible: boolean;
+  rules?: { if: string; action: 'show' | 'hide' }[];
   props: Record<string, unknown>;
 }
 

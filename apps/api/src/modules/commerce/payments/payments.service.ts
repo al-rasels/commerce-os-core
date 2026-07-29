@@ -4,6 +4,7 @@ import {
   BadRequestException,
   NotFoundException,
   Logger,
+  forwardRef,
 } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { OrderService } from '../order/order.service';
@@ -17,6 +18,7 @@ export class PaymentsService {
   constructor(
     @Inject('STRIPE_CLIENT') private readonly stripe: any,
     private readonly prisma: PrismaService,
+    @Inject(forwardRef(() => OrderService))
     private readonly orderService: OrderService,
     private readonly auditLog: AuditLogService,
   ) {}
@@ -46,10 +48,16 @@ export class PaymentsService {
 
     await this.prisma.order.update({
       where: { id: orderId },
-      data: { stripe_payment_intent_id: paymentIntent.id },
+      data: { 
+        payment_intent_id: paymentIntent.id 
+      },
     });
 
     return { client_secret: paymentIntent.client_secret };
+  }
+
+  async initiateRefund(ctx: TenantContext, orderId: string, amountCents: number) {
+    return this.refund(orderId, ctx.tenantId, amountCents);
   }
 
   async refund(orderId: string, tenantId: string, amountCents?: number) {
@@ -66,10 +74,15 @@ export class PaymentsService {
     }
 
     const refundAmount = amountCents ?? order.total;
+    const paymentIntentId = order.stripe_payment_intent_id || order.payment_intent_id;
+
+    if (!paymentIntentId) {
+      throw new BadRequestException('Order does not have an associated payment intent');
+    }
 
     const refund = await this.stripe.refunds.create({
       amount: refundAmount,
-      payment_intent: order.stripe_payment_intent_id,
+      payment_intent: paymentIntentId,
       metadata: { order_id: orderId, tenant_id: tenantId },
     });
 

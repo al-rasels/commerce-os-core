@@ -5,7 +5,9 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils"
-import { Search, Plus } from "lucide-react"
+import { Search, Plus, Lock } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ComponentMetadata } from "@commerceos/shared-types"
 
 interface AddSectionPanelProps {
   onAdd: (key: string) => void
@@ -46,6 +48,8 @@ export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
 
 function SectionOption({ schema, onAdd }: { schema: SectionSchema; onAdd: (key: string) => void }) {
   const [hovered, setHovered] = useState(false)
+  const meta = ComponentMetadata[schema.key]
+
   return (
     <div
       className={cn(
@@ -55,8 +59,16 @@ function SectionOption({ schema, onAdd }: { schema: SectionSchema; onAdd: (key: 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div className="flex flex-col">
-        <span className="font-medium">{schema.name}</span>
+      <div className="flex flex-col gap-0.5">
+        <div className="flex items-center gap-2">
+          <span className="font-medium">{schema.name}</span>
+          {meta?.minPlan && (
+            <Badge variant="secondary" className="text-[10px] h-4 px-1 py-0 gap-1 font-mono uppercase bg-amber-500/10 text-amber-600 border-amber-500/20">
+              <Lock className="size-2.5" />
+              {meta.minPlan}
+            </Badge>
+          )}
+        </div>
         <span className="text-xs text-muted-foreground">{schema.description}</span>
       </div>
       {hovered && (

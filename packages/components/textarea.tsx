@@ -1,31 +1,18 @@
-import { type TextareaHTMLAttributes } from "react";
-import { cn } from "./utils";
+import * as React from "react"
 
-export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-}
+import { cn } from "./utils"
 
-export function Textarea({ label, error, className, id, ...props }: TextareaProps) {
-  const textareaId = id ?? label?.toLowerCase().replace(/\s+/g, "-");
-
+function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (
-    <div className="space-y-1.5">
-      {label && (
-        <label htmlFor={textareaId} className="text-sm font-medium text-foreground">
-          {label}
-        </label>
+    <textarea
+      data-slot="textarea"
+      className={cn(
+        "flex field-sizing-content min-h-16 w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+        className
       )}
-      <textarea
-        id={textareaId}
-        className={cn(
-          "flex min-h-[80px] w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none transition-all placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/50",
-          error && "border-destructive focus:ring-destructive/50",
-          className,
-        )}
-        {...props}
-      />
-      {error && <p className="text-xs text-destructive">{error}</p>}
-    </div>
-  );
+      {...props}
+    />
+  )
 }
+
+export { Textarea }

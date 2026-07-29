@@ -1,4 +1,4 @@
-# Node Description Batch 37 of 37
+# Node Description Batch 37 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,18 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "users_users_controller_userscontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L43 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L53 | neighbors=[UsersController]
-- "users_users_module_usersmodule": "UsersModule" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.module.ts:L14 | neighbors=[users.module.ts]
-- "users_users_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[UsersRepository]
-- "users_users_repository_usersrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.repository.ts:L13 | neighbors=[UsersRepository]
-- "users_users_repository_usersrepository_findmanywithrole": ".findManyWithRole()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.repository.ts:L17 | neighbors=[UsersRepository]
-- "users_users_repository_usersrepository_finduniquewithrole": ".findUniqueWithRole()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.repository.ts:L28 | neighbors=[UsersRepository]
-- "users_users_repository_usersrepository_finduniquewithrolefull": ".findUniqueWithRoleFull()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.repository.ts:L40 | neighbors=[UsersRepository]
-- "users_users_repository_usersrepository_updateuser": ".updateUser()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.repository.ts:L61 | neighbors=[UsersRepository]
-- "users_users_service_usersservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L16 | neighbors=[UsersService]
-- "users_users_service_usersservice_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L137 | neighbors=[UsersService]
-- "users_users_service_usersservice_findunique": ".findUnique()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L145 | neighbors=[UsersService]
+- "middlewares_host_resolver_middleware_nestmiddleware": "NestMiddleware" | kind=code-symbol | neighbors=[HostResolverMiddleware]
+- "middlewares_tenant_context_middleware_nestmiddleware": "NestMiddleware" | kind=code-symbol | neighbors=[TenantContextMiddleware]
+- "middlewares_tenant_context_middleware_tenantcontextmiddleware_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/tenant-context.middleware.ts:L8 | neighbors=[TenantContextMiddleware]
+- "middlewares_tenant_context_middleware_tenantcontextmiddleware_use": ".use()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/tenant-context.middleware.ts:L10 | neighbors=[TenantContextMiddleware]
+- "order_order_controller_ordercontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L22 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L35 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L26 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L41 | neighbors=[OrderController]
+- "order_order_item_repository_orderitemrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order-item.repository.ts:L8 | neighbors=[OrderItemRepository]
+- "order_order_item_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[OrderItemRepository]
+- "order_order_module_ordermodule": "OrderModule" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.module.ts:L12 | neighbors=[order.module.ts]
+- "order_order_repository_orderrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L9 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_fulfillstock": ".fulfillStock()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L28 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_releasestock": ".releaseStock()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L44 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L13 | neighbors=[OrderRepository]
+- "order_order_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[OrderRepository]
+- "order_order_service_orderservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L20 | neighbors=[OrderService]
+- "order_order_service_orderservice_createorder": ".createOrder()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L126 | neighbors=[OrderService]
+- "order_order_service_orderservice_getdashboardstats": ".getDashboardStats()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L91 | neighbors=[OrderService]
+- "order_order_service_orderservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L32 | neighbors=[OrderService]
+- "order_order_service_valid_transitions": "VALID_TRANSITIONS" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L10 | neighbors=[order.service.ts]
+- "orders_orderdetailpage_orderdetailpage": "OrderDetailPage()" | kind=code-symbol | source=apps/admin/src/pages/orders/OrderDetailPage.tsx:L23 | neighbors=[OrderDetailPage.tsx]
+- "orders_orderlistpage_orderlistpage": "OrderListPage()" | kind=code-symbol | source=apps/admin/src/pages/orders/OrderListPage.tsx:L15 | neighbors=[OrderListPage.tsx]
+- "orders_ordertimeline_confirmation_labels": "CONFIRMATION_LABELS" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L27 | neighbors=[OrderTimeline.tsx]
+- "orders_ordertimeline_destructive_actions": "DESTRUCTIVE_ACTIONS" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L25 | neighbors=[OrderTimeline.tsx]
+- "orders_ordertimeline_ordertimeline": "OrderTimeline()" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L38 | neighbors=[OrderTimeline.tsx]
+- "orders_ordertimeline_ordertimelineprops": "OrderTimelineProps" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L17 | neighbors=[OrderTimeline.tsx]
+- "orders_ordertimeline_statusorder": "statusOrder" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L23 | neighbors=[OrderTimeline.tsx]
+- "orders_page_order": "Order" | kind=code-symbol | source=apps/storefront/src/app/account/orders/page.tsx:L16 | neighbors=[page.tsx]
+- "orders_page_orderhistorypage": "OrderHistoryPage()" | kind=code-symbol | source=apps/storefront/src/app/account/orders/page.tsx:L25 | neighbors=[page.tsx]
+- "orders_page_orderitem": "OrderItem" | kind=code-symbol | source=apps/storefront/src/app/account/orders/page.tsx:L10 | neighbors=[page.tsx]
+- "orders_statusbadge_statusbadge": "StatusBadge()" | kind=code-symbol | source=apps/admin/src/components/orders/StatusBadge.tsx:L11 | neighbors=[StatusBadge.tsx]
+- "orders_statusbadge_statusconfig": "statusConfig" | kind=code-symbol | source=apps/admin/src/components/orders/StatusBadge.tsx:L3 | neighbors=[StatusBadge.tsx]
+- "page_editor_addsectionpanel_addsectionpanelprops": "AddSectionPanelProps" | kind=code-symbol | source=apps/admin/src/components/page-editor/AddSectionPanel.tsx:L12 | neighbors=[AddSectionPanel.tsx]
+- "page_editor_addsectionpanel_sectionoption": "SectionOption()" | kind=code-symbol | source=apps/admin/src/components/page-editor/AddSectionPanel.tsx:L49 | neighbors=[AddSectionPanel.tsx]
+- "page_editor_propeditor_propeditorprops": "PropEditorProps" | kind=code-symbol | source=apps/admin/src/components/page-editor/PropEditor.tsx:L13 | neighbors=[PropEditor.tsx]
+- "page_editor_sectioncard_sectioncardprops": "SectionCardProps" | kind=code-symbol | source=apps/admin/src/components/page-editor/SectionCard.tsx:L13 | neighbors=[SectionCard.tsx]
+- "pages_dashboardpage_containervariants": "containerVariants" | kind=code-symbol | source=apps/admin/src/pages/DashboardPage.tsx:L12 | neighbors=[DashboardPage.tsx]
+- "pages_dashboardpage_dashboardpage": "DashboardPage()" | kind=code-symbol | source=apps/admin/src/pages/DashboardPage.tsx:L56 | neighbors=[DashboardPage.tsx]
+- "pages_dashboardpage_itemvariants": "itemVariants" | kind=code-symbol | source=apps/admin/src/pages/DashboardPage.tsx:L20 | neighbors=[DashboardPage.tsx]
 
 ## Instructions
 

@@ -1,5 +1,8 @@
 import deepmerge from "deepmerge";
 import type { DesignTokens } from "@commerceos/design-tokens";
+import { defaultTokens } from "@commerceos/design-tokens";
+import { minimalTheme } from "./themes/minimal";
+import { boldTheme } from "./themes/bold";
 
 export interface MergeResult<T> {
   resolved: T;
@@ -7,6 +10,14 @@ export interface MergeResult<T> {
 }
 
 export type TenantTokenOverride = Partial<DesignTokens>;
+
+export const ThemeRegistry = {
+  default: defaultTokens,
+  minimal: minimalTheme,
+  bold: boldTheme,
+};
+
+export type ThemeBaseId = keyof typeof ThemeRegistry;
 
 export function resolveOverride<T extends Record<string, unknown>>(
   base: T,

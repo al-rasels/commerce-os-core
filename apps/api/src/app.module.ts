@@ -11,6 +11,8 @@ import { ExperienceModule } from './modules/experience/experience.module';
 import { CommerceThrottlerGuard } from './common/guards/commerce-throttler.guard';
 import { CsrfMiddleware } from './common/middleware/csrf.middleware';
 import { LoggerModule } from 'nestjs-pino';
+import { B2bModule } from './modules/business/b2b/b2b.module';
+import { SubscriptionsModule } from './modules/business/subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { LoggerModule } from 'nestjs-pino';
     PlatformModule,
     CommerceModule,
     ExperienceModule,
+    B2bModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [

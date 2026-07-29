@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "id": "builder_propertypanel",
+      "label": "PropertyPanel.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "builder_propertypanel_propertypanelprops",
+      "label": "PropertyPanelProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "builder_propertypanel_propertypanel",
+      "label": "PropertyPanel()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L10"
+    }
+  ],
+  "edges": [
+    {
+      "source": "builder_propertypanel",
+      "target": "components",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "builder_propertypanel",
+      "target": "propeditor",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "builder_propertypanel",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_admin_src_pages_builder_components_buildernode_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "builder_propertypanel",
+      "target": "components_buildernode_pagenode",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "builder_propertypanel",
+      "target": "builder_propertypanel_propertypanelprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "builder_propertypanel",
+      "target": "builder_propertypanel_propertypanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/PropertyPanel.tsx",
+      "source_location": "L10",
+      "weight": 1
+    }
+  ]
+}

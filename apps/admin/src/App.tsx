@@ -12,6 +12,7 @@ import CategoryListPage from "@/pages/categories/CategoryListPage"
 import ThemeEditorPage from "@/pages/theme/ThemeEditorPage"
 import PageLayoutListPage from "@/pages/settings/PageLayoutList"
 import PageLayoutEditorPage from "@/pages/settings/PageLayoutEditor"
+import PageBuilder from "@/pages/builder/PageBuilder"
 import OrderListPage from "@/pages/orders/OrderListPage"
 import OrderDetailPage from "@/pages/orders/OrderDetailPage"
 import CustomerListPage from "@/pages/customers/CustomerListPage"
@@ -27,6 +28,12 @@ import { CreateStoreWizard } from "@/components/store-setup/CreateStoreWizard"
 import { ShippingSettingsPage as ShippingPage } from "@/pages/settings/shipping"
 import { TaxSettingsPage as TaxPage } from "@/pages/settings/tax"
 import { PromotionsPage } from "@/pages/marketing/promotions"
+import CompanyProfilesListPage from "@/pages/b2b/CompanyProfilesListPage"
+import PriceListsPage from "@/pages/b2b/PriceListsPage"
+import DraftOrdersPage from "@/pages/b2b/DraftOrdersPage"
+import SubscriptionsListPage from "@/pages/subscriptions/SubscriptionsListPage"
+import LocationsListPage from "@/pages/settings/locations/LocationsListPage"
+import ReturnsListPage from "@/pages/orders/returns/ReturnsListPage"
 
 function ProtectedRoute() {
   const { isAuthenticated } = useAuth()
@@ -49,6 +56,7 @@ export default function App() {
             <Route path="products/:id/edit" element={<ProductFormPage />} />
             <Route path="categories" element={<CategoryListPage />} />
             <Route path="orders" element={<OrderListPage />} />
+            <Route path="orders/returns" element={<ReturnsListPage />} />
             <Route path="orders/:id" element={<OrderDetailPage />} />
             <Route path="customers" element={<CustomerListPage />} />
             <Route path="customers/new" element={<CustomerFormPage />} />
@@ -64,6 +72,12 @@ export default function App() {
             <Route path="settings/shipping" element={<ShippingPage />} />
             <Route path="settings/tax" element={<TaxPage />} />
             <Route path="marketing/promotions" element={<PromotionsPage />} />
+            <Route path="settings/pages/:pageKey/builder" element={<PageBuilder />} />
+            <Route path="settings/locations" element={<LocationsListPage />} />
+            <Route path="b2b/companies" element={<CompanyProfilesListPage />} />
+            <Route path="b2b/price-lists" element={<PriceListsPage />} />
+            <Route path="b2b/draft-orders" element={<DraftOrdersPage />} />
+            <Route path="subscriptions" element={<SubscriptionsListPage />} />
             <Route path="super-admin/tenants" element={<TenantsPage />} />
             <Route path="super-admin/tenants/:id" element={<TenantDetailPage />} />
             <Route path="super-admin/create-store" element={<CreateStoreWizard />} />

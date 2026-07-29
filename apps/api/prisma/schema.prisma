@@ -34,31 +34,38 @@ model Plan {
 }
 
 model Tenant {
-  id                 String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name               String
-  plan_id            String                  @default("trial")
-  status             String                  @default("active")
-  created_at         DateTime                @default(now()) @db.Timestamptz(6)
-  audit_logs         AuditLog[]
-  cart_items         CartItem[]
-  carts              Cart[]
-  categories         Category[]
-  customers          Customer[]
-  flags              FeatureFlag[]
-  order_items        OrderItem[]
-  orders             Order[]
-  page_layouts       PageLayout[]
-  variants           ProductVariant[]
-  products           Product[]
-  promotions         Promotion[]
-  roles              Role[]
-  shipping_rules     ShippingRule[]
-  stock_reservations StockReservation[]
-  tax_rules          TaxRule[]
-  template_overrides TemplateTenantOverride?
-  domains            TenantDomain[]
-  theme_overrides    ThemeTenantOverride?
-  users              User[]
+  id                  String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                String
+  plan_id             String                  @default("trial")
+  status              String                  @default("active") // 'active' | 'suspended' | 'offboarding'
+  created_at          DateTime                @default(now()) @db.Timestamptz(6)
+  domains             TenantDomain[]
+  users               User[]
+  roles               Role[]
+  flags               FeatureFlag[]
+  products            Product[]
+  variants            ProductVariant[]
+  categories          Category[]
+  customers           Customer[]
+  carts               Cart[]
+  cart_items          CartItem[]
+  orders              Order[]
+  order_items         OrderItem[]
+  theme_overrides     ThemeTenantOverride?
+  template_overrides  TemplateTenantOverride?
+  page_layouts        PageLayout[]
+  stock_reservations  StockReservation[]
+  audit_logs          AuditLog[]
+  shipping_rules      ShippingRule[]
+  tax_rules           TaxRule[]
+  promotions          Promotion[]
+  bundle_items        ProductBundleItem[]
+  company_profiles    CompanyProfile[]
+  price_lists         PriceList[]
+  subscriptions       Subscription[]
+  return_requests     ReturnRequest[]
+  inventory_locations InventoryLocation[]
+  inventory_levels    InventoryLevel[]
 
   @@map("tenants")
 }
@@ -76,7 +83,7 @@ model TenantDomain {
 model Role {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tenant_id   String?  @db.Uuid
-  name        String
+  name        String // 'super_admin' | 'store_owner' | 'store_staff' | 'customer'
   permissions String[]
   tenant      Tenant?  @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   users       User[]
@@ -94,7 +101,7 @@ model User {
   created_at    DateTime   @default(now()) @db.Timestamptz(6)
   mfa_enabled   Boolean    @default(false)
   mfa_secret    String?
-  status        String     @default("active")
+  status        String     @default("active") // 'active' | 'pending' | 'suspended'
   audit_logs    AuditLog[]
   role          Role       @relation(fields: [role_id], references: [id])
   tenant        Tenant?    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
@@ -119,36 +126,40 @@ model Product {
   tenant_id       String           @db.Uuid
   name            String
   slug            String
-  status          String           @default("draft")
+  product_type    String           @default("physical") // 'physical' | 'digital' | 'bundle'
+  status          String           @default("draft") // 'draft' | 'active' | 'archived'
   category_id     String?          @db.Uuid
   created_at      DateTime         @default(now()) @db.Timestamptz(6)
   updated_at      DateTime         @updatedAt @db.Timestamptz(6)
   deleted_at      DateTime?        @db.Timestamptz(6)
+  description     String?          @db.Text
   metafields_json Json?            @default("{}")
-  description     String?
-  variants        ProductVariant[]
-  category        Category?        @relation(fields: [category_id], references: [id])
   tenant          Tenant           @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  category        Category?        @relation(fields: [category_id], references: [id], onDelete: SetNull)
+  variants        ProductVariant[]
 
   @@unique([tenant_id, slug])
   @@map("products")
 }
 
 model ProductVariant {
-  id                 String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenant_id          String             @db.Uuid
-  product_id         String             @db.Uuid
-  sku                String
-  price_cents        Int
-  currency           String
-  stock_available    Int                @default(0)
-  stock_reserved     Int                @default(0)
-  attributes_json    Json?
-  cart_items         CartItem[]
-  order_items        OrderItem[]
-  product            Product            @relation(fields: [product_id], references: [id], onDelete: Cascade)
-  tenant             Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  stock_reservations StockReservation[]
+  id                  String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id           String              @db.Uuid
+  product_id          String              @db.Uuid
+  sku                 String
+  price_cents         Int
+  currency            String
+  stock_available     Int                 @default(0)
+  stock_reserved      Int                 @default(0)
+  attributes_json     Json?
+  tenant              Tenant              @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  product             Product             @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  cart_items          CartItem[]
+  order_items         OrderItem[]
+  stock_reservations  StockReservation[]
+  bundle_parent_items ProductBundleItem[] @relation("BundleParent")
+  bundle_child_items  ProductBundleItem[] @relation("BundleChild")
+  levels              InventoryLevel[]
 
   @@unique([tenant_id, sku])
   @@map("product_variants")
@@ -171,30 +182,37 @@ model Category {
 }
 
 model Customer {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenant_id  String   @db.Uuid
-  email      String
-  first_name String?
-  last_name  String?
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  carts      Cart[]
-  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  orders     Order[]
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id     String          @db.Uuid
+  email         String
+  first_name    String?
+  last_name     String?
+  company_id    String?         @db.Uuid
+  price_list_id String?         @db.Uuid
+  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  tenant        Tenant          @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  company       CompanyProfile? @relation(fields: [company_id], references: [id], onDelete: SetNull)
+  price_list    PriceList?      @relation(fields: [price_list_id], references: [id], onDelete: SetNull)
+  carts         Cart[]
+  orders        Order[]
+  subscriptions Subscription[]
 
   @@unique([tenant_id, email])
   @@map("customers")
 }
 
 model Cart {
-  id          String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenant_id   String     @db.Uuid
-  customer_id String?    @db.Uuid
-  session_id  String?
-  status      String     @default("open")
-  created_at  DateTime   @default(now()) @db.Timestamptz(6)
-  items       CartItem[]
-  customer    Customer?  @relation(fields: [customer_id], references: [id])
-  tenant      Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  id           String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id    String     @db.Uuid
+  customer_id  String?    @db.Uuid
+  session_id   String?
+  status       String     @default("open") // 'open' | 'converted' | 'abandoned'
+  promotion_id String?    @db.Uuid
+  created_at   DateTime   @default(now()) @db.Timestamptz(6)
+  tenant       Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customer     Customer?  @relation(fields: [customer_id], references: [id], onDelete: SetNull)
+  promotion    Promotion? @relation(fields: [promotion_id], references: [id], onDelete: SetNull)
+  items        CartItem[]
 
   @@map("carts")
 }
@@ -213,26 +231,30 @@ model CartItem {
 }
 
 model Order {
-  id                 String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenant_id          String             @db.Uuid
-  customer_id        String             @db.Uuid
-  status             String             @default("pending")
-  subtotal_cents     Int
-  tax_cents          Int
-  shipping_cents     Int
-  total_cents        Int
-  currency           String
-  channel            String             @default("online")
-  created_at         DateTime           @default(now()) @db.Timestamptz(6)
+  id                       String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id                String             @db.Uuid
+  customer_id              String             @db.Uuid
+  status                   String             @default("pending") // 'pending' | 'paid' | 'fulfilled' | 'cancelled' | 'refunded'
+  subtotal_cents           Int
+  tax_cents                Int
+  shipping_cents           Int
+  discount_cents           Int                @default(0)
+  total_cents              Int
+  currency                 String
+  channel                  String             @default("online") // 'online' | 'pos'
+  created_at               DateTime           @default(now()) @db.Timestamptz(6)
   customer_email           String?            @db.VarChar(255)
   shipping_address         Json?              @default("{}")
   billing_address          Json?              @default("{}")
-  stripe_payment_intent_id String?            @db.VarChar(255)
+  payment_intent_id        String?            @db.VarChar(255)
+  stripe_payment_intent_id String?            @db.VarChar(255) // Keep for backward compatibility with main branch implementation
   metafields_json          Json?              @default("{}")
-  items              OrderItem[]
-  customer           Customer           @relation(fields: [customer_id], references: [id])
-  tenant             Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  stock_reservations StockReservation[]
+  items                    OrderItem[]
+  customer                 Customer           @relation(fields: [customer_id], references: [id])
+  tenant                   Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  stock_reservations       StockReservation[]
+  subscriptions            Subscription[]
+  return_requests          ReturnRequest[]
 
   @@map("orders")
 }
@@ -294,16 +316,19 @@ model TemplateTenantOverride {
 }
 
 model StockReservation {
-  id         String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  tenant_id  String         @db.Uuid
-  variant_id String         @db.Uuid
-  order_id   String?        @db.Uuid
-  quantity   Int
-  expires_at DateTime       @db.Timestamptz(6)
-  created_at DateTime       @default(now()) @db.Timestamptz(6)
-  order      Order?         @relation(fields: [order_id], references: [id])
-  tenant     Tenant         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
-  variant    ProductVariant @relation(fields: [variant_id], references: [id], onDelete: Cascade)
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id   String   @db.Uuid
+  variant_id  String   @db.Uuid
+  order_id    String?  @db.Uuid
+  location_id String?  @db.Uuid
+  quantity    Int
+  expires_at  DateTime @db.Timestamptz(6)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+
+  tenant   Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  variant  ProductVariant     @relation(fields: [variant_id], references: [id], onDelete: Cascade)
+  order    Order?             @relation(fields: [order_id], references: [id], onDelete: SetNull)
+  location InventoryLocation? @relation(fields: [location_id], references: [id], onDelete: SetNull)
 
   @@index([tenant_id])
   @@index([expires_at])
@@ -312,7 +337,7 @@ model StockReservation {
 
 model PageLayout {
   tenant_id     String    @db.Uuid
-  page_key      String
+  page_key      String // 'homepage' | 'category' | 'product' | 'checkout'
   sections_json Json
   published_at  DateTime? @db.Timestamptz(6)
   tenant        Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
@@ -340,12 +365,13 @@ model ShippingRule {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tenant_id  String   @db.Uuid
   name       String
-  type       String
-  config     Json
+  type       String // 'flat_rate' | 'weight_tier'
+  config     Json // JSONB
   is_active  Boolean  @default(true)
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @updatedAt @db.Timestamptz(6)
-  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([tenant_id])
   @@map("shipping_rules")
@@ -355,13 +381,14 @@ model TaxRule {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tenant_id  String   @db.Uuid
   name       String
-  type       String
-  rate       Float
-  region     String?
+  type       String // 'flat' | 'region'
+  rate       Float // Percentage (e.g. 10.5 for 10.5%)
+  region     String? // e.g. 'US-CA', 'UK'
   is_active  Boolean  @default(true)
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @updatedAt @db.Timestamptz(6)
-  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  tenant Tenant @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@index([tenant_id])
   @@map("tax_rules")
@@ -370,18 +397,116 @@ model TaxRule {
 model Promotion {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tenant_id  String    @db.Uuid
-  code       String    @unique
-  type       String
-  value      Float
-  min_order  Float?
-  max_uses   Int?
+  code       String
+  type       String // 'percentage' | 'fixed_amount'
+  value      Float // e.g. 10 for 10%, or 500 for .00
+  min_order  Float? // Minimum order subtotal to apply
+  max_uses   Int? // Maximum number of times this code can be used
   uses       Int       @default(0)
   expires_at DateTime? @db.Timestamptz(6)
   is_active  Boolean   @default(true)
   created_at DateTime  @default(now()) @db.Timestamptz(6)
   updated_at DateTime  @updatedAt @db.Timestamptz(6)
-  tenant     Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
-  @@index([tenant_id, code])
+  tenant Tenant @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  carts  Cart[]
+
+  @@unique([tenant_id, code])
   @@map("promotions")
+}
+
+model ProductBundleItem {
+  id                String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id         String @db.Uuid
+  parent_variant_id String @db.Uuid
+  child_variant_id  String @db.Uuid
+  quantity          Int    @default(1)
+
+  tenant         Tenant         @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  parent_variant ProductVariant @relation("BundleParent", fields: [parent_variant_id], references: [id], onDelete: Cascade)
+  child_variant  ProductVariant @relation("BundleChild", fields: [child_variant_id], references: [id], onDelete: Cascade)
+
+  @@unique([parent_variant_id, child_variant_id])
+  @@map("product_bundle_items")
+}
+
+model CompanyProfile {
+  id                 String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id          String     @db.Uuid
+  name               String
+  tax_id             String?
+  payment_terms      String     @default("due_on_receipt") // 'net_15', 'net_30', 'net_60'
+  credit_limit_cents Int?
+  tenant             Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customers          Customer[]
+
+  @@map("company_profiles")
+}
+
+model PriceList {
+  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String     @db.Uuid
+  name       String
+  currency   String
+  rules_json Json
+  tenant     Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customers  Customer[]
+
+  @@map("price_lists")
+}
+
+model Subscription {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id       String   @db.Uuid
+  customer_id     String   @db.Uuid
+  order_id        String   @db.Uuid
+  status          String   @default("active") // 'active'|'paused'|'cancelled'|'past_due'
+  interval        String // 'daily'|'weekly'|'monthly'|'yearly'
+  interval_count  Int      @default(1)
+  next_billing_at DateTime @db.Timestamptz
+  tenant          Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  customer        Customer @relation(fields: [customer_id], references: [id])
+  order           Order    @relation(fields: [order_id], references: [id])
+
+  @@map("subscriptions")
+}
+
+model ReturnRequest {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id  String   @db.Uuid
+  order_id   String   @db.Uuid
+  status     String   @default("pending") // 'pending'|'approved'|'rejected'|'received'|'refunded'
+  reason     String
+  created_at DateTime @default(now()) @db.Timestamptz
+  tenant     Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  order      Order    @relation(fields: [order_id], references: [id])
+
+  @@map("return_requests")
+}
+
+model InventoryLocation {
+  id           String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id    String             @db.Uuid
+  name         String
+  is_default   Boolean?           @default(false)
+  address_json Json
+  tenant       Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  levels       InventoryLevel[]
+  reservations StockReservation[]
+
+  @@map("inventory_locations")
+}
+
+model InventoryLevel {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tenant_id       String            @db.Uuid
+  location_id     String            @db.Uuid
+  variant_id      String            @db.Uuid
+  stock_available Int               @default(0)
+  tenant          Tenant            @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  location        InventoryLocation @relation(fields: [location_id], references: [id], onDelete: Cascade)
+  variant         ProductVariant    @relation(fields: [variant_id], references: [id], onDelete: Cascade)
+
+  @@unique([location_id, variant_id])
+  @@map("inventory_levels")
 }

@@ -1,4 +1,4 @@
-# Node Description Batch 30 of 37
+# Node Description Batch 30 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -12,58 +12,51 @@ describing what it is or does. Use only the provided context.
 For a code symbol (kind=code-symbol — a function, class, or constant),
 describe what the function/symbol does based on its name, source location
 and neighbors — e.g. "Resolves the configured ontology profile from graphify.yaml.".
-For an entity node (any other kind — e.g. a person, place, event, object),
-describe what the entity is and its role, grounded in its type, its
-relations (neighbors) and the provided citations/evidence — e.g.
-"Lady Carfax, a wealthy heiress who disappears en route to Lausanne.".
-Ground entity descriptions in the citations/evidence when present; do not
-speculate beyond the context, so a node with no supporting context may be
-left out of the reply.
 Write every description in English (en). Do not switch languages.
 No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "scripts_lighthouse_audit_rationale_61": "Generate summary based on scores." | kind=entity | source=.agents/skills/performance-profiling/scripts/lighthouse_audit.py:L61 | neighbors=[get_summary()]
-- "scripts_schema_validator_rationale_30": "Find database schema files." | kind=entity | source=.agents/skills/database-design/scripts/schema_validator.py:L30 | neighbors=[find_schema_files()]
-- "scripts_schema_validator_rationale_48": "Validate Prisma schema file." | kind=entity | source=.agents/skills/database-design/scripts/schema_validator.py:L48 | neighbors=[validate_prisma_schema()]
-- "scripts_ts_diagnostic_rationale_112": "Check for monorepo configuration." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L112 | neighbors=[check_monorepo()]
-- "scripts_ts_diagnostic_rationale_133": "Run quick type check." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L133 | neighbors=[check_type_errors()]
-- "scripts_ts_diagnostic_rationale_14": "Run shell command and return output." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L14 | neighbors=[run_cmd()]
-- "scripts_ts_diagnostic_rationale_146": "Check for any type usage." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L146 | neighbors=[check_any_usage()]
-- "scripts_ts_diagnostic_rationale_161": "Check for type assertions." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L161 | neighbors=[check_type_assertions()]
-- "scripts_ts_diagnostic_rationale_173": "Check type checking performance." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L173 | neighbors=[check_performance()]
-- "scripts_ts_diagnostic_rationale_22": "Check TypeScript and Node versions." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L22 | neighbors=[check_versions()]
-- "scripts_ts_diagnostic_rationale_33": "Analyze tsconfig.json settings." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L33 | neighbors=[check_tsconfig()]
-- "scripts_ts_diagnostic_rationale_75": "Detect TypeScript tooling ecosystem." | kind=entity | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L75 | neighbors=[check_tooling()]
-- "search_page_searchpage": "SearchPage()" | kind=code-symbol | source=apps/storefront/src/app/search/page.tsx:L7 | neighbors=[page.tsx]
-- "settings_pagelayouteditor_createdefaultsection": "createDefaultSection()" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutEditor.tsx:L40 | neighbors=[PageLayoutEditor.tsx]
-- "settings_pagelayouteditor_pagelayouteditorpage": "PageLayoutEditorPage()" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutEditor.tsx:L58 | neighbors=[PageLayoutEditor.tsx]
-- "settings_pagelayoutlist_knownpages": "knownPages" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutList.tsx:L20 | neighbors=[PageLayoutList.tsx]
-- "settings_pagelayoutlist_pagelayoutlistpage": "PageLayoutListPage()" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutList.tsx:L29 | neighbors=[PageLayoutList.tsx]
-- "settings_shipping_shippingsettingspage": "ShippingSettingsPage()" | kind=code-symbol | source=apps/admin/src/pages/settings/shipping.tsx:L8 | neighbors=[shipping.tsx]
-- "settings_tax_taxsettingspage": "TaxSettingsPage()" | kind=code-symbol | source=apps/admin/src/pages/settings/tax.tsx:L8 | neighbors=[tax.tsx]
-- "shared_types_index_category": "Category" | kind=code-symbol | source=packages/shared-types/index.ts:L74 | neighbors=[index.ts]
-- "shared_types_index_categoryschema": "CategorySchema" | kind=code-symbol | source=packages/shared-types/index.ts:L67 | neighbors=[index.ts]
-- "shared_types_index_product": "Product" | kind=code-symbol | source=packages/shared-types/index.ts:L51 | neighbors=[index.ts]
-- "shared_types_index_productschema": "ProductSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L40 | neighbors=[index.ts]
-- "shared_types_index_productvariant": "ProductVariant" | kind=code-symbol | source=packages/shared-types/index.ts:L64 | neighbors=[index.ts]
-- "shared_types_index_productvariantschema": "ProductVariantSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L53 | neighbors=[index.ts]
-- "shared_types_index_role": "Role" | kind=code-symbol | source=packages/shared-types/index.ts:L27 | neighbors=[index.ts]
-- "shared_types_index_roleschema": "RoleSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L22 | neighbors=[index.ts]
-- "shared_types_index_tenant": "Tenant" | kind=code-symbol | source=packages/shared-types/index.ts:L11 | neighbors=[index.ts]
-- "shared_types_index_tenantdomain": "TenantDomain" | kind=code-symbol | source=packages/shared-types/index.ts:L19 | neighbors=[index.ts]
-- "shared_types_index_tenantdomainschema": "TenantDomainSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L13 | neighbors=[index.ts]
-- "shared_types_index_tenantschema": "TenantSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L4 | neighbors=[index.ts]
-- "shared_types_index_user": "User" | kind=code-symbol | source=packages/shared-types/index.ts:L37 | neighbors=[index.ts]
-- "shared_types_index_userschema": "UserSchema" | kind=code-symbol | source=packages/shared-types/index.ts:L29 | neighbors=[index.ts]
-- "shipping_shipping_controller_shippingcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L23 | neighbors=[ShippingController]
-- "shipping_shipping_controller_shippingcontroller_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L39 | neighbors=[ShippingController]
-- "shipping_shipping_controller_shippingcontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L33 | neighbors=[ShippingController]
-- "shipping_shipping_controller_shippingcontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L27 | neighbors=[ShippingController]
-- "shipping_shipping_controller_shippingcontroller_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L58 | neighbors=[ShippingController]
-- "shipping_shipping_controller_shippingcontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L48 | neighbors=[ShippingController]
-- "shipping_shipping_module_shippingmodule": "ShippingModule" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.module.ts:L14 | neighbors=[shipping.module.ts]
+- "components_pagination_paginationprops": "PaginationProps" | kind=code-symbol | source=packages/components/pagination.tsx:L6 | neighbors=[pagination.tsx]
+- "components_popover_popover": "Popover()" | kind=code-symbol | source=packages/components/popover.tsx:L6 | neighbors=[popover.tsx]
+- "components_popover_popovercontent": "PopoverContent()" | kind=code-symbol | source=packages/components/popover.tsx:L14 | neighbors=[popover.tsx]
+- "components_popover_popoverdescription": "PopoverDescription()" | kind=code-symbol | source=packages/components/popover.tsx:L68 | neighbors=[popover.tsx]
+- "components_popover_popoverheader": "PopoverHeader()" | kind=code-symbol | source=packages/components/popover.tsx:L48 | neighbors=[popover.tsx]
+- "components_popover_popovertitle": "PopoverTitle()" | kind=code-symbol | source=packages/components/popover.tsx:L58 | neighbors=[popover.tsx]
+- "components_popover_popovertrigger": "PopoverTrigger()" | kind=code-symbol | source=packages/components/popover.tsx:L10 | neighbors=[popover.tsx]
+- "components_product_grid_columnmap": "columnMap" | kind=code-symbol | source=packages/components/product-grid.tsx:L12 | neighbors=[product-grid.tsx]
+- "components_product_grid_demoproducts": "demoProducts" | kind=code-symbol | source=packages/components/product-grid.tsx:L18 | neighbors=[product-grid.tsx]
+- "components_product_grid_productgridprops": "ProductGridProps" | kind=code-symbol | source=packages/components/product-grid.tsx:L4 | neighbors=[product-grid.tsx]
+- "components_productbundleeditor_productbundleeditor": "ProductBundleEditor()" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L20 | neighbors=[ProductBundleEditor.tsx]
+- "components_productbundleeditor_productbundleeditorprops": "ProductBundleEditorProps" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L16 | neighbors=[ProductBundleEditor.tsx]
+- "components_productbundleeditor_productvariantselector": "ProductVariantSelector()" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L176 | neighbors=[ProductBundleEditor.tsx]
+- "components_productbundleeditor_variantsearchdialog": "VariantSearchDialog()" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L137 | neighbors=[ProductBundleEditor.tsx]
+- "components_progress_progress": "Progress()" | kind=code-symbol | source=packages/components/progress.tsx:L5 | neighbors=[progress.tsx]
+- "components_progress_progressindicator": "ProgressIndicator()" | kind=code-symbol | source=packages/components/progress.tsx:L39 | neighbors=[progress.tsx]
+- "components_progress_progresslabel": "ProgressLabel()" | kind=code-symbol | source=packages/components/progress.tsx:L52 | neighbors=[progress.tsx]
+- "components_progress_progresstrack": "ProgressTrack()" | kind=code-symbol | source=packages/components/progress.tsx:L26 | neighbors=[progress.tsx]
+- "components_progress_progressvalue": "ProgressValue()" | kind=code-symbol | source=packages/components/progress.tsx:L62 | neighbors=[progress.tsx]
+- "components_radio_group_radiogroup": "RadioGroup()" | kind=code-symbol | source=packages/components/radio-group.tsx:L6 | neighbors=[radio-group.tsx]
+- "components_radio_group_radiogroupitem": "RadioGroupItem()" | kind=code-symbol | source=packages/components/radio-group.tsx:L16 | neighbors=[radio-group.tsx]
+- "components_registry_componentregistry": "componentRegistry" | kind=code-symbol | source=packages/components/registry.ts:L2 | neighbors=[registry.ts]
+- "components_registry_componentregistryentry": "ComponentRegistryEntry" | kind=code-symbol | source=packages/components/registry.ts:L31 | neighbors=[registry.ts]
+- "components_registry_componentregistrykey": "ComponentRegistryKey" | kind=code-symbol | source=packages/components/registry.ts:L67 | neighbors=[registry.ts]
+- "components_rich_text_richtextprops": "RichTextProps" | kind=code-symbol | source=packages/components/rich-text.tsx:L3 | neighbors=[rich-text.tsx]
+- "components_richtexteditor_richtexteditor": "RichTextEditor()" | kind=code-symbol | source=apps/admin/src/components/RichTextEditor.tsx:L11 | neighbors=[RichTextEditor.tsx]
+- "components_richtexteditor_richtexteditorprops": "RichTextEditorProps" | kind=code-symbol | source=apps/admin/src/components/RichTextEditor.tsx:L5 | neighbors=[RichTextEditor.tsx]
+- "components_scroll_area_scrollarea": "ScrollArea()" | kind=code-symbol | source=packages/components/scroll-area.tsx:L5 | neighbors=[scroll-area.tsx]
+- "components_scroll_area_scrollbar": "ScrollBar()" | kind=code-symbol | source=packages/components/scroll-area.tsx:L28 | neighbors=[scroll-area.tsx]
+- "components_search_bar_searchbarprops": "SearchBarProps" | kind=code-symbol | source=packages/components/search-bar.tsx:L7 | neighbors=[search-bar.tsx]
+- "components_section_renderer_localregistry": "localRegistry" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L24 | neighbors=[section-renderer.tsx]
+- "components_section_renderer_node": "Node" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L10 | neighbors=[section-renderer.tsx]
+- "components_section_renderer_sectionrendererprops": "SectionRendererProps" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L18 | neighbors=[section-renderer.tsx]
+- "components_section_renderer_visibilityrule": "VisibilityRule" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L5 | neighbors=[section-renderer.tsx]
+- "components_section_schema_propschema": "PropSchema" | kind=code-symbol | source=packages/components/section-schema.ts:L3 | neighbors=[section-schema.ts]
+- "components_section_schema_proptype": "PropType" | kind=code-symbol | source=packages/components/section-schema.ts:L1 | neighbors=[section-schema.ts]
+- "components_section_schema_sectionschema": "SectionSchema" | kind=code-symbol | source=packages/components/section-schema.ts:L13 | neighbors=[section-schema.ts]
+- "components_section_schema_sectionschemas": "sectionSchemas" | kind=code-symbol | source=packages/components/section-schema.ts:L20 | neighbors=[section-schema.ts]
+- "components_select_selectprops": "SelectProps" | kind=code-symbol | source=packages/components/select.tsx:L12 | neighbors=[select.tsx]
+- "components_separator_separator": "Separator()" | kind=code-symbol | source=packages/components/separator.tsx:L7 | neighbors=[separator.tsx]
 
 ## Instructions
 

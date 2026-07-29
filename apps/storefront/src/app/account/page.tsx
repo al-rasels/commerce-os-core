@@ -139,6 +139,36 @@ export default function AccountPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
+              <Package className="w-5 h-5 text-primary" />
+              Returns (RMA)
+            </CardTitle>
+            <CardDescription>Manage your product returns</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/account/returns">
+              <Button variant="outline" className="w-full">View Returns</Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-primary" />
+              Subscriptions
+            </CardTitle>
+            <CardDescription>Manage recurring orders</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link href="/account/subscriptions">
+              <Button variant="outline" className="w-full">Manage Subscriptions</Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
               <KeyRound className="w-5 h-5 text-primary" />
               Change Password
             </CardTitle>

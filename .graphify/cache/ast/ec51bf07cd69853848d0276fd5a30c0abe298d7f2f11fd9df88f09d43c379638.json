@@ -1,0 +1,38 @@
+{
+  "nodes": [
+    {
+      "id": "builder_responsiveeditor",
+      "label": "ResponsiveEditor.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/ResponsiveEditor.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "builder_responsiveeditor_responsiveeditor",
+      "label": "ResponsiveEditor()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/ResponsiveEditor.tsx",
+      "source_location": "L3"
+    }
+  ],
+  "edges": [
+    {
+      "source": "builder_responsiveeditor",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/ResponsiveEditor.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "builder_responsiveeditor",
+      "target": "builder_responsiveeditor_responsiveeditor",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/ResponsiveEditor.tsx",
+      "source_location": "L3",
+      "weight": 1
+    }
+  ]
+}

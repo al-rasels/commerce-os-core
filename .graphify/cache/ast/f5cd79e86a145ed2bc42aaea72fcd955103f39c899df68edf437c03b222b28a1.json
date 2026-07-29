@@ -1,0 +1,65 @@
+{
+  "nodes": [
+    {
+      "id": "subscriptions_subscriptionslistpage",
+      "label": "SubscriptionsListPage.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "subscriptions_subscriptionslistpage_subscriptionslistpage",
+      "label": "SubscriptionsListPage()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L6"
+    }
+  ],
+  "edges": [
+    {
+      "source": "subscriptions_subscriptionslistpage",
+      "target": "button",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "subscriptions_subscriptionslistpage",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "subscriptions_subscriptionslistpage",
+      "target": "usesubscriptions",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "subscriptions_subscriptionslistpage",
+      "target": "date_fns",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "subscriptions_subscriptionslistpage",
+      "target": "subscriptions_subscriptionslistpage_subscriptionslistpage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/subscriptions/SubscriptionsListPage.tsx",
+      "source_location": "L6",
+      "weight": 1
+    }
+  ]
+}
