@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 import { PageLayoutRepository } from './repositories/page-layout.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
-import { ComponentMetadata, PlanTier } from '@commerceos/shared-types';
+import { ComponentMetadata, PlanTier, BuilderNodeSchema } from '@commerceos/shared-types';
+import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class BuilderService {
@@ -62,6 +63,12 @@ export class BuilderService {
     sectionsJson: any,
     publish: boolean = false,
   ) {
+    // 0. Validate Schema
+    const parseResult = BuilderNodeSchema.safeParse(sectionsJson);
+    if (!parseResult.success) {
+      throw new BadRequestException('Invalid page layout schema: ' + parseResult.error.message);
+    }
+    
     this.validatePlanRequirements(sectionsJson, ctx.plan);
     const prisma = (this.layoutRepo as any).prisma;
 

@@ -23,8 +23,9 @@ export class CommerceThrottlerGuard extends ThrottlerGuard {
 
     const tier = getUserTier(req);
     const tierConfig = TIER_LIMITS[tier] ?? TIER_LIMITS.guest;
-    const effectiveLimit = tierConfig.limit ?? limit;
-    const effectiveTtl = tierConfig.ttl ?? ttl;
+    const isCustom = limit !== 60 || ttl !== 60000;
+    const effectiveLimit = isCustom ? limit : (tierConfig.limit ?? limit);
+    const effectiveTtl = isCustom ? ttl : (tierConfig.ttl ?? ttl);
 
     const tracker = await getTracker(req, context);
     const throttlerKey = throttler.name ?? 'default';

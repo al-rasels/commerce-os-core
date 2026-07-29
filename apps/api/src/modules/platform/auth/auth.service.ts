@@ -70,13 +70,13 @@ export class AuthService {
     )[0];
     if (!user) throw new UnauthorizedException('Incorrect email or password');
 
+    const valid = await argon2.verify(user.password_hash, dto.password);
+    if (!valid) throw new UnauthorizedException('Incorrect email or password');
+
     if (user.status === 'suspended')
       throw new UnauthorizedException('Account is suspended');
     if (user.status === 'pending')
       throw new UnauthorizedException('Account is not yet activated');
-
-    const valid = await argon2.verify(user.password_hash, dto.password);
-    if (!valid) throw new UnauthorizedException('Incorrect email or password');
 
     if (user.mfa_enabled) {
       const mfaToken = await this.jwtService.signAsync(
@@ -268,9 +268,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid refresh token');
     }
 
+    const sid = payload.sid;
+    if (!sid) throw new UnauthorizedException('Invalid token format');
+
     try {
       const stored = await this.redis.get(
-        `refresh:${ctx.tenantId}:${payload.sub}`,
+        `refresh:${ctx.tenantId}:${payload.sub}:${sid}`,
       );
       if (!stored || stored !== refreshToken) {
         throw new UnauthorizedException('Refresh token revoked');
@@ -290,6 +293,7 @@ export class AuthService {
       user.id,
       ctx.tenantId,
       ((user.role as any).permissions as string[]) || [],
+      sid, // reuse sid for same session
     );
     return tokens;
   }
@@ -302,8 +306,12 @@ export class AuthService {
     return { ...rest, mfa_configured: !!mfa_secret };
   }
 
-  async logout(ctx: TenantContext, userId: string) {
-    await this.redis.del(`refresh:${ctx.tenantId}:${userId}`);
+  async logout(ctx: TenantContext, userId: string, sid?: string) {
+    if (sid) {
+      await this.redis.del(`refresh:${ctx.tenantId}:${userId}:${sid}`);
+    } else {
+      await this.redis.del(`refresh:${ctx.tenantId}:${userId}`);
+    }
     return { message: 'Logged out successfully' };
   }
 
@@ -311,8 +319,10 @@ export class AuthService {
     userId: string,
     tenantId: string,
     permissions: string[],
+    sessionId?: string,
   ) {
-    const payload = { sub: userId, tenant_id: tenantId, permissions };
+    const sid = sessionId || crypto.randomUUID();
+    const payload = { sub: userId, tenant_id: tenantId, permissions, sid };
 
     const accessToken = await this.jwtService.signAsync(payload, {
       expiresIn: '15m',
@@ -323,7 +333,7 @@ export class AuthService {
 
     try {
       await this.redis.set(
-        `refresh:${tenantId}:${userId}`,
+        `refresh:${tenantId}:${userId}:${sid}`,
         refreshToken,
         7 * 24 * 3600,
       );

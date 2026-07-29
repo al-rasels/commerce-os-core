@@ -108,13 +108,38 @@ export default function PageBuilder() {
       {/* Left Sidebar: Components */}
       <div className="w-64 border-r flex flex-col bg-card">
         <div className="p-4 border-b font-medium">Elements</div>
-        <div className="p-4 flex-1 overflow-y-auto">
-          <DraggableElement componentKey="heading.v1" label="Heading" />
-          <DraggableElement componentKey="text.v1" label="Text Block" />
-          <DraggableElement componentKey="button.v1" label="Button" />
-          <DraggableElement componentKey="image.v1" label="Image" />
-          <DraggableElement componentKey="flex.v1" label="Flex Container" />
-          <DraggableElement componentKey="grid.v1" label="Grid Layout" />
+        <div className="p-4 flex-1 overflow-y-auto space-y-6">
+          
+          <div className="space-y-3">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">E-Commerce Sections</h3>
+            <div className="space-y-1">
+              <DraggableElement componentKey="hero.v1" label="Hero Banner" />
+              <DraggableElement componentKey="product-grid.v1" label="Featured Products" />
+              <DraggableElement componentKey="gallery.v1" label="Image Gallery" />
+              <DraggableElement componentKey="testimonials.v1" label="Testimonials" />
+              <DraggableElement componentKey="newsletter.v1" label="Newsletter" />
+              <DraggableElement componentKey="faq.v1" label="FAQ Section" />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Basic Layouts</h3>
+            <div className="space-y-1">
+              <DraggableElement componentKey="flex.v1" label="Flex Container" />
+              <DraggableElement componentKey="grid.v1" label="Grid Layout" />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Primitives</h3>
+            <div className="space-y-1">
+              <DraggableElement componentKey="heading.v1" label="Heading" />
+              <DraggableElement componentKey="text.v1" label="Text Block" />
+              <DraggableElement componentKey="button.v1" label="Button" />
+              <DraggableElement componentKey="image.v1" label="Image" />
+            </div>
+          </div>
+
         </div>
       </div>
 

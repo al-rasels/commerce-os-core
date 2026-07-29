@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import { Button } from "@/components/ui/button"
@@ -7,26 +7,37 @@ import { Label } from "@/components/ui/label"
 import { motion, AnimatePresence } from "framer-motion"
 import { toast } from "sonner"
 import { Eye, EyeOff, Loader2, Mail, Lock, CheckCircle2, ShieldCheck, ArrowRight } from "lucide-react"
+import { z } from "zod"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
+})
+
+type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
   const { login, mfaVerify } = useAuth()
   const navigate = useNavigate()
-  const emailRef = useRef<HTMLInputElement>(null)
   
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [mfaCode, setMfaCode] = useState("")
   const [mfaToken, setMfaToken] = useState("")
   const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [capsLock, setCapsLock] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [mfaLoading, setMfaLoading] = useState(false)
 
-  // Autofocus email on mount
-  useEffect(() => {
-    if (emailRef.current) emailRef.current.focus()
-  }, [])
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "" },
+  })
 
   // Detect caps lock
   useEffect(() => {
@@ -42,22 +53,14 @@ export default function LoginPage() {
     }
   }, [])
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email || !password) {
-      setError("Please enter both email and password")
-      return
-    }
-    
+  async function onSubmit(data: LoginFormValues) {
     setError("")
-    setLoading(true)
     
     try {
-      const mfaState = await login(email, password)
+      const mfaState = await login(data.email, data.password)
       
       if (mfaState && mfaState.mfa_token) {
         setMfaToken(mfaState.mfa_token)
-        setLoading(false)
         return
       }
       
@@ -73,14 +76,13 @@ export default function LoginPage() {
       const message = err.message || "An unexpected network error occurred."
       setError(message)
       toast.error("Authentication Failed", { description: message })
-      setLoading(false)
     }
   }
 
   async function handleMfaSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
-    setLoading(true)
+    setMfaLoading(true)
     try {
       await mfaVerify(mfaToken, mfaCode)
       setSuccess(true)
@@ -89,13 +91,12 @@ export default function LoginPage() {
       }, 600)
     } catch (err: any) {
       setError(err.message || "Invalid authentication code")
-      setLoading(false)
+      setMfaLoading(false)
     }
   }
 
   if (mfaToken) {
     return (
-
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
@@ -147,9 +148,9 @@ export default function LoginPage() {
                   )}
                 </AnimatePresence>
 
-                <Button type="submit" className="w-full h-11 text-base relative overflow-hidden" disabled={loading || success || mfaCode.length < 6}>
+                <Button type="submit" className="w-full h-11 text-base relative overflow-hidden" disabled={mfaLoading || success || mfaCode.length < 6}>
                   <AnimatePresence mode="wait">
-                    {loading ? (
+                    {mfaLoading ? (
                       <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
                         <Loader2 className="mr-2 size-5 animate-spin" /> Verifying
                       </motion.div>
@@ -173,7 +174,6 @@ export default function LoginPage() {
   }
 
   return (
-
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 p-4">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -195,23 +195,23 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Email address</Label>
                 <div className="relative group">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <Input
-                    ref={emailRef}
                     id="email"
                     type="email"
                     placeholder="admin@example.com"
                     autoComplete="email"
-                    className="pl-10 h-12 bg-muted/50 focus:bg-background transition-colors"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    className={`pl-10 h-12 bg-muted/50 focus:bg-background transition-colors ${errors.email ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+                    {...register("email")}
                   />
                 </div>
+                {errors.email && (
+                  <p className="text-xs text-destructive mt-1">{errors.email.message}</p>
+                )}
               </div>
               
               <div className="space-y-2">
@@ -227,10 +227,8 @@ export default function LoginPage() {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
-                    className="pl-10 pr-10 h-12 bg-muted/50 focus:bg-background transition-colors"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    className={`pl-10 pr-10 h-12 bg-muted/50 focus:bg-background transition-colors ${errors.password ? 'border-destructive focus-visible:ring-destructive' : ''}`}
+                    {...register("password")}
                   />
                   <button 
                     type="button" 
@@ -241,6 +239,9 @@ export default function LoginPage() {
                     {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="text-xs text-destructive mt-1">{errors.password.message}</p>
+                )}
                 {capsLock && (
                   <motion.p 
                     initial={{ opacity: 0, height: 0 }} 
@@ -268,11 +269,11 @@ export default function LoginPage() {
               <div className="pt-2">
                 <Button 
                   type="submit" 
-                  className="w-full h-12 text-base font-semibold transition-all relative overflow-hidden" 
-                  disabled={loading || success}
+                  className="w-full h-12 text-base font-semibold transition-all relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed" 
+                  disabled={isSubmitting || success}
                 >
                   <AnimatePresence mode="wait">
-                    {loading ? (
+                    {isSubmitting ? (
                       <motion.div key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
                         <Loader2 className="mr-2 size-5 animate-spin" /> Authenticating...
                       </motion.div>

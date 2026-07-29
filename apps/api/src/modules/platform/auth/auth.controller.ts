@@ -11,6 +11,7 @@ import {
   Req,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Response, Request } from 'express';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
@@ -32,23 +33,15 @@ import { PermissionGuard } from './guards/permission.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('register')
-  async register(
-    @GetTenantContext() ctx: TenantContext,
-    @Body() dto: RegisterDto,
-  ) {
-    return this.authService.register(ctx, dto);
-  }
-
-  @Post('login')
-  @HttpCode(HttpStatus.OK)
-  async login(
-    @GetTenantContext() ctx: TenantContext,
-    @Body() dto: LoginDto,
-    @Res({ passthrough: true }) res: Response,
-  ) {
-    const result = await this.authService.login(ctx, dto);
-    
+  private setAuthCookies(res: Response, result: any) {
+    if ('access_token' in result && result.access_token) {
+      res.cookie('access_token', result.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+        maxAge: 15 * 60 * 1000,
+      });
+    }
     if ('refresh_token' in result && result.refresh_token) {
       res.cookie('refresh_token', result.refresh_token, {
         httpOnly: true,
@@ -56,10 +49,31 @@ export class AuthController {
         sameSite: 'strict',
         maxAge: 7 * 24 * 3600 * 1000,
       });
-      // Optionally remove it from JSON response if frontend relies entirely on cookie
-      // But we will return it for backward compatibility / explicit handling if needed
     }
-    
+  }
+
+  @Post('register')
+  @Throttle({ default: { limit: 5, ttl: 900000 } })
+  async register(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: RegisterDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authService.register(ctx, dto);
+    this.setAuthCookies(res, result);
+    return result;
+  }
+
+  @Post('login')
+  @Throttle({ default: { limit: 5, ttl: 900000 } })
+  @HttpCode(HttpStatus.OK)
+  async login(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: LoginDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authService.login(ctx, dto);
+    this.setAuthCookies(res, result);
     return result;
   }
 
@@ -69,8 +83,11 @@ export class AuthController {
     @GetTenantContext() ctx: TenantContext,
     @Body('mfa_token') mfaToken: string,
     @Body() dto: MfaVerifyDto,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.mfaVerify(ctx, mfaToken, dto);
+    const result = await this.authService.mfaVerify(ctx, mfaToken, dto);
+    this.setAuthCookies(res, result);
+    return result;
   }
 
   @Post('mfa/setup')
@@ -106,6 +123,7 @@ export class AuthController {
   }
 
   @Post('forgot-password')
+  @Throttle({ default: { limit: 3, ttl: 900000 } })
   @HttpCode(HttpStatus.OK)
   async forgotPassword(
     @GetTenantContext() ctx: TenantContext,
@@ -158,14 +176,7 @@ export class AuthController {
     }
     
     const tokens = await this.authService.refresh(ctx, refreshToken);
-    
-    res.cookie('refresh_token', tokens.refresh_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 3600 * 1000,
-    });
-    
+    this.setAuthCookies(res, tokens);
     return tokens;
   }
 
@@ -183,10 +194,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async logout(
     @GetTenantContext() ctx: TenantContext,
-    @Body('user_id') userId: string,
+    @CurrentUser() user: any,
     @Res({ passthrough: true }) res: Response,
   ) {
     res.clearCookie('refresh_token');
-    return this.authService.logout(ctx, userId);
+    res.clearCookie('access_token');
+    return this.authService.logout(ctx, user.sub, user.sid);
   }
 }

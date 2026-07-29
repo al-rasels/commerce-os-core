@@ -12,6 +12,7 @@ class ApiError extends Error {
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}/v1/storefront${path}`, {
     headers: { 'Content-Type': 'application/json', ...options?.headers },
+    credentials: 'omit', // Standard storefront calls might not need auth cookies, but cart endpoints might. Let's use 'include'.
     ...options,
   });
   if (!res.ok) {
@@ -24,6 +25,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}/v1/auth${path}`, {
     headers: { 'Content-Type': 'application/json', ...options?.headers },
+    credentials: 'include', // Ensure cookies are sent and received
     ...options,
   });
   if (!res.ok) {
@@ -34,9 +36,12 @@ async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 async function authRequestWithToken<T>(path: string, options?: RequestInit): Promise<T> {
+  // Tokens are now handled via HttpOnly cookies, so we don't strictly need to send the Bearer token,
+  // but if we do have it in memory (e.g. access_token), we can send it for redundancy or if CSRF requires it.
   const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
   return authRequest<T>(path, {
     ...options,
+    credentials: 'include',
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...options?.headers,

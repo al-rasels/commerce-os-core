@@ -84,3 +84,16 @@ export const ComponentMetadata: Record<string, { minPlan?: PlanTier }> = {
   "data-table.v1": { minPlan: "pro" },
   "form-renderer.v1": { minPlan: "pro" }
 };
+
+// Page Builder JSON schema
+export const BuilderNodeSchema: z.ZodType<any> = z.lazy(() =>
+  z.object({
+    id: z.string().min(1),
+    component: z.string().min(1),
+    props: z.record(z.any()).default({}),
+    children: z.array(BuilderNodeSchema).default([]),
+  })
+);
+
+export type BuilderNode = z.infer<typeof BuilderNodeSchema>;
+
