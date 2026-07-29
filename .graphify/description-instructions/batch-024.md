@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "cache_tenant_cache_service_tenantcacheservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L7 | neighbors=[TenantCacheService]
+- "cart_cart_controller_cartcontroller_additem": ".addItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L42 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_clearcart": ".clearCart()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L73 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L23 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L27 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L36 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_removeitem": ".removeItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L63 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_updateitem": ".updateItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L52 | neighbors=[CartController]
+- "cart_cart_drawer_cart": "Cart" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L17 | neighbors=[cart-drawer.tsx]
+- "cart_cart_drawer_cartitem": "CartItem" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L11 | neighbors=[cart-drawer.tsx]
 - "cart_cart_module_cartmodule": "CartModule" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.module.ts:L14 | neighbors=[cart.module.ts]
 - "cart_cart_service_cartservice_clearcart": ".clearCart()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L130 | neighbors=[CartService]
 - "cart_cart_service_cartservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L20 | neighbors=[CartService]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "catalog_catalog_service_catalogservice_confirmreservation": ".confirmReservation()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L182 | neighbors=[CatalogService]
 - "catalog_catalog_service_catalogservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L21 | neighbors=[CatalogService]
 - "catalog_catalog_service_catalogservice_createcategory": ".createCategory()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L41 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_createproduct": ".createProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L29 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_createvariant": ".createVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L115 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_deletecategory": ".deleteCategory()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L105 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_deleteproduct": ".deleteProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L76 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_deletevariant": ".deleteVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L138 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_getbundleitems": ".getBundleItems()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L200 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_getcategory": ".getCategory()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L82 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_getlowstockvariants": ".getLowStockVariants()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L144 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_getproduct": ".getProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L53 | neighbors=[CatalogService]
-- "catalog_catalog_service_catalogservice_getvariant": ".getVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L152 | neighbors=[CatalogService]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

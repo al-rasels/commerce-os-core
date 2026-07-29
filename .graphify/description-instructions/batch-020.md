@@ -17,6 +17,15 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "search_search_service": "search.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L1 | neighbors=[16cea38 feat(api): Implemented Meilisea…, SearchService]
+- "search_search_service_searchservice_deletedocument": ".deleteDocument()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L49 | neighbors=[SearchService, .getTenantIndexName()]
+- "search_search_service_searchservice_indexdocuments": ".indexDocuments()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L28 | neighbors=[SearchService, .getTenantIndexName()]
+- "search_search_service_searchservice_search": ".search()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L39 | neighbors=[SearchService, .getTenantIndexName()]
+- "search_search_sync_worker_searchsyncjobpayload": "SearchSyncJobPayload" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search-sync.worker.ts:L7 | neighbors=[search-sync.worker.ts, TenantJobPayload]
+- "shipping_shipping_module": "shipping.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.module.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, ShippingModule]
+- "slug_product_client_productclient": "ProductClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-client.tsx:L11 | neighbors=[section-renderer.tsx, product-client.tsx]
+- "slug_product_page_client_productpageclient": "ProductPageClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L6 | neighbors=[page.tsx, product-page-client.tsx]
+- "src_app_service": "app.service.ts" | kind=code-symbol | source=apps/api/src/app.service.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, AppService]
 - "src_app_service_appservice": "AppService" | kind=code-symbol | source=apps/api/src/app.service.ts:L4 | neighbors=[app.service.ts, .getHello()]
 - "storefront_postcss_config": "postcss.config.mjs" | kind=code-symbol | source=apps/storefront/postcss.config.mjs:L1 | neighbors=[028709f chore: scaffold monorepo with a…, config]
 - "storefront_storefront_checkout_controller_storefrontcheckoutcontroller": "StorefrontCheckoutController" | kind=code-symbol | source=apps/api/src/modules/storefront/storefront-checkout.controller.ts:L15 | neighbors=[storefront-checkout.controller.ts, .checkout()]
@@ -48,15 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "ui_chart_chartlegendcontent": "ChartLegendContent()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L238 | neighbors=[chart.tsx, useChart()]
 - "ui_chart_charttooltipcontent": "ChartTooltipContent()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L111 | neighbors=[chart.tsx, useChart()]
 - "ui_config_index": "index.js" | kind=code-symbol | source=packages/ui-config/index.js:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 3d66d0f feat: implement payments module…]
-- "ui_input_group_inputgroupaddon": "InputGroupAddon()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L46 | neighbors=[input-group.tsx, inputGroupAddonVariants]
-- "ui_input_group_inputgroupaddonvariants": "inputGroupAddonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L25 | neighbors=[input-group.tsx, InputGroupAddon()]
-- "ui_input_group_inputgroupbutton": "InputGroupButton()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L86 | neighbors=[input-group.tsx, inputGroupButtonVariants]
-- "ui_input_group_inputgroupbuttonvariants": "inputGroupButtonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L68 | neighbors=[input-group.tsx, InputGroupButton()]
-- "ui_sheet_sheet": "Sheet()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L10 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheetcontent": "SheetContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L39 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheetheader": "SheetHeader()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L83 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheettitle": "SheetTitle()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L103 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sidebar_sidebar": "Sidebar()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L142 | neighbors=[sidebar.tsx, useSidebar()]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

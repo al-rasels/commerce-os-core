@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "dto_order_response_dto_orderitemdto": "OrderItemDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-response.dto.ts:L11 | neighbors=[order-response.dto.ts]
+- "dto_order_response_dto_orderresponsedto": "OrderResponseDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-response.dto.ts:L26 | neighbors=[order-response.dto.ts]
+- "dto_order_status_dto_orderstatusdto": "OrderStatusDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-status.dto.ts:L5 | neighbors=[order-status.dto.ts]
+- "dto_order_status_dto_valid_statuses": "VALID_STATUSES" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-status.dto.ts:L3 | neighbors=[order-status.dto.ts]
+- "dto_register_dto_registerdto": "RegisterDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/register.dto.ts:L3 | neighbors=[register.dto.ts]
+- "dto_update_category_dto_updatecategorydto": "UpdateCategoryDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-category.dto.ts:L3 | neighbors=[update-category.dto.ts]
+- "dto_update_item_dto_updateitemdto": "UpdateItemDto" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/dto/update-item.dto.ts:L3 | neighbors=[update-item.dto.ts]
+- "dto_update_product_dto_updateproductdto": "UpdateProductDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-product.dto.ts:L3 | neighbors=[update-product.dto.ts]
+- "dto_update_product_variant_dto_updateproductvariantdto": "UpdateProductVariantDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-product-variant.dto.ts:L3 | neighbors=[update-product-variant.dto.ts]
+- "dto_update_promotion_dto_updatepromotiondto": "UpdatePromotionDto" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/dto/update-promotion.dto.ts:L4 | neighbors=[update-promotion.dto.ts]
 - "dto_update_shipping_rule_dto_updateshippingruledto": "UpdateShippingRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/dto/update-shipping-rule.dto.ts:L4 | neighbors=[update-shipping-rule.dto.ts]
 - "dto_update_tax_rule_dto_updatetaxruledto": "UpdateTaxRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/dto/update-tax-rule.dto.ts:L4 | neighbors=[update-tax-rule.dto.ts]
 - "dto_update_user_dto_updateuserdto": "UpdateUserDto" | kind=code-symbol | source=apps/api/src/modules/platform/users/dto/update-user.dto.ts:L3 | neighbors=[update-user.dto.ts]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "hooks_usecategories_useupdatecategory": "useUpdateCategory()" | kind=code-symbol | source=apps/admin/src/hooks/useCategories.ts:L24 | neighbors=[useCategories.ts]
 - "hooks_usecustomers_usecreatecustomer": "useCreateCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L20 | neighbors=[useCustomers.ts]
 - "hooks_usecustomers_usecustomer": "useCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L12 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_usecustomers": "useCustomers()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L5 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_usedeletecustomer": "useDeleteCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L44 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_useupdatecustomer": "useUpdateCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L32 | neighbors=[useCustomers.ts]
-- "hooks_usedashboard_usedashboardstats": "useDashboardStats()" | kind=code-symbol | source=apps/admin/src/hooks/useDashboard.ts:L4 | neighbors=[useDashboard.ts]
-- "hooks_useinventory_usecreatelocation": "useCreateLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L12 | neighbors=[useInventory.ts]
-- "hooks_useinventory_usedeletelocation": "useDeleteLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L36 | neighbors=[useInventory.ts]
-- "hooks_useinventory_useinventorylevels": "useInventoryLevels()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L48 | neighbors=[useInventory.ts]
-- "hooks_useinventory_uselocations": "useLocations()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L5 | neighbors=[useInventory.ts]
-- "hooks_useinventory_useupdateinventorylevel": "useUpdateInventoryLevel()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L56 | neighbors=[useInventory.ts]
-- "hooks_useinventory_useupdatelocation": "useUpdateLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L24 | neighbors=[useInventory.ts]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

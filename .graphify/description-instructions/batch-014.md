@@ -17,6 +17,11 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "shipping_shipping_rule_repository": "shipping-rule.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping-rule.repository.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, e5d6c72 feat: implement end-to-end chec…, ShippingRuleRepository]
+- "shipping_shipping_rule_repository_shippingrulerepository": "ShippingRuleRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping-rule.repository.ts:L6 | neighbors=[shipping-rule.repository.ts, .constructor(), TenantScopedRepository]
+- "slug_loading": "loading.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/loading.tsx:L1 | neighbors=[e5d6c72 feat: implement end-to-end chec…, index.ts, Loading()]
+- "src_app_controller": "app.controller.ts" | kind=code-symbol | source=apps/api/src/app.controller.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 3d66d0f feat: implement payments module…, AppController]
+- "storefront_eslint_config": "eslint.config.mjs" | kind=code-symbol | source=apps/storefront/eslint.config.mjs:L1 | neighbors=[028709f chore: scaffold monorepo with a…, f1d1a16 feat: implement storefront foun…, eslintConfig]
 - "storefront_next_config": "next.config.ts" | kind=code-symbol | source=apps/storefront/next.config.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, efe67e9 fix(build): resolve component t…, nextConfig]
 - "subscriptions_subscriptions_controller_subscriptionscontroller": "SubscriptionsController" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.controller.ts:L9 | neighbors=[subscriptions.controller.ts, .constructor(), .getSubscriptions()]
 - "subscriptions_subscriptions_module": "subscriptions.module.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.module.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsModule]
@@ -52,11 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "api_catalog_category": "Category" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L47 | neighbors=[catalog.ts, index.ts]
 - "api_catalog_categoryinput": "CategoryInput" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L57 | neighbors=[catalog.ts, index.ts]
 - "api_catalog_product": "Product" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L3 | neighbors=[catalog.ts, index.ts]
-- "api_catalog_productinput": "ProductInput" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L16 | neighbors=[catalog.ts, index.ts]
-- "api_catalog_productvariant": "ProductVariant" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L25 | neighbors=[catalog.ts, index.ts]
-- "api_catalog_productvariantinput": "ProductVariantInput" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L38 | neighbors=[catalog.ts, index.ts]
-- "api_client_gettoken": "getToken()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L11 | neighbors=[client.ts, request()]
-- "api_customers_customerapi": "customerApi" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L41 | neighbors=[customers.ts, index.ts]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

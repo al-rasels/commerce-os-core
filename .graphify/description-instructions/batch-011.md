@@ -24,13 +24,21 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "api_users_user": "User" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L3 | neighbors=[index.ts, users.ts, UserDetail]
+- "api_users_userdetail": "UserDetail" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L20 | neighbors=[index.ts, users.ts, User]
+- "audit_log_audit_log_controller_auditlogcontroller": "AuditLogController" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L10 | neighbors=[audit-log.controller.ts, .constructor(), .list()]
+- "audit_log_audit_log_repository_auditlogrepository": "AuditLogRepository" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L7 | neighbors=[audit-log.repository.ts, .constructor(), TenantScopedRepository]
+- "b2b_b2b_module": "b2b.module.ts" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.module.ts:L1 | neighbors=[B2bModule, 7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…]
+- "b2b_companyprofileslistpage": "CompanyProfilesListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/b2b/CompanyProfilesListPage.tsx:L1 | neighbors=[CompanyProfilesListPage(), 7d74efe feat(commerce): implement B2B, …, bb61ae8 feat(commerce): wire up Admin U…]
+- "builder_builder_module": "builder.module.ts" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.module.ts:L1 | neighbors=[BuilderModule, 21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…]
 - "builder_responsiveeditor": "ResponsiveEditor.tsx" | kind=code-symbol | source=apps/admin/src/pages/builder/ResponsiveEditor.tsx:L1 | neighbors=[PageBuilder.tsx, ResponsiveEditor(), 0361288 feat(admin): Scaffolded Phase 2…]
 - "cache_tenant_cache_service": "tenant-cache.service.ts" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L1 | neighbors=[TenantCacheService, 3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
 - "cart_cart_drawer_cartdrawer": "CartDrawer()" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L29 | neighbors=[cart-drawer.tsx, formatPrice(), cart-badge.tsx]
 - "cart_cart_module": "cart.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.module.ts:L1 | neighbors=[CartModule, 3d66d0f feat: implement payments module…, efe67e9 fix(build): resolve component t…]
 - "catalog_catalog_e2e_spec": "catalog.e2e-spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.e2e-spec.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …]
 - "checkout_checkout_controller_checkoutcontroller": "CheckoutController" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.controller.ts:L11 | neighbors=[checkout.controller.ts, .checkout(), .constructor()]
-- "checkout_checkout_service_checkoutservice": "CheckoutService" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L15 | neighbors=[checkout.service.ts, .checkout(), .constructor()]
+- "checkout_checkout_service_checkoutservice": "CheckoutService" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L16 | neighbors=[checkout.service.ts, .checkout(), .constructor()]
+- "commit:repo:github.com/al-rasels/commerce-os-core@04d75c7fc15aeb34a309229456421dd898cc1d6f": "04d75c7 docs: update progress report and tasklist with identified code gaps" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, d26bd04 feat(commerce): implement advan…, efe67e9 fix(build): resolve component t…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@cf57e798ebc8e04f2a2744ecdf8c12b680428001": "cf57e79 fix(schema): fixed cross-tenant promotion code uniqueness leak" | kind=Commit | source=git | neighbors=[16cea38 feat(api): Implemented Meilisea…, feat/admin-ui-refactor, 65feb38 feat(api): Integrated Promotion…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@d0fde76553f92a0022462d829d545811c4570bfa": "d0fde76 docs: Added full project task specs for remaining phases" | kind=Commit | source=git | neighbors=[65feb38 feat(api): Integrated Promotion…, feat/admin-ui-refactor, efe67e9 fix(build): resolve component t…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@e425b0fe05c57b1d70b777d9bf2ad1286a3a0a59": "e425b0f docs: upload -docs" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, c6b41a4 docs: upload -docs]
@@ -56,14 +64,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_tabs_tabs": "Tabs()" | kind=code-symbol | source=packages/components/tabs.tsx:L18 | neighbors=[registry.ts, tabs.tsx, tabs.spec.tsx]
 - "components_theme_provider": "theme-provider.tsx" | kind=code-symbol | source=apps/storefront/src/components/theme-provider.tsx:L1 | neighbors=[layout.tsx, 3571d3a feat(storefront): overhaul UI/U…, ThemeProvider()]
 - "customer_customer_module": "customer.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.module.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 92e2c6a feat: add checkout tenant isola…, CustomerModule]
-- "customer_customer_service_customerservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L53 | neighbors=[CustomerService, .remove(), .update()]
-- "customers_customerformpage": "CustomerFormPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerFormPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, CustomerFormPage()]
-- "customers_customerlistpage": "CustomerListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerListPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, CustomerListPage()]
-- "dashboard_dashboard_controller_dashboardcontroller": "DashboardController" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.controller.ts:L10 | neighbors=[dashboard.controller.ts, .constructor(), .stats()]
-- "dashboard_dashboard_service_dashboardservice": "DashboardService" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.service.ts:L8 | neighbors=[dashboard.service.ts, .constructor(), .getStats()]
-- "decorators_permissions_decorator": "permissions.decorator.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/decorators/permissions.decorator.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6ffba43 feat: add MFA auth flow, super …, RequirePermissions()]
-- "dto_create_product_variant_dto": "create-product-variant.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/create-product-variant.dto.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, CreateProductVariantDto]
-- "dto_create_promotion_dto": "create-promotion.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/dto/create-promotion.dto.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, CreatePromotionDto]
 
 ## Instructions
 
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

@@ -17,6 +17,13 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_toast_toastcontainer": "ToastContainer()" | kind=code-symbol | source=packages/components/toast.tsx:L77 | neighbors=[registry.ts, toast.tsx]
+- "components_toast_toastdata": "ToastData" | kind=code-symbol | source=packages/components/toast.tsx:L9 | neighbors=[toast.tsx, ToastProps]
+- "components_toast_toaster": "Toaster()" | kind=code-symbol | source=packages/components/toast.tsx:L8 | neighbors=[registry.ts, toast.tsx]
+- "components_toast_toastprops": "ToastProps" | kind=code-symbol | source=packages/components/toast.tsx:L6 | neighbors=[toast.tsx, ToastData]
+- "customer_customer_service_customerservice_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L68 | neighbors=[CustomerService, .get()]
+- "customer_customer_service_customerservice_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L59 | neighbors=[CustomerService, .get()]
+- "decorators_current_user_decorator": "current-user.decorator.ts" | kind=code-symbol | source=apps/api/src/common/decorators/current-user.decorator.ts:L1 | neighbors=[e3a8c77 feat: implement users CRUD back…, CurrentUser]
 - "draft_route": "route.ts" | kind=code-symbol | source=apps/storefront/src/app/api/draft/route.ts:L1 | neighbors=[efe67e9 fix(build): resolve component t…, GET()]
 - "dto_add_item_dto": "add-item.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/dto/add-item.dto.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, AddItemDto]
 - "dto_checkout_dto": "checkout.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/dto/checkout.dto.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, CheckoutDto]
@@ -44,19 +51,12 @@ one-sentence description — no prose, no markdown fences.
 - "guards_tenant_auth_guard_tenantauthguard_extracttokenfromheader": ".extractTokenFromHeader()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/tenant-auth.guard.ts:L40 | neighbors=[TenantAuthGuard, .canActivate()]
 - "hooks_use_debounce_usedebounce": "useDebounce()" | kind=code-symbol | source=apps/storefront/src/hooks/use-debounce.ts:L3 | neighbors=[search-autocomplete.tsx, use-debounce.ts]
 - "hooks_use_mobile": "use-mobile.ts" | kind=code-symbol | source=apps/admin/src/hooks/use-mobile.ts:L1 | neighbors=[4ece707 feat(admin): port UI components…, useIsMobile()]
+- "inventory_inventory_worker": "inventory.worker.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.worker.ts:L1 | neighbors=[d26bd04 feat(commerce): implement advan…, InventoryWorker]
 - "jetski_gemini_loader_loader_loadskillbodies": "loadSkillBodies()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L77 | neighbors=[loader.mjs, buildModelMessages()]
 - "lib_api_authrequestwithtoken": "authRequestWithToken()" | kind=code-symbol | source=apps/storefront/src/lib/api.ts:L35 | neighbors=[api.ts, authRequest()]
 - "lib_api_request": "request()" | kind=code-symbol | source=apps/storefront/src/lib/api.ts:L11 | neighbors=[api.ts, ApiError]
 - "lib_image_loader": "image-loader.ts" | kind=code-symbol | source=apps/storefront/src/lib/image-loader.ts:L1 | neighbors=[efe67e9 fix(build): resolve component t…, customImageLoader()]
 - "lib_invoice_downloadinvoice": "downloadInvoice()" | kind=code-symbol | source=apps/admin/src/lib/invoice.ts:L108 | neighbors=[invoice.ts, generateInvoiceHtml()]
-- "lib_invoice_generateinvoicehtml": "generateInvoiceHtml()" | kind=code-symbol | source=apps/admin/src/lib/invoice.ts:L5 | neighbors=[invoice.ts, downloadInvoice()]
-- "lib_server_api_serverrequest": "serverRequest()" | kind=code-symbol | source=apps/storefront/src/lib/server-api.ts:L13 | neighbors=[server-api.ts, ApiError]
-- "load_checkout": "checkout.js" | kind=code-symbol | source=tests/load/checkout.js:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, options]
-- "order_order_item_repository": "order-item.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order-item.repository.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, OrderItemRepository]
-- "order_order_service_orderservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L22 | neighbors=[OrderService, .toDto()]
-- "order_order_service_orderservice_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L61 | neighbors=[OrderService, .toDto()]
-- "page_editor_addsectionpanel_addsectionpanel": "AddSectionPanel()" | kind=code-symbol | source=apps/admin/src/components/page-editor/AddSectionPanel.tsx:L16 | neighbors=[AddSectionPanel.tsx, index.ts]
-- "page_editor_propeditor_propeditor": "PropEditor()" | kind=code-symbol | source=apps/admin/src/components/page-editor/PropEditor.tsx:L19 | neighbors=[index.ts, PropEditor.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

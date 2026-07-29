@@ -17,6 +17,28 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "queue_queue_service_queueservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/queue/queue.service.ts:L14 | neighbors=[QueueService]
+- "queue_queue_service_queueservice_enqueuetenantjob": ".enqueueTenantJob()" | kind=code-symbol | source=apps/api/src/modules/platform/queue/queue.service.ts:L20 | neighbors=[QueueService]
+- "queue_queue_service_tenantjobpayload": "TenantJobPayload" | kind=code-symbol | source=apps/api/src/modules/platform/queue/queue.service.ts:L5 | neighbors=[queue.service.ts]
+- "redis_redis_module_redismodule": "RedisModule" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.module.ts:L9 | neighbors=[redis.module.ts]
+- "redis_redis_service_onmoduledestroy": "OnModuleDestroy" | kind=code-symbol | neighbors=[RedisService]
+- "redis_redis_service_onmoduleinit": "OnModuleInit" | kind=code-symbol | neighbors=[RedisService]
+- "redis_redis_service_redisservice_del": ".del()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L54 | neighbors=[RedisService]
+- "redis_redis_service_redisservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L47 | neighbors=[RedisService]
+- "redis_redis_service_redisservice_onmoduledestroy": ".onModuleDestroy()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L34 | neighbors=[RedisService]
+- "redis_redis_service_redisservice_onmoduleinit": ".onModuleInit()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L15 | neighbors=[RedisService]
+- "redis_redis_service_redisservice_set": ".set()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L38 | neighbors=[RedisService]
+- "references_utility_types_arguments": "Arguments" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L178 | neighbors=[utility-types.ts]
+- "references_utility_types_assertequal": "AssertEqual" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L270 | neighbors=[utility-types.ts]
+- "references_utility_types_assertnever": "assertNever()" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L326 | neighbors=[utility-types.ts]
+- "references_utility_types_asyncfunction": "AsyncFunction" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L190 | neighbors=[utility-types.ts]
+- "references_utility_types_atleast": "AtLeast" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L169 | neighbors=[utility-types.ts]
+- "references_utility_types_brand": "Brand" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L19 | neighbors=[utility-types.ts]
+- "references_utility_types_deepmutable": "DeepMutable" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L94 | neighbors=[utility-types.ts]
+- "references_utility_types_deeppartial": "DeepPartial" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L80 | neighbors=[utility-types.ts]
+- "references_utility_types_deepreadonly": "DeepReadonly" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L71 | neighbors=[utility-types.ts]
+- "references_utility_types_deeprequired": "DeepRequired" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L87 | neighbors=[utility-types.ts]
+- "references_utility_types_elementof": "ElementOf" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L146 | neighbors=[utility-types.ts]
 - "references_utility_types_email": "Email" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L23 | neighbors=[utility-types.ts]
 - "references_utility_types_err": "err()" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L44 | neighbors=[utility-types.ts]
 - "references_utility_types_exhaustivecheck": "exhaustiveCheck()" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L333 | neighbors=[utility-types.ts]
@@ -35,28 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "references_utility_types_none": "None" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L59 | neighbors=[utility-types.ts]
 - "references_utility_types_nonemptyarray": "NonEmptyArray" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L164 | neighbors=[utility-types.ts]
 - "references_utility_types_ok": "ok()" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L39 | neighbors=[utility-types.ts]
-- "references_utility_types_omitbytype": "OmitByType" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L117 | neighbors=[utility-types.ts]
-- "references_utility_types_option": "Option" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L56 | neighbors=[utility-types.ts]
-- "references_utility_types_partialby": "PartialBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L122 | neighbors=[utility-types.ts]
-- "references_utility_types_pathof": "PathOf" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L228 | neighbors=[utility-types.ts]
-- "references_utility_types_pickbytype": "PickByType" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L112 | neighbors=[utility-types.ts]
-- "references_utility_types_positivenumber": "PositiveNumber" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L26 | neighbors=[utility-types.ts]
-- "references_utility_types_promisify": "Promisify" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L197 | neighbors=[utility-types.ts]
-- "references_utility_types_readonlyby": "ReadonlyBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L132 | neighbors=[utility-types.ts]
-- "references_utility_types_requiredby": "RequiredBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L127 | neighbors=[utility-types.ts]
-- "references_utility_types_result": "Result" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L35 | neighbors=[utility-types.ts]
-- "references_utility_types_some": "Some" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L58 | neighbors=[utility-types.ts]
-- "references_utility_types_split": "Split" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L208 | neighbors=[utility-types.ts]
-- "references_utility_types_timestamp": "Timestamp" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L25 | neighbors=[utility-types.ts]
-- "references_utility_types_tuple": "Tuple" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L151 | neighbors=[utility-types.ts]
-- "references_utility_types_tupleof": "_TupleOf" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L157 | neighbors=[utility-types.ts]
-- "references_utility_types_unionlast": "UnionLast" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L241 | neighbors=[utility-types.ts]
-- "references_utility_types_uniontointersection": "UnionToIntersection" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L250 | neighbors=[utility-types.ts]
-- "references_utility_types_uniontotuple": "UnionToTuple" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L259 | neighbors=[utility-types.ts]
-- "references_utility_types_userid": "UserId" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L22 | neighbors=[utility-types.ts]
-- "references_utility_types_uuid": "UUID" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L24 | neighbors=[utility-types.ts]
-- "register_page_registerpage": "RegisterPage()" | kind=code-symbol | source=apps/storefront/src/app/account/register/page.tsx:L11 | neighbors=[page.tsx]
-- "repositories_bundle_repository_bundlerepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/bundle.repository.ts:L9 | neighbors=[BundleRepository]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

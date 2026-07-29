@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_sheet_sheet": "Sheet()" | kind=code-symbol | source=packages/components/sheet.tsx:L8 | neighbors=[sheet.tsx]
+- "components_sheet_sheetclose": "SheetClose()" | kind=code-symbol | source=packages/components/sheet.tsx:L16 | neighbors=[sheet.tsx]
+- "components_sheet_sheetcontent": "SheetContent()" | kind=code-symbol | source=packages/components/sheet.tsx:L37 | neighbors=[sheet.tsx]
+- "components_sheet_sheetdescription": "SheetDescription()" | kind=code-symbol | source=packages/components/sheet.tsx:L114 | neighbors=[sheet.tsx]
+- "components_sheet_sheetfooter": "SheetFooter()" | kind=code-symbol | source=packages/components/sheet.tsx:L91 | neighbors=[sheet.tsx]
+- "components_sheet_sheetheader": "SheetHeader()" | kind=code-symbol | source=packages/components/sheet.tsx:L81 | neighbors=[sheet.tsx]
+- "components_sheet_sheetoverlay": "SheetOverlay()" | kind=code-symbol | source=packages/components/sheet.tsx:L24 | neighbors=[sheet.tsx]
+- "components_sheet_sheetportal": "SheetPortal()" | kind=code-symbol | source=packages/components/sheet.tsx:L20 | neighbors=[sheet.tsx]
+- "components_sheet_sheettitle": "SheetTitle()" | kind=code-symbol | source=packages/components/sheet.tsx:L101 | neighbors=[sheet.tsx]
+- "components_sheet_sheettrigger": "SheetTrigger()" | kind=code-symbol | source=packages/components/sheet.tsx:L12 | neighbors=[sheet.tsx]
 - "components_sidebar_sidebarprops": "SidebarProps" | kind=code-symbol | source=packages/components/sidebar.tsx:L15 | neighbors=[sidebar.tsx]
 - "components_sidebar_spec_items": "items" | kind=code-symbol | source=packages/components/sidebar.spec.tsx:L5 | neighbors=[sidebar.spec.tsx]
 - "components_skeleton_skeletonprops": "SkeletonProps" | kind=code-symbol | source=packages/components/skeleton.tsx:L3 | neighbors=[skeleton.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_timeline_timelineheadingvariants": "timelineHeadingVariants" | kind=code-symbol | source=packages/components/timeline.tsx:L153 | neighbors=[timeline.tsx]
 - "components_timeline_timelineitem": "TimelineItem" | kind=code-symbol | source=packages/components/timeline.tsx:L50 | neighbors=[timeline.tsx]
 - "components_timeline_timelineitemprops": "TimelineItemProps" | kind=code-symbol | source=packages/components/timeline.tsx:L48 | neighbors=[timeline.tsx]
-- "components_timeline_timelineitemvariants": "timelineItemVariants" | kind=code-symbol | source=packages/components/timeline.tsx:L36 | neighbors=[timeline.tsx]
-- "components_timeline_timelineline": "TimelineLine" | kind=code-symbol | source=packages/components/timeline.tsx:L191 | neighbors=[timeline.tsx]
-- "components_timeline_timelinelineprops": "TimelineLineProps" | kind=code-symbol | source=packages/components/timeline.tsx:L187 | neighbors=[timeline.tsx]
-- "components_timeline_timelineprops": "TimelineProps" | kind=code-symbol | source=packages/components/timeline.tsx:L22 | neighbors=[timeline.tsx]
-- "components_timeline_timelinetag": "TimelineTag" | kind=code-symbol | source=packages/components/timeline.tsx:L122 | neighbors=[timeline.tsx]
-- "components_timeline_timelinetagprops": "TimelineTagProps" | kind=code-symbol | source=packages/components/timeline.tsx:L120 | neighbors=[timeline.tsx]
-- "components_timeline_timelinetagvariants": "timelineTagVariants" | kind=code-symbol | source=packages/components/timeline.tsx:L108 | neighbors=[timeline.tsx]
-- "components_timeline_timelinevariants": "timelineVariants" | kind=code-symbol | source=packages/components/timeline.tsx:L9 | neighbors=[timeline.tsx]
-- "components_toast_bordermap": "borderMap" | kind=code-symbol | source=packages/components/toast.tsx:L27 | neighbors=[toast.tsx]
-- "components_toast_iconmap": "iconMap" | kind=code-symbol | source=packages/components/toast.tsx:L20 | neighbors=[toast.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

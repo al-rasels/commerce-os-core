@@ -17,6 +17,36 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "ui_sidebar_sidebarfooter": "SidebarFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L324 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebargroup": "SidebarGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L360 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebargroupaction": "SidebarGroupAction()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L395 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebargroupcontent": "SidebarGroupContent()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L419 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebargrouplabel": "SidebarGroupLabel()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L371 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarheader": "SidebarHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L313 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarinput": "SidebarInput()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L302 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarinset": "SidebarInset()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L289 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenu": "SidebarMenu()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L430 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenuaction": "SidebarMenuAction()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L524 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenubadge": "SidebarMenuBadge()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L554 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenuitem": "SidebarMenuItem()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L441 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenuskeleton": "SidebarMenuSkeleton()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L568 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenusub": "SidebarMenuSub()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L601 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenusubbutton": "SidebarMenuSubButton()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L626 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarmenusubitem": "SidebarMenuSubItem()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L615 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarprovider": "SidebarProvider()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L49 | neighbors=[sidebar.tsx]
+- "ui_sidebar_sidebarseparator": "SidebarSeparator()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L335 | neighbors=[sidebar.tsx]
+- "ui_skeleton_skeleton": "Skeleton()" | kind=code-symbol | source=apps/storefront/src/components/ui/skeleton.tsx:L3 | neighbors=[skeleton.tsx]
+- "ui_switch_switch": "Switch()" | kind=code-symbol | source=apps/storefront/src/components/ui/switch.tsx:L7 | neighbors=[switch.tsx]
+- "ui_table_table": "Table()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L7 | neighbors=[table.tsx]
+- "ui_table_tablebody": "TableBody()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L32 | neighbors=[table.tsx]
+- "ui_table_tablecaption": "TableCaption()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L94 | neighbors=[table.tsx]
+- "ui_table_tablecell": "TableCell()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L81 | neighbors=[table.tsx]
+- "ui_table_tablefooter": "TableFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L42 | neighbors=[table.tsx]
+- "ui_table_tablehead": "TableHead()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L68 | neighbors=[table.tsx]
+- "ui_table_tableheader": "TableHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L22 | neighbors=[table.tsx]
+- "ui_table_tablerow": "TableRow()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L55 | neighbors=[table.tsx]
+- "ui_tabs_tabs": "Tabs()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L6 | neighbors=[tabs.tsx]
+- "ui_tabs_tabscontent": "TabsContent()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L70 | neighbors=[tabs.tsx]
 - "ui_tabs_tabstrigger": "TabsTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L54 | neighbors=[tabs.tsx]
 - "ui_textarea_textarea": "Textarea()" | kind=code-symbol | source=apps/storefront/src/components/ui/textarea.tsx:L5 | neighbors=[textarea.tsx]
 - "ui_timeline_timeline": "Timeline" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L24 | neighbors=[timeline.tsx]
@@ -27,36 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "ui_timeline_timelinedotprops": "TimelineDotProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L76 | neighbors=[timeline.tsx]
 - "ui_timeline_timelinedotvariants": "timelineDotVariants" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L56 | neighbors=[timeline.tsx]
 - "ui_timeline_timelineheading": "TimelineHeading" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L173 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineheadingprops": "TimelineHeadingProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L170 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineheadingvariants": "timelineHeadingVariants" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L153 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineitem": "TimelineItem" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L50 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineitemprops": "TimelineItemProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L48 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineitemvariants": "timelineItemVariants" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L36 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineline": "TimelineLine" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L191 | neighbors=[timeline.tsx]
-- "ui_timeline_timelinelineprops": "TimelineLineProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L187 | neighbors=[timeline.tsx]
-- "ui_timeline_timelineprops": "TimelineProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L22 | neighbors=[timeline.tsx]
-- "ui_timeline_timelinetag": "TimelineTag" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L122 | neighbors=[timeline.tsx]
-- "ui_timeline_timelinetagprops": "TimelineTagProps" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L120 | neighbors=[timeline.tsx]
-- "ui_timeline_timelinetagvariants": "timelineTagVariants" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L108 | neighbors=[timeline.tsx]
-- "ui_timeline_timelinevariants": "timelineVariants" | kind=code-symbol | source=apps/admin/src/components/ui/timeline.tsx:L9 | neighbors=[timeline.tsx]
-- "ui_tooltip_tooltip": "Tooltip()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L20 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltipcontent": "TooltipContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L28 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltipprovider": "TooltipProvider()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L7 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltiptrigger": "TooltipTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L24 | neighbors=[tooltip.tsx]
-- "users_role_repository_rolerepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/role.repository.ts:L8 | neighbors=[RoleRepository]
-- "users_role_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[RoleRepository]
-- "users_userdetailpage_statusvariant": "statusVariant" | kind=code-symbol | source=apps/admin/src/pages/users/UserDetailPage.tsx:L14 | neighbors=[UserDetailPage.tsx]
-- "users_userdetailpage_userdetailpage": "UserDetailPage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserDetailPage.tsx:L20 | neighbors=[UserDetailPage.tsx]
-- "users_userinvitepage_userinvitepage": "UserInvitePage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserInvitePage.tsx:L24 | neighbors=[UserInvitePage.tsx]
-- "users_userlistpage_statusvariant": "statusVariant" | kind=code-symbol | source=apps/admin/src/pages/users/UserListPage.tsx:L25 | neighbors=[UserListPage.tsx]
-- "users_userlistpage_userlistpage": "UserListPage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserListPage.tsx:L31 | neighbors=[UserListPage.tsx]
-- "users_users_controller_userscontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L21 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_getbyid": ".getById()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L35 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L24 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L43 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L53 | neighbors=[UsersController]
-- "users_users_module_usersmodule": "UsersModule" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.module.ts:L14 | neighbors=[users.module.ts]
-- "users_users_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[UsersRepository]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

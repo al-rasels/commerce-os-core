@@ -17,6 +17,13 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_button_buttonvariants": "buttonVariants" | kind=code-symbol | source=packages/components/button.tsx:L6 | neighbors=[button.tsx, Button()]
+- "components_cart_drawer_cartdrawer": "CartDrawer()" | kind=code-symbol | source=packages/components/cart-drawer.tsx:L11 | neighbors=[cart-drawer.tsx, registry.ts]
+- "components_chart_chartlegendcontent": "ChartLegendContent()" | kind=code-symbol | source=packages/components/chart.tsx:L238 | neighbors=[chart.tsx, useChart()]
+- "components_chart_charttooltipcontent": "ChartTooltipContent()" | kind=code-symbol | source=packages/components/chart.tsx:L111 | neighbors=[chart.tsx, useChart()]
+- "components_checkout_summary_checkoutsummary": "CheckoutSummary()" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L7 | neighbors=[checkout-summary.tsx, registry.ts]
+- "components_data_table_datatable": "DataTable()" | kind=code-symbol | source=packages/components/data-table.tsx:L26 | neighbors=[data-table.tsx, registry.ts]
+- "components_dialog_dialog": "Dialog()" | kind=code-symbol | source=packages/components/dialog.tsx:L10 | neighbors=[command.tsx, dialog.tsx]
 - "components_dialog_dialogcontent": "DialogContent()" | kind=code-symbol | source=packages/components/dialog.tsx:L42 | neighbors=[command.tsx, dialog.tsx]
 - "components_dialog_dialogdescription": "DialogDescription()" | kind=code-symbol | source=packages/components/dialog.tsx:L133 | neighbors=[command.tsx, dialog.tsx]
 - "components_dialog_dialogheader": "DialogHeader()" | kind=code-symbol | source=packages/components/dialog.tsx:L83 | neighbors=[command.tsx, dialog.tsx]
@@ -50,13 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_testimonials_testimonials": "Testimonials()" | kind=code-symbol | source=packages/components/testimonials.tsx:L25 | neighbors=[registry.ts, testimonials.tsx]
 - "components_theme_provider_themeprovider": "ThemeProvider()" | kind=code-symbol | source=apps/storefront/src/components/theme-provider.tsx:L7 | neighbors=[layout.tsx, theme-provider.tsx]
 - "components_toast_toast": "Toast()" | kind=code-symbol | source=packages/components/toast.tsx:L34 | neighbors=[registry.ts, toast.tsx]
-- "components_toast_toastcontainer": "ToastContainer()" | kind=code-symbol | source=packages/components/toast.tsx:L77 | neighbors=[registry.ts, toast.tsx]
-- "components_toast_toastdata": "ToastData" | kind=code-symbol | source=packages/components/toast.tsx:L9 | neighbors=[toast.tsx, ToastProps]
-- "components_toast_toaster": "Toaster()" | kind=code-symbol | source=packages/components/toast.tsx:L8 | neighbors=[registry.ts, toast.tsx]
-- "components_toast_toastprops": "ToastProps" | kind=code-symbol | source=packages/components/toast.tsx:L6 | neighbors=[toast.tsx, ToastData]
-- "customer_customer_service_customerservice_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L68 | neighbors=[CustomerService, .get()]
-- "customer_customer_service_customerservice_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L59 | neighbors=[CustomerService, .get()]
-- "decorators_current_user_decorator": "current-user.decorator.ts" | kind=code-symbol | source=apps/api/src/common/decorators/current-user.decorator.ts:L1 | neighbors=[e3a8c77 feat: implement users CRUD back…, CurrentUser]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

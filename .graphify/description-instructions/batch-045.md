@@ -17,6 +17,36 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "theme_themeeditorpage_sectionkey": "SectionKey" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L37 | neighbors=[ThemeEditorPage.tsx]
+- "theme_themeeditorpage_settingrow": "SettingRow()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L47 | neighbors=[ThemeEditorPage.tsx]
+- "theme_themeeditorpage_settingrowprops": "SettingRowProps" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L39 | neighbors=[ThemeEditorPage.tsx]
+- "theme_themeeditorpage_themeeditorpage": "ThemeEditorPage()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L443 | neighbors=[ThemeEditorPage.tsx]
+- "theme_themeeditorpage_typographysection": "TypographySection()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L313 | neighbors=[ThemeEditorPage.tsx]
+- "ui_accordion_accordion": "Accordion()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L6 | neighbors=[accordion.tsx]
+- "ui_accordion_accordioncontent": "AccordionContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L49 | neighbors=[accordion.tsx]
+- "ui_accordion_accordionitem": "AccordionItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L16 | neighbors=[accordion.tsx]
+- "ui_accordion_accordiontrigger": "AccordionTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L26 | neighbors=[accordion.tsx]
+- "ui_alert_alertaction": "AlertAction()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L66 | neighbors=[alert.tsx]
+- "ui_alert_alertdescription": "AlertDescription()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L50 | neighbors=[alert.tsx]
+- "ui_alert_alerttitle": "AlertTitle()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L37 | neighbors=[alert.tsx]
+- "ui_alert_dialog_alertdialog": "AlertDialog()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L7 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogaction": "AlertDialogAction()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L142 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogcancel": "AlertDialogCancel()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L155 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogcontent": "AlertDialogContent()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L39 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogdescription": "AlertDialogDescription()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L126 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogfooter": "AlertDialogFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L78 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogheader": "AlertDialogHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L62 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogmedia": "AlertDialogMedia()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L94 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogoverlay": "AlertDialogOverlay()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L23 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogportal": "AlertDialogPortal()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L17 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogtitle": "AlertDialogTitle()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L110 | neighbors=[alert-dialog.tsx]
+- "ui_alert_dialog_alertdialogtrigger": "AlertDialogTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L11 | neighbors=[alert-dialog.tsx]
+- "ui_avatar_avatar": "Avatar()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L6 | neighbors=[avatar.tsx]
+- "ui_avatar_avatarbadge": "AvatarBadge()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L55 | neighbors=[avatar.tsx]
+- "ui_avatar_avatarfallback": "AvatarFallback()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L39 | neighbors=[avatar.tsx]
+- "ui_avatar_avatargroup": "AvatarGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L71 | neighbors=[avatar.tsx]
+- "ui_avatar_avatargroupcount": "AvatarGroupCount()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L84 | neighbors=[avatar.tsx]
+- "ui_avatar_avatarimage": "AvatarImage()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L26 | neighbors=[avatar.tsx]
 - "ui_breadcrumb_breadcrumb": "Breadcrumb()" | kind=code-symbol | source=apps/admin/src/components/ui/breadcrumb.tsx:L5 | neighbors=[breadcrumb.tsx]
 - "ui_breadcrumb_breadcrumbellipsis": "BreadcrumbEllipsis()" | kind=code-symbol | source=apps/admin/src/components/ui/breadcrumb.tsx:L56 | neighbors=[breadcrumb.tsx]
 - "ui_breadcrumb_breadcrumbitem": "BreadcrumbItem()" | kind=code-symbol | source=apps/admin/src/components/ui/breadcrumb.tsx:L19 | neighbors=[breadcrumb.tsx]
@@ -27,36 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "ui_button_buttonprops": "ButtonProps" | kind=code-symbol | source=apps/admin/src/components/ui/button.tsx:L43 | neighbors=[button.tsx]
 - "ui_card_cardaction": "CardAction()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L59 | neighbors=[card.tsx]
 - "ui_card_cardfooter": "CardFooter()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L82 | neighbors=[card.tsx]
-- "ui_carousel_carousel": "Carousel()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L45 | neighbors=[carousel.tsx]
-- "ui_carousel_carouselapi": "CarouselApi" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L12 | neighbors=[carousel.tsx]
-- "ui_carousel_carouselcontext": "CarouselContext" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L33 | neighbors=[carousel.tsx]
-- "ui_carousel_carouselcontextprops": "CarouselContextProps" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L24 | neighbors=[carousel.tsx]
-- "ui_carousel_carouseloptions": "CarouselOptions" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L14 | neighbors=[carousel.tsx]
-- "ui_carousel_carouselplugin": "CarouselPlugin" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L15 | neighbors=[carousel.tsx]
-- "ui_carousel_carouselprops": "CarouselProps" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L17 | neighbors=[carousel.tsx]
-- "ui_carousel_usecarouselparameters": "UseCarouselParameters" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L13 | neighbors=[carousel.tsx]
-- "ui_chart_chartconfig": "ChartConfig" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L17 | neighbors=[chart.tsx]
-- "ui_chart_chartcontainer": "ChartContainer()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L41 | neighbors=[chart.tsx]
-- "ui_chart_chartcontext": "ChartContext" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L29 | neighbors=[chart.tsx]
-- "ui_chart_chartcontextprops": "ChartContextProps" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L25 | neighbors=[chart.tsx]
-- "ui_chart_chartstyle": "ChartStyle()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L79 | neighbors=[chart.tsx]
-- "ui_chart_getpayloadconfigfrompayload": "getPayloadConfigFromPayload()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L285 | neighbors=[chart.tsx]
-- "ui_chart_initial_dimension": "INITIAL_DIMENSION" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L13 | neighbors=[chart.tsx]
-- "ui_chart_themes": "THEMES" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L11 | neighbors=[chart.tsx]
-- "ui_chart_tooltipnametype": "TooltipNameType" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L15 | neighbors=[chart.tsx]
-- "ui_checkbox_checkbox": "Checkbox()" | kind=code-symbol | source=apps/storefront/src/components/ui/checkbox.tsx:L8 | neighbors=[checkbox.tsx]
-- "ui_collapsible_collapsible": "Collapsible()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L5 | neighbors=[collapsible.tsx]
-- "ui_collapsible_collapsiblecontent": "CollapsibleContent()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L15 | neighbors=[collapsible.tsx]
-- "ui_collapsible_collapsibletrigger": "CollapsibleTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L9 | neighbors=[collapsible.tsx]
-- "ui_combobox_comboboxchip": "ComboboxChip()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L201 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxchips": "ComboboxChips()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L185 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxchipsinput": "ComboboxChipsInput()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L232 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxclear": "ComboboxClear()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L32 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxcollection": "ComboboxCollection()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L158 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxcontent": "ComboboxContent()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L77 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxempty": "ComboboxEmpty()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L162 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxgroup": "ComboboxGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L144 | neighbors=[combobox.tsx]
-- "ui_combobox_comboboxinput": "ComboboxInput()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L45 | neighbors=[combobox.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

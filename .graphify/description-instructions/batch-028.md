@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_dialog_dialogfooter": "DialogFooter()" | kind=code-symbol | source=packages/components/dialog.tsx:L93 | neighbors=[dialog.tsx]
+- "components_dialog_dialogoverlay": "DialogOverlay()" | kind=code-symbol | source=packages/components/dialog.tsx:L26 | neighbors=[dialog.tsx]
+- "components_dialog_dialogportal": "DialogPortal()" | kind=code-symbol | source=packages/components/dialog.tsx:L18 | neighbors=[dialog.tsx]
+- "components_dialog_dialogtrigger": "DialogTrigger()" | kind=code-symbol | source=packages/components/dialog.tsx:L14 | neighbors=[dialog.tsx]
+- "components_dropdown_menu_dropdownmenu": "DropdownMenu()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L7 | neighbors=[dropdown-menu.tsx]
+- "components_dropdown_menu_dropdownmenucheckboxitem": "DropdownMenuCheckboxItem()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L146 | neighbors=[dropdown-menu.tsx]
+- "components_dropdown_menu_dropdownmenucontent": "DropdownMenuContent()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L19 | neighbors=[dropdown-menu.tsx]
+- "components_dropdown_menu_dropdownmenugroup": "DropdownMenuGroup()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L50 | neighbors=[dropdown-menu.tsx]
+- "components_dropdown_menu_dropdownmenuitem": "DropdownMenuItem()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L74 | neighbors=[dropdown-menu.tsx]
+- "components_dropdown_menu_dropdownmenulabel": "DropdownMenuLabel()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L54 | neighbors=[dropdown-menu.tsx]
 - "components_dropdown_menu_dropdownmenuportal": "DropdownMenuPortal()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L11 | neighbors=[dropdown-menu.tsx]
 - "components_dropdown_menu_dropdownmenuradiogroup": "DropdownMenuRadioGroup()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L180 | neighbors=[dropdown-menu.tsx]
 - "components_dropdown_menu_dropdownmenuradioitem": "DropdownMenuRadioItem()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L189 | neighbors=[dropdown-menu.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_mediauploadwidget_mediauploadwidgetprops": "MediaUploadWidgetProps" | kind=code-symbol | source=apps/admin/src/components/MediaUploadWidget.tsx:L4 | neighbors=[MediaUploadWidget.tsx]
 - "components_modal_modalprops": "ModalProps" | kind=code-symbol | source=packages/components/modal.tsx:L8 | neighbors=[modal.tsx]
 - "components_newsletter_newsletterprops": "NewsletterProps" | kind=code-symbol | source=packages/components/newsletter.tsx:L3 | neighbors=[newsletter.tsx]
-- "components_pagination_paginationprops": "PaginationProps" | kind=code-symbol | source=packages/components/pagination.tsx:L6 | neighbors=[pagination.tsx]
-- "components_popover_popover": "Popover()" | kind=code-symbol | source=packages/components/popover.tsx:L6 | neighbors=[popover.tsx]
-- "components_popover_popovercontent": "PopoverContent()" | kind=code-symbol | source=packages/components/popover.tsx:L14 | neighbors=[popover.tsx]
-- "components_popover_popoverdescription": "PopoverDescription()" | kind=code-symbol | source=packages/components/popover.tsx:L68 | neighbors=[popover.tsx]
-- "components_popover_popoverheader": "PopoverHeader()" | kind=code-symbol | source=packages/components/popover.tsx:L48 | neighbors=[popover.tsx]
-- "components_popover_popovertitle": "PopoverTitle()" | kind=code-symbol | source=packages/components/popover.tsx:L58 | neighbors=[popover.tsx]
-- "components_popover_popovertrigger": "PopoverTrigger()" | kind=code-symbol | source=packages/components/popover.tsx:L10 | neighbors=[popover.tsx]
-- "components_product_grid_columnmap": "columnMap" | kind=code-symbol | source=packages/components/product-grid.tsx:L12 | neighbors=[product-grid.tsx]
-- "components_product_grid_demoproducts": "demoProducts" | kind=code-symbol | source=packages/components/product-grid.tsx:L18 | neighbors=[product-grid.tsx]
-- "components_product_grid_productgridprops": "ProductGridProps" | kind=code-symbol | source=packages/components/product-grid.tsx:L4 | neighbors=[product-grid.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

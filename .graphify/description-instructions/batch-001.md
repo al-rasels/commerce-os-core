@@ -38,7 +38,7 @@ one-sentence description — no prose, no markdown fences.
 - "components_alert_dialog": "alert-dialog.tsx" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, AlertDialog(), AlertDialogAction(), AlertDialogCancel(), AlertDialogContent(), AlertDialogDescription()]
 - "components_form_renderer": "form-renderer.tsx" | kind=code-symbol | source=packages/components/form-renderer.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, button.tsx, Button(), FieldType, FormField, FormRenderer()]
 - "shared_types_index": "index.ts" | kind=code-symbol | source=packages/shared-types/index.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 7d74efe feat(commerce): implement B2B, …, Category, CategorySchema, ComponentMetadata, PlanTier]
-- "api_client_api": "api" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L44 | neighbors=[b2b.ts, catalog.ts, client.ts, customers.ts, dashboard.ts, experience.ts]
+- "api_client_api": "api" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L96 | neighbors=[b2b.ts, catalog.ts, client.ts, customers.ts, dashboard.ts, experience.ts]
 - "cart_cart_drawer": "cart-drawer.tsx" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L1 | neighbors=[Cart, CartDrawer(), CartItem, formatPrice(), api.ts, api]
 - "commit:repo:github.com/al-rasels/commerce-os-core@4029d6f32c1fd45f3cf9bc4711c9b5582caed965": "4029d6f fix(commerce): resolve architecture and tenant isolation violations" | kind=Commit | source=git | neighbors=[auth.service.ts, feat/admin-ui-refactor, main, cart.service.ts, catalog.module.ts, catalog.service.ts]
 - "components_button": "button.tsx" | kind=code-symbol | source=packages/components/button.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, efe67e9 fix(build): resolve component t…, alert-dialog.tsx, Button(), ButtonProps, buttonVariants]
@@ -49,7 +49,7 @@ one-sentence description — no prose, no markdown fences.
 - "components_chart": "chart.tsx" | kind=code-symbol | source=packages/components/chart.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, ChartConfig, ChartContainer(), ChartContext, ChartContextProps, ChartLegendContent()]
 - "components_sheet": "sheet.tsx" | kind=code-symbol | source=packages/components/sheet.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, button.tsx, Button(), Sheet(), SheetClose()]
 - "ui_dialog": "dialog.tsx" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, ac49c08 chore: batch commit — catalog C…, utils.ts, cn(), button.tsx, Button()]
-- "auth_auth_controller_authcontroller": "AuthController" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L28 | neighbors=[auth.controller.ts, .changePassword(), .constructor(), .disableMfa(), .forgotPassword(), .invite()]
+- "auth_auth_controller_authcontroller": "AuthController" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L32 | neighbors=[auth.controller.ts, .changePassword(), .constructor(), .disableMfa(), .forgotPassword(), .invite()]
 - "auth_auth_service": "auth.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L1 | neighbors=[{ authenticator }, AuthService, tenant-context.ts, TenantContext, 21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…]
 - "builder_pagebuilder": "PageBuilder.tsx" | kind=code-symbol | source=apps/admin/src/pages/builder/PageBuilder.tsx:L1 | neighbors=[DataBindingPanel.tsx, DataBindingPanel(), PageBuilder(), PropertyPanel.tsx, PropertyPanel(), ResponsiveEditor.tsx]
 - "components_product_card": "product-card.tsx" | kind=code-symbol | source=packages/components/product-card.tsx:L1 | neighbors=[home-client.tsx, 3d66d0f feat: implement payments module…, ac49c08 chore: batch commit — catalog C…, e5d6c72 feat: implement end-to-end chec…, index.ts, formatPrice()]
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

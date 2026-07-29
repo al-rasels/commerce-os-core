@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_alert_dialog_alertdialogcancel": "AlertDialogCancel()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L155 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogcontent": "AlertDialogContent()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L39 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogdescription": "AlertDialogDescription()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L126 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogfooter": "AlertDialogFooter()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L78 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogheader": "AlertDialogHeader()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L62 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogmedia": "AlertDialogMedia()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L94 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogoverlay": "AlertDialogOverlay()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L23 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogportal": "AlertDialogPortal()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L17 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogtitle": "AlertDialogTitle()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L110 | neighbors=[alert-dialog.tsx]
+- "components_alert_dialog_alertdialogtrigger": "AlertDialogTrigger()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L11 | neighbors=[alert-dialog.tsx]
 - "components_avatar_avatar": "Avatar()" | kind=code-symbol | source=packages/components/avatar.tsx:L6 | neighbors=[avatar.tsx]
 - "components_avatar_avatarbadge": "AvatarBadge()" | kind=code-symbol | source=packages/components/avatar.tsx:L55 | neighbors=[avatar.tsx]
 - "components_avatar_avatarfallback": "AvatarFallback()" | kind=code-symbol | source=packages/components/avatar.tsx:L39 | neighbors=[avatar.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_cart_drawer_cartdrawerprops": "CartDrawerProps" | kind=code-symbol | source=packages/components/cart-drawer.tsx:L7 | neighbors=[cart-drawer.tsx]
 - "components_chart_chartconfig": "ChartConfig" | kind=code-symbol | source=packages/components/chart.tsx:L17 | neighbors=[chart.tsx]
 - "components_chart_chartcontainer": "ChartContainer()" | kind=code-symbol | source=packages/components/chart.tsx:L41 | neighbors=[chart.tsx]
-- "components_chart_chartcontext": "ChartContext" | kind=code-symbol | source=packages/components/chart.tsx:L29 | neighbors=[chart.tsx]
-- "components_chart_chartcontextprops": "ChartContextProps" | kind=code-symbol | source=packages/components/chart.tsx:L25 | neighbors=[chart.tsx]
-- "components_chart_chartstyle": "ChartStyle()" | kind=code-symbol | source=packages/components/chart.tsx:L79 | neighbors=[chart.tsx]
-- "components_chart_getpayloadconfigfrompayload": "getPayloadConfigFromPayload()" | kind=code-symbol | source=packages/components/chart.tsx:L285 | neighbors=[chart.tsx]
-- "components_chart_initial_dimension": "INITIAL_DIMENSION" | kind=code-symbol | source=packages/components/chart.tsx:L13 | neighbors=[chart.tsx]
-- "components_chart_themes": "THEMES" | kind=code-symbol | source=packages/components/chart.tsx:L11 | neighbors=[chart.tsx]
-- "components_chart_tooltipnametype": "TooltipNameType" | kind=code-symbol | source=packages/components/chart.tsx:L15 | neighbors=[chart.tsx]
-- "components_checkbox_checkbox": "Checkbox()" | kind=code-symbol | source=packages/components/checkbox.tsx:L8 | neighbors=[checkbox.tsx]
-- "components_checkout_summary_checkoutsummaryprops": "CheckoutSummaryProps" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L3 | neighbors=[checkout-summary.tsx]
-- "components_collapsible_collapsible": "Collapsible()" | kind=code-symbol | source=packages/components/collapsible.tsx:L5 | neighbors=[collapsible.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

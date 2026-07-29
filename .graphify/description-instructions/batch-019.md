@@ -17,9 +17,18 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "lib_invoice_generateinvoicehtml": "generateInvoiceHtml()" | kind=code-symbol | source=apps/admin/src/lib/invoice.ts:L5 | neighbors=[invoice.ts, downloadInvoice()]
+- "lib_server_api_serverrequest": "serverRequest()" | kind=code-symbol | source=apps/storefront/src/lib/server-api.ts:L13 | neighbors=[server-api.ts, ApiError]
+- "load_checkout": "checkout.js" | kind=code-symbol | source=tests/load/checkout.js:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, options]
+- "order_order_item_repository": "order-item.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order-item.repository.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, OrderItemRepository]
+- "order_order_service_orderservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L22 | neighbors=[OrderService, .toDto()]
+- "order_order_service_orderservice_updatepaymentintentid": ".updatePaymentIntentId()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L86 | neighbors=[OrderService, .toDto()]
+- "order_order_service_orderservice_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L61 | neighbors=[OrderService, .toDto()]
+- "page_editor_addsectionpanel_addsectionpanel": "AddSectionPanel()" | kind=code-symbol | source=apps/admin/src/components/page-editor/AddSectionPanel.tsx:L16 | neighbors=[AddSectionPanel.tsx, index.ts]
+- "page_editor_propeditor_propeditor": "PropEditor()" | kind=code-symbol | source=apps/admin/src/components/page-editor/PropEditor.tsx:L19 | neighbors=[index.ts, PropEditor.tsx]
 - "page_editor_sectioncard_sectioncard": "SectionCard()" | kind=code-symbol | source=apps/admin/src/components/page-editor/SectionCard.tsx:L21 | neighbors=[index.ts, SectionCard.tsx]
-- "payments_payments_service_paymentsservice_handlepaymentfailed": ".handlePaymentFailed()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L106 | neighbors=[PaymentsService, .handleWebhook()]
-- "payments_payments_service_paymentsservice_handlepaymentsucceeded": ".handlePaymentSucceeded()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L74 | neighbors=[PaymentsService, .handleWebhook()]
+- "payments_payments_service_paymentsservice_handlepaymentfailed": ".handlePaymentFailed()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L127 | neighbors=[PaymentsService, .handleWebhook()]
+- "payments_payments_service_paymentsservice_handlepaymentsucceeded": ".handlePaymentSucceeded()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L95 | neighbors=[PaymentsService, .handleWebhook()]
 - "payments_payments_webhook_controller": "payments.webhook.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.webhook.controller.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, PaymentsWebhookController]
 - "products_productlistpage": "ProductListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/products/ProductListPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, ProductListPage()]
 - "products_products_client_productsclient": "ProductsClient()" | kind=code-symbol | source=apps/storefront/src/app/products/products-client.tsx:L9 | neighbors=[page.tsx, products-client.tsx]
@@ -48,15 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "search_search_controller": "search.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.controller.ts:L1 | neighbors=[16cea38 feat(api): Implemented Meilisea…, SearchController]
 - "search_search_form_searchform": "SearchForm()" | kind=code-symbol | source=apps/storefront/src/app/search/search-form.tsx:L8 | neighbors=[page.tsx, search-form.tsx]
 - "search_search_module": "search.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.module.ts:L1 | neighbors=[16cea38 feat(api): Implemented Meilisea…, SearchModule]
-- "search_search_service": "search.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L1 | neighbors=[16cea38 feat(api): Implemented Meilisea…, SearchService]
-- "search_search_service_searchservice_deletedocument": ".deleteDocument()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L49 | neighbors=[SearchService, .getTenantIndexName()]
-- "search_search_service_searchservice_indexdocuments": ".indexDocuments()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L28 | neighbors=[SearchService, .getTenantIndexName()]
-- "search_search_service_searchservice_search": ".search()" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L39 | neighbors=[SearchService, .getTenantIndexName()]
-- "search_search_sync_worker_searchsyncjobpayload": "SearchSyncJobPayload" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search-sync.worker.ts:L7 | neighbors=[search-sync.worker.ts, TenantJobPayload]
-- "shipping_shipping_module": "shipping.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.module.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, ShippingModule]
-- "slug_product_client_productclient": "ProductClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-client.tsx:L11 | neighbors=[section-renderer.tsx, product-client.tsx]
-- "slug_product_page_client_productpageclient": "ProductPageClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L6 | neighbors=[page.tsx, product-page-client.tsx]
-- "src_app_service": "app.service.ts" | kind=code-symbol | source=apps/api/src/app.service.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, AppService]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

@@ -17,6 +17,36 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "ui_carousel_carousel": "Carousel()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L45 | neighbors=[carousel.tsx]
+- "ui_carousel_carouselapi": "CarouselApi" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L12 | neighbors=[carousel.tsx]
+- "ui_carousel_carouselcontext": "CarouselContext" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L33 | neighbors=[carousel.tsx]
+- "ui_carousel_carouselcontextprops": "CarouselContextProps" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L24 | neighbors=[carousel.tsx]
+- "ui_carousel_carouseloptions": "CarouselOptions" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L14 | neighbors=[carousel.tsx]
+- "ui_carousel_carouselplugin": "CarouselPlugin" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L15 | neighbors=[carousel.tsx]
+- "ui_carousel_carouselprops": "CarouselProps" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L17 | neighbors=[carousel.tsx]
+- "ui_carousel_usecarouselparameters": "UseCarouselParameters" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L13 | neighbors=[carousel.tsx]
+- "ui_chart_chartconfig": "ChartConfig" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L17 | neighbors=[chart.tsx]
+- "ui_chart_chartcontainer": "ChartContainer()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L41 | neighbors=[chart.tsx]
+- "ui_chart_chartcontext": "ChartContext" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L29 | neighbors=[chart.tsx]
+- "ui_chart_chartcontextprops": "ChartContextProps" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L25 | neighbors=[chart.tsx]
+- "ui_chart_chartstyle": "ChartStyle()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L79 | neighbors=[chart.tsx]
+- "ui_chart_getpayloadconfigfrompayload": "getPayloadConfigFromPayload()" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L285 | neighbors=[chart.tsx]
+- "ui_chart_initial_dimension": "INITIAL_DIMENSION" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L13 | neighbors=[chart.tsx]
+- "ui_chart_themes": "THEMES" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L11 | neighbors=[chart.tsx]
+- "ui_chart_tooltipnametype": "TooltipNameType" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L15 | neighbors=[chart.tsx]
+- "ui_checkbox_checkbox": "Checkbox()" | kind=code-symbol | source=apps/storefront/src/components/ui/checkbox.tsx:L8 | neighbors=[checkbox.tsx]
+- "ui_collapsible_collapsible": "Collapsible()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L5 | neighbors=[collapsible.tsx]
+- "ui_collapsible_collapsiblecontent": "CollapsibleContent()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L15 | neighbors=[collapsible.tsx]
+- "ui_collapsible_collapsibletrigger": "CollapsibleTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L9 | neighbors=[collapsible.tsx]
+- "ui_combobox_comboboxchip": "ComboboxChip()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L201 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxchips": "ComboboxChips()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L185 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxchipsinput": "ComboboxChipsInput()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L232 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxclear": "ComboboxClear()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L32 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxcollection": "ComboboxCollection()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L158 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxcontent": "ComboboxContent()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L77 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxempty": "ComboboxEmpty()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L162 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxgroup": "ComboboxGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L144 | neighbors=[combobox.tsx]
+- "ui_combobox_comboboxinput": "ComboboxInput()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L45 | neighbors=[combobox.tsx]
 - "ui_combobox_comboboxitem": "ComboboxItem()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L124 | neighbors=[combobox.tsx]
 - "ui_combobox_comboboxlabel": "ComboboxLabel()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L148 | neighbors=[combobox.tsx]
 - "ui_combobox_comboboxlist": "ComboboxList()" | kind=code-symbol | source=apps/admin/src/components/ui/combobox.tsx:L111 | neighbors=[combobox.tsx]
@@ -27,36 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "ui_command_command": "Command()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L18 | neighbors=[command.tsx]
 - "ui_command_commanddialog": "CommandDialog()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L34 | neighbors=[command.tsx]
 - "ui_command_commandempty": "CommandEmpty()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L106 | neighbors=[command.tsx]
-- "ui_command_commandgroup": "CommandGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L119 | neighbors=[command.tsx]
-- "ui_command_commandinput": "CommandInput()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L67 | neighbors=[command.tsx]
-- "ui_command_commanditem": "CommandItem()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L148 | neighbors=[command.tsx]
-- "ui_command_commandlist": "CommandList()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L90 | neighbors=[command.tsx]
-- "ui_command_commandseparator": "CommandSeparator()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L135 | neighbors=[command.tsx]
-- "ui_command_commandshortcut": "CommandShortcut()" | kind=code-symbol | source=apps/admin/src/components/ui/command.tsx:L168 | neighbors=[command.tsx]
-- "ui_data_table_datatable": "DataTable()" | kind=code-symbol | source=apps/admin/src/components/ui/data-table.tsx:L15 | neighbors=[data-table.tsx]
-- "ui_data_table_datatableprops": "DataTableProps" | kind=code-symbol | source=apps/admin/src/components/ui/data-table.tsx:L10 | neighbors=[data-table.tsx]
-- "ui_data_table_tanstackcolumn": "TanStackColumn" | kind=code-symbol | source=apps/admin/src/components/ui/data-table.tsx:L4 | neighbors=[data-table.tsx]
-- "ui_dialog_dialog": "Dialog()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L10 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogclose": "DialogClose()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L22 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogcontent": "DialogContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L42 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogdescription": "DialogDescription()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L133 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogfooter": "DialogFooter()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L93 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogheader": "DialogHeader()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L83 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogoverlay": "DialogOverlay()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L26 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogportal": "DialogPortal()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L18 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogtitle": "DialogTitle()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L120 | neighbors=[dialog.tsx]
-- "ui_dialog_dialogtrigger": "DialogTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/dialog.tsx:L14 | neighbors=[dialog.tsx]
-- "ui_dropdown_menu_dropdownmenu": "DropdownMenu()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L9 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenucheckboxitem": "DropdownMenuCheckboxItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L148 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenucontent": "DropdownMenuContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L21 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenugroup": "DropdownMenuGroup()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L52 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenuitem": "DropdownMenuItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L76 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenulabel": "DropdownMenuLabel()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L56 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenuportal": "DropdownMenuPortal()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L13 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenuradiogroup": "DropdownMenuRadioGroup()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L182 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenuradioitem": "DropdownMenuRadioItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L191 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenuseparator": "DropdownMenuSeparator()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L223 | neighbors=[dropdown-menu.tsx]
-- "ui_dropdown_menu_dropdownmenushortcut": "DropdownMenuShortcut()" | kind=code-symbol | source=apps/storefront/src/components/ui/dropdown-menu.tsx:L236 | neighbors=[dropdown-menu.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

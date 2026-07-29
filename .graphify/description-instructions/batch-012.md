@@ -17,6 +17,14 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "customer_customer_service_customerservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L53 | neighbors=[CustomerService, .remove(), .update()]
+- "customers_customerformpage": "CustomerFormPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerFormPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, CustomerFormPage()]
+- "customers_customerlistpage": "CustomerListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerListPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, CustomerListPage()]
+- "dashboard_dashboard_controller_dashboardcontroller": "DashboardController" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.controller.ts:L10 | neighbors=[dashboard.controller.ts, .constructor(), .stats()]
+- "dashboard_dashboard_service_dashboardservice": "DashboardService" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.service.ts:L8 | neighbors=[dashboard.service.ts, .constructor(), .getStats()]
+- "decorators_permissions_decorator": "permissions.decorator.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/decorators/permissions.decorator.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6ffba43 feat: add MFA auth flow, super …, RequirePermissions()]
+- "dto_create_product_variant_dto": "create-product-variant.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/create-product-variant.dto.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, CreateProductVariantDto]
+- "dto_create_promotion_dto": "create-promotion.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/dto/create-promotion.dto.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, CreatePromotionDto]
 - "dto_create_shipping_rule_dto": "create-shipping-rule.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/dto/create-shipping-rule.dto.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, CreateShippingRuleDto]
 - "dto_create_tax_rule_dto": "create-tax-rule.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/dto/create-tax-rule.dto.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, CreateTaxRuleDto]
 - "dto_list_orders_query_dto": "list-orders-query.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/list-orders-query.dto.ts:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, f1bfa47 feat: implement storefront orde…, ListOrdersQueryDto]
@@ -32,7 +40,7 @@ one-sentence description — no prose, no markdown fences.
 - "hooks_usebundles": "useBundles.ts" | kind=code-symbol | source=apps/admin/src/hooks/useBundles.ts:L1 | neighbors=[bdd391f feat(admin): fix ts errors in P…, useBundleItems(), useSetBundleItems()]
 - "hooks_usedashboard": "useDashboard.ts" | kind=code-symbol | source=apps/admin/src/hooks/useDashboard.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, useDashboardStats()]
 - "interfaces_job_payload_interface": "job-payload.interface.ts" | kind=code-symbol | source=apps/api/src/common/interfaces/job-payload.interface.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, JobPayload]
-- "inventory_inventory_module": "inventory.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.module.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, InventoryModule]
+- "inventory_inventory_service_spec": "inventory.service.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.spec.ts:L1 | neighbors=[d26bd04 feat(commerce): implement advan…, tenant-context.ts, TenantContext]
 - "jetski_gemini_loader_loader_assertvalidmaxskills": "assertValidMaxSkills()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L39 | neighbors=[loader.mjs, buildModelMessages(), resolveSkillsFromMessages()]
 - "jetski_gemini_loader_loader_collectreferencedskillids": "collectReferencedSkillIds()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L24 | neighbors=[loader.mjs, buildModelMessages(), resolveSkillsFromMessages()]
 - "lib_api_authrequest": "authRequest()" | kind=code-symbol | source=apps/storefront/src/lib/api.ts:L23 | neighbors=[api.ts, ApiError, authRequestWithToken()]
@@ -43,20 +51,12 @@ one-sentence description — no prose, no markdown fences.
 - "middlewares_host_resolver_middleware_spec": "host-resolver.middleware.spec.ts" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/host-resolver.middleware.spec.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, tenant-context.ts, TenantContext]
 - "order_order_item_repository_orderitemrepository": "OrderItemRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order-item.repository.ts:L7 | neighbors=[order-item.repository.ts, .constructor(), TenantScopedRepository]
 - "order_order_module": "order.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.module.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, OrderModule]
-- "order_order_service_orderservice_todto": ".toDto()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L125 | neighbors=[OrderService, .get(), .updateStatus()]
 - "orders_orderdetailpage": "OrderDetailPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/orders/OrderDetailPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, f1bfa47 feat: implement storefront orde…, OrderDetailPage()]
 - "orders_statusbadge": "StatusBadge.tsx" | kind=code-symbol | source=apps/admin/src/components/orders/StatusBadge.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, StatusBadge(), statusConfig]
 - "pages_loginpage": "LoginPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/LoginPage.tsx:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, LoginPage()]
 - "payments_payments_controller_paymentscontroller": "PaymentsController" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.controller.ts:L11 | neighbors=[payments.controller.ts, .constructor(), .createIntent()]
-- "payments_payments_service_paymentsservice_handlewebhook": ".handleWebhook()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L49 | neighbors=[PaymentsService, .handlePaymentFailed(), .handlePaymentSucceeded()]
+- "payments_payments_service_paymentsservice_handlewebhook": ".handleWebhook()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L70 | neighbors=[PaymentsService, .handlePaymentFailed(), .handlePaymentSucceeded()]
 - "payments_payments_webhook_controller_paymentswebhookcontroller": "PaymentsWebhookController" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.webhook.controller.ts:L6 | neighbors=[payments.webhook.controller.ts, .constructor(), .handleWebhook()]
-- "platform_platform_module_platformmodule": "PlatformModule" | kind=code-symbol | source=apps/api/src/modules/platform/platform.module.ts:L25 | neighbors=[platform.module.ts, NestModule, .configure()]
-- "prisma_prisma_module": "prisma.module.ts" | kind=code-symbol | source=apps/api/src/prisma/prisma.module.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6ffba43 feat: add MFA auth flow, super …, PrismaModule]
-- "products_loading": "loading.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/loading.tsx:L1 | neighbors=[e5d6c72 feat: implement end-to-end chec…, index.ts, Loading()]
-- "promotions_promotion_repository": "promotion.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotion.repository.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, e5d6c72 feat: implement end-to-end chec…, PromotionRepository]
-- "promotions_promotion_repository_promotionrepository": "PromotionRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotion.repository.ts:L6 | neighbors=[promotion.repository.ts, .constructor(), TenantScopedRepository]
-- "queue_queue_service": "queue.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/queue/queue.service.ts:L1 | neighbors=[67df34f feat(api): Setup BullMQ backgro…, QueueService, TenantJobPayload]
-- "queue_queue_service_queueservice": "QueueService" | kind=code-symbol | source=apps/api/src/modules/platform/queue/queue.service.ts:L11 | neighbors=[queue.service.ts, .constructor(), .enqueueTenantJob()]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

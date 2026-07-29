@@ -17,6 +17,15 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "ui_input_group_inputgroupaddon": "InputGroupAddon()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L46 | neighbors=[input-group.tsx, inputGroupAddonVariants]
+- "ui_input_group_inputgroupaddonvariants": "inputGroupAddonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L25 | neighbors=[input-group.tsx, InputGroupAddon()]
+- "ui_input_group_inputgroupbutton": "InputGroupButton()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L86 | neighbors=[input-group.tsx, inputGroupButtonVariants]
+- "ui_input_group_inputgroupbuttonvariants": "inputGroupButtonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L68 | neighbors=[input-group.tsx, InputGroupButton()]
+- "ui_sheet_sheet": "Sheet()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L10 | neighbors=[cart-drawer.tsx, sheet.tsx]
+- "ui_sheet_sheetcontent": "SheetContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L39 | neighbors=[cart-drawer.tsx, sheet.tsx]
+- "ui_sheet_sheetheader": "SheetHeader()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L83 | neighbors=[cart-drawer.tsx, sheet.tsx]
+- "ui_sheet_sheettitle": "SheetTitle()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L103 | neighbors=[cart-drawer.tsx, sheet.tsx]
+- "ui_sidebar_sidebar": "Sidebar()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L142 | neighbors=[sidebar.tsx, useSidebar()]
 - "ui_sidebar_sidebarmenubuttonvariants": "sidebarMenuButtonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L452 | neighbors=[sidebar.tsx, SidebarMenuButton()]
 - "ui_sidebar_sidebarrail": "SidebarRail()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L264 | neighbors=[sidebar.tsx, useSidebar()]
 - "ui_sidebar_sidebartrigger": "SidebarTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L242 | neighbors=[sidebar.tsx, useSidebar()]
@@ -48,15 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "admin_admin_service_adminservice_gettenant": ".getTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L29 | neighbors=[AdminService]
 - "admin_admin_service_adminservice_listtenants": ".listTenants()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L16 | neighbors=[AdminService]
 - "admin_admin_service_adminservice_provisiontenant": ".provisionTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L46 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_suspendtenant": ".suspendTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L137 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_togglefeatureflag": ".toggleFeatureFlag()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L105 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_updatetenantplan": ".updateTenantPlan()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L92 | neighbors=[AdminService]
-- "api_client_apierror_constructor": ".constructor()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L4 | neighbors=[ApiError]
-- "api_fix_hasfeature_files": "files" | kind=code-symbol | source=apps/api/fix-hasfeature.js:L2 | neighbors=[fix-hasfeature.js]
-- "api_fix_hasfeature_fs": "fs" | kind=code-symbol | source=apps/api/fix-hasfeature.js:L1 | neighbors=[fix-hasfeature.js]
-- "api_fix_hasfeature2_files": "files" | kind=code-symbol | source=apps/api/fix-hasfeature2.js:L2 | neighbors=[fix-hasfeature2.js]
-- "api_fix_hasfeature2_fs": "fs" | kind=code-symbol | source=apps/api/fix-hasfeature2.js:L1 | neighbors=[fix-hasfeature2.js]
-- "api_fix_imports_files": "files" | kind=code-symbol | source=apps/api/fix-imports.js:L2 | neighbors=[fix-imports.js]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

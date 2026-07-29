@@ -38,7 +38,7 @@ one-sentence description — no prose, no markdown fences.
 - "components_utils_cn": "cn()" | kind=code-symbol | source=packages/components/utils.ts:L4 | neighbors=[alert.tsx, alert-dialog.tsx, avatar.tsx, badge.tsx, banner.tsx, breadcrumb.tsx]
 - "references_utility_types": "utility-types.ts" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, Arguments, AssertEqual, assertNever(), AsyncFunction, AtLeast]
 - "commit:repo:github.com/al-rasels/commerce-os-core@21888ffb23779b07f32963183c44ce6370a86d5d": "21888ff feat: implement commerce, catalog, and experience modules while expandi…" | kind=Commit | source=git | neighbors=[028709f chore: scaffold monorepo with a…, auth.controller.ts, auth.module.ts, auth.service.ts, feat/admin-ui-refactor, main]
-- "branch:repo:github.com/al-rasels/commerce-os-core#feat/admin-ui-refactor": "feat/admin-ui-refactor" | kind=Branch | source=git | neighbors=[028709f chore: scaffold monorepo with a…, 0361288 feat(admin): Scaffolded Phase 2…, 05b237f feat(admin): Implemented Page B…, 16cea38 feat(api): Implemented Meilisea…, 20e2f86 fix(storefront): resolve import…, 21888ff feat: implement commerce, catal…]
+- "branch:repo:github.com/al-rasels/commerce-os-core#feat/admin-ui-refactor": "feat/admin-ui-refactor" | kind=Branch | source=git | neighbors=[028709f chore: scaffold monorepo with a…, 0361288 feat(admin): Scaffolded Phase 2…, 04d75c7 docs: update progress report an…, 05b237f feat(admin): Implemented Page B…, 16cea38 feat(api): Implemented Meilisea…, 20e2f86 fix(storefront): resolve import…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@7d74efe396e95f39b8ad61eaada09b3f8e6eb452": "7d74efe feat(commerce): implement B2B, Subscriptions, Returns UI and Backend Sc…" | kind=Commit | source=git | neighbors=[4ece707 feat(admin): port UI components…, catalog.ts, pages.ts, auth.controller.spec.ts, auth.service.ts, auth.service.spec.ts]
 - "commit:repo:github.com/al-rasels/commerce-os-core@6eb89d7d3697f105f52053849212b47f1aa316f8": "6eb89d7 chore(tech-debt): resolve technical debt, fix typings, enforce strict t…" | kind=Commit | source=git | neighbors=[auth.controller.ts, auth.controller.spec.ts, auth.module.ts, auth.service.ts, auth.service.spec.ts, feat/admin-ui-refactor]
 - "branch:repo:github.com/al-rasels/commerce-os-core#main": "main" | kind=Branch | source=git | neighbors=[028709f chore: scaffold monorepo with a…, 21888ff feat: implement commerce, catal…, 24a34d0 docs: initialize enterprise pla…, 3571d3a feat(storefront): overhaul UI/U…, 39bac8e docs: initialize architecture, …, 3d66d0f feat: implement payments module…]
@@ -52,9 +52,9 @@ one-sentence description — no prose, no markdown fences.
 - "20260716164323_init_migration": "migration.sql" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L1 | neighbors=[audit_log, cart_items, carts, categories, countries, currencies]
 - "app_layout": "layout.tsx" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L1 | neighbors=[footerColumns, geistMono, geistSans, metadata, RootLayout(), cart-badge.tsx]
 - "components_timeline": "timeline.tsx" | kind=code-symbol | source=packages/components/timeline.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Timeline, TimelineContent, TimelineContentProps, timelineContentVariants]
+- "api_client": "client.ts" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L1 | neighbors=[b2b.ts, catalog.ts, api, ApiError, failedQueue, getToken()]
 - "catalog_catalog_service_catalogservice": "CatalogService" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L20 | neighbors=[catalog.service.ts, .confirmReservation(), .constructor(), .createCategory(), .createProduct(), .createVariant()]
 - "components_command": "command.tsx" | kind=code-symbol | source=packages/components/command.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Command(), CommandDialog(), CommandEmpty(), CommandGroup(), CommandInput()]
-- "api_client": "client.ts" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L1 | neighbors=[b2b.ts, catalog.ts, api, ApiError, getToken(), request()]
 - "commit:repo:github.com/al-rasels/commerce-os-core@bb61ae850fbf9cb9b711e06efbbf4849ae5b057d": "bb61ae8 feat(commerce): wire up Admin UI to new Enterprise APIs (Wave 2)" | kind=Commit | source=git | neighbors=[7d74efe feat(commerce): implement B2B, …, b2b.ts, index.ts, inventory.ts, returns.ts, subscriptions.ts]
 - "commit:repo:github.com/al-rasels/commerce-os-core@c506b3c71416e248e8b5d61fe33002c79d425569": "c506b3c feat(api): implement database repositories for enterprise modules (Wave…" | kind=Commit | source=git | neighbors=[20e2f86 fix(storefront): resolve import…, b2b.controller.ts, b2b.module.ts, b2b.service.ts, feat/admin-ui-refactor, bdd391f feat(admin): fix ts errors in P…]
 - "lib_utils": "utils.ts" | kind=code-symbol | source=apps/storefront/src/lib/utils.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, cn(), accordion.tsx, badge.tsx, button.tsx, card.tsx]
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

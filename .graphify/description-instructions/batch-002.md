@@ -17,6 +17,7 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "layouts_adminlayout": "AdminLayout.tsx" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L1 | neighbors=[4ece707 feat(admin): port UI components…, 6ffba43 feat: add MFA auth flow, super …, 7d74efe feat(commerce): implement B2B, …, ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, efe67e9 fix(build): resolve component t…]
 - "theme_themeeditorpage": "ThemeEditorPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, ColorMode, ColorsSection(), deepMergeDesignTokens(), FlattenedSection(), LoadingSkeleton()]
 - "ui_alert_dialog": "alert-dialog.tsx" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, AlertDialog(), AlertDialogAction(), AlertDialogCancel(), AlertDialogContent(), AlertDialogDescription()]
 - "ui_chart": "chart.tsx" | kind=code-symbol | source=apps/admin/src/components/ui/chart.tsx:L1 | neighbors=[4ece707 feat(admin): port UI components…, ChartConfig, ChartContainer(), ChartContext, ChartContextProps, ChartLegendContent()]
@@ -26,10 +27,10 @@ one-sentence description — no prose, no markdown fences.
 - "app_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/page.tsx:L1 | neighbors=[HomePage(), section-renderer.tsx, SectionRenderer(), server-api.ts, serverApi, 028709f chore: scaffold monorepo with a…]
 - "components_product_grid": "product-grid.tsx" | kind=code-symbol | source=packages/components/product-grid.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, product-card.tsx, ProductCard(), ProductCardProps, columnMap]
 - "components_table": "table.tsx" | kind=code-symbol | source=packages/components/table.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Table(), TableBody(), TableCaption(), TableCell()]
-- "layouts_adminlayout": "AdminLayout.tsx" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L1 | neighbors=[4ece707 feat(admin): port UI components…, 6ffba43 feat: add MFA auth flow, super …, 7d74efe feat(commerce): implement B2B, …, ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, efe67e9 fix(build): resolve component t…]
 - "login_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/account/login/page.tsx:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, b121f53 some-things, f1d1a16 feat: implement storefront foun…, api.ts, api, LoginPage()]
 - "ui_card": "card.tsx" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L1 | neighbors=[page.tsx, 3d66d0f feat: implement payments module…, ac49c08 chore: batch commit — catalog C…, utils.ts, cn(), Card()]
 - "catalog_catalog_service": "catalog.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L1 | neighbors=[CatalogService, tenant-context.ts, TenantContext, 21888ff feat: implement commerce, catal…, 4029d6f fix(commerce): resolve architec…, 6eb89d7 chore(tech-debt): resolve techn…]
+- "checkout_checkout_service": "checkout.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L1 | neighbors=[CheckoutService, tenant-context.ts, TenantContext, 3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 4029d6f fix(commerce): resolve architec…]
 - "components_breadcrumb": "breadcrumb.tsx" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Breadcrumb(), BreadcrumbEllipsis(), BreadcrumbItem(), BreadcrumbLink(), BreadcrumbList()]
 - "components_card": "card.tsx" | kind=code-symbol | source=packages/components/card.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Card(), CardAction(), CardContent(), CardDescription(), CardFooter()]
 - "mfa_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/account/mfa/page.tsx:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, api.ts, api, MfaForm(), MfaPage(), button.tsx]
@@ -41,7 +42,6 @@ one-sentence description — no prose, no markdown fences.
 - "theme_theme_service": "theme.service.ts" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.service.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, efe67e9 fix(build): resolve component t…]
 - "api_customers": "customers.ts" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L1 | neighbors=[client.ts, api, Customer, customerApi, CustomerDetail, CustomerInput]
 - "cart_cart_service_cartservice": "CartService" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L17 | neighbors=[cart.service.ts, .addItem(), .clearCart(), .constructor(), .convert(), .create()]
-- "checkout_checkout_service": "checkout.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L1 | neighbors=[CheckoutService, tenant-context.ts, TenantContext, 3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 4029d6f fix(commerce): resolve architec…]
 - "components_avatar": "avatar.tsx" | kind=code-symbol | source=packages/components/avatar.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Avatar(), AvatarBadge(), AvatarFallback(), AvatarGroup(), AvatarGroupCount()]
 - "components_input": "input.tsx" | kind=code-symbol | source=packages/components/input.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, efe67e9 fix(build): resolve component t…, form-renderer.tsx, index.ts, Input(), utils.ts]
 - "components_popover": "popover.tsx" | kind=code-symbol | source=packages/components/popover.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Popover(), PopoverContent(), PopoverDescription(), PopoverHeader()]
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

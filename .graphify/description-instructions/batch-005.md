@@ -17,6 +17,8 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_floating_header": "floating-header.tsx" | kind=code-symbol | source=apps/storefront/src/components/floating-header.tsx:L1 | neighbors=[layout.tsx, efe67e9 fix(build): resolve component t…, cart-badge.tsx, CartBadge(), FloatingHeader(), search-autocomplete.tsx]
+- "components_header": "header.tsx" | kind=code-symbol | source=packages/components/header.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Header(), HeaderProps, utils.ts, cn(), index.ts]
 - "components_newsletter": "newsletter.tsx" | kind=code-symbol | source=packages/components/newsletter.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, Newsletter(), NewsletterProps, utils.ts, cn()]
 - "components_rich_text": "rich-text.tsx" | kind=code-symbol | source=packages/components/rich-text.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, registry.ts, RichText(), RichTextProps, utils.ts]
 - "components_skeleton": "skeleton.tsx" | kind=code-symbol | source=packages/components/skeleton.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, index.ts, registry.ts, Skeleton(), SkeletonProps, utils.ts]
@@ -30,10 +32,13 @@ one-sentence description — no prose, no markdown fences.
 - "lib_invoice": "invoice.ts" | kind=code-symbol | source=apps/admin/src/lib/invoice.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, orders.ts, Order, downloadInvoice()]
 - "order_order_repository": "order.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …, f1bfa47 feat: implement storefront orde…, OrderRepository, tenant-context.ts]
 - "page_editor_index": "index.ts" | kind=code-symbol | source=apps/admin/src/components/page-editor/index.ts:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, AddSectionPanel.tsx, AddSectionPanel(), PropEditor.tsx, PropEditor(), SectionCard.tsx]
+- "payments_payments_service_paymentsservice": "PaymentsService" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L13 | neighbors=[payments.service.ts, .constructor(), .createPaymentIntent(), .handlePaymentFailed(), .handlePaymentSucceeded(), .handleWebhook()]
 - "platform_platform_module": "platform.module.ts" | kind=code-symbol | source=apps/api/src/modules/platform/platform.module.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 67df34f feat(api): Setup BullMQ backgro…, 6ffba43 feat: add MFA auth flow, super …, e3a8c77 feat: implement users CRUD back…]
 - "prisma_prisma_service": "prisma.service.ts" | kind=code-symbol | source=apps/api/src/prisma/prisma.service.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6ffba43 feat: add MFA auth flow, super …, PrismaService, storefront-cart.controller.ts, storefront-checkout.controller.ts, storefront.controller.ts]
 - "repositories_catalog_repository_spec": "catalog.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/catalog.repository.spec.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, 7d74efe feat(commerce): implement B2B, …, bb61ae8 feat(commerce): wire up Admin U…, tenant-context.ts]
 - "repositories_page_layout_repository": "page-layout.repository.ts" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, PageLayoutRepository, tenant-context.ts]
+- "returns_returns_controller_returnscontroller": "ReturnsController" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/returns.controller.ts:L9 | neighbors=[returns.controller.ts, .approveReturnRequest(), .constructor(), .createReturnRequest(), .getReturns(), .processRefund()]
+- "returns_returns_service_returnsservice": "ReturnsService" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/returns.service.ts:L9 | neighbors=[returns.service.ts, .approveReturnRequest(), .constructor(), .createReturnRequest(), .getReturns(), .processRefund()]
 - "scripts_ts_diagnostic_run_cmd": "run_cmd()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L13 | neighbors=[ts_diagnostic.py, check_any_usage(), check_performance(), check_type_assertions(), check_type_errors(), check_versions()]
 - "search_search_form": "search-form.tsx" | kind=code-symbol | source=apps/storefront/src/app/search/search-form.tsx:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, page.tsx, SearchForm(), button.tsx, Button(), input.tsx]
 - "search_search_service_searchservice": "SearchService" | kind=code-symbol | source=apps/api/src/modules/commerce/search/search.service.ts:L5 | neighbors=[search.service.ts, OnModuleInit, .deleteDocument(), .getTenantIndexName(), .indexDocuments(), .onModuleInit()]
@@ -52,11 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "api_experience": "experience.ts" | kind=code-symbol | source=apps/admin/src/lib/api/experience.ts:L1 | neighbors=[client.ts, api, ResolvedTheme, themeApi, index.ts, ac49c08 chore: batch commit — catalog C…]
 - "api_promotions": "promotions.ts" | kind=code-symbol | source=apps/admin/src/lib/api/promotions.ts:L1 | neighbors=[index.ts, client.ts, api, Promotion, promotionsApi, 6ffba43 feat: add MFA auth flow, super …]
 - "api_shipping": "shipping.ts" | kind=code-symbol | source=apps/admin/src/lib/api/shipping.ts:L1 | neighbors=[index.ts, client.ts, api, shippingApi, ShippingRule, 6ffba43 feat: add MFA auth flow, super …]
-- "api_tax": "tax.ts" | kind=code-symbol | source=apps/admin/src/lib/api/tax.ts:L1 | neighbors=[index.ts, client.ts, api, taxApi, TaxRule, 6ffba43 feat: add MFA auth flow, super …]
-- "app_home_client": "home-client.tsx" | kind=code-symbol | source=apps/storefront/src/app/home-client.tsx:L1 | neighbors=[HomeClient(), product-card.tsx, ProductCard(), 3571d3a feat(storefront): overhaul UI/U…, efe67e9 fix(build): resolve component t…, f1d1a16 feat: implement storefront foun…]
-- "b2b_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/(auth)/b2b/page.tsx:L1 | neighbors=[B2BPortalPage(), api.ts, api, button.tsx, Button(), 20e2f86 fix(storefront): resolve import…]
-- "builder_builder_controller_buildercontroller": "BuilderController" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L18 | neighbors=[builder.controller.ts, .constructor(), .getPageLayout(), .publishPageLayout(), .unpublishPageLayout(), .updatePageLayout()]
-- "builder_databindingpanel": "DataBindingPanel.tsx" | kind=code-symbol | source=apps/admin/src/pages/builder/DataBindingPanel.tsx:L1 | neighbors=[DataBindingPanel(), BuilderNode.tsx, PageNode, PageBuilder.tsx, 0361288 feat(admin): Scaffolded Phase 2…, 05b237f feat(admin): Implemented Page B…]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

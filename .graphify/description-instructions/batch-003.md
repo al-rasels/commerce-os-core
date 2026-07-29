@@ -28,6 +28,7 @@ one-sentence description — no prose, no markdown fences.
 - "cart_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/cart/page.tsx:L1 | neighbors=[Cart, CartItem, CartPage(), api.ts, api, store.ts]
 - "commit:repo:github.com/al-rasels/commerce-os-core@036128863f752146f939e9e65b35554752e283f7": "0361288 feat(admin): Scaffolded Phase 2 Drag and Drop Page Builder UI" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, DataBindingPanel.tsx, PageBuilder.tsx, PropertyPanel.tsx, ResponsiveEditor.tsx, 05b237f feat(admin): Implemented Page B…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@16cea3801f293721c67b6a6c7ef2655110945b33": "16cea38 feat(api): Implemented Meilisearch Engine and Sync Workers" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, commerce.module.ts, cf57e79 fix(schema): fixed cross-tenant…, index.ts, search.controller.ts, search.module.ts]
+- "commit:repo:github.com/al-rasels/commerce-os-core@d26bd04cc7fd1177d438af4d8644700cd4bb668d": "d26bd04 feat(commerce): implement advanced inventory reservation algorithm" | kind=Commit | source=git | neighbors=[04d75c7 docs: update progress report an…, feat/admin-ui-refactor, checkout.module.ts, checkout.service.ts, f33b196 feat(docs): add Phase 6 profess…, inventory.module.ts]
 - "components_add_to_cart_button": "add-to-cart-button.tsx" | kind=code-symbol | source=apps/storefront/src/components/add-to-cart-button.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, AddToCartButton(), api.ts, api, store.ts, useCartStore]
 - "components_alert": "alert.tsx" | kind=code-symbol | source=packages/components/alert.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Alert(), AlertAction(), AlertDescription(), AlertTitle(), alertVariants]
 - "components_breadcrumbs": "breadcrumbs.tsx" | kind=code-symbol | source=packages/components/breadcrumbs.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Breadcrumbs(), BreadcrumbsProps, Crumb, utils.ts, cn()]
@@ -41,8 +42,10 @@ one-sentence description — no prose, no markdown fences.
 - "components_select": "select.tsx" | kind=code-symbol | source=packages/components/select.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, form-renderer.tsx, index.ts, registry.ts, Select(), SelectOption]
 - "components_sidebar": "sidebar.tsx" | kind=code-symbol | source=packages/components/sidebar.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, registry.ts, Sidebar(), SidebarItem, SidebarProps]
 - "components_tabs": "tabs.tsx" | kind=code-symbol | source=packages/components/tabs.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, registry.ts, Tab, Tabs(), TabsProps]
+- "inventory_inventory_service_inventoryservice": "InventoryService" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L10 | neighbors=[inventory.service.ts, .confirmReservation(), .constructor(), .getLevels(), .getLocations(), .releaseExpiredReservations()]
 - "lib_store": "store.ts" | kind=code-symbol | source=apps/storefront/src/lib/store.ts:L1 | neighbors=[cart-drawer.tsx, page.tsx, page.tsx, ac49c08 chore: batch commit — catalog C…, add-to-cart-button.tsx, cart-badge.tsx]
 - "order_order_service": "order.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 4029d6f fix(commerce): resolve architec…, 6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, f1bfa47 feat: implement storefront orde…, OrderService]
+- "order_order_service_orderservice": "OrderService" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L19 | neighbors=[order.service.ts, .constructor(), .createOrder(), .get(), .getDashboardStats(), .list()]
 - "orders_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/account/orders/page.tsx:L1 | neighbors=[b121f53 some-things, f1d1a16 feat: implement storefront foun…, api.ts, api, Order, OrderHistoryPage()]
 - "payments_payments_service": "payments.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 4029d6f fix(commerce): resolve architec…, 6ffba43 feat: add MFA auth flow, super …, bb279ee fix(ci): fix api tests and lint…, efe67e9 fix(build): resolve component t…]
 - "promotions_promotions_service_promotionsservice": "PromotionsService" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L12 | neighbors=[promotions.service.ts, .constructor(), .createPromotion(), .deletePromotion(), .getPromotion(), .incrementUsage()]
@@ -61,9 +64,6 @@ one-sentence description — no prose, no markdown fences.
 - "catalog_catalog_controller": "catalog.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.controller.ts:L1 | neighbors=[CatalogController, tenant-context.ts, TenantContext, 21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …]
 - "commerce_commerce_module": "commerce.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/commerce.module.ts:L1 | neighbors=[CommerceModule, 16cea38 feat(api): Implemented Meilisea…, 21888ff feat: implement commerce, catal…, 3571d3a feat(storefront): overhaul UI/U…, 3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …]
 - "commit:repo:github.com/al-rasels/commerce-os-core@05b237ffeb2f300e5916b05c19cc2f12ac187ee1": "05b237f feat(admin): Implemented Page Builder Property and Data Binding Panels" | kind=Commit | source=git | neighbors=[0361288 feat(admin): Scaffolded Phase 2…, feat/admin-ui-refactor, DataBindingPanel.tsx, PageBuilder.tsx, PropertyPanel.tsx, 67df34f feat(api): Setup BullMQ backgro…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@92e2c6a579f2cdab9fa5a0aafae715ea23cc0412": "92e2c6a feat: add checkout tenant isolation e2e tests and fix module exports" | kind=Commit | source=git | neighbors=[7bea885 feat: implement full-stack auth…, feat/admin-ui-refactor, main, catalog.module.ts, e5d6c72 feat: implement end-to-end chec…, customer.module.ts]
-- "commit:repo:github.com/al-rasels/commerce-os-core@b121f53853c5d0d5da0cf81dafeb9090620a8c5f": "b121f53 some-things" | kind=Commit | source=git | neighbors=[3571d3a feat(storefront): overhaul UI/U…, feat/admin-ui-refactor, main, f1d1a16 feat: implement storefront foun…, page.tsx, page.tsx]
-- "components_footer": "footer.tsx" | kind=code-symbol | source=packages/components/footer.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Footer(), FooterProps, socialIconLabels, utils.ts, cn()]
 
 ## Instructions
 
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

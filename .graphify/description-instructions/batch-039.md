@@ -17,6 +17,28 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "references_utility_types_omitbytype": "OmitByType" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L117 | neighbors=[utility-types.ts]
+- "references_utility_types_option": "Option" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L56 | neighbors=[utility-types.ts]
+- "references_utility_types_partialby": "PartialBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L122 | neighbors=[utility-types.ts]
+- "references_utility_types_pathof": "PathOf" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L228 | neighbors=[utility-types.ts]
+- "references_utility_types_pickbytype": "PickByType" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L112 | neighbors=[utility-types.ts]
+- "references_utility_types_positivenumber": "PositiveNumber" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L26 | neighbors=[utility-types.ts]
+- "references_utility_types_promisify": "Promisify" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L197 | neighbors=[utility-types.ts]
+- "references_utility_types_readonlyby": "ReadonlyBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L132 | neighbors=[utility-types.ts]
+- "references_utility_types_requiredby": "RequiredBy" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L127 | neighbors=[utility-types.ts]
+- "references_utility_types_result": "Result" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L35 | neighbors=[utility-types.ts]
+- "references_utility_types_some": "Some" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L58 | neighbors=[utility-types.ts]
+- "references_utility_types_split": "Split" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L208 | neighbors=[utility-types.ts]
+- "references_utility_types_timestamp": "Timestamp" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L25 | neighbors=[utility-types.ts]
+- "references_utility_types_tuple": "Tuple" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L151 | neighbors=[utility-types.ts]
+- "references_utility_types_tupleof": "_TupleOf" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L157 | neighbors=[utility-types.ts]
+- "references_utility_types_unionlast": "UnionLast" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L241 | neighbors=[utility-types.ts]
+- "references_utility_types_uniontointersection": "UnionToIntersection" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L250 | neighbors=[utility-types.ts]
+- "references_utility_types_uniontotuple": "UnionToTuple" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L259 | neighbors=[utility-types.ts]
+- "references_utility_types_userid": "UserId" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L22 | neighbors=[utility-types.ts]
+- "references_utility_types_uuid": "UUID" | kind=code-symbol | source=.agents/skills/typescript-expert/references/utility-types.ts:L24 | neighbors=[utility-types.ts]
+- "register_page_registerpage": "RegisterPage()" | kind=code-symbol | source=apps/storefront/src/app/account/register/page.tsx:L11 | neighbors=[page.tsx]
+- "repositories_bundle_repository_bundlerepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/bundle.repository.ts:L9 | neighbors=[BundleRepository]
 - "repositories_bundle_repository_bundlerepository_setbundleitems": ".setBundleItems()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/bundle.repository.ts:L13 | neighbors=[BundleRepository]
 - "repositories_bundle_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[BundleRepository]
 - "repositories_cart_item_repository_cartitemrepository_clearbycartid": ".clearByCartId()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart-item.repository.ts:L13 | neighbors=[CartItemRepository]
@@ -35,28 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "repositories_page_layout_repository_pagelayoutrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts:L9 | neighbors=[PageLayoutRepository]
 - "repositories_page_layout_repository_pagelayoutrepository_findbypagekey": ".findByPageKey()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts:L14 | neighbors=[PageLayoutRepository]
 - "repositories_page_layout_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[PageLayoutRepository]
-- "repositories_price_list_repository_pricelistrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/repositories/price-list.repository.ts:L8 | neighbors=[PriceListRepository]
-- "repositories_price_list_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[PriceListRepository]
-- "repositories_product_repository_productrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product.repository.ts:L8 | neighbors=[ProductRepository]
-- "repositories_product_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[ProductRepository]
-- "repositories_product_variant_repository_productvariantrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product-variant.repository.ts:L9 | neighbors=[ProductVariantRepository]
-- "repositories_product_variant_repository_productvariantrepository_incrementreservedstock": ".incrementReservedStock()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product-variant.repository.ts:L13 | neighbors=[ProductVariantRepository]
-- "repositories_product_variant_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[ProductVariantRepository]
-- "repositories_returns_repository_returnsrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/repositories/returns.repository.ts:L8 | neighbors=[ReturnsRepository]
-- "repositories_returns_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[ReturnsRepository]
-- "repositories_stock_reservation_repository_stockreservationrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/stock-reservation.repository.ts:L8 | neighbors=[StockReservationRepository]
-- "repositories_stock_reservation_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[StockReservationRepository]
-- "repositories_subscriptions_repository_subscriptionsrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/repositories/subscriptions.repository.ts:L8 | neighbors=[SubscriptionsRepository]
-- "repositories_subscriptions_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[SubscriptionsRepository]
-- "repositories_tenant_scoped_repository_constructor": "constructor()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L7 | neighbors=[tenant-scoped.repository.ts]
-- "repositories_tenant_scoped_repository_create": "create()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L59 | neighbors=[tenant-scoped.repository.ts]
-- "repositories_tenant_scoped_repository_delete": "delete()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L82 | neighbors=[tenant-scoped.repository.ts]
-- "repositories_tenant_scoped_repository_spec_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[TestRepo]
-- "repositories_tenant_scoped_repository_spec_testrepo_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.spec.ts:L5 | neighbors=[TestRepo]
-- "repositories_tenant_scoped_repository_updatebytenant": "updateByTenant()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L92 | neighbors=[tenant-scoped.repository.ts]
-- "repositories_theme_override_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[ThemeTenantOverrideRepository]
-- "repositories_theme_override_repository_themetenantoverriderepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/repositories/theme-override.repository.ts:L8 | neighbors=[ThemeTenantOverrideRepository]
-- "reset_password_page_resetpasswordform": "ResetPasswordForm()" | kind=code-symbol | source=apps/storefront/src/app/account/reset-password/page.tsx:L12 | neighbors=[page.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

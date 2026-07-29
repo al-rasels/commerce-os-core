@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "catalog_catalog_service_catalogservice_createproduct": ".createProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L29 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_createvariant": ".createVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L115 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_deletecategory": ".deleteCategory()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L105 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_deleteproduct": ".deleteProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L76 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_deletevariant": ".deleteVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L138 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_getbundleitems": ".getBundleItems()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L200 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_getcategory": ".getCategory()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L82 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_getlowstockvariants": ".getLowStockVariants()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L144 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_getproduct": ".getProduct()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L53 | neighbors=[CatalogService]
+- "catalog_catalog_service_catalogservice_getvariant": ".getVariant()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L152 | neighbors=[CatalogService]
 - "catalog_catalog_service_catalogservice_getvariants": ".getVariants()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L111 | neighbors=[CatalogService]
 - "catalog_catalog_service_catalogservice_listcategories": ".listCategories()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L49 | neighbors=[CatalogService]
 - "catalog_catalog_service_catalogservice_listproducts": ".listProducts()" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/catalog.service.ts:L37 | neighbors=[CatalogService]
@@ -34,9 +44,9 @@ one-sentence description — no prose, no markdown fences.
 - "change_password_page_changepasswordpage": "ChangePasswordPage()" | kind=code-symbol | source=apps/storefront/src/app/account/change-password/page.tsx:L134 | neighbors=[page.tsx]
 - "checkout_checkout_controller_checkoutcontroller_checkout": ".checkout()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.controller.ts:L16 | neighbors=[CheckoutController]
 - "checkout_checkout_controller_checkoutcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.controller.ts:L12 | neighbors=[CheckoutController]
-- "checkout_checkout_module_checkoutmodule": "CheckoutModule" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.module.ts:L15 | neighbors=[checkout.module.ts]
-- "checkout_checkout_service_checkoutservice_checkout": ".checkout()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L26 | neighbors=[CheckoutService]
-- "checkout_checkout_service_checkoutservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L18 | neighbors=[CheckoutService]
+- "checkout_checkout_module_checkoutmodule": "CheckoutModule" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.module.ts:L16 | neighbors=[checkout.module.ts]
+- "checkout_checkout_service_checkoutservice_checkout": ".checkout()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L28 | neighbors=[CheckoutService]
+- "checkout_checkout_service_checkoutservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.service.ts:L19 | neighbors=[CheckoutService]
 - "checkout_page_checkoutpage": "CheckoutPage()" | kind=code-symbol | source=apps/storefront/src/app/checkout/page.tsx:L52 | neighbors=[page.tsx]
 - "checkout_page_paymentform": "PaymentForm()" | kind=code-symbol | source=apps/storefront/src/app/checkout/page.tsx:L19 | neighbors=[page.tsx]
 - "checkout_page_stripepromise": "stripePromise" | kind=code-symbol | source=apps/storefront/src/app/checkout/page.tsx:L17 | neighbors=[page.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_alert_alerttitle": "AlertTitle()" | kind=code-symbol | source=packages/components/alert.tsx:L37 | neighbors=[alert.tsx]
 - "components_alert_dialog_alertdialog": "AlertDialog()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L7 | neighbors=[alert-dialog.tsx]
 - "components_alert_dialog_alertdialogaction": "AlertDialogAction()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L142 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogcancel": "AlertDialogCancel()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L155 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogcontent": "AlertDialogContent()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L39 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogdescription": "AlertDialogDescription()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L126 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogfooter": "AlertDialogFooter()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L78 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogheader": "AlertDialogHeader()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L62 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogmedia": "AlertDialogMedia()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L94 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogoverlay": "AlertDialogOverlay()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L23 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogportal": "AlertDialogPortal()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L17 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogtitle": "AlertDialogTitle()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L110 | neighbors=[alert-dialog.tsx]
-- "components_alert_dialog_alertdialogtrigger": "AlertDialogTrigger()" | kind=code-symbol | source=packages/components/alert-dialog.tsx:L11 | neighbors=[alert-dialog.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

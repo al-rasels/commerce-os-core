@@ -17,6 +17,36 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "ui_pagination_paginationellipsis": "PaginationEllipsis()" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L73 | neighbors=[pagination.tsx]
+- "ui_pagination_paginationitem": "PaginationItem()" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L24 | neighbors=[pagination.tsx]
+- "ui_pagination_paginationlink": "PaginationLink()" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L33 | neighbors=[pagination.tsx]
+- "ui_pagination_paginationlinkprops": "PaginationLinkProps" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L28 | neighbors=[pagination.tsx]
+- "ui_pagination_paginationnext": "PaginationNext()" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L60 | neighbors=[pagination.tsx]
+- "ui_pagination_paginationprevious": "PaginationPrevious()" | kind=code-symbol | source=apps/admin/src/components/ui/pagination.tsx:L47 | neighbors=[pagination.tsx]
+- "ui_popover_popover": "Popover()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L6 | neighbors=[popover.tsx]
+- "ui_popover_popovercontent": "PopoverContent()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L14 | neighbors=[popover.tsx]
+- "ui_popover_popoverdescription": "PopoverDescription()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L68 | neighbors=[popover.tsx]
+- "ui_popover_popoverheader": "PopoverHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L48 | neighbors=[popover.tsx]
+- "ui_popover_popovertitle": "PopoverTitle()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L58 | neighbors=[popover.tsx]
+- "ui_popover_popovertrigger": "PopoverTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/popover.tsx:L10 | neighbors=[popover.tsx]
+- "ui_progress_progress": "Progress()" | kind=code-symbol | source=apps/admin/src/components/ui/progress.tsx:L5 | neighbors=[progress.tsx]
+- "ui_progress_progressindicator": "ProgressIndicator()" | kind=code-symbol | source=apps/admin/src/components/ui/progress.tsx:L39 | neighbors=[progress.tsx]
+- "ui_progress_progresslabel": "ProgressLabel()" | kind=code-symbol | source=apps/admin/src/components/ui/progress.tsx:L52 | neighbors=[progress.tsx]
+- "ui_progress_progresstrack": "ProgressTrack()" | kind=code-symbol | source=apps/admin/src/components/ui/progress.tsx:L26 | neighbors=[progress.tsx]
+- "ui_progress_progressvalue": "ProgressValue()" | kind=code-symbol | source=apps/admin/src/components/ui/progress.tsx:L62 | neighbors=[progress.tsx]
+- "ui_radio_group_radiogroup": "RadioGroup()" | kind=code-symbol | source=apps/storefront/src/components/ui/radio-group.tsx:L8 | neighbors=[radio-group.tsx]
+- "ui_radio_group_radiogroupitem": "RadioGroupItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/radio-group.tsx:L18 | neighbors=[radio-group.tsx]
+- "ui_scroll_area_scrollarea": "ScrollArea()" | kind=code-symbol | source=apps/storefront/src/components/ui/scroll-area.tsx:L8 | neighbors=[scroll-area.tsx]
+- "ui_scroll_area_scrollbar": "ScrollBar()" | kind=code-symbol | source=apps/storefront/src/components/ui/scroll-area.tsx:L31 | neighbors=[scroll-area.tsx]
+- "ui_select_selectcontent": "SelectContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L59 | neighbors=[select.tsx]
+- "ui_select_selectgroup": "SelectGroup()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L11 | neighbors=[select.tsx]
+- "ui_select_selectitem": "SelectItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L111 | neighbors=[select.tsx]
+- "ui_select_selectlabel": "SelectLabel()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L98 | neighbors=[select.tsx]
+- "ui_select_selectscrolldownbutton": "SelectScrollDownButton()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L171 | neighbors=[select.tsx]
+- "ui_select_selectscrollupbutton": "SelectScrollUpButton()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L152 | neighbors=[select.tsx]
+- "ui_select_selectseparator": "SelectSeparator()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L139 | neighbors=[select.tsx]
+- "ui_select_selecttrigger": "SelectTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L31 | neighbors=[select.tsx]
+- "ui_select_selectvalue": "SelectValue()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L21 | neighbors=[select.tsx]
 - "ui_separator_separator": "Separator()" | kind=code-symbol | source=apps/storefront/src/components/ui/separator.tsx:L7 | neighbors=[separator.tsx]
 - "ui_sheet_sheetclose": "SheetClose()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L18 | neighbors=[sheet.tsx]
 - "ui_sheet_sheetdescription": "SheetDescription()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L116 | neighbors=[sheet.tsx]
@@ -27,36 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "ui_sidebar_sidebarcontent": "SidebarContent()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L346 | neighbors=[sidebar.tsx]
 - "ui_sidebar_sidebarcontext": "SidebarContext" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L37 | neighbors=[sidebar.tsx]
 - "ui_sidebar_sidebarcontextprops": "SidebarContextProps" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L27 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarfooter": "SidebarFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L324 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebargroup": "SidebarGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L360 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebargroupaction": "SidebarGroupAction()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L395 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebargroupcontent": "SidebarGroupContent()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L419 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebargrouplabel": "SidebarGroupLabel()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L371 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarheader": "SidebarHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L313 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarinput": "SidebarInput()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L302 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarinset": "SidebarInset()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L289 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenu": "SidebarMenu()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L430 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenuaction": "SidebarMenuAction()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L524 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenubadge": "SidebarMenuBadge()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L554 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenuitem": "SidebarMenuItem()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L441 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenuskeleton": "SidebarMenuSkeleton()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L568 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenusub": "SidebarMenuSub()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L601 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenusubbutton": "SidebarMenuSubButton()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L626 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarmenusubitem": "SidebarMenuSubItem()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L615 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarprovider": "SidebarProvider()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L49 | neighbors=[sidebar.tsx]
-- "ui_sidebar_sidebarseparator": "SidebarSeparator()" | kind=code-symbol | source=apps/admin/src/components/ui/sidebar.tsx:L335 | neighbors=[sidebar.tsx]
-- "ui_skeleton_skeleton": "Skeleton()" | kind=code-symbol | source=apps/storefront/src/components/ui/skeleton.tsx:L3 | neighbors=[skeleton.tsx]
-- "ui_switch_switch": "Switch()" | kind=code-symbol | source=apps/storefront/src/components/ui/switch.tsx:L7 | neighbors=[switch.tsx]
-- "ui_table_table": "Table()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L7 | neighbors=[table.tsx]
-- "ui_table_tablebody": "TableBody()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L32 | neighbors=[table.tsx]
-- "ui_table_tablecaption": "TableCaption()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L94 | neighbors=[table.tsx]
-- "ui_table_tablecell": "TableCell()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L81 | neighbors=[table.tsx]
-- "ui_table_tablefooter": "TableFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L42 | neighbors=[table.tsx]
-- "ui_table_tablehead": "TableHead()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L68 | neighbors=[table.tsx]
-- "ui_table_tableheader": "TableHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L22 | neighbors=[table.tsx]
-- "ui_table_tablerow": "TableRow()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L55 | neighbors=[table.tsx]
-- "ui_tabs_tabs": "Tabs()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L6 | neighbors=[tabs.tsx]
-- "ui_tabs_tabscontent": "TabsContent()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L70 | neighbors=[tabs.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

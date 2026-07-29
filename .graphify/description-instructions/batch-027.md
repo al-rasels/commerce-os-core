@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_chart_chartcontext": "ChartContext" | kind=code-symbol | source=packages/components/chart.tsx:L29 | neighbors=[chart.tsx]
+- "components_chart_chartcontextprops": "ChartContextProps" | kind=code-symbol | source=packages/components/chart.tsx:L25 | neighbors=[chart.tsx]
+- "components_chart_chartstyle": "ChartStyle()" | kind=code-symbol | source=packages/components/chart.tsx:L79 | neighbors=[chart.tsx]
+- "components_chart_getpayloadconfigfrompayload": "getPayloadConfigFromPayload()" | kind=code-symbol | source=packages/components/chart.tsx:L285 | neighbors=[chart.tsx]
+- "components_chart_initial_dimension": "INITIAL_DIMENSION" | kind=code-symbol | source=packages/components/chart.tsx:L13 | neighbors=[chart.tsx]
+- "components_chart_themes": "THEMES" | kind=code-symbol | source=packages/components/chart.tsx:L11 | neighbors=[chart.tsx]
+- "components_chart_tooltipnametype": "TooltipNameType" | kind=code-symbol | source=packages/components/chart.tsx:L15 | neighbors=[chart.tsx]
+- "components_checkbox_checkbox": "Checkbox()" | kind=code-symbol | source=packages/components/checkbox.tsx:L8 | neighbors=[checkbox.tsx]
+- "components_checkout_summary_checkoutsummaryprops": "CheckoutSummaryProps" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L3 | neighbors=[checkout-summary.tsx]
+- "components_collapsible_collapsible": "Collapsible()" | kind=code-symbol | source=packages/components/collapsible.tsx:L5 | neighbors=[collapsible.tsx]
 - "components_collapsible_collapsiblecontent": "CollapsibleContent()" | kind=code-symbol | source=packages/components/collapsible.tsx:L15 | neighbors=[collapsible.tsx]
 - "components_collapsible_collapsibletrigger": "CollapsibleTrigger()" | kind=code-symbol | source=packages/components/collapsible.tsx:L9 | neighbors=[collapsible.tsx]
 - "components_combobox_comboboxchip": "ComboboxChip()" | kind=code-symbol | source=packages/components/combobox.tsx:L201 | neighbors=[combobox.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_data_table_column": "Column" | kind=code-symbol | source=packages/components/data-table.tsx:L7 | neighbors=[data-table.tsx]
 - "components_data_table_datatableprops": "DataTableProps" | kind=code-symbol | source=packages/components/data-table.tsx:L15 | neighbors=[data-table.tsx]
 - "components_dialog_dialogclose": "DialogClose()" | kind=code-symbol | source=packages/components/dialog.tsx:L22 | neighbors=[dialog.tsx]
-- "components_dialog_dialogfooter": "DialogFooter()" | kind=code-symbol | source=packages/components/dialog.tsx:L93 | neighbors=[dialog.tsx]
-- "components_dialog_dialogoverlay": "DialogOverlay()" | kind=code-symbol | source=packages/components/dialog.tsx:L26 | neighbors=[dialog.tsx]
-- "components_dialog_dialogportal": "DialogPortal()" | kind=code-symbol | source=packages/components/dialog.tsx:L18 | neighbors=[dialog.tsx]
-- "components_dialog_dialogtrigger": "DialogTrigger()" | kind=code-symbol | source=packages/components/dialog.tsx:L14 | neighbors=[dialog.tsx]
-- "components_dropdown_menu_dropdownmenu": "DropdownMenu()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L7 | neighbors=[dropdown-menu.tsx]
-- "components_dropdown_menu_dropdownmenucheckboxitem": "DropdownMenuCheckboxItem()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L146 | neighbors=[dropdown-menu.tsx]
-- "components_dropdown_menu_dropdownmenucontent": "DropdownMenuContent()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L19 | neighbors=[dropdown-menu.tsx]
-- "components_dropdown_menu_dropdownmenugroup": "DropdownMenuGroup()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L50 | neighbors=[dropdown-menu.tsx]
-- "components_dropdown_menu_dropdownmenuitem": "DropdownMenuItem()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L74 | neighbors=[dropdown-menu.tsx]
-- "components_dropdown_menu_dropdownmenulabel": "DropdownMenuLabel()" | kind=code-symbol | source=packages/components/dropdown-menu.tsx:L54 | neighbors=[dropdown-menu.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

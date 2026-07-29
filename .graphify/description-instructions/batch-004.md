@@ -24,6 +24,9 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "commit:repo:github.com/al-rasels/commerce-os-core@92e2c6a579f2cdab9fa5a0aafae715ea23cc0412": "92e2c6a feat: add checkout tenant isolation e2e tests and fix module exports" | kind=Commit | source=git | neighbors=[7bea885 feat: implement full-stack auth…, feat/admin-ui-refactor, main, catalog.module.ts, e5d6c72 feat: implement end-to-end chec…, customer.module.ts]
+- "commit:repo:github.com/al-rasels/commerce-os-core@b121f53853c5d0d5da0cf81dafeb9090620a8c5f": "b121f53 some-things" | kind=Commit | source=git | neighbors=[3571d3a feat(storefront): overhaul UI/U…, feat/admin-ui-refactor, main, f1d1a16 feat: implement storefront foun…, page.tsx, page.tsx]
+- "components_footer": "footer.tsx" | kind=code-symbol | source=packages/components/footer.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Footer(), FooterProps, socialIconLabels, utils.ts, cn()]
 - "components_gallery": "gallery.tsx" | kind=code-symbol | source=packages/components/gallery.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Gallery(), GalleryProps, variantStyles, utils.ts, cn()]
 - "components_product_card_productcard": "ProductCard()" | kind=code-symbol | source=packages/components/product-card.tsx:L20 | neighbors=[home-client.tsx, product-card.tsx, formatPrice(), product-grid.tsx, registry.ts, products-client.tsx]
 - "components_search_bar": "search-bar.tsx" | kind=code-symbol | source=packages/components/search-bar.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, index.ts, registry.ts, SearchBar(), SearchBarProps, utils.ts]
@@ -35,7 +38,6 @@ one-sentence description — no prose, no markdown fences.
 - "dashboard_dashboard_service": "dashboard.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 4029d6f fix(commerce): resolve architec…, 6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, bdd391f feat(admin): fix ts errors in P…, DashboardService]
 - "hooks_usecustomers": "useCustomers.ts" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, e3a8c77 feat: implement users CRUD back…, useCreateCustomer(), useCustomer(), useCustomers()]
 - "lib_server_api": "server-api.ts" | kind=code-symbol | source=apps/storefront/src/lib/server-api.ts:L1 | neighbors=[layout.tsx, page.tsx, e5d6c72 feat: implement end-to-end chec…, efe67e9 fix(build): resolve component t…, ApiError, serverApi]
-- "order_order_service_orderservice": "OrderService" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L19 | neighbors=[order.service.ts, .constructor(), .createOrder(), .get(), .getDashboardStats(), .list()]
 - "orders_ordertimeline": "OrderTimeline.tsx" | kind=code-symbol | source=apps/admin/src/components/orders/OrderTimeline.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, efe67e9 fix(build): resolve component t…, f1bfa47 feat: implement storefront orde…, CONFIRMATION_LABELS, DESTRUCTIVE_ACTIONS, OrderTimeline()]
 - "products_page": "page.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/page.tsx:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, e5d6c72 feat: implement end-to-end chec…, api.ts, api, ProductsPage()]
 - "products_products_client": "products-client.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/products-client.tsx:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, bb279ee fix(ci): fix api tests and lint…, e5d6c72 feat: implement end-to-end chec…, f1d1a16 feat: implement storefront foun…, page.tsx, product-card.tsx]
@@ -62,8 +64,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_checkout_summary": "checkout-summary.tsx" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, CheckoutSummary(), CheckoutSummaryProps, utils.ts, cn(), index.ts]
 - "components_empty_state": "empty-state.tsx" | kind=code-symbol | source=packages/components/empty-state.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, EmptyState(), EmptyStateProps, utils.ts, cn(), index.ts]
 - "components_faq": "faq.tsx" | kind=code-symbol | source=packages/components/faq.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Faq(), FaqProps, utils.ts, cn(), index.ts]
-- "components_floating_header": "floating-header.tsx" | kind=code-symbol | source=apps/storefront/src/components/floating-header.tsx:L1 | neighbors=[layout.tsx, efe67e9 fix(build): resolve component t…, cart-badge.tsx, CartBadge(), FloatingHeader(), search-autocomplete.tsx]
-- "components_header": "header.tsx" | kind=code-symbol | source=packages/components/header.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, Header(), HeaderProps, utils.ts, cn(), index.ts]
 
 ## Instructions
 
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

@@ -3,14 +3,14 @@
   "branchName": "feat/admin-ui-refactor",
   "worktreePath": "D:\\Rasel Mahmud Shanto\\commerce-os-core",
   "upstream": "origin/feat/admin-ui-refactor",
-  "mergeBase": "efe67e9d50a8fbac2ed7c29af3f69284a974d85d",
+  "mergeBase": "f33b196674d29e1b915283de2882b504b0dc78f6",
   "firstSeenHead": "efe67e9d50a8fbac2ed7c29af3f69284a974d85d",
-  "lastSeenHead": "efe67e9d50a8fbac2ed7c29af3f69284a974d85d",
-  "lastAnalyzedHead": "efe67e9d50a8fbac2ed7c29af3f69284a974d85d",
+  "lastSeenHead": "f33b196674d29e1b915283de2882b504b0dc78f6",
+  "lastAnalyzedHead": "f33b196674d29e1b915283de2882b504b0dc78f6",
   "stale": false,
   "staleReason": null,
   "staleSince": null,
   "lifecycleEvent": null,
   "createdAt": "2026-07-27T03:08:10.062Z",
-  "updatedAt": "2026-07-27T03:08:10.062Z"
+  "updatedAt": "2026-07-29T09:57:41.880Z"
 }

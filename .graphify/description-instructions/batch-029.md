@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "components_pagination_paginationprops": "PaginationProps" | kind=code-symbol | source=packages/components/pagination.tsx:L6 | neighbors=[pagination.tsx]
+- "components_popover_popover": "Popover()" | kind=code-symbol | source=packages/components/popover.tsx:L6 | neighbors=[popover.tsx]
+- "components_popover_popovercontent": "PopoverContent()" | kind=code-symbol | source=packages/components/popover.tsx:L14 | neighbors=[popover.tsx]
+- "components_popover_popoverdescription": "PopoverDescription()" | kind=code-symbol | source=packages/components/popover.tsx:L68 | neighbors=[popover.tsx]
+- "components_popover_popoverheader": "PopoverHeader()" | kind=code-symbol | source=packages/components/popover.tsx:L48 | neighbors=[popover.tsx]
+- "components_popover_popovertitle": "PopoverTitle()" | kind=code-symbol | source=packages/components/popover.tsx:L58 | neighbors=[popover.tsx]
+- "components_popover_popovertrigger": "PopoverTrigger()" | kind=code-symbol | source=packages/components/popover.tsx:L10 | neighbors=[popover.tsx]
+- "components_product_grid_columnmap": "columnMap" | kind=code-symbol | source=packages/components/product-grid.tsx:L12 | neighbors=[product-grid.tsx]
+- "components_product_grid_demoproducts": "demoProducts" | kind=code-symbol | source=packages/components/product-grid.tsx:L18 | neighbors=[product-grid.tsx]
+- "components_product_grid_productgridprops": "ProductGridProps" | kind=code-symbol | source=packages/components/product-grid.tsx:L4 | neighbors=[product-grid.tsx]
 - "components_productbundleeditor_productbundleeditor": "ProductBundleEditor()" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L20 | neighbors=[ProductBundleEditor.tsx]
 - "components_productbundleeditor_productbundleeditorprops": "ProductBundleEditorProps" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L16 | neighbors=[ProductBundleEditor.tsx]
 - "components_productbundleeditor_productvariantselector": "ProductVariantSelector()" | kind=code-symbol | source=apps/admin/src/components/ProductBundleEditor.tsx:L176 | neighbors=[ProductBundleEditor.tsx]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "components_section_schema_sectionschemas": "sectionSchemas" | kind=code-symbol | source=packages/components/section-schema.ts:L20 | neighbors=[section-schema.ts]
 - "components_select_selectprops": "SelectProps" | kind=code-symbol | source=packages/components/select.tsx:L12 | neighbors=[select.tsx]
 - "components_separator_separator": "Separator()" | kind=code-symbol | source=packages/components/separator.tsx:L7 | neighbors=[separator.tsx]
-- "components_sheet_sheet": "Sheet()" | kind=code-symbol | source=packages/components/sheet.tsx:L8 | neighbors=[sheet.tsx]
-- "components_sheet_sheetclose": "SheetClose()" | kind=code-symbol | source=packages/components/sheet.tsx:L16 | neighbors=[sheet.tsx]
-- "components_sheet_sheetcontent": "SheetContent()" | kind=code-symbol | source=packages/components/sheet.tsx:L37 | neighbors=[sheet.tsx]
-- "components_sheet_sheetdescription": "SheetDescription()" | kind=code-symbol | source=packages/components/sheet.tsx:L114 | neighbors=[sheet.tsx]
-- "components_sheet_sheetfooter": "SheetFooter()" | kind=code-symbol | source=packages/components/sheet.tsx:L91 | neighbors=[sheet.tsx]
-- "components_sheet_sheetheader": "SheetHeader()" | kind=code-symbol | source=packages/components/sheet.tsx:L81 | neighbors=[sheet.tsx]
-- "components_sheet_sheetoverlay": "SheetOverlay()" | kind=code-symbol | source=packages/components/sheet.tsx:L24 | neighbors=[sheet.tsx]
-- "components_sheet_sheetportal": "SheetPortal()" | kind=code-symbol | source=packages/components/sheet.tsx:L20 | neighbors=[sheet.tsx]
-- "components_sheet_sheettitle": "SheetTitle()" | kind=code-symbol | source=packages/components/sheet.tsx:L101 | neighbors=[sheet.tsx]
-- "components_sheet_sheettrigger": "SheetTrigger()" | kind=code-symbol | source=packages/components/sheet.tsx:L12 | neighbors=[sheet.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

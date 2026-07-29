@@ -17,6 +17,36 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "tax_tax_rule_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[TaxRuleRepository]
+- "tax_tax_service_taxservice_calculatetax": ".calculateTax()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L36 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L9 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_createrule": ".createRule()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L23 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_deleterule": ".deleteRule()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L31 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_getrule": ".getRule()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L17 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_listrules": ".listRules()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L11 | neighbors=[TaxService]
+- "tax_tax_service_taxservice_updaterule": ".updateRule()" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.service.ts:L27 | neighbors=[TaxService]
+- "tenant_tenant_admin_controller_tenantadmincontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L25 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_getbyid": ".getById()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L67 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_getflags": ".getFlags()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L142 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L28 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_removedomain": ".removeDomain()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L136 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_toggleflag": ".toggleFlag()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L148 | neighbors=[TenantAdminController]
+- "tenant_tenant_admin_controller_tenantadmincontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L105 | neighbors=[TenantAdminController]
+- "tenant_tenant_context_tenantcontext_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-context.ts:L12 | neighbors=[TenantContext]
+- "tenant_tenant_context_tenantcontext_hasfeature": ".hasFeature()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-context.ts:L16 | neighbors=[TenantContext]
+- "tenant_tenant_module_tenantmodule": "TenantModule" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.module.ts:L14 | neighbors=[tenant.module.ts]
+- "tenant_tenant_service_tenantservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.ts:L9 | neighbors=[TenantService]
+- "tenant_tenant_service_tenantservice_invalidatecache": ".invalidateCache()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.ts:L62 | neighbors=[TenantService]
+- "tenant_tenant_service_tenantservice_resolvetenant": ".resolveTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.ts:L14 | neighbors=[TenantService]
+- "test_app_e2e_spec": "app.e2e-spec.ts" | kind=code-symbol | source=apps/api/test/app.e2e-spec.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…]
+- "theme_engine_index_mergeresult": "MergeResult" | kind=code-symbol | source=packages/theme-engine/index.ts:L7 | neighbors=[index.ts]
+- "theme_engine_index_tenanttokenoverride": "TenantTokenOverride" | kind=code-symbol | source=packages/theme-engine/index.ts:L12 | neighbors=[index.ts]
+- "theme_engine_index_themebaseid": "ThemeBaseId" | kind=code-symbol | source=packages/theme-engine/index.ts:L20 | neighbors=[index.ts]
+- "theme_engine_index_themeregistry": "ThemeRegistry" | kind=code-symbol | source=packages/theme-engine/index.ts:L14 | neighbors=[index.ts]
+- "theme_theme_controller_themecontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.controller.ts:L10 | neighbors=[ThemeController]
+- "theme_theme_controller_themecontroller_gettheme": ".getTheme()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.controller.ts:L14 | neighbors=[ThemeController]
+- "theme_theme_controller_themecontroller_updateoverride": ".updateOverride()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.controller.ts:L21 | neighbors=[ThemeController]
+- "theme_theme_module_thememodule": "ThemeModule" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.module.ts:L13 | neighbors=[theme.module.ts]
 - "theme_theme_service_themeservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.service.ts:L9 | neighbors=[ThemeService]
 - "theme_theme_service_themeservice_getresolvedtheme": ".getResolvedTheme()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.service.ts:L14 | neighbors=[ThemeService]
 - "theme_theme_service_themeservice_updateoverride": ".updateOverride()" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.service.ts:L45 | neighbors=[ThemeService]
@@ -27,36 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "theme_themeeditorpage_loadingskeleton": "LoadingSkeleton()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L399 | neighbors=[ThemeEditorPage.tsx]
 - "theme_themeeditorpage_previewcard": "PreviewCard()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L128 | neighbors=[ThemeEditorPage.tsx]
 - "theme_themeeditorpage_sectioncard": "SectionCard()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L94 | neighbors=[ThemeEditorPage.tsx]
-- "theme_themeeditorpage_sectionkey": "SectionKey" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L37 | neighbors=[ThemeEditorPage.tsx]
-- "theme_themeeditorpage_settingrow": "SettingRow()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L47 | neighbors=[ThemeEditorPage.tsx]
-- "theme_themeeditorpage_settingrowprops": "SettingRowProps" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L39 | neighbors=[ThemeEditorPage.tsx]
-- "theme_themeeditorpage_themeeditorpage": "ThemeEditorPage()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L443 | neighbors=[ThemeEditorPage.tsx]
-- "theme_themeeditorpage_typographysection": "TypographySection()" | kind=code-symbol | source=apps/admin/src/pages/theme/ThemeEditorPage.tsx:L313 | neighbors=[ThemeEditorPage.tsx]
-- "ui_accordion_accordion": "Accordion()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L6 | neighbors=[accordion.tsx]
-- "ui_accordion_accordioncontent": "AccordionContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L49 | neighbors=[accordion.tsx]
-- "ui_accordion_accordionitem": "AccordionItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L16 | neighbors=[accordion.tsx]
-- "ui_accordion_accordiontrigger": "AccordionTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/accordion.tsx:L26 | neighbors=[accordion.tsx]
-- "ui_alert_alertaction": "AlertAction()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L66 | neighbors=[alert.tsx]
-- "ui_alert_alertdescription": "AlertDescription()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L50 | neighbors=[alert.tsx]
-- "ui_alert_alerttitle": "AlertTitle()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L37 | neighbors=[alert.tsx]
-- "ui_alert_dialog_alertdialog": "AlertDialog()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L7 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogaction": "AlertDialogAction()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L142 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogcancel": "AlertDialogCancel()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L155 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogcontent": "AlertDialogContent()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L39 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogdescription": "AlertDialogDescription()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L126 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogfooter": "AlertDialogFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L78 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogheader": "AlertDialogHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L62 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogmedia": "AlertDialogMedia()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L94 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogoverlay": "AlertDialogOverlay()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L23 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogportal": "AlertDialogPortal()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L17 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogtitle": "AlertDialogTitle()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L110 | neighbors=[alert-dialog.tsx]
-- "ui_alert_dialog_alertdialogtrigger": "AlertDialogTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/alert-dialog.tsx:L11 | neighbors=[alert-dialog.tsx]
-- "ui_avatar_avatar": "Avatar()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L6 | neighbors=[avatar.tsx]
-- "ui_avatar_avatarbadge": "AvatarBadge()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L55 | neighbors=[avatar.tsx]
-- "ui_avatar_avatarfallback": "AvatarFallback()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L39 | neighbors=[avatar.tsx]
-- "ui_avatar_avatargroup": "AvatarGroup()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L71 | neighbors=[avatar.tsx]
-- "ui_avatar_avatargroupcount": "AvatarGroupCount()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L84 | neighbors=[avatar.tsx]
-- "ui_avatar_avatarimage": "AvatarImage()" | kind=code-symbol | source=apps/admin/src/components/ui/avatar.tsx:L26 | neighbors=[avatar.tsx]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

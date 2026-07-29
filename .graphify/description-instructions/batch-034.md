@@ -17,6 +17,16 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "hooks_usecustomers_usecustomers": "useCustomers()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L5 | neighbors=[useCustomers.ts]
+- "hooks_usecustomers_usedeletecustomer": "useDeleteCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L44 | neighbors=[useCustomers.ts]
+- "hooks_usecustomers_useupdatecustomer": "useUpdateCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L32 | neighbors=[useCustomers.ts]
+- "hooks_usedashboard_usedashboardstats": "useDashboardStats()" | kind=code-symbol | source=apps/admin/src/hooks/useDashboard.ts:L4 | neighbors=[useDashboard.ts]
+- "hooks_useinventory_usecreatelocation": "useCreateLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L12 | neighbors=[useInventory.ts]
+- "hooks_useinventory_usedeletelocation": "useDeleteLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L36 | neighbors=[useInventory.ts]
+- "hooks_useinventory_useinventorylevels": "useInventoryLevels()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L48 | neighbors=[useInventory.ts]
+- "hooks_useinventory_uselocations": "useLocations()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L5 | neighbors=[useInventory.ts]
+- "hooks_useinventory_useupdateinventorylevel": "useUpdateInventoryLevel()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L56 | neighbors=[useInventory.ts]
+- "hooks_useinventory_useupdatelocation": "useUpdateLocation()" | kind=code-symbol | source=apps/admin/src/hooks/useInventory.ts:L24 | neighbors=[useInventory.ts]
 - "hooks_useorders_useorder": "useOrder()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L12 | neighbors=[useOrders.ts]
 - "hooks_useorders_useorders": "useOrders()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L5 | neighbors=[useOrders.ts]
 - "hooks_useorders_useupdateorderstatus": "useUpdateOrderStatus()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L20 | neighbors=[useOrders.ts]
@@ -47,16 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "hooks_usevariants_usecreatevariant": "useCreateVariant()" | kind=code-symbol | source=apps/admin/src/hooks/useVariants.ts:L13 | neighbors=[useVariants.ts]
 - "hooks_usevariants_usedeletevariant": "useDeleteVariant()" | kind=code-symbol | source=apps/admin/src/hooks/useVariants.ts:L38 | neighbors=[useVariants.ts]
 - "hooks_usevariants_useupdatevariant": "useUpdateVariant()" | kind=code-symbol | source=apps/admin/src/hooks/useVariants.ts:L25 | neighbors=[useVariants.ts]
-- "hooks_usevariants_usevariants": "useVariants()" | kind=code-symbol | source=apps/admin/src/hooks/useVariants.ts:L5 | neighbors=[useVariants.ts]
-- "interfaces_job_payload_interface_jobpayload": "JobPayload" | kind=code-symbol | source=apps/api/src/common/interfaces/job-payload.interface.ts:L5 | neighbors=[job-payload.interface.ts]
-- "inventory_inventory_controller_inventorycontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.controller.ts:L10 | neighbors=[InventoryController]
-- "inventory_inventory_controller_inventorycontroller_getlevels": ".getLevels()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.controller.ts:L18 | neighbors=[InventoryController]
-- "inventory_inventory_controller_inventorycontroller_getlocations": ".getLocations()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.controller.ts:L13 | neighbors=[InventoryController]
-- "inventory_inventory_module_inventorymodule": "InventoryModule" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.module.ts:L13 | neighbors=[inventory.module.ts]
-- "inventory_inventory_service_inventoryservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L8 | neighbors=[InventoryService]
-- "inventory_inventory_service_inventoryservice_getlevels": ".getLevels()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L19 | neighbors=[InventoryService]
-- "inventory_inventory_service_inventoryservice_getlocations": ".getLocations()" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L13 | neighbors=[InventoryService]
-- "jetski_gemini_loader_loader_loadskillindex": "loadSkillIndex()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L47 | neighbors=[loader.mjs]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

@@ -24,6 +24,11 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "shipping_shipping_controller": "shipping.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingController, tenant-context.ts, TenantContext]
+- "shipping_shipping_service": "shipping.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingService, tenant-context.ts, TenantContext]
+- "slug_product_page_client": "product-page-client.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L1 | neighbors=[e5d6c72 feat: implement end-to-end chec…, page.tsx, section-renderer.tsx, SectionRenderer(), ProductPageClient()]
+- "subscriptions_subscriptions_controller": "subscriptions.controller.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsController, tenant-context.ts, TenantContext]
+- "subscriptions_subscriptions_service": "subscriptions.service.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsService, tenant-context.ts, TenantContext]
 - "super_admin_provisiontenantdialog": "ProvisionTenantDialog.tsx" | kind=code-symbol | source=apps/admin/src/pages/super-admin/ProvisionTenantDialog.tsx:L1 | neighbors=[4ddc1b9 fix(build): resolve type and im…, 6ffba43 feat: add MFA auth flow, super …, PLANS, Props, ProvisionTenantDialog()]
 - "tax_tax_controller": "tax.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.controller.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, TaxController, tenant-context.ts, TenantContext]
 - "tenant_tenant_service": "tenant.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …, tenant-context.ts, TenantContext, TenantService]
@@ -46,6 +51,7 @@ one-sentence description — no prose, no markdown fences.
 - "20260716164323_init_migration_stock_reservations": "stock_reservations" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L228 | neighbors=[migration.sql, orders, product_variants, tenants]
 - "20260716164323_init_migration_users": "users" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L61 | neighbors=[migration.sql, audit_log, roles, tenants]
 - "api_client_apierror": "ApiError" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L1 | neighbors=[client.ts, .constructor(), request(), index.ts]
+- "api_client_request": "request()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L29 | neighbors=[client.ts, ApiError, getToken(), processQueue()]
 - "api_orders_order": "Order" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L11 | neighbors=[dashboard.ts, index.ts, orders.ts, invoice.ts]
 - "audit_log_audit_log_controller": "audit-log.controller.ts" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L1 | neighbors=[AuditLogController, tenant-context.ts, TenantContext, 3d66d0f feat: implement payments module…]
 - "audit_log_audit_log_service": "audit-log.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L1 | neighbors=[AuditLogService, tenant-context.ts, TenantContext, 3d66d0f feat: implement payments module…]
@@ -55,15 +61,9 @@ one-sentence description — no prose, no markdown fences.
 - "b2b_draftorderspage": "DraftOrdersPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/b2b/DraftOrdersPage.tsx:L1 | neighbors=[DraftOrdersPage(), DraftOrdersTable(), 7d74efe feat(commerce): implement B2B, …, bb61ae8 feat(commerce): wire up Admin U…]
 - "cache_tenant_cache_service_tenantcacheservice_generatekey": ".generateKey()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L9 | neighbors=[TenantCacheService, .del(), .get(), .set()]
 - "checkout_checkout_controller": "checkout.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.controller.ts:L1 | neighbors=[CheckoutController, tenant-context.ts, TenantContext, 3d66d0f feat: implement payments module…]
-- "checkout_checkout_module": "checkout.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.module.ts:L1 | neighbors=[CheckoutModule, 3d66d0f feat: implement payments module…, 65feb38 feat(api): Integrated Promotion…, efe67e9 fix(build): resolve component t…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@24a34d045a14d261a746ac5d5928be948832036d": "24a34d0 docs: initialize enterprise plan, system design documentation, and API …" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, 57631e5 docs: add UI specifications, ag…, b6a4088 docs: add initial implementatio…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@39bac8e1aa8ff382bccf8de537230e7af6e9d136": "39bac8e docs: initialize architecture, data contracts, and project documentatio…" | kind=Commit | source=git | neighbors=[21888ff feat: implement commerce, catal…, feat/admin-ui-refactor, main, 8edc82c docs: initialize core architect…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@49b2dd18fbce0da28e025e428953bc048c8267e4": "49b2dd1 chore: add graphify folder" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, 4ece707 feat(admin): port UI components…, bb279ee fix(ci): fix api tests and lint…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@4a91873404bd4be9cc50866ad56e211c7be01ebd": "4a91873 chore: add .graphify directory to git" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, 4029d6f fix(commerce): resolve architec…, 4ddc1b9 fix(build): resolve type and im…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@57631e5a33eb718d94b3ec80adf15fc46eef1268": "57631e5 docs: add UI specifications, agent skills, and architectural documentat…" | kind=Commit | source=git | neighbors=[24a34d0 docs: initialize enterprise pla…, feat/admin-ui-refactor, main, 3d66d0f feat: implement payments module…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@7bea885374b1d9def6a02713ebf8470ee5510cfe": "7bea885 feat: implement full-stack authentication flow and admin entity managem…" | kind=Commit | source=git | neighbors=[6ffba43 feat: add MFA auth flow, super …, feat/admin-ui-refactor, main, 92e2c6a feat: add checkout tenant isola…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@8c8bb73c781df0b5c493de636341d14ba2b0fd2e": "8c8bb73 docs: add UI component creation epic and architecture analysis document…" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, c160e7d add agent configuration and cod…, 8edc82c docs: initialize core architect…]
-- "commit:repo:github.com/al-rasels/commerce-os-core@8edc82ce07af07520560980aef5fe84913c0ecd3": "8edc82c docs: initialize core architectural, entity contract, and experience en…" | kind=Commit | source=git | neighbors=[39bac8e docs: initialize architecture, …, feat/admin-ui-refactor, main, 8c8bb73 docs: add UI component creation…]
 
 ## Instructions
 
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

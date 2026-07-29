@@ -17,6 +17,12 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "api_catalog_productinput": "ProductInput" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L16 | neighbors=[catalog.ts, index.ts]
+- "api_catalog_productvariant": "ProductVariant" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L25 | neighbors=[catalog.ts, index.ts]
+- "api_catalog_productvariantinput": "ProductVariantInput" | kind=code-symbol | source=apps/admin/src/lib/api/catalog.ts:L38 | neighbors=[catalog.ts, index.ts]
+- "api_client_gettoken": "getToken()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L11 | neighbors=[client.ts, request()]
+- "api_client_processqueue": "processQueue()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L18 | neighbors=[client.ts, request()]
+- "api_customers_customerapi": "customerApi" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L41 | neighbors=[customers.ts, index.ts]
 - "api_customers_customerinput": "CustomerInput" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L35 | neighbors=[customers.ts, index.ts]
 - "api_customers_customerlistresponse": "CustomerListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L12 | neighbors=[customers.ts, index.ts]
 - "api_customers_listcustomersparams": "ListCustomersParams" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L29 | neighbors=[customers.ts, index.ts]
@@ -51,12 +57,6 @@ one-sentence description — no prose, no markdown fences.
 - "api_subscriptions_subscriptionsapi": "subscriptionsApi" | kind=code-symbol | source=apps/admin/src/lib/api/subscriptions.ts:L22 | neighbors=[index.ts, subscriptions.ts]
 - "api_superadmin_superadminapi": "superAdminApi" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L28 | neighbors=[index.ts, superAdmin.ts]
 - "api_superadmin_tenant": "Tenant" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L3 | neighbors=[index.ts, superAdmin.ts]
-- "api_superadmin_tenantdetail": "TenantDetail" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L20 | neighbors=[index.ts, superAdmin.ts]
-- "api_superadmin_tenantlistresponse": "TenantListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L13 | neighbors=[index.ts, superAdmin.ts]
-- "api_tax_taxapi": "taxApi" | kind=code-symbol | source=apps/admin/src/lib/api/tax.ts:L13 | neighbors=[index.ts, tax.ts]
-- "api_tax_taxrule": "TaxRule" | kind=code-symbol | source=apps/admin/src/lib/api/tax.ts:L3 | neighbors=[index.ts, tax.ts]
-- "api_users_inviteuserinput": "InviteUserInput" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L30 | neighbors=[index.ts, users.ts]
-- "api_users_listusersparams": "ListUsersParams" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L24 | neighbors=[index.ts, users.ts]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

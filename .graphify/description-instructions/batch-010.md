@@ -17,6 +17,14 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "prisma_seed": "seed.ts" | kind=code-symbol | source=apps/api/prisma/seed.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…, main(), prisma]
+- "products_productformpage": "ProductFormPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/products/ProductFormPage.tsx:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, ac49c08 chore: batch commit — catalog C…, efe67e9 fix(build): resolve component t…, ProductFormPage()]
+- "repositories_bundle_repository": "bundle.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/bundle.repository.ts:L1 | neighbors=[bdd391f feat(admin): fix ts errors in P…, BundleRepository, tenant-context.ts, TenantContext]
+- "repositories_bundle_repository_bundlerepository": "BundleRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/bundle.repository.ts:L8 | neighbors=[bundle.repository.ts, .constructor(), .setBundleItems(), TenantScopedRepository]
+- "repositories_cart_item_repository_cartitemrepository": "CartItemRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart-item.repository.ts:L8 | neighbors=[cart-item.repository.ts, .clearByCartId(), .constructor(), TenantScopedRepository]
+- "repositories_page_layout_repository_pagelayoutrepository": "PageLayoutRepository" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts:L8 | neighbors=[page-layout.repository.ts, .constructor(), .findByPageKey(), TenantScopedRepository]
+- "repositories_product_variant_repository_productvariantrepository": "ProductVariantRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product-variant.repository.ts:L8 | neighbors=[product-variant.repository.ts, .constructor(), .incrementReservedStock(), TenantScopedRepository]
+- "scripts_api_validator_main": "main()" | kind=code-symbol | source=.agents/skills/api-patterns/scripts/api_validator.py:L162 | neighbors=[api_validator.py, check_api_code(), check_openapi_spec(), find_api_files()]
 - "scripts_schema_validator": "schema_validator.py" | kind=code-symbol | source=.agents/skills/database-design/scripts/schema_validator.py:L1 | neighbors=[21888ff feat: implement commerce, catal…, find_schema_files(), main(), validate_prisma_schema()]
 - "scripts_ts_diagnostic_check_any_usage": "check_any_usage()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L145 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check for any type usage.]
 - "scripts_ts_diagnostic_check_performance": "check_performance()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L172 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check type checking performance.]
@@ -43,20 +51,12 @@ one-sentence description — no prose, no markdown fences.
 - "admin_admin_controller": "admin.controller.ts" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L1 | neighbors=[AdminController, 3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
 - "admin_admin_service": "admin.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L1 | neighbors=[AdminService, 3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
 - "admin_vite_config": "vite.config.ts" | kind=code-symbol | source=apps/admin/vite.config.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 3d66d0f feat: implement payments module…, ac49c08 chore: batch commit — catalog C…]
-- "api_client_request": "request()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L15 | neighbors=[client.ts, ApiError, getToken()]
 - "api_customers_customer": "Customer" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L3 | neighbors=[customers.ts, CustomerDetail, index.ts]
 - "api_customers_customerdetail": "CustomerDetail" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L19 | neighbors=[customers.ts, Customer, index.ts]
 - "api_fix_hasfeature": "fix-hasfeature.js" | kind=code-symbol | source=apps/api/fix-hasfeature.js:L1 | neighbors=[files, fs, efe67e9 fix(build): resolve component t…]
 - "api_fix_hasfeature2": "fix-hasfeature2.js" | kind=code-symbol | source=apps/api/fix-hasfeature2.js:L1 | neighbors=[files, fs, efe67e9 fix(build): resolve component t…]
 - "api_fix_imports": "fix-imports.js" | kind=code-symbol | source=apps/api/fix-imports.js:L1 | neighbors=[files, fs, efe67e9 fix(build): resolve component t…]
 - "api_fix_theme": "fix-theme.js" | kind=code-symbol | source=apps/api/fix-theme.js:L1 | neighbors=[files, fs, efe67e9 fix(build): resolve component t…]
-- "api_users_user": "User" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L3 | neighbors=[index.ts, users.ts, UserDetail]
-- "api_users_userdetail": "UserDetail" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L20 | neighbors=[index.ts, users.ts, User]
-- "audit_log_audit_log_controller_auditlogcontroller": "AuditLogController" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L10 | neighbors=[audit-log.controller.ts, .constructor(), .list()]
-- "audit_log_audit_log_repository_auditlogrepository": "AuditLogRepository" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L7 | neighbors=[audit-log.repository.ts, .constructor(), TenantScopedRepository]
-- "b2b_b2b_module": "b2b.module.ts" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.module.ts:L1 | neighbors=[B2bModule, 7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…]
-- "b2b_companyprofileslistpage": "CompanyProfilesListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/b2b/CompanyProfilesListPage.tsx:L1 | neighbors=[CompanyProfilesListPage(), 7d74efe feat(commerce): implement B2B, …, bb61ae8 feat(commerce): wire up Admin U…]
-- "builder_builder_module": "builder.module.ts" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.module.ts:L1 | neighbors=[BuilderModule, 21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…]
 
 ## Instructions
 
@@ -68,7 +68,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

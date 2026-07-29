@@ -24,8 +24,14 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
+- "auth_auth_controller_spec": "auth.controller.spec.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.spec.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, 7d74efe feat(commerce): implement B2B, …, bb279ee fix(ci): fix api tests and lint…]
+- "auth_auth_module": "auth.module.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.module.ts:L1 | neighbors=[AuthModule, 21888ff feat: implement commerce, catal…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…]
+- "auth_auth_service_authservice_generatetokens": ".generateTokens()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L310 | neighbors=[AuthService, .login(), .mfaVerify(), .refresh(), .register()]
+- "b2b_b2b_controller": "b2b.controller.ts" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.controller.ts:L1 | neighbors=[B2bController, tenant-context.ts, TenantContext, 7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…]
+- "b2b_b2b_service": "b2b.service.ts" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.service.ts:L1 | neighbors=[B2bService, tenant-context.ts, TenantContext, 7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…]
 - "cart_cart_controller": "cart.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L1 | neighbors=[CartController, tenant-context.ts, TenantContext, 3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …]
 - "categories_categorylistpage": "CategoryListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/categories/CategoryListPage.tsx:L1 | neighbors=[buildTree(), CategoryListPage(), CategoryNode, SortableCategoryRow(), ac49c08 chore: batch commit — catalog C…]
+- "checkout_checkout_module": "checkout.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/checkout.module.ts:L1 | neighbors=[CheckoutModule, 3d66d0f feat: implement payments module…, 65feb38 feat(api): Integrated Promotion…, d26bd04 feat(commerce): implement advan…, efe67e9 fix(build): resolve component t…]
 - "commit:repo:github.com/al-rasels/commerce-os-core@d6163bc8b13f9aeaff47c22fa5795fb17e01f788": "d6163bc docs: update PROGRESS_REPORT.md and MASTER_TASKLIST.md to July 20 state" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, 6ffba43 feat: add MFA auth flow, super …, tenant-admin.controller.ts, f1d1a16 feat: implement storefront foun…]
 - "components_breadcrumbs_spec": "breadcrumbs.spec.tsx" | kind=code-symbol | source=packages/components/breadcrumbs.spec.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, breadcrumbs.tsx, Breadcrumbs(), Crumb, defaultItems]
 - "components_checkbox": "checkbox.tsx" | kind=code-symbol | source=packages/components/checkbox.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Checkbox(), utils.ts, cn(), index.ts]
@@ -44,7 +50,6 @@ one-sentence description — no prose, no markdown fences.
 - "hooks_usereturns": "useReturns.ts" | kind=code-symbol | source=apps/admin/src/hooks/useReturns.ts:L1 | neighbors=[bb61ae8 feat(commerce): wire up Admin U…, useCreateReturn(), useDeleteReturn(), useReturns(), useUpdateReturn()]
 - "hooks_usesubscriptions": "useSubscriptions.ts" | kind=code-symbol | source=apps/admin/src/hooks/useSubscriptions.ts:L1 | neighbors=[bb61ae8 feat(commerce): wire up Admin U…, useCreateSubscription(), useDeleteSubscription(), useSubscriptions(), useUpdateSubscription()]
 - "inventory_inventory_controller": "inventory.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, InventoryController, tenant-context.ts, TenantContext]
-- "inventory_inventory_service": "inventory.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, InventoryService, tenant-context.ts, TenantContext]
 - "jetski_gemini_loader_loader_buildmodelmessages": "buildModelMessages()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L118 | neighbors=[loader.mjs, assertValidMaxSkills(), collectReferencedSkillIds(), loadSkillBodies(), resolveSkillsFromMessages()]
 - "order_order_controller_ordercontroller": "OrderController" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L21 | neighbors=[order.controller.ts, .constructor(), .get(), .list(), .updateStatus()]
 - "order_order_repository_spec": "order.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.spec.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…, tenant-context.ts, TenantContext]
@@ -59,11 +64,6 @@ one-sentence description — no prose, no markdown fences.
 - "returns_returns_service": "returns.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/returns.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, ReturnsService, tenant-context.ts, TenantContext]
 - "scripts_api_validator": "api_validator.py" | kind=code-symbol | source=.agents/skills/api-patterns/scripts/api_validator.py:L1 | neighbors=[21888ff feat: implement commerce, catal…, check_api_code(), check_openapi_spec(), find_api_files(), main()]
 - "settings_pagelayouteditor": "PageLayoutEditor.tsx" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutEditor.tsx:L1 | neighbors=[0361288 feat(admin): Scaffolded Phase 2…, 7d74efe feat(commerce): implement B2B, …, ac49c08 chore: batch commit — catalog C…, createDefaultSection(), PageLayoutEditorPage()]
-- "shipping_shipping_controller": "shipping.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingController, tenant-context.ts, TenantContext]
-- "shipping_shipping_service": "shipping.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingService, tenant-context.ts, TenantContext]
-- "slug_product_page_client": "product-page-client.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L1 | neighbors=[e5d6c72 feat: implement end-to-end chec…, page.tsx, section-renderer.tsx, SectionRenderer(), ProductPageClient()]
-- "subscriptions_subscriptions_controller": "subscriptions.controller.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsController, tenant-context.ts, TenantContext]
-- "subscriptions_subscriptions_service": "subscriptions.service.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsService, tenant-context.ts, TenantContext]
 
 ## Instructions
 
@@ -75,7 +75,6 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
-
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",
