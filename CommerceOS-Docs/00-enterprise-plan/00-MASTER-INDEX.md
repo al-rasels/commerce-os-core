@@ -21,6 +21,7 @@ Full plan, built from scratch, organized by module. Phase 1 (MVP, per `10-roadma
 | 4 | Quality, DevOps & Documentation (cross-cutting, all modules) | — | `04-quality-devops-docs-tasks.md` |
 | 5 | Requirement Traceability Matrix & Gap Analysis | — | `05-traceability-and-gap-analysis.md` |
 | 6 | Phase 2–5 Epic Backlog (Business Engine, Intelligence Engine, scale-out) | Business + Intelligence Engines | `06-phase-2-5-epic-backlog.md` |
+| 7 | Phase 6 Epic Backlog (Professional & Enterprise Parity) | Experience, Commerce & Operations | `.tasks/next/05-phase6-professional-features.md` |
 
 ## Requirement IDs (Phase 1)
 
@@ -57,6 +58,7 @@ Milestone numbers match `10-roadmap/02-phase1-mvp-spec.md` §3 (12 Phase-1 miles
 - Cross-cutting QA/DevOps/Docs atomic tasks: **58**
 - **Phase 1 grand total: 293 atomic tasks**
 - Phase 2–5: **41 epics**, ~9–14 features each — atomic decomposition deferred per roadmap governing rule (available on request, module by module)
+- Phase 6: **13 epics**, ~4-6 features each focusing on professional Shopify/WooCommerce level parity (see `.tasks/next/05-phase6-professional-features.md`)
 - **Known open flag (not a missing task, a decision point):** `csurf` (CSRF library in package catalog) has upstream maintenance concerns — re-verify before any session-cookie admin flow is added. See `05-traceability-and-gap-analysis.md`.
 
 ## Milestone → File Cross-Reference
