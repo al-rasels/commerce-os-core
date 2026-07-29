@@ -1,0 +1,573 @@
+{
+  "nodes": [
+    {
+      "id": "components_index",
+      "label": "index.ts",
+      "file_type": "code",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_registry_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L1",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_utils_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L2",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_hero_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_header_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L4",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_footer_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L5",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_product_card_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L6",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_product_grid_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L7",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_cart_drawer_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L8",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_checkout_summary_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L9",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_testimonials_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L10",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_newsletter_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L11",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_faq_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L12",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_rich_text_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L13",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_gallery_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L14",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_banner_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L15",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_breadcrumbs_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L16",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_search_bar_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L17",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_pagination_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L18",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_sidebar_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L19",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_modal_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L20",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_tabs_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L21",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_skeleton_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L22",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_button_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L23",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_input_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L24",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_textarea_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L25",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_select_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L26",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_empty_state_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L27",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_toast_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L28",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_data_table_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L29",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_form_renderer_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L30",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_section_schema_ts",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L31",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_alert_dialog_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L33",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_alert_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L34",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_avatar_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L35",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_badge_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L36",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_breadcrumb_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L37",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_card_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L38",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_chart_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L39",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_checkbox_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L40",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_collapsible_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L41",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_combobox_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L42",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_command_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L43",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_dialog_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L44",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_dropdown_menu_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L45",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_input_group_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L46",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_label_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L47",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_popover_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L48",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_progress_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L49",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_radio_group_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L50",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_scroll_area_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L51",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_separator_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L52",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_sheet_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L53",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_switch_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L54",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_table_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L55",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_timeline_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L56",
+      "weight": 1,
+      "context": "re-export"
+    },
+    {
+      "source": "components_index",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_packages_components_tooltip_tsx",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/index.ts",
+      "source_location": "L57",
+      "weight": 1,
+      "context": "re-export"
+    }
+  ]
+}

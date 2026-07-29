@@ -1,0 +1,138 @@
+{
+  "nodes": [
+    {
+      "id": "orders_ordertimeline",
+      "label": "OrderTimeline.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "orders_ordertimeline_ordertimelineprops",
+      "label": "OrderTimelineProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "orders_ordertimeline_statusorder",
+      "label": "statusOrder",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "orders_ordertimeline_destructive_actions",
+      "label": "DESTRUCTIVE_ACTIONS",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "orders_ordertimeline_confirmation_labels",
+      "label": "CONFIRMATION_LABELS",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "orders_ordertimeline_ordertimeline",
+      "label": "OrderTimeline()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L38"
+    }
+  ],
+  "edges": [
+    {
+      "source": "orders_ordertimeline",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "framer_motion",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "button",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "alert_dialog",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders_ordertimeline_ordertimelineprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L17",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders_ordertimeline_statusorder",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L23",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders_ordertimeline_destructive_actions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L25",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders_ordertimeline_confirmation_labels",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L27",
+      "weight": 1
+    },
+    {
+      "source": "orders_ordertimeline",
+      "target": "orders_ordertimeline_ordertimeline",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/components/orders/OrderTimeline.tsx",
+      "source_location": "L38",
+      "weight": 1
+    }
+  ]
+}

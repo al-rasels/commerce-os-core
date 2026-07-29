@@ -3,31 +3,36 @@
 ## Status: BACKLOG
 
 ## Dependencies
+
 - [x] Session 9 — Cart/Checkout/Orders API (completed)
-- [ ] Session 06a — Storefront Components (for CartDrawer, CheckoutSummary)
+- [x] Session 06a — Storefront Components (for CartDrawer, CheckoutSummary)
 
 ## Objective
+
 Build the storefront cart and checkout flow — add to cart, review, enter address, select shipping, pay via Stripe, order confirmation.
 
 ## Deliverables
-- [ ] Cart drawer (slide over from header) with line items, quantity adjustment, remove
-- [ ] Cart page (for mobile or full-screen view)
-- [ ] Checkout page with steps:
-  - [ ] Address form (shipping + billing)
-  - [ ] Shipping method selection
-  - [ ] Payment (Stripe Elements / PaymentElement)
-  - [ ] Review + place order
-- [ ] Order confirmation page with summary
-- [ ] Guest checkout flow (session-bound cart)
+
+- [x] Cart drawer (slide over from header) with line items, quantity adjustment, remove
+- [x] Cart page (for mobile or full-screen view)
+- [x] Checkout page with steps:
+  - [x] Address form (shipping + billing)
+  - [x] Shipping method selection
+  - [x] Payment (Stripe Elements / PaymentElement)
+  - [x] Review + place order
+- [x] Order confirmation page with summary
+- [x] Guest checkout flow (session-bound cart)
 
 ## Acceptance Criteria
-- [ ] Adding a product to cart shows item in drawer
-- [ ] Checkout flow completes with Stripe test card
-- [ ] Order confirmation displays correct totals and items
-- [ ] Cart persists for guest via `session_id` cookie
-- [ ] Concurrent checkout on last stock — only one succeeds
+
+- [x] Adding a product to cart shows item in drawer
+- [x] Checkout flow completes with Stripe test card
+- [x] Order confirmation displays correct totals and items
+- [x] Cart persists for guest via `session_id` cookie
+- [x] Concurrent checkout on last stock — only one succeeds
 
 ## Files to Touch
+
 - `apps/storefront/src/app/cart/` — cart page
 - `apps/storefront/src/app/checkout/` — checkout flow pages
 - `apps/storefront/src/app/order/confirmation/[id]/` — confirmation page
@@ -36,6 +41,7 @@ Build the storefront cart and checkout flow — add to cart, review, enter addre
 - `apps/storefront/src/lib/api/` — API client functions
 
 ## Notes
+
 - Use Stripe PaymentElement for PCI-compliant payment form
 - Cart API determines guest vs. authenticated user via TenantContext
 - Address form can skip geocoding/validation for Phase 1

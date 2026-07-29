@@ -1,4 +1,4 @@
-# Node Description Batch 16 of 37
+# Node Description Batch 16 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "repositories_cart_repository": "cart.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart.repository.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, CartRepository]
-- "repositories_category_repository": "category.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/category.repository.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, CategoryRepository]
-- "repositories_product_repository": "product.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product.repository.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, ProductRepository]
-- "repositories_tenant_scoped_repository_aggregate": "aggregate()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L30 | neighbors=[tenant-scoped.repository.ts, scope()]
-- "repositories_tenant_scoped_repository_count": "count()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L16 | neighbors=[tenant-scoped.repository.ts, scope()]
-- "repositories_tenant_scoped_repository_findmany": "findMany()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L22 | neighbors=[tenant-scoped.repository.ts, scope()]
-- "repositories_tenant_scoped_repository_findunique": "findUnique()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L46 | neighbors=[tenant-scoped.repository.ts, update()]
-- "repositories_tenant_scoped_repository_groupby": "groupBy()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L38 | neighbors=[tenant-scoped.repository.ts, scope()]
-- "repositories_tenant_scoped_repository_softdelete": "softDelete()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L78 | neighbors=[tenant-scoped.repository.ts, update()]
-- "search_search_form_searchform": "SearchForm()" | kind=code-symbol | source=apps/storefront/src/app/search/search-form.tsx:L8 | neighbors=[page.tsx, search-form.tsx]
-- "shipping_shipping_module": "shipping.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.module.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, ShippingModule]
-- "slug_product_client_productclient": "ProductClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-client.tsx:L10 | neighbors=[section-renderer.tsx, product-client.tsx]
-- "slug_product_page_client_productpageclient": "ProductPageClient()" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L6 | neighbors=[page.tsx, product-page-client.tsx]
-- "src_app_service": "app.service.ts" | kind=code-symbol | source=apps/api/src/app.service.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, AppService]
-- "src_app_service_appservice": "AppService" | kind=code-symbol | source=apps/api/src/app.service.ts:L4 | neighbors=[app.service.ts, .getHello()]
-- "storefront_next_config": "next.config.ts" | kind=code-symbol | source=apps/storefront/next.config.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, nextConfig]
-- "storefront_postcss_config": "postcss.config.mjs" | kind=code-symbol | source=apps/storefront/postcss.config.mjs:L1 | neighbors=[028709f chore: scaffold monorepo with a…, config]
-- "storefront_storefront_checkout_controller_storefrontcheckoutcontroller": "StorefrontCheckoutController" | kind=code-symbol | source=apps/api/src/modules/storefront/storefront-checkout.controller.ts:L15 | neighbors=[storefront-checkout.controller.ts, .checkout()]
-- "storefront_storefront_order_controller_storefrontordercontroller": "StorefrontOrderController" | kind=code-symbol | source=apps/api/src/modules/storefront/storefront-order.controller.ts:L6 | neighbors=[storefront-order.controller.ts, .getOrder()]
-- "tax_tax_module": "tax.module.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/tax.module.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, TaxModule]
-- "tenant_tenant_admin_controller_tenantadmincontroller_adddomain": ".addDomain()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L121 | neighbors=[TenantAdminController, .create()]
-- "tenant_tenant_admin_controller_tenantadmincontroller_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant-admin.controller.ts:L88 | neighbors=[TenantAdminController, .addDomain()]
-- "tenant_tenant_module": "tenant.module.ts" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.module.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, TenantModule]
-- "tenant_tenant_service_spec": "tenant.service.spec.ts" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.spec.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …]
-- "test_tenant_isolation_e2e_spec": "tenant-isolation.e2e-spec.ts" | kind=code-symbol | source=apps/api/test/tenant-isolation.e2e-spec.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
-- "theme_engine_index_detectconflicts": "detectConflicts()" | kind=code-symbol | source=packages/theme-engine/index.ts:L26 | neighbors=[index.ts, resolveOverride()]
-- "ui_alert_alert": "Alert()" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L22 | neighbors=[alert.tsx, alertVariants]
-- "ui_alert_alertvariants": "alertVariants" | kind=code-symbol | source=apps/admin/src/components/ui/alert.tsx:L6 | neighbors=[alert.tsx, Alert()]
-- "ui_badge_badge": "Badge()" | kind=code-symbol | source=apps/storefront/src/components/ui/badge.tsx:L30 | neighbors=[badge.tsx, badgeVariants]
-- "ui_badge_badgevariants": "badgeVariants" | kind=code-symbol | source=apps/storefront/src/components/ui/badge.tsx:L7 | neighbors=[badge.tsx, Badge()]
-- "ui_button_buttonvariants": "buttonVariants" | kind=code-symbol | source=apps/storefront/src/components/ui/button.tsx:L6 | neighbors=[button.tsx, Button()]
-- "ui_card_card": "Card()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L5 | neighbors=[page.tsx, card.tsx]
-- "ui_card_cardcontent": "CardContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L72 | neighbors=[page.tsx, card.tsx]
-- "ui_card_carddescription": "CardDescription()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L49 | neighbors=[page.tsx, card.tsx]
-- "ui_card_cardheader": "CardHeader()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L23 | neighbors=[page.tsx, card.tsx]
-- "ui_card_cardtitle": "CardTitle()" | kind=code-symbol | source=apps/storefront/src/components/ui/card.tsx:L36 | neighbors=[page.tsx, card.tsx]
-- "ui_carousel_carouselcontent": "CarouselContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L135 | neighbors=[carousel.tsx, useCarousel()]
-- "ui_carousel_carouselitem": "CarouselItem()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L156 | neighbors=[carousel.tsx, useCarousel()]
-- "ui_carousel_carouselnext": "CarouselNext()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L204 | neighbors=[carousel.tsx, useCarousel()]
-- "ui_carousel_carouselprevious": "CarouselPrevious()" | kind=code-symbol | source=apps/storefront/src/components/ui/carousel.tsx:L174 | neighbors=[carousel.tsx, useCarousel()]
+- "api_customers_customerinput": "CustomerInput" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L35 | neighbors=[customers.ts, index.ts]
+- "api_customers_customerlistresponse": "CustomerListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L12 | neighbors=[customers.ts, index.ts]
+- "api_customers_listcustomersparams": "ListCustomersParams" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L29 | neighbors=[customers.ts, index.ts]
+- "api_dashboard_dashboardapi": "dashboardApi" | kind=code-symbol | source=apps/admin/src/lib/api/dashboard.ts:L14 | neighbors=[dashboard.ts, index.ts]
+- "api_dashboard_dashboardstats": "DashboardStats" | kind=code-symbol | source=apps/admin/src/lib/api/dashboard.ts:L4 | neighbors=[dashboard.ts, index.ts]
+- "api_eslint_config": "eslint.config.mjs" | kind=code-symbol | source=apps/api/eslint.config.mjs:L1 | neighbors=[028709f chore: scaffold monorepo with a…, bb279ee fix(ci): fix api tests and lint…]
+- "api_experience_resolvedtheme": "ResolvedTheme" | kind=code-symbol | source=apps/admin/src/lib/api/experience.ts:L3 | neighbors=[experience.ts, index.ts]
+- "api_experience_themeapi": "themeApi" | kind=code-symbol | source=apps/admin/src/lib/api/experience.ts:L10 | neighbors=[experience.ts, index.ts]
+- "api_inventory_inventoryapi": "inventoryApi" | kind=code-symbol | source=apps/admin/src/lib/api/inventory.ts:L41 | neighbors=[index.ts, inventory.ts]
+- "api_inventory_inventorylevel": "InventoryLevel" | kind=code-symbol | source=apps/admin/src/lib/api/inventory.ts:L23 | neighbors=[index.ts, inventory.ts]
+- "api_inventory_inventorylevelinput": "InventoryLevelInput" | kind=code-symbol | source=apps/admin/src/lib/api/inventory.ts:L34 | neighbors=[index.ts, inventory.ts]
+- "api_inventory_inventorylocation": "InventoryLocation" | kind=code-symbol | source=apps/admin/src/lib/api/inventory.ts:L3 | neighbors=[index.ts, inventory.ts]
+- "api_inventory_inventorylocationinput": "InventoryLocationInput" | kind=code-symbol | source=apps/admin/src/lib/api/inventory.ts:L15 | neighbors=[index.ts, inventory.ts]
+- "api_orders_cantransition": "canTransition()" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L49 | neighbors=[index.ts, orders.ts]
+- "api_orders_listordersparams": "ListOrdersParams" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L32 | neighbors=[index.ts, orders.ts]
+- "api_orders_order_valid_transitions": "ORDER_VALID_TRANSITIONS" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L41 | neighbors=[index.ts, orders.ts]
+- "api_orders_orderapi": "orderApi" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L53 | neighbors=[index.ts, orders.ts]
+- "api_orders_orderitem": "OrderItem" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L3 | neighbors=[index.ts, orders.ts]
+- "api_orders_orderlistresponse": "OrderListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/orders.ts:L25 | neighbors=[index.ts, orders.ts]
+- "api_pages_pagelayout": "PageLayout" | kind=code-symbol | source=apps/admin/src/lib/api/pages.ts:L11 | neighbors=[index.ts, pages.ts]
+- "api_pages_pagesapi": "pagesApi" | kind=code-symbol | source=apps/admin/src/lib/api/pages.ts:L17 | neighbors=[index.ts, pages.ts]
+- "api_pages_pagesection": "PageSection" | kind=code-symbol | source=apps/admin/src/lib/api/pages.ts:L3 | neighbors=[index.ts, pages.ts]
+- "api_promotions_promotion": "Promotion" | kind=code-symbol | source=apps/admin/src/lib/api/promotions.ts:L3 | neighbors=[index.ts, promotions.ts]
+- "api_promotions_promotionsapi": "promotionsApi" | kind=code-symbol | source=apps/admin/src/lib/api/promotions.ts:L16 | neighbors=[index.ts, promotions.ts]
+- "api_returns_returnrequest": "ReturnRequest" | kind=code-symbol | source=apps/admin/src/lib/api/returns.ts:L3 | neighbors=[index.ts, returns.ts]
+- "api_returns_returnrequestinput": "ReturnRequestInput" | kind=code-symbol | source=apps/admin/src/lib/api/returns.ts:L15 | neighbors=[index.ts, returns.ts]
+- "api_returns_returnsapi": "returnsApi" | kind=code-symbol | source=apps/admin/src/lib/api/returns.ts:L23 | neighbors=[index.ts, returns.ts]
+- "api_shipping_shippingapi": "shippingApi" | kind=code-symbol | source=apps/admin/src/lib/api/shipping.ts:L12 | neighbors=[index.ts, shipping.ts]
+- "api_shipping_shippingrule": "ShippingRule" | kind=code-symbol | source=apps/admin/src/lib/api/shipping.ts:L3 | neighbors=[index.ts, shipping.ts]
+- "api_subscriptions_subscription": "Subscription" | kind=code-symbol | source=apps/admin/src/lib/api/subscriptions.ts:L3 | neighbors=[index.ts, subscriptions.ts]
+- "api_subscriptions_subscriptioninput": "SubscriptionInput" | kind=code-symbol | source=apps/admin/src/lib/api/subscriptions.ts:L15 | neighbors=[index.ts, subscriptions.ts]
+- "api_subscriptions_subscriptionsapi": "subscriptionsApi" | kind=code-symbol | source=apps/admin/src/lib/api/subscriptions.ts:L22 | neighbors=[index.ts, subscriptions.ts]
+- "api_superadmin_superadminapi": "superAdminApi" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L28 | neighbors=[index.ts, superAdmin.ts]
+- "api_superadmin_tenant": "Tenant" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L3 | neighbors=[index.ts, superAdmin.ts]
+- "api_superadmin_tenantdetail": "TenantDetail" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L20 | neighbors=[index.ts, superAdmin.ts]
+- "api_superadmin_tenantlistresponse": "TenantListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L13 | neighbors=[index.ts, superAdmin.ts]
+- "api_tax_taxapi": "taxApi" | kind=code-symbol | source=apps/admin/src/lib/api/tax.ts:L13 | neighbors=[index.ts, tax.ts]
+- "api_tax_taxrule": "TaxRule" | kind=code-symbol | source=apps/admin/src/lib/api/tax.ts:L3 | neighbors=[index.ts, tax.ts]
+- "api_users_inviteuserinput": "InviteUserInput" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L30 | neighbors=[index.ts, users.ts]
+- "api_users_listusersparams": "ListUsersParams" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L24 | neighbors=[index.ts, users.ts]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

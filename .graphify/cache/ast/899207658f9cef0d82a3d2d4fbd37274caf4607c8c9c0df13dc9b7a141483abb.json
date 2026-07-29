@@ -1,0 +1,128 @@
+{
+  "nodes": [
+    {
+      "id": "b2b_b2b_module",
+      "label": "b2b.module.ts",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "b2b_b2b_module_b2bmodule",
+      "label": "B2bModule",
+      "file_type": "code",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L13"
+    }
+  ],
+  "edges": [
+    {
+      "source": "b2b_b2b_module",
+      "target": "common",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_business_b2b_b2b_controller",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "b2b_b2b_b2bcontroller",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_business_b2b_b2b_service",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "b2b_b2b_b2bservice",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_business_b2b_repositories_company_profile_repository",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "repositories_company_profile_companyprofilerepository",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_modules_business_b2b_repositories_price_list_repository",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "repositories_price_list_pricelistrepository",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "d_rasel_mahmud_shanto_commerce_os_core_apps_api_src_prisma_prisma_module",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "prisma_prisma_prismamodule",
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "b2b_b2b_module",
+      "target": "b2b_b2b_module_b2bmodule",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/api/src/modules/business/b2b/b2b.module.ts",
+      "source_location": "L13",
+      "weight": 1
+    }
+  ]
+}

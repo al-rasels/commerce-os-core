@@ -1,4 +1,4 @@
-# Node Description Batch 8 of 37
+# Node Description Batch 8 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -12,51 +12,58 @@ describing what it is or does. Use only the provided context.
 For a code symbol (kind=code-symbol — a function, class, or constant),
 describe what the function/symbol does based on its name, source location
 and neighbors — e.g. "Resolves the configured ontology profile from graphify.yaml.".
+For an entity node (any other kind — e.g. a person, place, event, object),
+describe what the entity is and its role, grounded in its type, its
+relations (neighbors) and the provided citations/evidence — e.g.
+"Lady Carfax, a wealthy heiress who disappears en route to Lausanne.".
+Ground entity descriptions in the citations/evidence when present; do not
+speculate beyond the context, so a node with no supporting context may be
+left out of the reply.
 Write every description in English (en). Do not switch languages.
 No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "payments_payments_controller": "payments.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.controller.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, PaymentsController, tenant-context.ts, TenantContext]
-- "prisma_prisma_service_prismaservice": "PrismaService" | kind=code-symbol | source=apps/api/src/prisma/prisma.service.ts:L5 | neighbors=[prisma.service.ts, OnModuleInit, PrismaClient, .onModuleInit()]
-- "prisma_seed": "seed.ts" | kind=code-symbol | source=apps/api/prisma/seed.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…, main(), prisma]
-- "repositories_cart_item_repository": "cart-item.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart-item.repository.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, CartItemRepository, tenant-context.ts, TenantContext]
-- "repositories_cart_item_repository_cartitemrepository": "CartItemRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart-item.repository.ts:L8 | neighbors=[cart-item.repository.ts, .clearByCartId(), .constructor(), TenantScopedRepository]
-- "repositories_page_layout_repository_pagelayoutrepository": "PageLayoutRepository" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.ts:L8 | neighbors=[page-layout.repository.ts, .constructor(), .findByPageKey(), TenantScopedRepository]
-- "repositories_product_variant_repository": "product-variant.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product-variant.repository.ts:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, ProductVariantRepository, tenant-context.ts, TenantContext]
-- "repositories_product_variant_repository_productvariantrepository": "ProductVariantRepository" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/repositories/product-variant.repository.ts:L8 | neighbors=[product-variant.repository.ts, .constructor(), .incrementReservedStock(), TenantScopedRepository]
-- "scripts_api_validator_main": "main()" | kind=code-symbol | source=.agents/skills/api-patterns/scripts/api_validator.py:L162 | neighbors=[api_validator.py, check_api_code(), check_openapi_spec(), find_api_files()]
-- "scripts_schema_validator": "schema_validator.py" | kind=code-symbol | source=.agents/skills/database-design/scripts/schema_validator.py:L1 | neighbors=[21888ff feat: implement commerce, catal…, find_schema_files(), main(), validate_prisma_schema()]
-- "scripts_ts_diagnostic_check_any_usage": "check_any_usage()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L145 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check for any type usage.]
-- "scripts_ts_diagnostic_check_performance": "check_performance()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L172 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check type checking performance.]
-- "scripts_ts_diagnostic_check_type_assertions": "check_type_assertions()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L160 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check for type assertions.]
-- "scripts_ts_diagnostic_check_type_errors": "check_type_errors()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L132 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Run quick type check.]
-- "scripts_ts_diagnostic_check_versions": "check_versions()" | kind=code-symbol | source=.agents/skills/typescript-expert/scripts/ts_diagnostic.py:L21 | neighbors=[ts_diagnostic.py, run_cmd(), main(), Check TypeScript and Node versions.]
-- "src_app_controller_appcontroller": "AppController" | kind=code-symbol | source=apps/api/src/app.controller.ts:L5 | neighbors=[app.controller.ts, .constructor(), .getHello(), .whoami()]
-- "src_middleware": "middleware.ts" | kind=code-symbol | source=apps/storefront/src/middleware.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, f1d1a16 feat: implement storefront foun…, config, middleware()]
-- "storefront_storefront_controller_storefrontcontroller": "StorefrontController" | kind=code-symbol | source=apps/api/src/modules/storefront/storefront.controller.ts:L6 | neighbors=[storefront.controller.ts, .getProduct(), .listCategories(), .listProducts()]
-- "storefront_storefront_module": "storefront.module.ts" | kind=code-symbol | source=apps/api/src/modules/storefront/storefront.module.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, f1bfa47 feat: implement storefront orde…, StorefrontModule]
-- "systematic_debugging_condition_based_waiting_example": "condition-based-waiting-example.ts" | kind=code-symbol | source=.agents/skills/systematic-debugging/condition-based-waiting-example.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, waitForEvent(), waitForEventCount(), waitForEventMatch()]
-- "tenant_tenant_service_tenantservice": "TenantService" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/tenant.service.ts:L8 | neighbors=[tenant.service.ts, .constructor(), .invalidateCache(), .resolveTenant()]
-- "theme_engine_index_resolveoverride": "resolveOverride()" | kind=code-symbol | source=packages/theme-engine/index.ts:L11 | neighbors=[index.ts, detectConflicts(), index.spec.ts, theme.service.ts]
-- "theme_theme_controller_themecontroller": "ThemeController" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.controller.ts:L9 | neighbors=[theme.controller.ts, .constructor(), .getTheme(), .updateOverride()]
-- "theme_theme_service_themeservice": "ThemeService" | kind=code-symbol | source=apps/api/src/modules/experience/theme/theme.service.ts:L8 | neighbors=[theme.service.ts, .constructor(), .getResolvedTheme(), .updateOverride()]
-- "ui_collapsible": "collapsible.tsx" | kind=code-symbol | source=apps/admin/src/components/ui/collapsible.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, Collapsible(), CollapsibleContent(), CollapsibleTrigger()]
-- "20260716164323_init_migration_audit_log": "audit_log" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L251 | neighbors=[migration.sql, tenants, users]
-- "20260716164323_init_migration_roles": "roles" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L52 | neighbors=[migration.sql, tenants, users]
-- "20260716164323_init_migration_template_tenant_override": "template_tenant_override" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L218 | neighbors=[migration.sql, template_base, tenants]
-- "20260716164323_init_migration_theme_tenant_override": "theme_tenant_override" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L199 | neighbors=[migration.sql, tenants, theme_base]
-- "admin_admin_controller": "admin.controller.ts" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L1 | neighbors=[AdminController, 3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
-- "admin_admin_service": "admin.service.ts" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L1 | neighbors=[AdminService, 3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …]
-- "admin_vite_config": "vite.config.ts" | kind=code-symbol | source=apps/admin/vite.config.ts:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 3d66d0f feat: implement payments module…, ac49c08 chore: batch commit — catalog C…]
-- "api_client_request": "request()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L15 | neighbors=[client.ts, ApiError, getToken()]
-- "api_customers_customer": "Customer" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L3 | neighbors=[customers.ts, CustomerDetail, index.ts]
-- "api_customers_customerdetail": "CustomerDetail" | kind=code-symbol | source=apps/admin/src/lib/api/customers.ts:L19 | neighbors=[customers.ts, Customer, index.ts]
-- "api_users_user": "User" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L3 | neighbors=[index.ts, users.ts, UserDetail]
-- "api_users_userdetail": "UserDetail" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L20 | neighbors=[index.ts, users.ts, User]
-- "audit_log_audit_log_controller_auditlogcontroller": "AuditLogController" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L10 | neighbors=[audit-log.controller.ts, .constructor(), .list()]
-- "audit_log_audit_log_repository_auditlogrepository": "AuditLogRepository" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L7 | neighbors=[audit-log.repository.ts, .constructor(), TenantScopedRepository]
-- "auth_auth_controller_spec": "auth.controller.spec.ts" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.spec.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …]
+- "cart_cart_controller": "cart.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L1 | neighbors=[CartController, tenant-context.ts, TenantContext, 3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …]
+- "categories_categorylistpage": "CategoryListPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/categories/CategoryListPage.tsx:L1 | neighbors=[buildTree(), CategoryListPage(), CategoryNode, SortableCategoryRow(), ac49c08 chore: batch commit — catalog C…]
+- "commit:repo:github.com/al-rasels/commerce-os-core@d6163bc8b13f9aeaff47c22fa5795fb17e01f788": "d6163bc docs: update PROGRESS_REPORT.md and MASTER_TASKLIST.md to July 20 state" | kind=Commit | source=git | neighbors=[feat/admin-ui-refactor, main, 6ffba43 feat: add MFA auth flow, super …, tenant-admin.controller.ts, f1d1a16 feat: implement storefront foun…]
+- "components_breadcrumbs_spec": "breadcrumbs.spec.tsx" | kind=code-symbol | source=packages/components/breadcrumbs.spec.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, breadcrumbs.tsx, Breadcrumbs(), Crumb, defaultItems]
+- "components_checkbox": "checkbox.tsx" | kind=code-symbol | source=packages/components/checkbox.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Checkbox(), utils.ts, cn(), index.ts]
+- "components_collapsible": "collapsible.tsx" | kind=code-symbol | source=packages/components/collapsible.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, Collapsible(), CollapsibleContent(), CollapsibleTrigger(), index.ts]
+- "components_label": "label.tsx" | kind=code-symbol | source=packages/components/label.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Label(), utils.ts, cn()]
+- "components_separator": "separator.tsx" | kind=code-symbol | source=packages/components/separator.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Separator(), utils.ts, cn()]
+- "components_sidebar_spec": "sidebar.spec.tsx" | kind=code-symbol | source=packages/components/sidebar.spec.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, sidebar.tsx, Sidebar(), SidebarItem, items]
+- "components_switch": "switch.tsx" | kind=code-symbol | source=packages/components/switch.tsx:L1 | neighbors=[efe67e9 fix(build): resolve component t…, index.ts, Switch(), utils.ts, cn()]
+- "components_tabs_spec": "tabs.spec.tsx" | kind=code-symbol | source=packages/components/tabs.spec.tsx:L1 | neighbors=[3d66d0f feat: implement payments module…, tabs.tsx, tabs, Tab, Tabs()]
+- "components_varianteditor": "VariantEditor.tsx" | kind=code-symbol | source=apps/admin/src/components/VariantEditor.tsx:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…, VariantEditor(), VariantEditorProps, VariantForm(), VariantRow()]
+- "customer_customer_repository_spec": "customer.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.repository.spec.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…, tenant-context.ts, TenantContext]
+- "dto_order_response_dto": "order-response.dto.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-response.dto.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …, f1bfa47 feat: implement storefront orde…, OrderItemDto, OrderResponseDto]
+- "guards_tenant_auth_guard_tenantauthguard": "TenantAuthGuard" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/tenant-auth.guard.ts:L12 | neighbors=[tenant-auth.guard.ts, CanActivate, .canActivate(), .constructor(), .extractTokenFromHeader()]
+- "hooks_useb2b": "useB2B.ts" | kind=code-symbol | source=apps/admin/src/hooks/useB2B.ts:L1 | neighbors=[bb61ae8 feat(commerce): wire up Admin U…, useCompanyProfiles(), useCreateCompanyProfile(), useDeleteCompanyProfile(), useUpdateCompanyProfile()]
+- "hooks_useorders": "useOrders.ts" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L1 | neighbors=[6ffba43 feat: add MFA auth flow, super …, ac49c08 chore: batch commit — catalog C…, useOrder(), useOrders(), useUpdateOrderStatus()]
+- "hooks_usereturns": "useReturns.ts" | kind=code-symbol | source=apps/admin/src/hooks/useReturns.ts:L1 | neighbors=[bb61ae8 feat(commerce): wire up Admin U…, useCreateReturn(), useDeleteReturn(), useReturns(), useUpdateReturn()]
+- "hooks_usesubscriptions": "useSubscriptions.ts" | kind=code-symbol | source=apps/admin/src/hooks/useSubscriptions.ts:L1 | neighbors=[bb61ae8 feat(commerce): wire up Admin U…, useCreateSubscription(), useDeleteSubscription(), useSubscriptions(), useUpdateSubscription()]
+- "inventory_inventory_controller": "inventory.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, InventoryController, tenant-context.ts, TenantContext]
+- "inventory_inventory_service": "inventory.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/inventory/inventory.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, InventoryService, tenant-context.ts, TenantContext]
+- "jetski_gemini_loader_loader_buildmodelmessages": "buildModelMessages()" | kind=code-symbol | source=.agents/skills/docs/integrations/jetski-gemini-loader/loader.mjs:L118 | neighbors=[loader.mjs, assertValidMaxSkills(), collectReferencedSkillIds(), loadSkillBodies(), resolveSkillsFromMessages()]
+- "order_order_controller_ordercontroller": "OrderController" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L21 | neighbors=[order.controller.ts, .constructor(), .get(), .list(), .updateStatus()]
+- "order_order_repository_spec": "order.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.spec.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…, tenant-context.ts, TenantContext]
+- "promotions_promotions_service": "promotions.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, PromotionsService, tenant-context.ts, TenantContext]
+- "repositories_cart_item_repository": "cart-item.repository.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart-item.repository.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 4029d6f fix(commerce): resolve architec…, CartItemRepository, tenant-context.ts, TenantContext]
+- "repositories_cart_repository_spec": "cart.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/repositories/cart.repository.spec.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…, tenant-context.ts, TenantContext]
+- "repositories_page_layout_repository_spec": "page-layout.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/experience/builder/repositories/page-layout.repository.spec.ts:L1 | neighbors=[21888ff feat: implement commerce, catal…, 3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …, 7d74efe feat(commerce): implement B2B, …, bb61ae8 feat(commerce): wire up Admin U…]
+- "repositories_tenant_scoped_repository_scope": "scope()" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.ts:L12 | neighbors=[tenant-scoped.repository.ts, aggregate(), count(), findMany(), groupBy()]
+- "repositories_tenant_scoped_repository_spec": "tenant-scoped.repository.spec.ts" | kind=code-symbol | source=apps/api/src/common/repositories/tenant-scoped.repository.spec.ts:L1 | neighbors=[3d66d0f feat: implement payments module…, 6ffba43 feat: add MFA auth flow, super …, TestRepo, tenant-context.ts, TenantContext]
+- "repositories_theme_override_repository_spec": "theme-override.repository.spec.ts" | kind=code-symbol | source=apps/api/src/modules/experience/theme/repositories/theme-override.repository.spec.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, 6ffba43 feat: add MFA auth flow, super …, efe67e9 fix(build): resolve component t…, tenant-context.ts, TenantContext]
+- "returns_returns_controller": "returns.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/returns.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, ReturnsController, tenant-context.ts, TenantContext]
+- "returns_returns_service": "returns.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/returns/returns.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, ReturnsService, tenant-context.ts, TenantContext]
+- "scripts_api_validator": "api_validator.py" | kind=code-symbol | source=.agents/skills/api-patterns/scripts/api_validator.py:L1 | neighbors=[21888ff feat: implement commerce, catal…, check_api_code(), check_openapi_spec(), find_api_files(), main()]
+- "settings_pagelayouteditor": "PageLayoutEditor.tsx" | kind=code-symbol | source=apps/admin/src/pages/settings/PageLayoutEditor.tsx:L1 | neighbors=[0361288 feat(admin): Scaffolded Phase 2…, 7d74efe feat(commerce): implement B2B, …, ac49c08 chore: batch commit — catalog C…, createDefaultSection(), PageLayoutEditorPage()]
+- "shipping_shipping_controller": "shipping.controller.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.controller.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingController, tenant-context.ts, TenantContext]
+- "shipping_shipping_service": "shipping.service.ts" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/shipping.service.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…, 6ffba43 feat: add MFA auth flow, super …, ShippingService, tenant-context.ts, TenantContext]
+- "slug_product_page_client": "product-page-client.tsx" | kind=code-symbol | source=apps/storefront/src/app/products/[slug]/product-page-client.tsx:L1 | neighbors=[e5d6c72 feat: implement end-to-end chec…, page.tsx, section-renderer.tsx, SectionRenderer(), ProductPageClient()]
+- "subscriptions_subscriptions_controller": "subscriptions.controller.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.controller.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsController, tenant-context.ts, TenantContext]
+- "subscriptions_subscriptions_service": "subscriptions.service.ts" | kind=code-symbol | source=apps/api/src/modules/business/subscriptions/subscriptions.service.ts:L1 | neighbors=[7d74efe feat(commerce): implement B2B, …, c506b3c feat(api): implement database r…, SubscriptionsService, tenant-context.ts, TenantContext]
 
 ## Instructions
 
@@ -68,6 +75,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

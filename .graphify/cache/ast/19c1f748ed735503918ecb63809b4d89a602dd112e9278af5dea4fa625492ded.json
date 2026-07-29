@@ -1,0 +1,104 @@
+{
+  "nodes": [
+    {
+      "id": "hooks_useb2b",
+      "label": "useB2B.ts",
+      "file_type": "code",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks_useb2b_usecompanyprofiles",
+      "label": "useCompanyProfiles()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "hooks_useb2b_usecreatecompanyprofile",
+      "label": "useCreateCompanyProfile()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "hooks_useb2b_useupdatecompanyprofile",
+      "label": "useUpdateCompanyProfile()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "hooks_useb2b_usedeletecompanyprofile",
+      "label": "useDeleteCompanyProfile()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L36"
+    }
+  ],
+  "edges": [
+    {
+      "source": "hooks_useb2b",
+      "target": "react_query",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "b2b",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "sonner",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "hooks_useb2b_usecompanyprofiles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "hooks_useb2b_usecreatecompanyprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L12",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "hooks_useb2b_useupdatecompanyprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L24",
+      "weight": 1
+    },
+    {
+      "source": "hooks_useb2b",
+      "target": "hooks_useb2b_usedeletecompanyprofile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/hooks/useB2B.ts",
+      "source_location": "L36",
+      "weight": 1
+    }
+  ]
+}

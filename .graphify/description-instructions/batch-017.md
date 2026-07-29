@@ -1,4 +1,4 @@
-# Node Description Batch 18 of 37
+# Node Description Batch 18 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "api_client_apierror_constructor": ".constructor()" | kind=code-symbol | source=apps/admin/src/lib/api/client.ts:L4 | neighbors=[ApiError]
-- "api_eslint_config": "eslint.config.mjs" | kind=code-symbol | source=apps/api/eslint.config.mjs:L1 | neighbors=[028709f chore: scaffold monorepo with a…]
-- "api_superadmin_provisiontenantinput": "ProvisionTenantInput" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L22 | neighbors=[superAdmin.ts]
-- "app_home_client_homeclient": "HomeClient()" | kind=code-symbol | source=apps/storefront/src/app/home-client.tsx:L8 | neighbors=[home-client.tsx]
-- "app_layout_footercolumns": "footerColumns" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L28 | neighbors=[layout.tsx]
-- "app_layout_geistmono": "geistMono" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L18 | neighbors=[layout.tsx]
-- "app_layout_geistsans": "geistSans" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L13 | neighbors=[layout.tsx]
-- "app_layout_metadata": "metadata" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L23 | neighbors=[layout.tsx]
-- "app_layout_rootlayout": "RootLayout()" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L54 | neighbors=[layout.tsx]
-- "app_page_home": "Home()" | kind=code-symbol | source=apps/storefront/src/app/page.tsx:L3 | neighbors=[page.tsx]
-- "app_page_homepage": "HomePage()" | kind=code-symbol | source=apps/storefront/src/app/page.tsx:L6 | neighbors=[page.tsx]
-- "audit_log_audit_log_controller_auditlogcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L11 | neighbors=[AuditLogController]
-- "audit_log_audit_log_controller_auditlogcontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L15 | neighbors=[AuditLogController]
-- "audit_log_audit_log_module_auditlogmodule": "AuditLogModule" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.module.ts:L11 | neighbors=[audit-log.module.ts]
-- "audit_log_audit_log_repository_auditlogrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L8 | neighbors=[AuditLogRepository]
-- "audit_log_audit_log_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[AuditLogRepository]
-- "audit_log_audit_log_service_auditlogservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L7 | neighbors=[AuditLogService]
-- "audit_log_audit_log_service_auditlogservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L26 | neighbors=[AuditLogService]
-- "audit_log_audit_log_service_auditlogservice_log": ".log()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L9 | neighbors=[AuditLogService]
-- "auth_auth_controller_authcontroller_changepassword": ".changePassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L108 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L29 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_disablemfa": ".disableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L79 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_forgotpassword": ".forgotPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L89 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_invite": ".invite()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L120 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_login": ".login()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L41 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_logout": ".logout()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L145 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_me": ".me()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L135 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_mfaverify": ".mfaVerify()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L47 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_refresh": ".refresh()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L126 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_register": ".register()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L32 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_resetpassword": ".resetPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L98 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_setupmfa": ".setupMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L58 | neighbors=[AuthController]
-- "auth_auth_controller_authcontroller_verifyandenablemfa": ".verifyAndEnableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L68 | neighbors=[AuthController]
-- "auth_auth_module_authmodule": "AuthModule" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.module.ts:L21 | neighbors=[auth.module.ts]
-- "auth_auth_service_authenticator": "{ authenticator }" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L10 | neighbors=[auth.service.ts]
-- "auth_auth_service_authservice_changepassword": ".changePassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L203 | neighbors=[AuthService]
-- "auth_auth_service_authservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L26 | neighbors=[AuthService]
-- "auth_auth_service_authservice_disablemfa": ".disableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L149 | neighbors=[AuthService]
-- "auth_auth_service_authservice_forgotpassword": ".forgotPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L163 | neighbors=[AuthService]
-- "auth_auth_service_authservice_invite": ".invite()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L221 | neighbors=[AuthService]
+- "components_dialog_dialogcontent": "DialogContent()" | kind=code-symbol | source=packages/components/dialog.tsx:L42 | neighbors=[command.tsx, dialog.tsx]
+- "components_dialog_dialogdescription": "DialogDescription()" | kind=code-symbol | source=packages/components/dialog.tsx:L133 | neighbors=[command.tsx, dialog.tsx]
+- "components_dialog_dialogheader": "DialogHeader()" | kind=code-symbol | source=packages/components/dialog.tsx:L83 | neighbors=[command.tsx, dialog.tsx]
+- "components_dialog_dialogtitle": "DialogTitle()" | kind=code-symbol | source=packages/components/dialog.tsx:L120 | neighbors=[command.tsx, dialog.tsx]
+- "components_draggableelement_draggableelement": "DraggableElement()" | kind=code-symbol | source=apps/admin/src/pages/builder/components/DraggableElement.tsx:L5 | neighbors=[PageBuilder.tsx, DraggableElement.tsx]
+- "components_empty_state_emptystate": "EmptyState()" | kind=code-symbol | source=packages/components/empty-state.tsx:L13 | neighbors=[empty-state.tsx, registry.ts]
+- "components_faq_faq": "Faq()" | kind=code-symbol | source=packages/components/faq.tsx:L11 | neighbors=[faq.tsx, registry.ts]
+- "components_floating_header_floatingheader": "FloatingHeader()" | kind=code-symbol | source=apps/storefront/src/components/floating-header.tsx:L10 | neighbors=[layout.tsx, floating-header.tsx]
+- "components_footer_footer": "Footer()" | kind=code-symbol | source=packages/components/footer.tsx:L16 | neighbors=[footer.tsx, registry.ts]
+- "components_form_renderer_formrenderer": "FormRenderer()" | kind=code-symbol | source=packages/components/form-renderer.tsx:L29 | neighbors=[form-renderer.tsx, registry.ts]
+- "components_gallery_gallery": "Gallery()" | kind=code-symbol | source=packages/components/gallery.tsx:L14 | neighbors=[gallery.tsx, registry.ts]
+- "components_header_header": "Header()" | kind=code-symbol | source=packages/components/header.tsx:L15 | neighbors=[header.tsx, registry.ts]
+- "components_hero_hero": "Hero()" | kind=code-symbol | source=packages/components/hero.tsx:L26 | neighbors=[hero.tsx, registry.ts]
+- "components_input_group_inputgroupaddonvariants": "inputGroupAddonVariants" | kind=code-symbol | source=packages/components/input-group.tsx:L25 | neighbors=[input-group.tsx, InputGroupAddon()]
+- "components_input_group_inputgroupbuttonvariants": "inputGroupButtonVariants" | kind=code-symbol | source=packages/components/input-group.tsx:L68 | neighbors=[input-group.tsx, InputGroupButton()]
+- "components_input_group_inputgroupinput": "InputGroupInput()" | kind=code-symbol | source=packages/components/input-group.tsx:L119 | neighbors=[combobox.tsx, input-group.tsx]
+- "components_json_ld_jsonld": "JsonLd()" | kind=code-symbol | source=apps/storefront/src/components/json-ld.tsx:L1 | neighbors=[json-ld.tsx, page.tsx]
+- "components_newsletter_newsletter": "Newsletter()" | kind=code-symbol | source=packages/components/newsletter.tsx:L9 | neighbors=[newsletter.tsx, registry.ts]
+- "components_pagination_getpagenumbers": "getPageNumbers()" | kind=code-symbol | source=packages/components/pagination.tsx:L13 | neighbors=[pagination.tsx, Pagination()]
+- "components_product_card_formatprice": "formatPrice()" | kind=code-symbol | source=packages/components/product-card.tsx:L13 | neighbors=[product-card.tsx, ProductCard()]
+- "components_product_card_productcardprops": "ProductCardProps" | kind=code-symbol | source=packages/components/product-card.tsx:L3 | neighbors=[product-card.tsx, product-grid.tsx]
+- "components_product_grid_productgrid": "ProductGrid()" | kind=code-symbol | source=packages/components/product-grid.tsx:L29 | neighbors=[product-grid.tsx, registry.ts]
+- "components_rich_text_richtext": "RichText()" | kind=code-symbol | source=packages/components/rich-text.tsx:L7 | neighbors=[registry.ts, rich-text.tsx]
+- "components_section_renderer_resolvebind": "resolveBind()" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L29 | neighbors=[section-renderer.tsx, resolveProps()]
+- "components_section_renderer_resolveprops": "resolveProps()" | kind=code-symbol | source=apps/storefront/src/components/section-renderer.tsx:L33 | neighbors=[section-renderer.tsx, resolveBind()]
+- "components_select_selectoption": "SelectOption" | kind=code-symbol | source=packages/components/select.tsx:L7 | neighbors=[form-renderer.tsx, select.tsx]
+- "components_sidebar_sidebaritem": "SidebarItem" | kind=code-symbol | source=packages/components/sidebar.tsx:L7 | neighbors=[sidebar.tsx, sidebar.spec.tsx]
+- "components_skeleton_skeleton": "Skeleton()" | kind=code-symbol | source=packages/components/skeleton.tsx:L8 | neighbors=[registry.ts, skeleton.tsx]
+- "components_tabs_tab": "Tab" | kind=code-symbol | source=packages/components/tabs.tsx:L6 | neighbors=[tabs.tsx, tabs.spec.tsx]
+- "components_tenant_theme_provider_tenantthemeprovider": "TenantThemeProvider()" | kind=code-symbol | source=apps/storefront/src/components/tenant-theme-provider.tsx:L11 | neighbors=[layout.tsx, tenant-theme-provider.tsx]
+- "components_testimonials_testimonials": "Testimonials()" | kind=code-symbol | source=packages/components/testimonials.tsx:L25 | neighbors=[registry.ts, testimonials.tsx]
+- "components_theme_provider_themeprovider": "ThemeProvider()" | kind=code-symbol | source=apps/storefront/src/components/theme-provider.tsx:L7 | neighbors=[layout.tsx, theme-provider.tsx]
+- "components_toast_toast": "Toast()" | kind=code-symbol | source=packages/components/toast.tsx:L34 | neighbors=[registry.ts, toast.tsx]
+- "components_toast_toastcontainer": "ToastContainer()" | kind=code-symbol | source=packages/components/toast.tsx:L77 | neighbors=[registry.ts, toast.tsx]
+- "components_toast_toastdata": "ToastData" | kind=code-symbol | source=packages/components/toast.tsx:L9 | neighbors=[toast.tsx, ToastProps]
+- "components_toast_toaster": "Toaster()" | kind=code-symbol | source=packages/components/toast.tsx:L8 | neighbors=[registry.ts, toast.tsx]
+- "components_toast_toastprops": "ToastProps" | kind=code-symbol | source=packages/components/toast.tsx:L6 | neighbors=[toast.tsx, ToastData]
+- "customer_customer_service_customerservice_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L68 | neighbors=[CustomerService, .get()]
+- "customer_customer_service_customerservice_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L59 | neighbors=[CustomerService, .get()]
+- "decorators_current_user_decorator": "current-user.decorator.ts" | kind=code-symbol | source=apps/api/src/common/decorators/current-user.decorator.ts:L1 | neighbors=[e3a8c77 feat: implement users CRUD back…, CurrentUser]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

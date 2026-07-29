@@ -1,0 +1,79 @@
+{
+  "nodes": [
+    {
+      "id": "components_buildernode",
+      "label": "BuilderNode.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_buildernode_pagenode",
+      "label": "PageNode",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "components_buildernode_buildernodeprops",
+      "label": "BuilderNodeProps",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "components_buildernode_buildernode",
+      "label": "BuilderNode()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L17"
+    }
+  ],
+  "edges": [
+    {
+      "source": "components_buildernode",
+      "target": "core",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "components_buildernode",
+      "target": "utilities",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "components_buildernode",
+      "target": "components_buildernode_pagenode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "components_buildernode",
+      "target": "components_buildernode_buildernodeprops",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L11",
+      "weight": 1
+    },
+    {
+      "source": "components_buildernode",
+      "target": "components_buildernode_buildernode",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/builder/components/BuilderNode.tsx",
+      "source_location": "L17",
+      "weight": 1
+    }
+  ]
+}

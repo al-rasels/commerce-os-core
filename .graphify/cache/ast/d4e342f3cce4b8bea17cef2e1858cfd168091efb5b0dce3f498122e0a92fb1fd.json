@@ -1,0 +1,47 @@
+{
+  "nodes": [
+    {
+      "id": "themes_minimal",
+      "label": "minimal.ts",
+      "file_type": "code",
+      "source_file": "packages/theme-engine/themes/minimal.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "themes_minimal_minimaltheme",
+      "label": "minimalTheme",
+      "file_type": "code",
+      "source_file": "packages/theme-engine/themes/minimal.ts",
+      "source_location": "L4"
+    }
+  ],
+  "edges": [
+    {
+      "source": "themes_minimal",
+      "target": "design_tokens",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/theme-engine/themes/minimal.ts",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "themes_minimal",
+      "target": "design_tokens",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/theme-engine/themes/minimal.ts",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "themes_minimal",
+      "target": "themes_minimal_minimaltheme",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/theme-engine/themes/minimal.ts",
+      "source_location": "L4",
+      "weight": 1
+    }
+  ]
+}

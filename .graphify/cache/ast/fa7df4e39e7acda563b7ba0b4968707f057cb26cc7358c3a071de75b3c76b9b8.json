@@ -1,0 +1,70 @@
+{
+  "nodes": [
+    {
+      "id": "components_collapsible",
+      "label": "collapsible.tsx",
+      "file_type": "code",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "components_collapsible_collapsible",
+      "label": "Collapsible()",
+      "file_type": "code",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "components_collapsible_collapsibletrigger",
+      "label": "CollapsibleTrigger()",
+      "file_type": "code",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "components_collapsible_collapsiblecontent",
+      "label": "CollapsibleContent()",
+      "file_type": "code",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L15"
+    }
+  ],
+  "edges": [
+    {
+      "source": "components_collapsible",
+      "target": "collapsible",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "components_collapsible",
+      "target": "components_collapsible_collapsible",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "components_collapsible",
+      "target": "components_collapsible_collapsibletrigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L9",
+      "weight": 1
+    },
+    {
+      "source": "components_collapsible",
+      "target": "components_collapsible_collapsiblecontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/components/collapsible.tsx",
+      "source_location": "L15",
+      "weight": 1
+    }
+  ]
+}

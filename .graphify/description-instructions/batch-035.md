@@ -1,4 +1,4 @@
-# Node Description Batch 36 of 37
+# Node Description Batch 36 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "ui_select_selectscrolldownbutton": "SelectScrollDownButton()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L171 | neighbors=[select.tsx]
-- "ui_select_selectscrollupbutton": "SelectScrollUpButton()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L152 | neighbors=[select.tsx]
-- "ui_select_selectseparator": "SelectSeparator()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L139 | neighbors=[select.tsx]
-- "ui_select_selecttrigger": "SelectTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L31 | neighbors=[select.tsx]
-- "ui_select_selectvalue": "SelectValue()" | kind=code-symbol | source=apps/storefront/src/components/ui/select.tsx:L21 | neighbors=[select.tsx]
-- "ui_separator_separator": "Separator()" | kind=code-symbol | source=apps/storefront/src/components/ui/separator.tsx:L7 | neighbors=[separator.tsx]
-- "ui_sheet_sheetclose": "SheetClose()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L18 | neighbors=[sheet.tsx]
-- "ui_sheet_sheetdescription": "SheetDescription()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L116 | neighbors=[sheet.tsx]
-- "ui_sheet_sheetfooter": "SheetFooter()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L93 | neighbors=[sheet.tsx]
-- "ui_sheet_sheetoverlay": "SheetOverlay()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L26 | neighbors=[sheet.tsx]
-- "ui_sheet_sheetportal": "SheetPortal()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L22 | neighbors=[sheet.tsx]
-- "ui_sheet_sheettrigger": "SheetTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L14 | neighbors=[sheet.tsx]
-- "ui_skeleton_skeleton": "Skeleton()" | kind=code-symbol | source=apps/storefront/src/components/ui/skeleton.tsx:L3 | neighbors=[skeleton.tsx]
-- "ui_switch_switch": "Switch()" | kind=code-symbol | source=apps/storefront/src/components/ui/switch.tsx:L7 | neighbors=[switch.tsx]
-- "ui_table_table": "Table()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L7 | neighbors=[table.tsx]
-- "ui_table_tablebody": "TableBody()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L32 | neighbors=[table.tsx]
-- "ui_table_tablecaption": "TableCaption()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L94 | neighbors=[table.tsx]
-- "ui_table_tablecell": "TableCell()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L81 | neighbors=[table.tsx]
-- "ui_table_tablefooter": "TableFooter()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L42 | neighbors=[table.tsx]
-- "ui_table_tablehead": "TableHead()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L68 | neighbors=[table.tsx]
-- "ui_table_tableheader": "TableHeader()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L22 | neighbors=[table.tsx]
-- "ui_table_tablerow": "TableRow()" | kind=code-symbol | source=apps/admin/src/components/ui/table.tsx:L55 | neighbors=[table.tsx]
-- "ui_tabs_tabs": "Tabs()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L6 | neighbors=[tabs.tsx]
-- "ui_tabs_tabscontent": "TabsContent()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L70 | neighbors=[tabs.tsx]
-- "ui_tabs_tabstrigger": "TabsTrigger()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L54 | neighbors=[tabs.tsx]
-- "ui_textarea_textarea": "Textarea()" | kind=code-symbol | source=apps/storefront/src/components/ui/textarea.tsx:L5 | neighbors=[textarea.tsx]
-- "ui_tooltip_tooltip": "Tooltip()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L20 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltipcontent": "TooltipContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L28 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltipprovider": "TooltipProvider()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L7 | neighbors=[tooltip.tsx]
-- "ui_tooltip_tooltiptrigger": "TooltipTrigger()" | kind=code-symbol | source=apps/storefront/src/components/ui/tooltip.tsx:L24 | neighbors=[tooltip.tsx]
-- "users_role_repository_rolerepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/role.repository.ts:L8 | neighbors=[RoleRepository]
-- "users_role_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[RoleRepository]
-- "users_userdetailpage_statusvariant": "statusVariant" | kind=code-symbol | source=apps/admin/src/pages/users/UserDetailPage.tsx:L14 | neighbors=[UserDetailPage.tsx]
-- "users_userdetailpage_userdetailpage": "UserDetailPage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserDetailPage.tsx:L20 | neighbors=[UserDetailPage.tsx]
-- "users_userinvitepage_userinvitepage": "UserInvitePage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserInvitePage.tsx:L24 | neighbors=[UserInvitePage.tsx]
-- "users_userlistpage_statusvariant": "statusVariant" | kind=code-symbol | source=apps/admin/src/pages/users/UserListPage.tsx:L25 | neighbors=[UserListPage.tsx]
-- "users_userlistpage_userlistpage": "UserListPage()" | kind=code-symbol | source=apps/admin/src/pages/users/UserListPage.tsx:L31 | neighbors=[UserListPage.tsx]
-- "users_users_controller_userscontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L21 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_getbyid": ".getById()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L35 | neighbors=[UsersController]
-- "users_users_controller_userscontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.controller.ts:L24 | neighbors=[UsersController]
+- "layouts_adminlayout_adminlayout": "AdminLayout()" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L197 | neighbors=[AdminLayout.tsx]
+- "layouts_adminlayout_appsidebar": "AppSidebar()" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L56 | neighbors=[AdminLayout.tsx]
+- "layouts_adminlayout_commandmenu": "CommandMenu()" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L133 | neighbors=[AdminLayout.tsx]
+- "layouts_adminlayout_navitems": "navItems" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L40 | neighbors=[AdminLayout.tsx]
+- "layouts_adminlayout_sidebar": "Sidebar()" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L33 | neighbors=[AdminLayout.tsx]
+- "layouts_adminlayout_topbar": "Topbar()" | kind=code-symbol | source=apps/admin/src/layouts/AdminLayout.tsx:L117 | neighbors=[AdminLayout.tsx]
+- "lib_api_apierror_constructor": ".constructor()" | kind=code-symbol | source=apps/storefront/src/lib/api.ts:L5 | neighbors=[ApiError]
+- "lib_image_loader_customimageloader": "customImageLoader()" | kind=code-symbol | source=apps/storefront/src/lib/image-loader.ts:L1 | neighbors=[image-loader.ts]
+- "lib_server_api_apierror_constructor": ".constructor()" | kind=code-symbol | source=apps/storefront/src/lib/server-api.ts:L7 | neighbors=[ApiError]
+- "lib_store_cartstore": "CartStore" | kind=code-symbol | source=apps/storefront/src/lib/store.ts:L4 | neighbors=[store.ts]
+- "lib_store_gensessionid": "genSessionId()" | kind=code-symbol | source=apps/storefront/src/lib/store.ts:L12 | neighbors=[store.ts]
+- "load_checkout_options": "options" | kind=code-symbol | source=tests/load/checkout.js:L4 | neighbors=[checkout.js]
+- "locations_locationslistpage_locationslistpage": "LocationsListPage()" | kind=code-symbol | source=apps/admin/src/pages/settings/locations/LocationsListPage.tsx:L5 | neighbors=[LocationsListPage.tsx]
+- "login_page_loginpage": "LoginPage()" | kind=code-symbol | source=apps/storefront/src/app/account/login/page.tsx:L11 | neighbors=[page.tsx]
+- "marketing_promotions_promotionspage": "PromotionsPage()" | kind=code-symbol | source=apps/admin/src/pages/marketing/promotions.tsx:L8 | neighbors=[promotions.tsx]
+- "mfa_page_mfaform": "MfaForm()" | kind=code-symbol | source=apps/storefront/src/app/account/mfa/page.tsx:L12 | neighbors=[page.tsx]
+- "mfa_page_mfapage": "MfaPage()" | kind=code-symbol | source=apps/storefront/src/app/account/mfa/page.tsx:L90 | neighbors=[page.tsx]
+- "middlewares_host_resolver_middleware_hostresolvermiddleware_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/host-resolver.middleware.ts:L7 | neighbors=[HostResolverMiddleware]
+- "middlewares_host_resolver_middleware_hostresolvermiddleware_use": ".use()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/host-resolver.middleware.ts:L9 | neighbors=[HostResolverMiddleware]
+- "middlewares_host_resolver_middleware_nestmiddleware": "NestMiddleware" | kind=code-symbol | neighbors=[HostResolverMiddleware]
+- "middlewares_tenant_context_middleware_nestmiddleware": "NestMiddleware" | kind=code-symbol | neighbors=[TenantContextMiddleware]
+- "middlewares_tenant_context_middleware_tenantcontextmiddleware_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/tenant-context.middleware.ts:L8 | neighbors=[TenantContextMiddleware]
+- "middlewares_tenant_context_middleware_tenantcontextmiddleware_use": ".use()" | kind=code-symbol | source=apps/api/src/modules/platform/tenant/middlewares/tenant-context.middleware.ts:L10 | neighbors=[TenantContextMiddleware]
+- "order_order_controller_ordercontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L22 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L35 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L26 | neighbors=[OrderController]
+- "order_order_controller_ordercontroller_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.controller.ts:L41 | neighbors=[OrderController]
+- "order_order_item_repository_orderitemrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order-item.repository.ts:L8 | neighbors=[OrderItemRepository]
+- "order_order_item_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[OrderItemRepository]
+- "order_order_module_ordermodule": "OrderModule" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.module.ts:L12 | neighbors=[order.module.ts]
+- "order_order_repository_orderrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L9 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_fulfillstock": ".fulfillStock()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L28 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_releasestock": ".releaseStock()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L44 | neighbors=[OrderRepository]
+- "order_order_repository_orderrepository_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.repository.ts:L13 | neighbors=[OrderRepository]
+- "order_order_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[OrderRepository]
+- "order_order_service_orderservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L20 | neighbors=[OrderService]
+- "order_order_service_orderservice_createorder": ".createOrder()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L121 | neighbors=[OrderService]
+- "order_order_service_orderservice_getdashboardstats": ".getDashboardStats()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L86 | neighbors=[OrderService]
+- "order_order_service_orderservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L32 | neighbors=[OrderService]
+- "order_order_service_valid_transitions": "VALID_TRANSITIONS" | kind=code-symbol | source=apps/api/src/modules/commerce/order/order.service.ts:L10 | neighbors=[order.service.ts]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

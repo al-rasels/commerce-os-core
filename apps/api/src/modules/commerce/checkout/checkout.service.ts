@@ -7,6 +7,7 @@ import {
 import { CartService } from '../cart/cart.service';
 import { CatalogService } from '../catalog/catalog.service';
 import { OrderService } from '../order/order.service';
+import { InventoryService } from '../inventory/inventory.service';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { PaymentsService } from '../payments/payments.service';
 import { PromotionsService } from '../promotions/promotions.service';
@@ -21,6 +22,7 @@ export class CheckoutService {
     private readonly orderService: OrderService,
     private readonly paymentsService: PaymentsService,
     private readonly promotionsService: PromotionsService,
+    private readonly inventoryService: InventoryService,
   ) {}
 
   async checkout(ctx: TenantContext, cartId: string) {
@@ -76,7 +78,7 @@ export class CheckoutService {
 
     // PHASE 1: Reserve all stock FIRST
     for (const item of (cart as any).items) {
-      const reservationId = await this.catalogService.reserveStock(
+      const reservationId = await this.inventoryService.reserveStock(
         ctx,
         item.variant_id,
         item.quantity,
@@ -84,7 +86,7 @@ export class CheckoutService {
       if (!reservationId) {
         // Rollback previous reservations
         for (const resId of reservationIds) {
-          await this.catalogService.releaseReservation(ctx, resId);
+          await this.inventoryService.releaseReservation(ctx, resId);
         }
         throw new BadRequestException(
           `Failed to reserve stock for variant ${item.variant_id} (Out of Stock)`,
@@ -120,12 +122,12 @@ export class CheckoutService {
 
       // PHASE 3: Confirm Reservations
       for (const resId of reservationIds) {
-        await this.catalogService.confirmReservation(ctx, resId, order.id);
+        await this.inventoryService.confirmReservation(ctx, resId, order.id);
       }
     } catch (e) {
       // Rollback on Order Creation Failure
       for (const resId of reservationIds) {
-        await this.catalogService.releaseReservation(ctx, resId);
+        await this.inventoryService.releaseReservation(ctx, resId);
       }
       throw e;
     }

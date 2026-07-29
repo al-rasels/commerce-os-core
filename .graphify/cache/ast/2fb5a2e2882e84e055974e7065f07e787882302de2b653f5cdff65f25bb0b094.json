@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "b2b_draftorderspage",
+      "label": "DraftOrdersPage.tsx",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "b2b_draftorderspage_draftorderstable",
+      "label": "DraftOrdersTable()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "b2b_draftorderspage_draftorderspage",
+      "label": "DraftOrdersPage()",
+      "file_type": "code",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L53"
+    }
+  ],
+  "edges": [
+    {
+      "source": "b2b_draftorderspage",
+      "target": "button",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L1",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L2",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "useorders",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L3",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "date_fns",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L4",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L5",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "lucide_react",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L6",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "b2b_draftorderspage_draftorderstable",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L8",
+      "weight": 1
+    },
+    {
+      "source": "b2b_draftorderspage",
+      "target": "b2b_draftorderspage_draftorderspage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "apps/admin/src/pages/b2b/DraftOrdersPage.tsx",
+      "source_location": "L53",
+      "weight": 1
+    }
+  ]
+}

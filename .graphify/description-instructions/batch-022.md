@@ -1,4 +1,4 @@
-# Node Description Batch 23 of 37
+# Node Description Batch 23 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "customer_customer_controller_customercontroller_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.controller.ts:L64 | neighbors=[CustomerController]
-- "customer_customer_controller_customercontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.controller.ts:L54 | neighbors=[CustomerController]
-- "customer_customer_module_customermodule": "CustomerModule" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.module.ts:L11 | neighbors=[customer.module.ts]
-- "customer_customer_repository_customerrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.repository.ts:L8 | neighbors=[CustomerRepository]
-- "customer_customer_repository_customerrepository_findbyidwithorders": ".findByIdWithOrders()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.repository.ts:L12 | neighbors=[CustomerRepository]
-- "customer_customer_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[CustomerRepository]
-- "customer_customer_service_customerservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L12 | neighbors=[CustomerService]
-- "customer_customer_service_customerservice_countactive": ".countActive()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L73 | neighbors=[CustomerService]
-- "customer_customer_service_customerservice_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L14 | neighbors=[CustomerService]
-- "customer_customer_service_customerservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/customer.service.ts:L24 | neighbors=[CustomerService]
-- "customers_customerdetailpage_customerdetailpage": "CustomerDetailPage()" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerDetailPage.tsx:L29 | neighbors=[CustomerDetailPage.tsx]
-- "customers_customerdetailpage_statusvariant": "statusVariant" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerDetailPage.tsx:L21 | neighbors=[CustomerDetailPage.tsx]
-- "customers_customerformpage_customerformpage": "CustomerFormPage()" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerFormPage.tsx:L15 | neighbors=[CustomerFormPage.tsx]
-- "customers_customerlistpage_customerlistpage": "CustomerListPage()" | kind=code-symbol | source=apps/admin/src/pages/customers/CustomerListPage.tsx:L24 | neighbors=[CustomerListPage.tsx]
-- "dashboard_dashboard_controller_dashboardcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.controller.ts:L11 | neighbors=[DashboardController]
-- "dashboard_dashboard_controller_dashboardcontroller_stats": ".stats()" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.controller.ts:L15 | neighbors=[DashboardController]
-- "dashboard_dashboard_module_dashboardmodule": "DashboardModule" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.module.ts:L14 | neighbors=[dashboard.module.ts]
-- "dashboard_dashboard_service_dashboardservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.service.ts:L11 | neighbors=[DashboardService]
-- "dashboard_dashboard_service_dashboardservice_getstats": ".getStats()" | kind=code-symbol | source=apps/api/src/modules/commerce/dashboard/dashboard.service.ts:L17 | neighbors=[DashboardService]
-- "decorators_current_user_decorator_currentuser": "CurrentUser" | kind=code-symbol | source=apps/api/src/common/decorators/current-user.decorator.ts:L3 | neighbors=[current-user.decorator.ts]
-- "decorators_permissions_decorator_requirepermissions": "RequirePermissions()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/decorators/permissions.decorator.ts:L4 | neighbors=[permissions.decorator.ts]
-- "decorators_tenant_context_decorator_gettenantcontext": "GetTenantContext" | kind=code-symbol | source=apps/api/src/common/decorators/tenant-context.decorator.ts:L4 | neighbors=[tenant-context.decorator.ts]
-- "design_tokens_index_tokens": "tokens" | kind=code-symbol | source=packages/design-tokens/index.ts:L2 | neighbors=[index.ts]
-- "dto_add_item_dto_additemdto": "AddItemDto" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/dto/add-item.dto.ts:L3 | neighbors=[add-item.dto.ts]
-- "dto_checkout_dto_checkoutdto": "CheckoutDto" | kind=code-symbol | source=apps/api/src/modules/commerce/checkout/dto/checkout.dto.ts:L3 | neighbors=[checkout.dto.ts]
-- "dto_create_cart_dto_createcartdto": "CreateCartDto" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/dto/create-cart.dto.ts:L3 | neighbors=[create-cart.dto.ts]
-- "dto_create_category_dto_createcategorydto": "CreateCategoryDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/create-category.dto.ts:L3 | neighbors=[create-category.dto.ts]
-- "dto_create_customer_dto_createcustomerdto": "CreateCustomerDto" | kind=code-symbol | source=apps/api/src/modules/commerce/customer/dto/create-customer.dto.ts:L3 | neighbors=[create-customer.dto.ts]
-- "dto_create_payment_intent_dto_createpaymentintentdto": "CreatePaymentIntentDto" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/dto/create-payment-intent.dto.ts:L3 | neighbors=[create-payment-intent.dto.ts]
-- "dto_create_product_dto_createproductdto": "CreateProductDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/create-product.dto.ts:L9 | neighbors=[create-product.dto.ts]
-- "dto_create_product_variant_dto_createproductvariantdto": "CreateProductVariantDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/create-product-variant.dto.ts:L10 | neighbors=[create-product-variant.dto.ts]
-- "dto_create_promotion_dto_createpromotiondto": "CreatePromotionDto" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/dto/create-promotion.dto.ts:L10 | neighbors=[create-promotion.dto.ts]
-- "dto_create_shipping_rule_dto_createshippingruledto": "CreateShippingRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/dto/create-shipping-rule.dto.ts:L9 | neighbors=[create-shipping-rule.dto.ts]
-- "dto_create_tax_rule_dto_createtaxruledto": "CreateTaxRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/dto/create-tax-rule.dto.ts:L9 | neighbors=[create-tax-rule.dto.ts]
-- "dto_invite_dto_invitedto": "InviteDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/invite.dto.ts:L3 | neighbors=[invite.dto.ts]
-- "dto_list_orders_query_dto_listordersquerydto": "ListOrdersQueryDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/list-orders-query.dto.ts:L4 | neighbors=[list-orders-query.dto.ts]
-- "dto_login_dto_logindto": "LoginDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/login.dto.ts:L3 | neighbors=[login.dto.ts]
-- "dto_mfa_disable_dto_mfadisabledto": "MfaDisableDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/mfa-disable.dto.ts:L3 | neighbors=[mfa-disable.dto.ts]
-- "dto_mfa_verify_dto_mfaverifydto": "MfaVerifyDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/mfa-verify.dto.ts:L3 | neighbors=[mfa-verify.dto.ts]
-- "dto_order_response_dto_orderitemdto": "OrderItemDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-response.dto.ts:L11 | neighbors=[order-response.dto.ts]
+- "api_fix_imports_fs": "fs" | kind=code-symbol | source=apps/api/fix-imports.js:L1 | neighbors=[fix-imports.js]
+- "api_fix_theme_files": "files" | kind=code-symbol | source=apps/api/fix-theme.js:L2 | neighbors=[fix-theme.js]
+- "api_fix_theme_fs": "fs" | kind=code-symbol | source=apps/api/fix-theme.js:L1 | neighbors=[fix-theme.js]
+- "api_superadmin_provisiontenantinput": "ProvisionTenantInput" | kind=code-symbol | source=apps/admin/src/lib/api/superAdmin.ts:L22 | neighbors=[superAdmin.ts]
+- "app_home_client_homeclient": "HomeClient()" | kind=code-symbol | source=apps/storefront/src/app/home-client.tsx:L8 | neighbors=[home-client.tsx]
+- "app_layout_footercolumns": "footerColumns" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L28 | neighbors=[layout.tsx]
+- "app_layout_geistmono": "geistMono" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L18 | neighbors=[layout.tsx]
+- "app_layout_geistsans": "geistSans" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L13 | neighbors=[layout.tsx]
+- "app_layout_metadata": "metadata" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L23 | neighbors=[layout.tsx]
+- "app_layout_rootlayout": "RootLayout()" | kind=code-symbol | source=apps/storefront/src/app/layout.tsx:L54 | neighbors=[layout.tsx]
+- "app_page_home": "Home()" | kind=code-symbol | source=apps/storefront/src/app/page.tsx:L3 | neighbors=[page.tsx]
+- "app_page_homepage": "HomePage()" | kind=code-symbol | source=apps/storefront/src/app/page.tsx:L7 | neighbors=[page.tsx]
+- "audit_log_audit_log_controller_auditlogcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L11 | neighbors=[AuditLogController]
+- "audit_log_audit_log_controller_auditlogcontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.controller.ts:L15 | neighbors=[AuditLogController]
+- "audit_log_audit_log_module_auditlogmodule": "AuditLogModule" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.module.ts:L11 | neighbors=[audit-log.module.ts]
+- "audit_log_audit_log_repository_auditlogrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L8 | neighbors=[AuditLogRepository]
+- "audit_log_audit_log_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[AuditLogRepository]
+- "audit_log_audit_log_service_auditlogservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L7 | neighbors=[AuditLogService]
+- "audit_log_audit_log_service_auditlogservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L26 | neighbors=[AuditLogService]
+- "audit_log_audit_log_service_auditlogservice_log": ".log()" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.service.ts:L9 | neighbors=[AuditLogService]
+- "auth_auth_controller_authcontroller_changepassword": ".changePassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L108 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L29 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_disablemfa": ".disableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L79 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_forgotpassword": ".forgotPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L89 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_invite": ".invite()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L120 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_login": ".login()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L41 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_logout": ".logout()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L145 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_me": ".me()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L135 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_mfaverify": ".mfaVerify()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L47 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_refresh": ".refresh()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L126 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_register": ".register()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L32 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_resetpassword": ".resetPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L98 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_setupmfa": ".setupMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L58 | neighbors=[AuthController]
+- "auth_auth_controller_authcontroller_verifyandenablemfa": ".verifyAndEnableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.controller.ts:L68 | neighbors=[AuthController]
+- "auth_auth_module_authmodule": "AuthModule" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.module.ts:L22 | neighbors=[auth.module.ts]
+- "auth_auth_service_authenticator": "{ authenticator }" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L12 | neighbors=[auth.service.ts]
+- "auth_auth_service_authservice_changepassword": ".changePassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L214 | neighbors=[AuthService]
+- "auth_auth_service_authservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L28 | neighbors=[AuthService]
+- "auth_auth_service_authservice_disablemfa": ".disableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L158 | neighbors=[AuthService]
+- "auth_auth_service_authservice_forgotpassword": ".forgotPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L172 | neighbors=[AuthService]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

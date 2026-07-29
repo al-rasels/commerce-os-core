@@ -1,4 +1,4 @@
-# Node Description Batch 17 of 37
+# Node Description Batch 17 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "ui_config_index": "index.js" | kind=code-symbol | source=packages/ui-config/index.js:L1 | neighbors=[028709f chore: scaffold monorepo with a…, 3d66d0f feat: implement payments module…]
-- "ui_input_group_inputgroupaddon": "InputGroupAddon()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L46 | neighbors=[input-group.tsx, inputGroupAddonVariants]
-- "ui_input_group_inputgroupaddonvariants": "inputGroupAddonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L25 | neighbors=[input-group.tsx, InputGroupAddon()]
-- "ui_input_group_inputgroupbutton": "InputGroupButton()" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L86 | neighbors=[input-group.tsx, inputGroupButtonVariants]
-- "ui_input_group_inputgroupbuttonvariants": "inputGroupButtonVariants" | kind=code-symbol | source=apps/admin/src/components/ui/input-group.tsx:L68 | neighbors=[input-group.tsx, InputGroupButton()]
-- "ui_sheet_sheet": "Sheet()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L10 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheetcontent": "SheetContent()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L39 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheetheader": "SheetHeader()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L83 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_sheet_sheettitle": "SheetTitle()" | kind=code-symbol | source=apps/storefront/src/components/ui/sheet.tsx:L103 | neighbors=[cart-drawer.tsx, sheet.tsx]
-- "ui_tabs_tabslist": "TabsList()" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L39 | neighbors=[tabs.tsx, tabsListVariants]
-- "ui_tabs_tabslistvariants": "tabsListVariants" | kind=code-symbol | source=apps/admin/src/components/ui/tabs.tsx:L24 | neighbors=[tabs.tsx, TabsList()]
-- "users_role_repository": "role.repository.ts" | kind=code-symbol | source=apps/api/src/modules/platform/users/role.repository.ts:L1 | neighbors=[6eb89d7 chore(tech-debt): resolve techn…, RoleRepository]
-- "users_users_service_usersservice_findbyemail": ".findByEmail()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L127 | neighbors=[UsersService, .findMany()]
-- "users_users_service_usersservice_findmanywithrole": ".findManyWithRole()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L119 | neighbors=[UsersService, .list()]
-- "users_users_service_usersservice_findrolebyname": ".findRoleByName()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L132 | neighbors=[UsersService, .findMany()]
-- "users_users_service_usersservice_finduniquewithrolefull": ".findUniqueWithRoleFull()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L115 | neighbors=[UsersService, .getById()]
-- "users_users_service_usersservice_getbyid": ".getById()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L67 | neighbors=[UsersService, .findUniqueWithRoleFull()]
-- "users_users_service_usersservice_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L21 | neighbors=[UsersService, .findManyWithRole()]
-- "users_users_service_usersservice_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L75 | neighbors=[UsersService, .updateUser()]
-- "users_users_service_usersservice_updatestatus": ".updateStatus()" | kind=code-symbol | source=apps/api/src/modules/platform/users/users.service.ts:L98 | neighbors=[UsersService, .updateUser()]
-- "20260716164323_init_migration_countries": "countries" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L2 | neighbors=[migration.sql]
-- "20260716164323_init_migration_currencies": "currencies" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L11 | neighbors=[migration.sql]
-- "20260716164323_init_migration_plans": "plans" | kind=code-symbol | source=apps/api/prisma/migrations/20260716164323_init/migration.sql:L21 | neighbors=[migration.sql]
-- "20260717055219_add_description_sort_order_migration": "migration.sql" | kind=code-symbol | source=apps/api/prisma/migrations/20260717055219_add_description_sort_order/migration.sql:L1 | neighbors=[ac49c08 chore: batch commit — catalog C…]
-- "account_page_accountpage": "AccountPage()" | kind=code-symbol | source=apps/storefront/src/app/account/page.tsx:L13 | neighbors=[page.tsx]
-- "admin_admin_controller_admincontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L19 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_gettenant": ".getTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L27 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_listtenants": ".listTenants()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L22 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_provisiontenant": ".provisionTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L32 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_suspendtenant": ".suspendTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L52 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_toggleflag": ".toggleFlag()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L44 | neighbors=[AdminController]
-- "admin_admin_controller_admincontroller_updateplan": ".updatePlan()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.controller.ts:L39 | neighbors=[AdminController]
-- "admin_admin_module_adminmodule": "AdminModule" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.module.ts:L13 | neighbors=[admin.module.ts]
-- "admin_admin_service_adminservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L14 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_gettenant": ".getTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L29 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_listtenants": ".listTenants()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L16 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_provisiontenant": ".provisionTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L46 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_suspendtenant": ".suspendTenant()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L137 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_togglefeatureflag": ".toggleFeatureFlag()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L105 | neighbors=[AdminService]
-- "admin_admin_service_adminservice_updatetenantplan": ".updateTenantPlan()" | kind=code-symbol | source=apps/api/src/modules/platform/admin/admin.service.ts:L92 | neighbors=[AdminService]
+- "api_users_updateuserinput": "UpdateUserInput" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L35 | neighbors=[index.ts, users.ts]
+- "api_users_updateuserstatusinput": "UpdateUserStatusInput" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L41 | neighbors=[index.ts, users.ts]
+- "api_users_userapi": "userApi" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L45 | neighbors=[index.ts, users.ts]
+- "api_users_userlistresponse": "UserListResponse" | kind=code-symbol | source=apps/admin/src/lib/api/users.ts:L13 | neighbors=[index.ts, users.ts]
+- "audit_log_audit_log_module": "audit-log.module.ts" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.module.ts:L1 | neighbors=[AuditLogModule, 3d66d0f feat: implement payments module…]
+- "audit_log_audit_log_repository": "audit-log.repository.ts" | kind=code-symbol | source=apps/api/src/modules/platform/audit-log/audit-log.repository.ts:L1 | neighbors=[AuditLogRepository, 3d66d0f feat: implement payments module…]
+- "auth_auth_service_authservice_login": ".login()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L63 | neighbors=[AuthService, .generateTokens()]
+- "auth_auth_service_authservice_mfaverify": ".mfaVerify()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L98 | neighbors=[AuthService, .generateTokens()]
+- "auth_auth_service_authservice_refresh": ".refresh()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L258 | neighbors=[AuthService, .generateTokens()]
+- "auth_auth_service_authservice_register": ".register()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L35 | neighbors=[AuthService, .generateTokens()]
+- "b2b_pricelistspage": "PriceListsPage.tsx" | kind=code-symbol | source=apps/admin/src/pages/b2b/PriceListsPage.tsx:L1 | neighbors=[PriceListsPage(), 7d74efe feat(commerce): implement B2B, …]
+- "builder_builder_service_builderservice_updatepagelayout": ".updatePageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L59 | neighbors=[BuilderService, .validatePlanRequirements()]
+- "builder_builder_service_builderservice_validateplanrequirements": ".validatePlanRequirements()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L29 | neighbors=[BuilderService, .updatePageLayout()]
+- "builder_databindingpanel_databindingpanel": "DataBindingPanel()" | kind=code-symbol | source=apps/admin/src/pages/builder/DataBindingPanel.tsx:L5 | neighbors=[DataBindingPanel.tsx, PageBuilder.tsx]
+- "builder_propertypanel_propertypanel": "PropertyPanel()" | kind=code-symbol | source=apps/admin/src/pages/builder/PropertyPanel.tsx:L10 | neighbors=[PageBuilder.tsx, PropertyPanel.tsx]
+- "builder_responsiveeditor_responsiveeditor": "ResponsiveEditor()" | kind=code-symbol | source=apps/admin/src/pages/builder/ResponsiveEditor.tsx:L3 | neighbors=[PageBuilder.tsx, ResponsiveEditor.tsx]
+- "cache_tenant_cache_service_tenantcacheservice_del": ".del()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L42 | neighbors=[TenantCacheService, .generateKey()]
+- "cache_tenant_cache_service_tenantcacheservice_get": ".get()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L20 | neighbors=[TenantCacheService, .generateKey()]
+- "cache_tenant_cache_service_tenantcacheservice_set": ".set()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L30 | neighbors=[TenantCacheService, .generateKey()]
+- "cart_cart_drawer_formatprice": "formatPrice()" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L22 | neighbors=[cart-drawer.tsx, CartDrawer()]
+- "cart_cart_service_cartservice_additem": ".addItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L51 | neighbors=[CartService, .create()]
+- "cart_cart_service_cartservice_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L26 | neighbors=[CartService, .addItem()]
+- "cart_cart_service_cartservice_removeitem": ".removeItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L115 | neighbors=[CartService, .updateItem()]
+- "cart_cart_service_cartservice_updateitem": ".updateItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.service.ts:L84 | neighbors=[CartService, .removeItem()]
+- "components_add_to_cart_button_addtocartbutton": "AddToCartButton()" | kind=code-symbol | source=apps/storefront/src/components/add-to-cart-button.tsx:L8 | neighbors=[add-to-cart-button.tsx, product-client.tsx]
+- "components_alert_alert": "Alert()" | kind=code-symbol | source=packages/components/alert.tsx:L22 | neighbors=[alert.tsx, alertVariants]
+- "components_alert_alertvariants": "alertVariants" | kind=code-symbol | source=packages/components/alert.tsx:L6 | neighbors=[alert.tsx, Alert()]
+- "components_auth_guard_authguard": "AuthGuard()" | kind=code-symbol | source=apps/storefront/src/components/auth-guard.tsx:L6 | neighbors=[page.tsx, auth-guard.tsx]
+- "components_badge_badge": "Badge()" | kind=code-symbol | source=packages/components/badge.tsx:L30 | neighbors=[badge.tsx, badgeVariants]
+- "components_badge_badgevariants": "badgeVariants" | kind=code-symbol | source=packages/components/badge.tsx:L7 | neighbors=[badge.tsx, Badge()]
+- "components_banner_banner": "Banner()" | kind=code-symbol | source=packages/components/banner.tsx:L10 | neighbors=[banner.tsx, registry.ts]
+- "components_breadcrumbs_crumb": "Crumb" | kind=code-symbol | source=packages/components/breadcrumbs.tsx:L5 | neighbors=[breadcrumbs.tsx, breadcrumbs.spec.tsx]
+- "components_buildernode_buildernode": "BuilderNode()" | kind=code-symbol | source=apps/admin/src/pages/builder/components/BuilderNode.tsx:L17 | neighbors=[PageBuilder.tsx, BuilderNode.tsx]
+- "components_button_buttonvariants": "buttonVariants" | kind=code-symbol | source=packages/components/button.tsx:L6 | neighbors=[button.tsx, Button()]
+- "components_cart_drawer_cartdrawer": "CartDrawer()" | kind=code-symbol | source=packages/components/cart-drawer.tsx:L11 | neighbors=[cart-drawer.tsx, registry.ts]
+- "components_chart_chartlegendcontent": "ChartLegendContent()" | kind=code-symbol | source=packages/components/chart.tsx:L238 | neighbors=[chart.tsx, useChart()]
+- "components_chart_charttooltipcontent": "ChartTooltipContent()" | kind=code-symbol | source=packages/components/chart.tsx:L111 | neighbors=[chart.tsx, useChart()]
+- "components_checkout_summary_checkoutsummary": "CheckoutSummary()" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L7 | neighbors=[checkout-summary.tsx, registry.ts]
+- "components_data_table_datatable": "DataTable()" | kind=code-symbol | source=packages/components/data-table.tsx:L26 | neighbors=[data-table.tsx, registry.ts]
+- "components_dialog_dialog": "Dialog()" | kind=code-symbol | source=packages/components/dialog.tsx:L10 | neighbors=[command.tsx, dialog.tsx]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

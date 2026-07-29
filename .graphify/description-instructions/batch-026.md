@@ -1,4 +1,4 @@
-# Node Description Batch 27 of 37
+# Node Description Batch 27 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "payments_payments_controller_paymentscontroller_createintent": ".createIntent()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.controller.ts:L16 | neighbors=[PaymentsController]
-- "payments_payments_module_paymentsmodule": "PaymentsModule" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.module.ts:L22 | neighbors=[payments.module.ts]
-- "payments_payments_service_paymentsservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L15 | neighbors=[PaymentsService]
-- "payments_payments_service_paymentsservice_createpaymentintent": ".createPaymentIntent()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.service.ts:L21 | neighbors=[PaymentsService]
-- "payments_payments_webhook_controller_paymentswebhookcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.webhook.controller.ts:L7 | neighbors=[PaymentsWebhookController]
-- "payments_payments_webhook_controller_paymentswebhookcontroller_handlewebhook": ".handleWebhook()" | kind=code-symbol | source=apps/api/src/modules/commerce/payments/payments.webhook.controller.ts:L11 | neighbors=[PaymentsWebhookController]
-- "platform_platform_module_nestmodule": "NestModule" | kind=code-symbol | neighbors=[PlatformModule]
-- "platform_platform_module_platformmodule_configure": ".configure()" | kind=code-symbol | source=apps/api/src/modules/platform/platform.module.ts:L24 | neighbors=[PlatformModule]
-- "prisma_prisma_module_prismamodule": "PrismaModule" | kind=code-symbol | source=apps/api/src/prisma/prisma.module.ts:L9 | neighbors=[prisma.module.ts]
-- "prisma_prisma_service_onmoduleinit": "OnModuleInit" | kind=code-symbol | neighbors=[PrismaService]
-- "prisma_prisma_service_prismaclient": "PrismaClient" | kind=code-symbol | neighbors=[PrismaService]
-- "prisma_prisma_service_prismaservice_onmoduleinit": ".onModuleInit()" | kind=code-symbol | source=apps/api/src/prisma/prisma.service.ts:L6 | neighbors=[PrismaService]
-- "prisma_seed_main": "main()" | kind=code-symbol | source=apps/api/prisma/seed.ts:L6 | neighbors=[seed.ts]
-- "prisma_seed_prisma": "prisma" | kind=code-symbol | source=apps/api/prisma/seed.ts:L4 | neighbors=[seed.ts]
-- "products_loading_loading": "Loading()" | kind=code-symbol | source=apps/storefront/src/app/products/loading.tsx:L3 | neighbors=[loading.tsx]
-- "products_page_productspage": "ProductsPage()" | kind=code-symbol | source=apps/storefront/src/app/products/page.tsx:L6 | neighbors=[page.tsx]
-- "products_productformpage_productformpage": "ProductFormPage()" | kind=code-symbol | source=apps/admin/src/pages/products/ProductFormPage.tsx:L26 | neighbors=[ProductFormPage.tsx]
-- "products_productlistpage_productlistpage": "ProductListPage()" | kind=code-symbol | source=apps/admin/src/pages/products/ProductListPage.tsx:L36 | neighbors=[ProductListPage.tsx]
-- "promotions_promotion_repository_promotionrepository_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotion.repository.ts:L7 | neighbors=[PromotionRepository]
-- "promotions_promotion_repository_tenantscopedrepository": "TenantScopedRepository" | kind=code-symbol | neighbors=[PromotionRepository]
-- "promotions_promotions_controller_promotionscontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L23 | neighbors=[PromotionsController]
-- "promotions_promotions_controller_promotionscontroller_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L39 | neighbors=[PromotionsController]
-- "promotions_promotions_controller_promotionscontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L33 | neighbors=[PromotionsController]
-- "promotions_promotions_controller_promotionscontroller_list": ".list()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L27 | neighbors=[PromotionsController]
-- "promotions_promotions_controller_promotionscontroller_remove": ".remove()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L58 | neighbors=[PromotionsController]
-- "promotions_promotions_controller_promotionscontroller_update": ".update()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.controller.ts:L48 | neighbors=[PromotionsController]
-- "promotions_promotions_module_promotionsmodule": "PromotionsModule" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.module.ts:L14 | neighbors=[promotions.module.ts]
-- "promotions_promotions_service_promotionsservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L13 | neighbors=[PromotionsService]
-- "promotions_promotions_service_promotionsservice_createpromotion": ".createPromotion()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L29 | neighbors=[PromotionsService]
-- "promotions_promotions_service_promotionsservice_deletepromotion": ".deletePromotion()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L41 | neighbors=[PromotionsService]
-- "promotions_promotions_service_promotionsservice_listpromotions": ".listPromotions()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L15 | neighbors=[PromotionsService]
-- "promotions_promotions_service_promotionsservice_updatepromotion": ".updatePromotion()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L33 | neighbors=[PromotionsService]
-- "promotions_promotions_service_promotionsservice_validateandapply": ".validateAndApply()" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/promotions.service.ts:L45 | neighbors=[PromotionsService]
-- "redis_redis_module_redismodule": "RedisModule" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.module.ts:L9 | neighbors=[redis.module.ts]
-- "redis_redis_service_onmoduledestroy": "OnModuleDestroy" | kind=code-symbol | neighbors=[RedisService]
-- "redis_redis_service_onmoduleinit": "OnModuleInit" | kind=code-symbol | neighbors=[RedisService]
-- "redis_redis_service_redisservice_del": ".del()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L54 | neighbors=[RedisService]
-- "redis_redis_service_redisservice_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L47 | neighbors=[RedisService]
-- "redis_redis_service_redisservice_onmoduledestroy": ".onModuleDestroy()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L34 | neighbors=[RedisService]
-- "redis_redis_service_redisservice_onmoduleinit": ".onModuleInit()" | kind=code-symbol | source=apps/api/src/modules/platform/redis/redis.service.ts:L15 | neighbors=[RedisService]
+- "components_avatar_avatar": "Avatar()" | kind=code-symbol | source=packages/components/avatar.tsx:L6 | neighbors=[avatar.tsx]
+- "components_avatar_avatarbadge": "AvatarBadge()" | kind=code-symbol | source=packages/components/avatar.tsx:L55 | neighbors=[avatar.tsx]
+- "components_avatar_avatarfallback": "AvatarFallback()" | kind=code-symbol | source=packages/components/avatar.tsx:L39 | neighbors=[avatar.tsx]
+- "components_avatar_avatargroup": "AvatarGroup()" | kind=code-symbol | source=packages/components/avatar.tsx:L71 | neighbors=[avatar.tsx]
+- "components_avatar_avatargroupcount": "AvatarGroupCount()" | kind=code-symbol | source=packages/components/avatar.tsx:L84 | neighbors=[avatar.tsx]
+- "components_avatar_avatarimage": "AvatarImage()" | kind=code-symbol | source=packages/components/avatar.tsx:L26 | neighbors=[avatar.tsx]
+- "components_banner_bannerprops": "BannerProps" | kind=code-symbol | source=packages/components/banner.tsx:L3 | neighbors=[banner.tsx]
+- "components_breadcrumb_breadcrumb": "Breadcrumb()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L5 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumbellipsis": "BreadcrumbEllipsis()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L56 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumbitem": "BreadcrumbItem()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L19 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumblink": "BreadcrumbLink()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L23 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumblist": "BreadcrumbList()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L9 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumbpage": "BreadcrumbPage()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L29 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumb_breadcrumbseparator": "BreadcrumbSeparator()" | kind=code-symbol | source=packages/components/breadcrumb.tsx:L42 | neighbors=[breadcrumb.tsx]
+- "components_breadcrumbs_breadcrumbsprops": "BreadcrumbsProps" | kind=code-symbol | source=packages/components/breadcrumbs.tsx:L10 | neighbors=[breadcrumbs.tsx]
+- "components_breadcrumbs_spec_defaultitems": "defaultItems" | kind=code-symbol | source=packages/components/breadcrumbs.spec.tsx:L4 | neighbors=[breadcrumbs.spec.tsx]
+- "components_buildernode_buildernodeprops": "BuilderNodeProps" | kind=code-symbol | source=apps/admin/src/pages/builder/components/BuilderNode.tsx:L11 | neighbors=[BuilderNode.tsx]
+- "components_button_buttonprops": "ButtonProps" | kind=code-symbol | source=packages/components/button.tsx:L43 | neighbors=[button.tsx]
+- "components_button_sizestyles": "sizeStyles" | kind=code-symbol | source=packages/components/button.tsx:L18 | neighbors=[button.tsx]
+- "components_button_variantstyles": "variantStyles" | kind=code-symbol | source=packages/components/button.tsx:L10 | neighbors=[button.tsx]
+- "components_card_card": "Card()" | kind=code-symbol | source=packages/components/card.tsx:L5 | neighbors=[card.tsx]
+- "components_card_cardaction": "CardAction()" | kind=code-symbol | source=packages/components/card.tsx:L59 | neighbors=[card.tsx]
+- "components_card_cardcontent": "CardContent()" | kind=code-symbol | source=packages/components/card.tsx:L72 | neighbors=[card.tsx]
+- "components_card_carddescription": "CardDescription()" | kind=code-symbol | source=packages/components/card.tsx:L49 | neighbors=[card.tsx]
+- "components_card_cardfooter": "CardFooter()" | kind=code-symbol | source=packages/components/card.tsx:L82 | neighbors=[card.tsx]
+- "components_card_cardheader": "CardHeader()" | kind=code-symbol | source=packages/components/card.tsx:L23 | neighbors=[card.tsx]
+- "components_card_cardtitle": "CardTitle()" | kind=code-symbol | source=packages/components/card.tsx:L36 | neighbors=[card.tsx]
+- "components_cart_drawer_cartdrawerprops": "CartDrawerProps" | kind=code-symbol | source=packages/components/cart-drawer.tsx:L7 | neighbors=[cart-drawer.tsx]
+- "components_chart_chartconfig": "ChartConfig" | kind=code-symbol | source=packages/components/chart.tsx:L17 | neighbors=[chart.tsx]
+- "components_chart_chartcontainer": "ChartContainer()" | kind=code-symbol | source=packages/components/chart.tsx:L41 | neighbors=[chart.tsx]
+- "components_chart_chartcontext": "ChartContext" | kind=code-symbol | source=packages/components/chart.tsx:L29 | neighbors=[chart.tsx]
+- "components_chart_chartcontextprops": "ChartContextProps" | kind=code-symbol | source=packages/components/chart.tsx:L25 | neighbors=[chart.tsx]
+- "components_chart_chartstyle": "ChartStyle()" | kind=code-symbol | source=packages/components/chart.tsx:L79 | neighbors=[chart.tsx]
+- "components_chart_getpayloadconfigfrompayload": "getPayloadConfigFromPayload()" | kind=code-symbol | source=packages/components/chart.tsx:L285 | neighbors=[chart.tsx]
+- "components_chart_initial_dimension": "INITIAL_DIMENSION" | kind=code-symbol | source=packages/components/chart.tsx:L13 | neighbors=[chart.tsx]
+- "components_chart_themes": "THEMES" | kind=code-symbol | source=packages/components/chart.tsx:L11 | neighbors=[chart.tsx]
+- "components_chart_tooltipnametype": "TooltipNameType" | kind=code-symbol | source=packages/components/chart.tsx:L15 | neighbors=[chart.tsx]
+- "components_checkbox_checkbox": "Checkbox()" | kind=code-symbol | source=packages/components/checkbox.tsx:L8 | neighbors=[checkbox.tsx]
+- "components_checkout_summary_checkoutsummaryprops": "CheckoutSummaryProps" | kind=code-symbol | source=packages/components/checkout-summary.tsx:L3 | neighbors=[checkout-summary.tsx]
+- "components_collapsible_collapsible": "Collapsible()" | kind=code-symbol | source=packages/components/collapsible.tsx:L5 | neighbors=[collapsible.tsx]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

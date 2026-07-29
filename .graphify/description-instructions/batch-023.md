@@ -1,4 +1,4 @@
-# Node Description Batch 24 of 37
+# Node Description Batch 24 of 51
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -17,46 +17,46 @@ No marketing language.
 Respond ONLY with a JSON object mapping each node id (as a string) to its
 one-sentence description — no prose, no markdown fences.
 
-- "dto_order_response_dto_orderresponsedto": "OrderResponseDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-response.dto.ts:L26 | neighbors=[order-response.dto.ts]
-- "dto_order_status_dto_orderstatusdto": "OrderStatusDto" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-status.dto.ts:L5 | neighbors=[order-status.dto.ts]
-- "dto_order_status_dto_valid_statuses": "VALID_STATUSES" | kind=code-symbol | source=apps/api/src/modules/commerce/order/dto/order-status.dto.ts:L3 | neighbors=[order-status.dto.ts]
-- "dto_register_dto_registerdto": "RegisterDto" | kind=code-symbol | source=apps/api/src/modules/platform/auth/dto/register.dto.ts:L3 | neighbors=[register.dto.ts]
-- "dto_update_category_dto_updatecategorydto": "UpdateCategoryDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-category.dto.ts:L3 | neighbors=[update-category.dto.ts]
-- "dto_update_item_dto_updateitemdto": "UpdateItemDto" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/dto/update-item.dto.ts:L3 | neighbors=[update-item.dto.ts]
-- "dto_update_product_dto_updateproductdto": "UpdateProductDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-product.dto.ts:L3 | neighbors=[update-product.dto.ts]
-- "dto_update_product_variant_dto_updateproductvariantdto": "UpdateProductVariantDto" | kind=code-symbol | source=apps/api/src/modules/commerce/catalog/dto/update-product-variant.dto.ts:L3 | neighbors=[update-product-variant.dto.ts]
-- "dto_update_promotion_dto_updatepromotiondto": "UpdatePromotionDto" | kind=code-symbol | source=apps/api/src/modules/commerce/promotions/dto/update-promotion.dto.ts:L4 | neighbors=[update-promotion.dto.ts]
-- "dto_update_shipping_rule_dto_updateshippingruledto": "UpdateShippingRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/shipping/dto/update-shipping-rule.dto.ts:L4 | neighbors=[update-shipping-rule.dto.ts]
-- "dto_update_tax_rule_dto_updatetaxruledto": "UpdateTaxRuleDto" | kind=code-symbol | source=apps/api/src/modules/commerce/tax/dto/update-tax-rule.dto.ts:L4 | neighbors=[update-tax-rule.dto.ts]
-- "dto_update_user_dto_updateuserdto": "UpdateUserDto" | kind=code-symbol | source=apps/api/src/modules/platform/users/dto/update-user.dto.ts:L3 | neighbors=[update-user.dto.ts]
-- "dto_update_user_status_dto_updateuserstatusdto": "UpdateUserStatusDto" | kind=code-symbol | source=apps/api/src/modules/platform/users/dto/update-user-status.dto.ts:L3 | neighbors=[update-user-status.dto.ts]
-- "e2e_checkout_spec": "checkout.spec.ts" | kind=code-symbol | source=tests/e2e/checkout.spec.ts:L1 | neighbors=[3571d3a feat(storefront): overhaul UI/U…]
-- "experience_experience_module_experiencemodule": "ExperienceModule" | kind=code-symbol | source=apps/api/src/modules/experience/experience.module.ts:L8 | neighbors=[experience.module.ts]
-- "filters_prisma_client_exception_filter_baseexceptionfilter": "BaseExceptionFilter" | kind=code-symbol | neighbors=[PrismaClientExceptionFilter]
-- "filters_prisma_client_exception_filter_prismaclientexceptionfilter_catch": ".catch()" | kind=code-symbol | source=apps/api/src/common/filters/prisma-client-exception.filter.ts:L16 | neighbors=[PrismaClientExceptionFilter]
-- "forgot_password_page_forgotpasswordpage": "ForgotPasswordPage()" | kind=code-symbol | source=apps/storefront/src/app/account/forgot-password/page.tsx:L11 | neighbors=[page.tsx]
-- "guards_permission_guard_canactivate": "CanActivate" | kind=code-symbol | neighbors=[PermissionGuard]
-- "guards_permission_guard_permissionguard_canactivate": ".canActivate()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/permission.guard.ts:L9 | neighbors=[PermissionGuard]
-- "guards_permission_guard_permissionguard_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/permission.guard.ts:L7 | neighbors=[PermissionGuard]
-- "guards_tenant_auth_guard_canactivate": "CanActivate" | kind=code-symbol | neighbors=[TenantAuthGuard]
-- "guards_tenant_auth_guard_spec_mockctx": "mockCtx()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/tenant-auth.guard.spec.ts:L5 | neighbors=[tenant-auth.guard.spec.ts]
-- "guards_tenant_auth_guard_tenantauthguard_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/guards/tenant-auth.guard.ts:L13 | neighbors=[TenantAuthGuard]
-- "health_health_controller_healthcontroller_check": ".check()" | kind=code-symbol | source=apps/api/src/modules/platform/health/health.controller.ts:L22 | neighbors=[HealthController]
-- "health_health_controller_healthcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/platform/health/health.controller.ts:L13 | neighbors=[HealthController]
-- "hooks_usecategories_usecategories": "useCategories()" | kind=code-symbol | source=apps/admin/src/hooks/useCategories.ts:L5 | neighbors=[useCategories.ts]
-- "hooks_usecategories_usecreatecategory": "useCreateCategory()" | kind=code-symbol | source=apps/admin/src/hooks/useCategories.ts:L12 | neighbors=[useCategories.ts]
-- "hooks_usecategories_usedeletecategory": "useDeleteCategory()" | kind=code-symbol | source=apps/admin/src/hooks/useCategories.ts:L36 | neighbors=[useCategories.ts]
-- "hooks_usecategories_useupdatecategory": "useUpdateCategory()" | kind=code-symbol | source=apps/admin/src/hooks/useCategories.ts:L24 | neighbors=[useCategories.ts]
-- "hooks_usecustomers_usecreatecustomer": "useCreateCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L20 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_usecustomer": "useCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L12 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_usecustomers": "useCustomers()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L5 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_usedeletecustomer": "useDeleteCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L44 | neighbors=[useCustomers.ts]
-- "hooks_usecustomers_useupdatecustomer": "useUpdateCustomer()" | kind=code-symbol | source=apps/admin/src/hooks/useCustomers.ts:L32 | neighbors=[useCustomers.ts]
-- "hooks_usedashboard_usedashboardstats": "useDashboardStats()" | kind=code-symbol | source=apps/admin/src/hooks/useDashboard.ts:L4 | neighbors=[useDashboard.ts]
-- "hooks_useorders_useorder": "useOrder()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L12 | neighbors=[useOrders.ts]
-- "hooks_useorders_useorders": "useOrders()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L5 | neighbors=[useOrders.ts]
-- "hooks_useorders_useupdateorderstatus": "useUpdateOrderStatus()" | kind=code-symbol | source=apps/admin/src/hooks/useOrders.ts:L20 | neighbors=[useOrders.ts]
-- "hooks_usepages_usepagelayout": "usePageLayout()" | kind=code-symbol | source=apps/admin/src/hooks/usePages.ts:L5 | neighbors=[usePages.ts]
+- "auth_auth_service_authservice_invite": ".invite()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L232 | neighbors=[AuthService]
+- "auth_auth_service_authservice_logout": ".logout()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L297 | neighbors=[AuthService]
+- "auth_auth_service_authservice_me": ".me()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L289 | neighbors=[AuthService]
+- "auth_auth_service_authservice_resetpassword": ".resetPassword()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L189 | neighbors=[AuthService]
+- "auth_auth_service_authservice_setupmfa": ".setupMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L131 | neighbors=[AuthService]
+- "auth_auth_service_authservice_verifyandenablemfa": ".verifyAndEnableMfa()" | kind=code-symbol | source=apps/api/src/modules/platform/auth/auth.service.ts:L142 | neighbors=[AuthService]
+- "b2b_b2b_controller_b2bcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.controller.ts:L10 | neighbors=[B2bController]
+- "b2b_b2b_controller_b2bcontroller_getcompanies": ".getCompanies()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.controller.ts:L13 | neighbors=[B2bController]
+- "b2b_b2b_controller_b2bcontroller_getpricelists": ".getPriceLists()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.controller.ts:L18 | neighbors=[B2bController]
+- "b2b_b2b_module_b2bmodule": "B2bModule" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.module.ts:L13 | neighbors=[b2b.module.ts]
+- "b2b_b2b_service_b2bservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.service.ts:L8 | neighbors=[B2bService]
+- "b2b_b2b_service_b2bservice_getcompanies": ".getCompanies()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.service.ts:L13 | neighbors=[B2bService]
+- "b2b_b2b_service_b2bservice_getpricelists": ".getPriceLists()" | kind=code-symbol | source=apps/api/src/modules/business/b2b/b2b.service.ts:L19 | neighbors=[B2bService]
+- "b2b_companyprofileslistpage_companyprofileslistpage": "CompanyProfilesListPage()" | kind=code-symbol | source=apps/admin/src/pages/b2b/CompanyProfilesListPage.tsx:L5 | neighbors=[CompanyProfilesListPage.tsx]
+- "b2b_draftorderspage_draftorderspage": "DraftOrdersPage()" | kind=code-symbol | source=apps/admin/src/pages/b2b/DraftOrdersPage.tsx:L53 | neighbors=[DraftOrdersPage.tsx]
+- "b2b_draftorderspage_draftorderstable": "DraftOrdersTable()" | kind=code-symbol | source=apps/admin/src/pages/b2b/DraftOrdersPage.tsx:L8 | neighbors=[DraftOrdersPage.tsx]
+- "b2b_page_b2bportalpage": "B2BPortalPage()" | kind=code-symbol | source=apps/storefront/src/app/(auth)/b2b/page.tsx:L8 | neighbors=[page.tsx]
+- "b2b_pricelistspage_pricelistspage": "PriceListsPage()" | kind=code-symbol | source=apps/admin/src/pages/b2b/PriceListsPage.tsx:L4 | neighbors=[PriceListsPage.tsx]
+- "builder_builder_controller_buildercontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L19 | neighbors=[BuilderController]
+- "builder_builder_controller_buildercontroller_getpagelayout": ".getPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L23 | neighbors=[BuilderController]
+- "builder_builder_controller_buildercontroller_publishpagelayout": ".publishPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L51 | neighbors=[BuilderController]
+- "builder_builder_controller_buildercontroller_unpublishpagelayout": ".unpublishPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L61 | neighbors=[BuilderController]
+- "builder_builder_controller_buildercontroller_updatepagelayout": ".updatePageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.controller.ts:L34 | neighbors=[BuilderController]
+- "builder_builder_module_buildermodule": "BuilderModule" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.module.ts:L13 | neighbors=[builder.module.ts]
+- "builder_builder_service_builderservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L12 | neighbors=[BuilderService]
+- "builder_builder_service_builderservice_getpagelayout": ".getPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L14 | neighbors=[BuilderService]
+- "builder_builder_service_builderservice_publishpagelayout": ".publishPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L105 | neighbors=[BuilderService]
+- "builder_builder_service_builderservice_unpublishpagelayout": ".unpublishPageLayout()" | kind=code-symbol | source=apps/api/src/modules/experience/builder/builder.service.ts:L136 | neighbors=[BuilderService]
+- "builder_pagebuilder_pagebuilder": "PageBuilder()" | kind=code-symbol | source=apps/admin/src/pages/builder/PageBuilder.tsx:L16 | neighbors=[PageBuilder.tsx]
+- "builder_propertypanel_propertypanelprops": "PropertyPanelProps" | kind=code-symbol | source=apps/admin/src/pages/builder/PropertyPanel.tsx:L5 | neighbors=[PropertyPanel.tsx]
+- "cache_tenant_cache_service_tenantcacheservice_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/common/cache/tenant-cache.service.ts:L7 | neighbors=[TenantCacheService]
+- "cart_cart_controller_cartcontroller_additem": ".addItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L42 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_clearcart": ".clearCart()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L73 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_constructor": ".constructor()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L23 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_create": ".create()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L27 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_get": ".get()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L36 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_removeitem": ".removeItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L63 | neighbors=[CartController]
+- "cart_cart_controller_cartcontroller_updateitem": ".updateItem()" | kind=code-symbol | source=apps/api/src/modules/commerce/cart/cart.controller.ts:L52 | neighbors=[CartController]
+- "cart_cart_drawer_cart": "Cart" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L17 | neighbors=[cart-drawer.tsx]
+- "cart_cart_drawer_cartitem": "CartItem" | kind=code-symbol | source=apps/storefront/src/components/cart/cart-drawer.tsx:L11 | neighbors=[cart-drawer.tsx]
 
 ## Instructions
 
@@ -68,6 +68,7 @@ outside the JSON object. It is acceptable to omit a node if context is
 insufficient — but include every node you can ground confidently.
 
 Example answer format:
+
 ```json
 {
   "node_id_1": "Resolves the configured ontology profile from graphify.yaml.",

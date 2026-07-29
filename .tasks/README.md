@@ -11,12 +11,12 @@ backlog/        →        next/        →        in-progress/        →      
 
 ## How It Works
 
-| Folder | Contains | Rules |
-|---|---|---|
-| `backlog/` | All future sessions/tasks not yet prepared | Ordered by dependency. Do not start until predecessors are in `completed/` |
-| `next/` | The **next 1–2 tasks** fully prepared with specs, acceptance criteria, and file targets | Always populated. When `in-progress/` completes, the agent pulls from here |
-| `in-progress/` | The task currently being built | Maximum **one task** at a time (unless explicitly parallelized per the build guide) |
-| `completed/` | Finished tasks with verification results | Never deleted. Serves as an audit trail |
+| Folder         | Contains                                                                                | Rules                                                                               |
+| -------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `backlog/`     | All future sessions/tasks not yet prepared                                              | Ordered by dependency. Do not start until predecessors are in `completed/`          |
+| `next/`        | The **next 1–2 tasks** fully prepared with specs, acceptance criteria, and file targets | Always populated. When `in-progress/` completes, the agent pulls from here          |
+| `in-progress/` | The task currently being built                                                          | Maximum **one task** at a time (unless explicitly parallelized per the build guide) |
+| `completed/`   | Finished tasks with verification results                                                | Never deleted. Serves as an audit trail                                             |
 
 ## Task File Format
 
@@ -28,24 +28,30 @@ Each task file follows this template:
 ## Status: [BACKLOG | NEXT | IN_PROGRESS | COMPLETED]
 
 ## Dependencies
+
 - [x] Session X (completed)
-- [ ] Session Y (required)
+- [x] Session Y (required)
 
 ## Objective
+
 What this session achieves in one sentence.
 
 ## Deliverables
-- [ ] Specific file or feature to build
-- [ ] Test to write
-- [ ] Doc to update
+
+- [x] Specific file or feature to build
+- [x] Test to write
+- [x] Doc to update
 
 ## Acceptance Criteria
-- [ ] "Done When" checks from the build guide
+
+- [x] "Done When" checks from the build guide
 
 ## Files to Touch
+
 - `path/to/file.ts` — what changes
 
 ## Notes
+
 Any context, decisions, or blockers.
 ```
 
