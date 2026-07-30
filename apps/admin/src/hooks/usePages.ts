@@ -1,11 +1,12 @@
-import { useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { pagesApi, type PageSection } from '@/lib/api/pages';
 import { toast } from 'sonner';
 
 export function usePageLayout(pageKey: string) {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['page-layout', pageKey],
     queryFn: () => pagesApi.get(pageKey),
+    staleTime: 60_000,
   });
 }
 

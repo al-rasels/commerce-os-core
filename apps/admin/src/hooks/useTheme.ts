@@ -1,11 +1,12 @@
-import { useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { themeApi } from '@/lib/api/experience';
 import { toast } from 'sonner';
 
 export function useTheme() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['theme'],
     queryFn: themeApi.get,
+    staleTime: 60_000,
   });
 }
 
