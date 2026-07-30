@@ -6,6 +6,7 @@ import {
 import { PageLayoutRepository } from './repositories/page-layout.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import { ComponentMetadata, PlanTier, BuilderNodeSchema } from '@commerceos/shared-types';
+import { z } from 'zod';
 import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
@@ -63,13 +64,15 @@ export class BuilderService {
     sectionsJson: any,
     publish: boolean = false,
   ) {
-    // 0. Validate Schema
-    const parseResult = BuilderNodeSchema.safeParse(sectionsJson);
+    // 0. Validate Schema (sections are an array of nodes)
+    const parseResult = z.array(BuilderNodeSchema as any).safeParse(sectionsJson);
     if (!parseResult.success) {
       throw new BadRequestException('Invalid page layout schema: ' + parseResult.error.message);
     }
     
-    this.validatePlanRequirements(sectionsJson, ctx.plan);
+    for (const section of sectionsJson) {
+      this.validatePlanRequirements(section, ctx.plan);
+    }
     const prisma = (this.layoutRepo as any).prisma;
 
     // 1. Always update/create the DRAFT version

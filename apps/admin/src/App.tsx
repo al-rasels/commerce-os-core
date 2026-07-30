@@ -1,4 +1,3 @@
-import { Suspense } from "react"
 import { Navigate, Outlet, Route, BrowserRouter, Routes } from "react-router-dom"
 import { useAuth } from "@/contexts/AuthContext"
 import AdminLayout from "@/layouts/AdminLayout"

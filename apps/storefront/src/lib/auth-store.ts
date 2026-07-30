@@ -65,9 +65,10 @@ export const useAuthStore = create<AuthState>()(
         } catch (error) {
           // Try to refresh the token if /me failed (maybe access_token expired but refresh_token exists)
           try {
-            const refreshResult = await api.auth.refresh('');
+            const refreshResult = await api.auth.refresh(localStorage.getItem('auth_refresh_token') || '');
             if (refreshResult.access_token) {
               localStorage.setItem('auth_token', refreshResult.access_token);
+              if (refreshResult.refresh_token) localStorage.setItem('auth_refresh_token', refreshResult.refresh_token);
               const user = await api.auth.me();
               set({ user, isAuthenticated: true, isLoading: false });
               return;

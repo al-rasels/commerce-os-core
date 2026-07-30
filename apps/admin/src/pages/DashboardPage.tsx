@@ -22,14 +22,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 }
 
-const CHART_COLORS = [
-  "oklch(0.6 0.18 270)",
-  "oklch(0.5 0.12 260)",
-  "oklch(0.4 0.08 250)",
-  "oklch(0.7 0.15 280)",
-  "oklch(0.45 0.1 240)",
-]
-
 function StatCard({ title, value, icon: Icon, loading }: { title: string; value: string; icon: React.ElementType; loading: boolean }) {
   return (
     <motion.div variants={itemVariants} whileHover={{ y: -2 }} transition={{ type: "spring", stiffness: 300 }}>

@@ -7,16 +7,16 @@ echo  CommerceOS - Starting All Services
 echo ====================================
 echo.
 
-echo [1/3] Installing dependencies...
-call npm install
-echo.
+@REM echo [1/3] Installing dependencies...
+@REM call npm install
+@REM echo.
 
-echo [2/3] Building shared packages...
-start "CommerceOS - Shared Types" cmd /c "cd /d "%~dp0packages\shared-types" && timeout /t 2 /nobreak > nul && echo Ready"
-start "CommerceOS - Theme Engine" cmd /c "cd /d "%~dp0packages\theme-engine" && timeout /t 2 /nobreak > nul && echo Ready"
-echo.
+@REM echo [2/3] Building shared packages...
+@REM start "CommerceOS - Shared Types" cmd /c "cd /d "%~dp0packages\shared-types" && timeout /t 2 /nobreak > nul && echo Ready"
+@REM start "CommerceOS - Theme Engine" cmd /c "cd /d "%~dp0packages\theme-engine" && timeout /t 2 /nobreak > nul && echo Ready"
+@REM echo.
 
-echo [3/3] Launching all apps in separate windows...
+@REM echo [3/3] Launching all apps in separate windows...
 echo.
 
 start "CommerceOS - API (NestJS)" cmd /c "cd /d "%~dp0apps\api" && echo Starting API on port 3000... && npm run dev"

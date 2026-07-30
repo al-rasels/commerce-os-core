@@ -57,6 +57,7 @@ export default function LoginPage() {
       const result = await api.auth.login(data.email, data.password);
       if (result.access_token) {
         localStorage.setItem('auth_token', result.access_token);
+        if (result.refresh_token) localStorage.setItem('auth_refresh_token', result.refresh_token);
         if (result.user) setUser(result.user);
         
         setSuccess(true);

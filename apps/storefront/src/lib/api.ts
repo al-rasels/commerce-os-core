@@ -12,7 +12,7 @@ class ApiError extends Error {
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}/v1/storefront${path}`, {
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    credentials: 'omit', // Standard storefront calls might not need auth cookies, but cart endpoints might. Let's use 'include'.
+    credentials: 'include',
     ...options,
   });
   if (!res.ok) {

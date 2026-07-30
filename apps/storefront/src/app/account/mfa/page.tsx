@@ -29,6 +29,7 @@ function MfaForm() {
       const result = await api.auth.mfaVerify(mfaToken, code);
       if (result.access_token) {
         localStorage.setItem('auth_token', result.access_token);
+        if (result.refresh_token) localStorage.setItem('auth_refresh_token', result.refresh_token);
         localStorage.setItem('user', JSON.stringify(result.user));
         router.push('/account/orders');
       }

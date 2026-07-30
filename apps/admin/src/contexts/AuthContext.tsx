@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import { api } from '@/lib/api/client';
 
 interface AuthUser {
   id: string;
@@ -24,6 +23,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const TOKEN_KEY = 'admin_token';
+const REFRESH_KEY = 'admin_refresh_token';
 const USER_KEY = 'admin_user';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -64,6 +64,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       localStorage.setItem(TOKEN_KEY, data.access_token);
+      if (data.refresh_token) localStorage.setItem(REFRESH_KEY, data.refresh_token);
       localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user?.id || data.user_id, email: data.user?.email || email }));
       
       // React state flush is queued. The component calling login() can safely rely on localStorage 
@@ -94,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const data = await res.json();
     localStorage.setItem(TOKEN_KEY, data.access_token);
+    if (data.refresh_token) localStorage.setItem(REFRESH_KEY, data.refresh_token);
     localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user_id, email: data.email }));
     setToken(data.access_token);
     setUser({ id: data.user_id, email: data.email });
@@ -112,6 +114,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Ignore network errors on logout
     } finally {
       localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(REFRESH_KEY);
       localStorage.removeItem(USER_KEY);
       setToken(null);
       setUser(null);

@@ -45,6 +45,7 @@ export function TenantDetailPage() {
     }
   };
 
+  if (error) return <div className="text-destructive font-medium p-4">{error}</div>;
   if (loading) return <div>Loading...</div>;
   if (!tenant) return <div>Tenant not found</div>;
 

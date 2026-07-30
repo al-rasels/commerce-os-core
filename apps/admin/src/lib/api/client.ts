@@ -14,6 +14,10 @@ function getToken(): string | null {
   return localStorage.getItem('admin_token');
 }
 
+function getRefreshToken(): string | null {
+  return localStorage.getItem('admin_refresh_token');
+}
+
 let isRefreshing = false;
 let failedQueue: { resolve: (token: string) => void; reject: (err: any) => void }[] = [];
 
@@ -56,11 +60,18 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
       isRefreshing = true;
       try {
         // Try refreshing
-        const refreshRes = await fetch(`${API_BASE}/api/v1/auth/refresh`, { method: 'POST' });
+        const refreshToken = getRefreshToken();
+        const refreshRes = await fetch(`${API_BASE}/api/v1/auth/refresh`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh_token: refreshToken }),
+        });
         if (!refreshRes.ok) throw new Error('Refresh failed');
         
         const data = await refreshRes.json();
         localStorage.setItem('admin_token', data.access_token);
+        if (data.refresh_token) localStorage.setItem('admin_refresh_token', data.refresh_token);
         // Sync to AuthContext handled via storage event natively
         
         processQueue(null, data.access_token);
