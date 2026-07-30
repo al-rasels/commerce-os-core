@@ -71,8 +71,6 @@ export class CustomerService {
   }
 
   async countActive(ctx: TenantContext) {
-    return this.customerRepo.count(ctx, {
-      where: { deleted_at: null },
-    });
+    return this.customerRepo.count(ctx);
   }
 }

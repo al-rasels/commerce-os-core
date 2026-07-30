@@ -96,7 +96,7 @@ export class StorefrontController {
       .PrismaService;
     const service = new prisma();
     return (service as any).category.findMany({
-      where: { deleted_at: null, tenant_id: ctx.tenantId },
+      where: { tenant_id: ctx.tenantId },
       orderBy: { sort_order: 'asc' },
     });
   }

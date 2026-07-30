@@ -112,13 +112,11 @@ export class OrderService {
       this.orderRepo.aggregate(ctx, {
         where: {
           status: { in: ['paid', 'fulfilled'] },
-          deleted_at: null,
         },
         _sum: { total_cents: true },
         _count: true,
       }),
       this.orderRepo.findMany(ctx, {
-        where: { deleted_at: null },
         orderBy: { created_at: 'desc' },
         take: 10,
         include: {
@@ -135,7 +133,6 @@ export class OrderService {
       }),
       this.orderRepo.groupBy(ctx, {
         by: ['status'],
-        where: { deleted_at: null },
         _count: true,
       }),
     ]);

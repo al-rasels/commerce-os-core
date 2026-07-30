@@ -143,7 +143,7 @@ export class CatalogService {
 
   async getLowStockVariants(ctx: TenantContext) {
     return this.variantRepo.findMany(ctx, {
-      where: { stock_available: { lt: 5 }, deleted_at: null },
+      where: { stock_available: { lt: 5 } },
       include: { product: { select: { name: true } } },
       take: 5,
     });

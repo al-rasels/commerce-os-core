@@ -14,14 +14,24 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     try {
-      this.client = new Redis({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379', 10),
-        password: process.env.REDIS_PASSWORD || undefined,
-        retryStrategy: (times) =>
-          times > 3 ? null : Math.min(times * 200, 2000),
-        lazyConnect: true,
-      });
+      const redisUrl = process.env.REDIS_URL;
+
+      if (redisUrl) {
+        this.client = new Redis(redisUrl, {
+          retryStrategy: (times) =>
+            times > 3 ? null : Math.min(times * 200, 2000),
+          lazyConnect: true,
+        });
+      } else {
+        this.client = new Redis({
+          host: process.env.REDIS_HOST || 'localhost',
+          port: parseInt(process.env.REDIS_PORT || '6379', 10),
+          password: process.env.REDIS_PASSWORD || undefined,
+          retryStrategy: (times) =>
+            times > 3 ? null : Math.min(times * 200, 2000),
+          lazyConnect: true,
+        });
+      }
       await this.client.connect();
       this.logger.log('Connected to Redis');
     } catch {

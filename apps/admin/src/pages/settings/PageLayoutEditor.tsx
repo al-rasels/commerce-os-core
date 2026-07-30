@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback, useMemo, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import {
   DndContext,
@@ -66,14 +66,16 @@ export default function PageLayoutEditorPage() {
   const [sections, setSections] = useState<PageSection[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
-  const [initialized, setInitialized] = useState(false)
   const [hasUnpublishedChanges, setHasUnpublishedChanges] = useState(false)
+  const initialized = useRef(false)
 
-  if (!initialized && layout) {
-    setSections(layout.sections_json ?? [])
-    setHasUnpublishedChanges(false)
-    setInitialized(true)
-  }
+  useEffect(() => {
+    if (layout && !initialized.current) {
+      setSections(layout.sections_json ?? [])
+      setHasUnpublishedChanges(false)
+      initialized.current = true
+    }
+  }, [layout])
 
   const selectedSection = useMemo(
     () => sections.find((s) => s.id === selectedId) ?? null,

@@ -27,7 +27,7 @@ export * from "./select";
 export * from "./empty-state";
 export * from "./toast";
 export * from "./data-table";
-export * from "./form-renderer";
+export * from "./form";
 export * from "./section-schema";
 
 export * from "./alert-dialog";

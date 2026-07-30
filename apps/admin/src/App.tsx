@@ -18,6 +18,7 @@ import CustomerListPage from "@/pages/customers/CustomerListPage"
 import CustomerDetailPage from "@/pages/customers/CustomerDetailPage"
 import CustomerFormPage from "@/pages/customers/CustomerFormPage"
 import DashboardPage from "@/pages/DashboardPage"
+import AnalyticsPage from "@/pages/AnalyticsPage"
 import UserListPage from "@/pages/users/UserListPage"
 import UserDetailPage from "@/pages/users/UserDetailPage"
 import UserInvitePage from "@/pages/users/UserInvitePage"
@@ -50,6 +51,7 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<AdminLayout />}>
             <Route index element={<DashboardPage />} />
+            <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="products" element={<ProductListPage />} />
             <Route path="products/new" element={<ProductFormPage />} />
             <Route path="products/:id/edit" element={<ProductFormPage />} />

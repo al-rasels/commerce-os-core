@@ -1,19 +1,28 @@
-export interface ColorTokens {
-  surface: string;
-  surfaceMuted: string;
-  text: string;
-  textMuted: string;
-  border: string;
+export interface VariantColorTokens {
+  background: string;
+  foreground: string;
+  card: string;
+  cardForeground: string;
+  popover: string;
+  popoverForeground: string;
   primary: string;
-  primaryContrast: string;
+  primaryForeground: string;
+  secondary: string;
+  secondaryForeground: string;
+  muted: string;
+  mutedForeground: string;
   accent: string;
-  accentContrast: string;
-  success: string;
-  successContrast: string;
-  warning: string;
-  warningContrast: string;
-  error: string;
-  errorContrast: string;
+  accentForeground: string;
+  destructive: string;
+  destructiveForeground: string;
+  border: string;
+  input: string;
+  ring: string;
+}
+
+export interface ColorTokens {
+  muted: VariantColorTokens;
+  colorful: VariantColorTokens;
 }
 
 export interface TypographyTokens {
@@ -133,39 +142,93 @@ export interface DesignTokens {
 
 export const defaultTokens: DesignTokens = {
   colors: {
-    light: {
-      surface: "#ffffff",
-      surfaceMuted: "#f5f5f5",
-      text: "#111111",
-      textMuted: "#555555",
-      border: "#e2e2e2",
-      primary: "#1a1a2e",
-      primaryContrast: "#ffffff",
-      accent: "#6366f1",
-      accentContrast: "#ffffff",
-      success: "#16a34a",
-      successContrast: "#ffffff",
-      warning: "#d97706",
-      warningContrast: "#ffffff",
-      error: "#dc2626",
-      errorContrast: "#ffffff",
-    },
     dark: {
-      surface: "#0f0f0f",
-      surfaceMuted: "#1a1a1a",
-      text: "#f5f5f5",
-      textMuted: "#a0a0a0",
-      border: "#2a2a2a",
-      primary: "#818cf8",
-      primaryContrast: "#0f0f0f",
-      accent: "#818cf8",
-      accentContrast: "#0f0f0f",
-      success: "#22c55e",
-      successContrast: "#0f0f0f",
-      warning: "#f59e0b",
-      warningContrast: "#0f0f0f",
-      error: "#ef4444",
-      errorContrast: "#0f0f0f",
+      muted: {
+        background: "oklch(0.12 0.01 270)",
+        foreground: "oklch(0.96 0.005 260)",
+        card: "oklch(0.15 0.015 270)",
+        cardForeground: "oklch(0.96 0.005 260)",
+        popover: "oklch(0.15 0.015 270)",
+        popoverForeground: "oklch(0.96 0.005 260)",
+        primary: "oklch(0.92 0.01 260)",
+        primaryForeground: "oklch(0.12 0.01 270)",
+        secondary: "oklch(0.2 0.02 270)",
+        secondaryForeground: "oklch(0.96 0.005 260)",
+        muted: "oklch(0.2 0.02 270)",
+        mutedForeground: "oklch(0.65 0.015 260)",
+        accent: "oklch(0.2 0.02 270)",
+        accentForeground: "oklch(0.96 0.005 260)",
+        destructive: "oklch(0.7 0.2 25)",
+        destructiveForeground: "oklch(0.12 0.01 270)",
+        border: "oklch(0.25 0.015 270)",
+        input: "oklch(0.25 0.015 270)",
+        ring: "oklch(0.92 0.01 260)",
+      },
+      colorful: {
+        background: "oklch(0.10 0.02 280)",
+        foreground: "oklch(0.98 0.01 280)",
+        card: "oklch(0.14 0.03 280)",
+        cardForeground: "oklch(0.98 0.01 280)",
+        popover: "oklch(0.14 0.03 280)",
+        popoverForeground: "oklch(0.98 0.01 280)",
+        primary: "oklch(0.65 0.2 280)",
+        primaryForeground: "oklch(0.98 0.01 280)",
+        secondary: "oklch(0.20 0.04 280)",
+        secondaryForeground: "oklch(0.98 0.01 280)",
+        muted: "oklch(0.20 0.04 280)",
+        mutedForeground: "oklch(0.70 0.03 280)",
+        accent: "oklch(0.65 0.15 200)",
+        accentForeground: "oklch(0.98 0.01 280)",
+        destructive: "oklch(0.65 0.2 25)",
+        destructiveForeground: "oklch(0.98 0.01 280)",
+        border: "oklch(0.25 0.03 280)",
+        input: "oklch(0.25 0.03 280)",
+        ring: "oklch(0.65 0.2 280)",
+      },
+    },
+    light: {
+      muted: {
+        background: "oklch(0.98 0.005 260)",
+        foreground: "oklch(0.12 0.01 270)",
+        card: "oklch(1 0 0)",
+        cardForeground: "oklch(0.12 0.01 270)",
+        popover: "oklch(1 0 0)",
+        popoverForeground: "oklch(0.12 0.01 270)",
+        primary: "oklch(0.12 0.01 270)",
+        primaryForeground: "oklch(0.98 0.005 260)",
+        secondary: "oklch(0.95 0.01 260)",
+        secondaryForeground: "oklch(0.12 0.01 270)",
+        muted: "oklch(0.95 0.01 260)",
+        mutedForeground: "oklch(0.45 0.01 260)",
+        accent: "oklch(0.95 0.01 260)",
+        accentForeground: "oklch(0.12 0.01 270)",
+        destructive: "oklch(0.6 0.2 25)",
+        destructiveForeground: "oklch(0.98 0.005 260)",
+        border: "oklch(0.90 0.01 260)",
+        input: "oklch(0.90 0.01 260)",
+        ring: "oklch(0.12 0.01 270)",
+      },
+      colorful: {
+        background: "oklch(0.99 0.01 280)",
+        foreground: "oklch(0.10 0.02 280)",
+        card: "oklch(1 0 0)",
+        cardForeground: "oklch(0.10 0.02 280)",
+        popover: "oklch(1 0 0)",
+        popoverForeground: "oklch(0.10 0.02 280)",
+        primary: "oklch(0.55 0.2 280)",
+        primaryForeground: "oklch(0.99 0.01 280)",
+        secondary: "oklch(0.94 0.03 280)",
+        secondaryForeground: "oklch(0.10 0.02 280)",
+        muted: "oklch(0.94 0.03 280)",
+        mutedForeground: "oklch(0.40 0.03 280)",
+        accent: "oklch(0.94 0.03 200)",
+        accentForeground: "oklch(0.10 0.02 280)",
+        destructive: "oklch(0.6 0.2 25)",
+        destructiveForeground: "oklch(0.99 0.01 280)",
+        border: "oklch(0.88 0.03 280)",
+        input: "oklch(0.88 0.03 280)",
+        ring: "oklch(0.55 0.2 280)",
+      },
     },
   },
   spacing: {

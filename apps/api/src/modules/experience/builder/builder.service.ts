@@ -23,7 +23,8 @@ export class BuilderService {
     }
     
     if (!layout) {
-      throw new NotFoundException(`Page layout for '${pageKey}' not found`);
+      // Return a default empty layout so the editor can start fresh
+      return { page_key: pageKey, sections_json: [], published_at: null };
     }
     return layout;
   }
