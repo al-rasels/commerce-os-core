@@ -10,7 +10,8 @@ import {
   CardContent,
 } from "@/components/ui/card"
 import { StatusBadge } from "@/components/orders/StatusBadge"
-import { Eye, Calendar, Filter } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import { Eye, Calendar, Filter, AlertTriangle } from "lucide-react"
 
 export default function OrderListPage() {
   const [statusFilter, setStatusFilter] = useState("")
@@ -29,7 +30,7 @@ export default function OrderListPage() {
     return p as { status?: string; date_from?: string; date_to?: string; page?: number; limit?: number }
   }, [statusFilter, dateFrom, dateTo, page])
 
-  const { data, isLoading } = useOrders(params)
+  const { data, isLoading, isError, error } = useOrders(params)
 
   const columns: Column<any>[] = [
     {
@@ -125,10 +126,16 @@ export default function OrderListPage() {
         </div>
       </CardHeader>
       <CardContent>
-        {isLoading ? (
+        {isError ? (
+          <Alert variant="destructive">
+            <AlertTriangle className="size-4" />
+            <AlertTitle>Failed to load orders</AlertTitle>
+            <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+          </Alert>
+        ) : isLoading ? (
           <div className="py-12 text-center text-muted-foreground">Loading orders...</div>
         ) : (
-          <DataTable 
+          <DataTable
             columns={columns} 
             data={data?.data || []} 
             keyField="id" 

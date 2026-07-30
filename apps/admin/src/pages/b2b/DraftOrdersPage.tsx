@@ -1,13 +1,30 @@
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Plus, Loader2, AlertTriangle } from "lucide-react";
 import { useOrders } from "@/hooks/useOrders";
 import { format } from "date-fns";
-import { Suspense } from "react";
-import { Loader2 } from "lucide-react";
 
 function DraftOrdersTable() {
-  const { data: response } = useOrders({ status: 'pending' });
+  const { data: response, isLoading, isError, error } = useOrders({ status: 'pending' });
   const orders = response?.data || [];
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[400px] items-center justify-center rounded-xl border border-dashed">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load draft orders</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   if (orders.length === 0) {
     return (
@@ -63,9 +80,7 @@ export default function DraftOrdersPage() {
           Create Draft
         </Button>
       </div>
-      <Suspense fallback={<div className="flex h-[400px] items-center justify-center rounded-xl border border-dashed"><Loader2 className="h-8 w-8 animate-spin text-muted-foreground" /></div>}>
-        <DraftOrdersTable />
-      </Suspense>
+      <DraftOrdersTable />
     </div>
   );
 }

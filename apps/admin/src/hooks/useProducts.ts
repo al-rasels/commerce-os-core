@@ -1,9 +1,9 @@
-import { useQuery, useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { catalogApi, type ProductInput } from '@/lib/api/catalog';
 import { toast } from 'sonner';
 
 export function useProducts() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['products'],
     queryFn: catalogApi.products.list,
   });

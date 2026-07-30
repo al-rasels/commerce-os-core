@@ -29,7 +29,8 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog"
-import { Plus, Pencil, Trash2, Search, ChevronLeft, ChevronRight } from "lucide-react"
+import { Plus, Pencil, Trash2, Search, ChevronLeft, ChevronRight, AlertTriangle } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
 
 const PAGE_SIZE = 10
 
@@ -39,12 +40,12 @@ export default function ProductListPage() {
   const [page, setPage] = useState(0)
   const [deleteId, setDeleteId] = useState<string | null>(null)
 
-  const { data: products, isLoading } = useProducts()
-  const { data: categories } = useCategories()
+  const { data: products, isLoading, isError, error } = useProducts()
+  const { data: categories, isError: categoriesError, error: categoriesErrorMessage } = useCategories()
   const deleteProduct = useDeleteProduct()
 
   const categoryMap = useMemo(
-    () => new Map(categories?.map((c) => [c.id, c.name])),
+    () => new Map((categories ?? []).map((c) => [c.id, c.name])),
     [categories]
   )
 
@@ -64,6 +65,26 @@ export default function ProductListPage() {
   const paged = filtered.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE)
 
   const totalItems = filtered.length
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load products</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+      </Alert>
+    );
+  }
+
+  if (categoriesError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load categories</AlertTitle>
+        <AlertDescription>{(categoriesErrorMessage as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <Card>

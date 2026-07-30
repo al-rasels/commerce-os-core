@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, AlertTriangle } from "lucide-react";
 import { useCompanyProfiles } from "@/hooks/useB2B";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function CompanyProfilesListPage() {
-  const { data: profiles, isLoading } = useCompanyProfiles();
+  const { data: profiles, isLoading, isError, error } = useCompanyProfiles();
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load Company Profiles</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server. Please ensure the API is running."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">

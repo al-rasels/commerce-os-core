@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { themeApi } from '@/lib/api/experience';
+import { defaultTokens } from '@commerceos/design-tokens';
 import { toast } from 'sonner';
 
 export function useTheme() {
@@ -7,6 +8,8 @@ export function useTheme() {
     queryKey: ['theme'],
     queryFn: themeApi.get,
     staleTime: 60_000,
+    retry: 0,
+    placeholderData: () => ({ id: '', version: 'local', tokens: defaultTokens as unknown as Record<string, unknown>, conflicts: [] }),
   });
 }
 

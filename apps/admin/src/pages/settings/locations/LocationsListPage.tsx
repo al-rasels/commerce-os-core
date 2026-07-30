@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, AlertTriangle } from "lucide-react";
 import { useLocations } from "@/hooks/useInventory";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function LocationsListPage() {
-  const { data: locations, isLoading } = useLocations();
+  const { data: locations, isLoading, isError, error } = useLocations();
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load Locations</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server. Please ensure the API is running."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">

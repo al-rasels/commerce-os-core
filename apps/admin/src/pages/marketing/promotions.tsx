@@ -3,16 +3,20 @@ import { promotionsApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus } from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { Plus, AlertTriangle } from 'lucide-react';
 
 export function PromotionsPage() {
   const [promotions, setPromotions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const loadPromotions = () => {
     setLoading(true);
+    setError(null);
     promotionsApi.list()
       .then(setPromotions)
+      .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   };
 
@@ -21,6 +25,16 @@ export function PromotionsPage() {
   }, []);
 
   if (loading) return <div>Loading promotions...</div>;
+
+  if (error) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load promotions</AlertTitle>
+        <AlertDescription>{error}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="space-y-6">

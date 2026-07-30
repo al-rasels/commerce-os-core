@@ -441,7 +441,7 @@ function deepMergeDesignTokens(base: DesignTokens, override: Record<string, unkn
 }
 
 export default function ThemeEditorPage() {
-  const { data: resolved, isLoading, isError, error } = useTheme()
+  const { data: resolved, isLoading } = useTheme()
   const saveOverride = useSaveThemeOverride()
 
   const [mode, setMode] = useState<ColorMode>("light")
@@ -513,15 +513,6 @@ export default function ThemeEditorPage() {
   }
 
   if (isLoading) return <LoadingSkeleton />
-  if (isError) {
-    return (
-      <Alert variant="destructive">
-        <AlertTriangle className="size-4" />
-        <AlertTitle>Failed to load theme</AlertTitle>
-        <AlertDescription>{(error as Error)?.message ?? "Unknown error"}</AlertDescription>
-      </Alert>
-    )
-  }
 
   return (
     <div className="flex flex-col h-[calc(100vh-4.5rem)]">
@@ -549,6 +540,16 @@ export default function ThemeEditorPage() {
           </Button>
         </div>
       </header>
+
+      {resolved && !resolved.id && (
+        <Alert className="mb-4 border-amber-500/50 bg-amber-50 text-amber-900 dark:bg-amber-950/20 dark:text-amber-200">
+          <AlertTriangle className="size-4 text-amber-600 dark:text-amber-400" />
+          <AlertTitle className="text-sm">Offline Mode</AlertTitle>
+          <AlertDescription className="text-xs text-amber-700 dark:text-amber-300">
+            Unable to reach the theme server. Showing default design tokens. Changes cannot be saved until the connection is restored.
+          </AlertDescription>
+        </Alert>
+      )}
 
       {resolved?.conflicts && resolved.conflicts.length > 0 && (
         <Alert className="mb-4">

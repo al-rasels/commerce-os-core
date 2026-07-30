@@ -1,9 +1,9 @@
-import { useSuspenseQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { catalogApi, type CategoryInput } from '@/lib/api/catalog';
 import { toast } from 'sonner';
 
 export function useCategories() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['categories'],
     queryFn: catalogApi.categories.list,
   });

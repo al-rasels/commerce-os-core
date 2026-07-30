@@ -4,7 +4,8 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 import { Skeleton } from "@/components/ui/skeleton"
 import { Button } from "@/components/ui/button"
 import { StatusBadge } from "@/components/orders/StatusBadge"
-import { DollarSign, ShoppingCart, Users, TrendingUp, ArrowRight, PackageOpen } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import { DollarSign, ShoppingCart, Users, TrendingUp, ArrowRight, PackageOpen, AlertTriangle } from "lucide-react"
 import { motion } from "framer-motion"
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
@@ -55,7 +56,7 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export default function DashboardPage() {
-  const { data, isLoading } = useDashboardStats()
+  const { data, isLoading, isError, error } = useDashboardStats()
 
   // Generate chart data from recent orders or use backend if provided
   const chartData = data?.revenueChartData || [
@@ -68,11 +69,21 @@ export default function DashboardPage() {
     { name: 'Sun', revenue: 0 },
   ]
 
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load dashboard</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+      </Alert>
+    );
+  }
+
   return (
-    <motion.div 
-      initial="hidden" 
-      animate="visible" 
-      variants={containerVariants} 
+    <motion.div
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
       className="space-y-6"
     >
       <div className="flex flex-col gap-1">

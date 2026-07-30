@@ -58,7 +58,7 @@ function createDefaultSection(componentKey: string): PageSection {
 export default function PageLayoutEditorPage() {
   const { pageKey } = useParams<{ pageKey: string }>()
   const navigate = useNavigate()
-  const { data: layout, isLoading } = usePageLayout(pageKey ?? "")
+  const { data: layout, isLoading, isError, error } = usePageLayout(pageKey ?? "")
   const saveMutation = useSavePageLayout(pageKey ?? "")
   const publishMutation = usePublishPageLayout(pageKey ?? "")
   const unpublishMutation = useUnpublishPageLayout(pageKey ?? "")
@@ -163,10 +163,30 @@ export default function PageLayoutEditorPage() {
     })
   }
 
-  if (isLoading || !layout) {
+  if (isLoading) {
     return (
       <div className="flex h-60 items-center justify-center text-sm text-muted-foreground">
         Loading page layout...
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className="flex h-60 flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
+        <p className="text-destructive font-medium">Failed to load page layout</p>
+        <p className="text-xs">{(error as Error)?.message || "An unexpected error occurred"}</p>
+        <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
+          Try Again
+        </Button>
+      </div>
+    )
+  }
+
+  if (!layout) {
+    return (
+      <div className="flex h-60 items-center justify-center text-sm text-muted-foreground">
+        No layout data found
       </div>
     )
   }

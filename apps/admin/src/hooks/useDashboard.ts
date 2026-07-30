@@ -1,8 +1,8 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { dashboardApi } from '@/lib/api/dashboard'
 
 export function useDashboardStats() {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ['dashboard', 'stats'],
     queryFn: () => dashboardApi.stats(),
   })

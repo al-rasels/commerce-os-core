@@ -51,7 +51,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { Plus, Pencil, Trash2, ChevronRight, GripVertical } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"
+import { Plus, Pencil, Trash2, ChevronRight, GripVertical, AlertTriangle } from "lucide-react"
 
 type CategoryNode = {
   id: string
@@ -207,7 +208,7 @@ function buildTree(categories: Array<{ id: string; name: string; slug: string; p
 }
 
 export default function CategoryListPage() {
-  const { data: categories, isLoading } = useCategories()
+  const { data: categories, isLoading, isError, error } = useCategories()
   const qc = useQueryClient()
   const createCategory = useCreateCategory()
 
@@ -229,6 +230,16 @@ export default function CategoryListPage() {
   const tree = useMemo(() => categories ? buildTree(categories) : [], [categories])
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }))
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load categories</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   function handleSave(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

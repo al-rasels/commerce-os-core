@@ -1,10 +1,21 @@
 import { Button } from "@/components/ui/button";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, Loader2, AlertTriangle } from "lucide-react";
 import { useSubscriptions } from "@/hooks/useSubscriptions";
 import { format } from "date-fns";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 export default function SubscriptionsListPage() {
-  const { data: subscriptions, isLoading } = useSubscriptions();
+  const { data: subscriptions, isLoading, isError, error } = useSubscriptions();
+
+  if (isError) {
+    return (
+      <Alert variant="destructive">
+        <AlertTriangle className="size-4" />
+        <AlertTitle>Failed to load Subscriptions</AlertTitle>
+        <AlertDescription>{(error as Error)?.message ?? "Could not connect to the server. Please ensure the API is running."}</AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-6">
