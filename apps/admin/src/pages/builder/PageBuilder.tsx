@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 import {
   DndContext,
   closestCenter,
@@ -91,6 +92,51 @@ export default function PageBuilder() {
         };
         return traverse(prev);
       });
+    } else if (active.data.current?.type === 'node') {
+      // Handle moving an existing node
+      if (active.id === over.id) return; // Dropped on itself
+
+      setNodes(prev => {
+        let draggedNode: PageNode | null = null;
+
+        // 1. Find and remove the dragged node from its current position
+        const removeNode = (nodesList: PageNode[]): PageNode[] => {
+          const list = [...nodesList];
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].id === active.id) {
+              draggedNode = list[i];
+              list.splice(i, 1);
+              return list;
+            }
+            if (list[i].children) {
+              const updatedChildren = removeNode(list[i].children!);
+              if (draggedNode) {
+                 list[i] = { ...list[i], children: updatedChildren };
+                 return list;
+              }
+            }
+          }
+          return list;
+        };
+
+        const intermediateState = removeNode(prev);
+        if (!draggedNode) return prev; // Safety check
+
+        // 2. Insert the dragged node into the new parent container
+        const insertNode = (nodesList: PageNode[]): PageNode[] => {
+          return nodesList.map(node => {
+            if (node.id === over.id) {
+              return { ...node, children: [...(node.children || []), draggedNode!] };
+            }
+            if (node.children) {
+              return { ...node, children: insertNode(node.children) };
+            }
+            return node;
+          });
+        };
+
+        return insertNode(intermediateState);
+      });
     }
   }
 
@@ -101,6 +147,20 @@ export default function PageBuilder() {
     const secret = 'preview-secret'; // Should match process.env.PREVIEW_SECRET in storefront
     const pageKey = 'homepage'; // Assuming homepage for now
     window.open(`${storefrontUrl}/api/draft?secret=${secret}&slug=${pageKey}`, '_blank');
+  };
+
+  const [isPublishing, setIsPublishing] = useState(false);
+  const handlePublish = async () => {
+    setIsPublishing(true);
+    try {
+      // Mock API call for MVP. In reality, POST `nodes` to the backend layout endpoint
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      toast.success("Page layout published successfully!");
+    } catch (err) {
+      toast.error("Failed to publish page layout.");
+    } finally {
+      setIsPublishing(false);
+    }
   };
 
   return (
@@ -154,7 +214,13 @@ export default function PageBuilder() {
             >
               Preview
             </button>
-            <button className="text-sm font-medium px-3 py-1.5 bg-primary text-primary-foreground rounded">Publish</button>
+            <button 
+              onClick={handlePublish}
+              disabled={isPublishing}
+              className="text-sm font-medium px-3 py-1.5 bg-primary text-primary-foreground rounded disabled:opacity-50"
+            >
+              {isPublishing ? "Publishing..." : "Publish"}
+            </button>
           </div>
         </div>
         <div className="flex-1 bg-muted/30 p-8 overflow-y-auto relative">
