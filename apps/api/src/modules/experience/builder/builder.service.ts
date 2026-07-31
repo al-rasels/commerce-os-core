@@ -22,12 +22,12 @@ export class BuilderService {
     const readDraft = draft && canReadDraft;
     const key = readDraft ? `${pageKey}:draft` : pageKey;
     let layout = await this.layoutRepo.findByPageKey(ctx, key);
-    
+
     // Fallback: If draft doesn't exist, try getting the published version
     if (!layout && readDraft) {
       layout = await this.layoutRepo.findByPageKey(ctx, pageKey);
     }
-    
+
     if (!layout) {
       // Return a default empty layout so the editor can start fresh
       return { page_key: pageKey, sections_json: [], published_at: null };
