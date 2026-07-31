@@ -10,9 +10,12 @@ import {
 } from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront/checkout')
 export class StorefrontCheckoutController {
+  constructor(private readonly prismaService: PrismaService) { }
+
   @Post(':cartId')
   @HttpCode(HttpStatus.OK)
   async checkout(
@@ -31,8 +34,7 @@ export class StorefrontCheckoutController {
     @Body('shipping_phone') shippingPhone?: string,
     @Body('billing_same_as_shipping') billingSameAsShipping?: boolean,
   ) {
-    const { PrismaService } = await import('../../prisma/prisma.service.js');
-    const prisma = new PrismaService();
+    const prisma = this.prismaService;
 
     const cart = await (prisma as any).cart.findUnique({
       where: { id: cartId },

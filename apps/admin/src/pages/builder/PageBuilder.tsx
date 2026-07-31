@@ -140,15 +140,6 @@ export default function PageBuilder() {
     }
   }
 
-  const handlePreview = () => {
-    // Save draft first (mocked, would call API in real implementation)
-    // Open storefront in draft mode
-    const storefrontUrl = import.meta.env.VITE_STOREFRONT_URL || 'http://localhost:3001';
-    const secret = 'preview-secret'; // Should match process.env.PREVIEW_SECRET in storefront
-    const pageKey = 'homepage'; // Assuming homepage for now
-    window.open(`${storefrontUrl}/api/draft?secret=${secret}&slug=${pageKey}`, '_blank');
-  };
-
   const [isPublishing, setIsPublishing] = useState(false);
   const handlePublish = async () => {
     setIsPublishing(true);
@@ -208,12 +199,6 @@ export default function PageBuilder() {
         <div className="h-14 border-b flex items-center px-4 justify-between bg-card">
           <ResponsiveEditor />
           <div className="flex items-center gap-2">
-            <button 
-              onClick={handlePreview}
-              className="text-sm font-medium px-3 py-1.5 border rounded hover:bg-muted"
-            >
-              Preview
-            </button>
             <button 
               onClick={handlePublish}
               disabled={isPublishing}

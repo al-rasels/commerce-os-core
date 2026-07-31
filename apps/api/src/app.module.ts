@@ -50,6 +50,6 @@ import { SubscriptionsModule } from './modules/business/subscriptions/subscripti
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CsrfMiddleware).forRoutes('api');
+    consumer.apply(CsrfMiddleware).forRoutes('*');
   }
 }

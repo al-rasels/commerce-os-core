@@ -70,3 +70,16 @@ Desktop.ini
 .aider/
 nul
 apps/admin/nul
+
+# Committed artifacts that should never be tracked
+*.diff
+*.rdb
+.graphify/
+.gsd/
+.ai/
+.opencode/
+.npx-cache/
+
+# Generated build artifacts
+*.tsbuildinfo
+.turbo/

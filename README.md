@@ -10,7 +10,7 @@ A monorepo containing the API backend, customer-facing storefront, merchant admi
 
 ```bash
 # Prerequisites
-# - Node.js 24 LTS
+# - Node.js 22 LTS
 # - PostgreSQL 16 (or Docker)
 # - Redis 7 (or Docker)
 
@@ -32,7 +32,7 @@ npm run build
 |---|---|---|
 | API | `http://localhost:3000` | NestJS backend (REST API) |
 | Storefront | `http://localhost:3001` | Next.js customer storefront (SSR) |
-| Admin | `http://localhost:5174` | Vite merchant dashboard (SPA) |
+| Admin | `http://localhost:5173` | Vite merchant dashboard (SPA) |
 
 ---
 
@@ -156,7 +156,7 @@ apps/admin/
 │   ├── App.css                 Application styles
 │   ├── index.css               Global styles
 │   └── assets/                 Static assets (logos, icons)
-├── vite.config.ts              Vite build config (aliases, port 5174)
+├── vite.config.ts              Vite build config (aliases, port 5173)
 └── tsconfig.app.json           TypeScript compiler config
 ```
 

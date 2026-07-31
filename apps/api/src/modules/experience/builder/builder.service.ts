@@ -13,12 +13,18 @@ import { BadRequestException } from '@nestjs/common';
 export class BuilderService {
   constructor(private readonly layoutRepo: PageLayoutRepository) {}
 
-  async getPageLayout(ctx: TenantContext, pageKey: string, draft: boolean = false) {
-    const key = draft ? `${pageKey}:draft` : pageKey;
+  async getPageLayout(
+    ctx: TenantContext,
+    pageKey: string,
+    draft: boolean = false,
+    canReadDraft: boolean = false,
+  ) {
+    const readDraft = draft && canReadDraft;
+    const key = readDraft ? `${pageKey}:draft` : pageKey;
     let layout = await this.layoutRepo.findByPageKey(ctx, key);
     
     // Fallback: If draft doesn't exist, try getting the published version
-    if (!layout && draft) {
+    if (!layout && readDraft) {
       layout = await this.layoutRepo.findByPageKey(ctx, pageKey);
     }
     

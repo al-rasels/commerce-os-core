@@ -10,12 +10,12 @@ import type { Metadata } from 'next';
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const productResponse = await serverApi.products.get(slug).catch(() => null);
-  
-  if (!productResponse || !productResponse.data) {
+
+  if (!productResponse || productResponse.notFound) {
     return { title: 'Product Not Found | CommerceOS Storefront' };
   }
-  
-  const product = productResponse.data;
+
+  const product = productResponse;
   return {
     title: `${product.name} | CommerceOS Storefront`,
     description: product.description || `Buy ${product.name} on CommerceOS Storefront.`,
@@ -28,13 +28,13 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  
+
   const [page, productResponse] = await Promise.all([
     serverApi.experience.getPage('product').catch(() => null),
     serverApi.products.get(slug).catch(() => null),
   ]);
 
-  if (!productResponse || !productResponse.data || productResponse.notFound) {
+  if (!productResponse || productResponse.notFound) {
     return notFound();
   }
 
@@ -46,7 +46,7 @@ export default async function ProductPage({
     );
   }
 
-  const product = productResponse.data;
+  const product = productResponse;
 
   // Enhance product data with derived fields
   const defaultVariant = product.variants?.[0];

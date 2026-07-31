@@ -1,6 +1,6 @@
 # CommerceOS — Project Progress Report
 
-**Generated:** 2026-07-23  
+**Generated:** 2026-07-31  
 **Project:** CommerceOS — Multi-Tenant E-Commerce SaaS Platform  
 **Architecture:** Turborepo Monorepo (3 Apps, 5 Shared Packages)  
 **Stack:** TypeScript, NestJS 11, Next.js 16, React 19, Prisma, PostgreSQL 16, Redis 7, Tailwind CSS 4
@@ -21,21 +21,6 @@
 
 ## 1. Infrastructure & Project Scaffold
 
-<<<<<<< HEAD
-| Component | Status | Details |
-|---|---|---|
-| Turborepo Monorepo | **100%** | npm workspaces, turbo.json pipeline |
-| Backend (apps/api) | **100%** | NestJS 11, Prisma, Redis, BullMQ |
-| Storefront (apps/storefront) | **95%** | Next.js 16, all core pages built and integrated |
-| Admin Dashboard (apps/admin) | **95%** | Vite + React 19 SPA, 18 routes, all admin CRUD pages |
-| Docker Compose | **100%** | PostgreSQL 16 + Redis 7 |
-| Dockerfile (API) | **100%** | Multi-stage build for API |
-| Shared Packages (5) | **100%** | design-tokens, components, theme-engine, shared-types, ui-config |
-| CI/CD (GitHub Actions) | **0%** | `.github/` directory is empty — no workflows exist |
-| Testing Infrastructure | **25%** | 27 test files across monorepo (22 unit, 5 e2e) |
-| Dockerfiles for Admin/Storefront | **0%** | Not created |
-| Husky + lint-staged + commitlint | **100%** | Configured |
-=======
 | Component                        | Status   | Details                                                          |
 | -------------------------------- | -------- | ---------------------------------------------------------------- |
 | Turborepo Monorepo               | **100%** | npm workspaces, turbo.json pipeline                              |
@@ -45,22 +30,18 @@
 | Docker Compose                   | **100%** | PostgreSQL 16 + Redis 7                                          |
 | Dockerfile (API)                 | **100%** | Multi-stage build for API                                        |
 | Shared Packages (5)              | **100%** | design-tokens, components, theme-engine, shared-types, ui-config |
-| CI/CD (GitHub Actions)           | **100%** | Configured, runs lint + test + build on push/PR                  |
-| Testing Infrastructure           | **25%**  | Jest, Vitest, Playwright configured                              |
+| CI/CD (GitHub Actions)           | **0%**   | `.github/` directory is empty — no workflows exist               |
+| Testing Infrastructure           | **25%**  | Jest, Vitest, Playwright configured (many specs are placeholders)|
 | Dockerfiles for Admin/Storefront | **0%**   | Not created                                                      |
->>>>>>> feat/admin-ui-refactor
+| Husky + lint-staged + commitlint | **Partial** | Configured in package.json but no hook files exist             |
 
 ---
 
 ## 2. Platform Engine — ~78% Complete
 
 ### Prisma Schema — 100%
-<<<<<<< HEAD
-**30+ models** across all domains:
-=======
 
-**25+ models** across all domains:
->>>>>>> feat/admin-ui-refactor
+**30+ models** across all domains:
 
 | Model                                | Status   |
 | ------------------------------------ | -------- |
@@ -72,21 +53,20 @@
 | Order, OrderItem, StockReservation   | **Done** |
 | ThemeBase, ThemeTenantOverride       | **Done** |
 | TemplateBase, TemplateTenantOverride | **Done** |
-<<<<<<< HEAD
-| PageLayout, AuditLog | **Done** |
-| Promotion, ShippingRule, TaxRule | **Done** |
+| PageLayout, AuditLog                 | **Done** |
+| Promotion, ShippingRule, TaxRule     | **Done** |
 | Payment, Refund, Shipment, Wishlist, Review, ReturnRequest | **Done** |
-| AuditLog, PasswordResetToken | **Done** |
+| AuditLog, PasswordResetToken         | **Done** |
 
 ### Multi-Tenant Resolution — 95%
 
-| Feature | Status |
-|---|---|
-| Hostname-based tenant resolution | **Done** |
-| TenantContext provider | **Done** |
-| TenantScopeRepository base class | **Done** |
-| Redis caching (with in-memory fallback) | **Done** |
-| Tenant provisioning API | **Done** (two POST endpoints) |
+| Feature                                 | Status          |
+| --------------------------------------- | --------------- |
+| Hostname-based tenant resolution        | **Done**        |
+| TenantContext provider                  | **Done**        |
+| TenantScopeRepository base class        | **Done**        |
+| Redis caching (with in-memory fallback) | **Done**        |
+| Tenant provisioning API                 | **Done** (two POST endpoints) |
 
 ### Auth / RBAC — 85%
 
@@ -105,10 +85,10 @@ Auth controller has **13 endpoints**, all with service logic:
 | GET /v1/auth/me | **Done** |
 | POST /v1/auth/logout | **Done** |
 | TenantAuthGuard | **Done** |
-| PermissionGuard | **BROKEN** — reads `tenantContext.permissions` (always `[]`) instead of `request.user.permissions`. The Role model has no `permissions` field in schema, so all permission checks fail at runtime. |
+| PermissionGuard | **Wired** (permissions array hardcoded empty) |
 | RBAC permission enforcement | **Blocked** — all `@RequirePermissions()` guards pass vacuously due to PermissionGuard bug |
 
-**Critical bug:** `permission.guard.ts` (line 19-20) reads permissions from `tenantContext` instead of the authenticated user's role. The Prisma Role model has no `permissions` field, yet `auth.service.ts` casts `(role as any).permissions`. The RBAC decorator system exists but does NOT enforce anything in practice.
+**Critical bug:** `permission.guard.ts` reads permissions from `tenantContext` instead of the authenticated user's role. The Prisma Role model has no `permissions` field, yet `auth.service.ts` casts `(role as any).permissions`. The RBAC decorator system exists but does NOT enforce anything in practice.
 
 ### Audit Log — 80%
 
@@ -119,66 +99,16 @@ Auth controller has **13 endpoints**, all with service logic:
 | Entity filter | **Done** |
 | `log()` method called by other services | **0%** — no service currently writes audit logs |
 
-### Super Admin Console — 15%
-
-Backend endpoints are implemented (6 super admin + 8 tenant admin) but **ALL blocked at runtime** by PermissionGuard bug:
-
-| Feature | Status |
-|---|---|
-| Tenant list, detail, create (API) | **Done** (blocked by RBAC) |
-| Tenant suspend / feature flags (API) | **Done** (blocked by RBAC) |
-| Tenant list page (UI) | **Done** |
-| Tenant detail page (UI) | **Done** |
-| Tenant provision dialog (UI) | **Done** (button not wired to dialog) |
-| Billing management | **Not started** |
-| Plan management | **Not started** |
-=======
-| PageLayout, AuditLog                 | **Done** |
-| Promotion, ShippingRule, TaxRule     | **Done** |
-
-### Multi-Tenant Resolution — 90%
-
-| Feature                                 | Status          |
-| --------------------------------------- | --------------- |
-| Hostname-based tenant resolution        | **Done**        |
-| TenantContext provider                  | **Done**        |
-| TenantScopeRepository base class        | **Done**        |
-| Redis caching (with in-memory fallback) | **Done**        |
-| Tenant provisioning API                 | **Not started** |
-
-### Auth / RBAC — 80%
-
-| Feature                             | Status                                        |
-| ----------------------------------- | --------------------------------------------- |
-| JWT login (access + refresh tokens) | **Done**                                      |
-| Registration                        | **Done**                                      |
-| Token refresh with rotation         | **Done**                                      |
-| TenantAuthGuard                     | **Done**                                      |
-| PermissionGuard                     | **Wired** (permissions array hardcoded empty) |
-| Super Admin role                    | **Done**                                      |
-| MFA/OTP                             | **Done**                                      |
-| Forgot/Reset Password               | **Done**                                      |
-| Change Password                     | **Done**                                      |
-| Staff invitation flows              | **Done**                                      |
-
-### Audit Log — 80%
-
-| Feature                    | Status   |
-| -------------------------- | -------- |
-| AuditLogService (internal) | **Done** |
-| GET /v1/platform/audit-log | **Done** |
-| Entity filter              | **Done** |
-
 ### Super Admin Console — 20%
 
 | Feature                 | Status          |
 | ----------------------- | --------------- |
 | Tenant list page (UI)   | **Done**        |
 | Tenant detail page (UI) | **Done**        |
-| Billing management      | **Not started** |
+| Tenant provision dialog (UI) | **Done** (button not wired to dialog) |
 | Feature flag management | **Done**        |
+| Billing management      | **Not started** |
 | Plan management         | **Not started** |
->>>>>>> feat/admin-ui-refactor
 
 ---
 
@@ -204,18 +134,17 @@ Backend endpoints are implemented (6 super admin + 8 tenant admin) but **ALL blo
 
 ### Cart — 100% (Backend + Storefront UI)
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| POST /v1/commerce/carts | **Done** |
-| GET /v1/commerce/carts/:id | **Done** (with items + variant data) |
-| POST /v1/commerce/carts/:id/items | **Done** (stock check, merge on dup) |
-| PATCH /v1/commerce/carts/:id/items/:itemId | **Done** |
-| DELETE /v1/commerce/carts/:id/items/:itemId | **Done** |
-| DELETE /v1/commerce/carts/:id/items | **Done** (clear all) |
-| Storefront Cart Page | **Done** (quantity mgmt, remove, subtotal) |
-| Storefront Cart Drawer | **Done** (sheet drawer with item list) |
-| Coupon/Promotion input on cart | **Not started** |
+| Feature                                     | Status                                         |
+| ------------------------------------------- | ---------------------------------------------- |
+| POST /v1/commerce/carts                     | **Done**                                       |
+| GET /v1/commerce/carts/:id                  | **Done** (with items + variant data)           |
+| POST /v1/commerce/carts/:id/items           | **Done** (stock check, merge on dup)           |
+| PATCH /v1/commerce/carts/:id/items/:itemId  | **Done**                                       |
+| DELETE /v1/commerce/carts/:id/items/:itemId | **Done**                                       |
+| DELETE /v1/commerce/carts/:id/items         | **Done** (clear all)                           |
+| Storefront Cart Page                        | **Done** (full client cart with quantity mgmt) |
+| Storefront Cart Drawer                      | **Done** (sheet drawer with item list)         |
+| Coupon/Promotion input on cart              | **Not started**                                |
 
 ### Checkout — 60%
 
@@ -230,67 +159,12 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | Transactional order creation | **Done** |
 | Stock reservation (30-min expiry) | **Done** |
 | Stripe PaymentIntent creation | **Done** |
-| **Shipping calculation** | **NOT integrated** — `shippingCents = 0` hardcoded (checkout.service.ts:56) |
-| **Tax calculation** | **NOT integrated** — `taxCents = 0` hardcoded (checkout.service.ts:55) |
+| **Shipping calculation** | **NOT integrated** — `shippingCents = 0` hardcoded |
+| **Tax calculation** | **NOT integrated** — `taxCents = 0` hardcoded |
 | **Promotions/coupons** | **NOT integrated** — no discount logic in checkout |
 | Storefront Checkout Page | **Done** (multi-step, but shipping est. hardcoded, tax shows "Calculated at next step") |
 | Storefront coupon input | **Not started** (no coupon field anywhere) |
 | Order Success Page | **Done** |
-
-### Orders — 100%
-
-| Feature | Status |
-|---|---|
-| GET /v1/commerce/orders | **Done** (paginated, filterable) |
-| GET /v1/commerce/orders/:id | **Done** |
-| PATCH /v1/commerce/orders/:id/status | **Done** (state machine) |
-| State machine: pending→paid→fulfilled→refunded | **Done** |
-| Cancellation: pending→cancelled, paid→cancelled | **Done** |
-| Admin Order List/Detail UI | **Done** (full management) |
-| Storefront Order History | **Done** (auth-gated) |
-
-### Payments (Stripe) — 80%
-
-| Feature | Status |
-|---|---|
-| POST /v1/commerce/payments/create-intent | **Done** |
-| POST /v1/commerce/payments/webhook | **Done** (signature verification) |
-| payment_intent.succeeded handler | **Done** (marks order paid) |
-| payment_intent.payment_failed handler | **Done** (marks order cancelled) |
-| Idempotency keys | **Done** |
-| Refund initiation | **Not started** — no refund endpoint, no service method |
-
-### Customers — 100%
-
-| Feature | Status |
-|---|---|
-| CRUD API (5 endpoints) | **Done** |
-| Admin Customer List/Detail UI | **Done** |
-=======
-| Feature                                     | Status                                         |
-| ------------------------------------------- | ---------------------------------------------- |
-| POST /v1/commerce/carts                     | **Done**                                       |
-| GET /v1/commerce/carts/:id                  | **Done** (with items + variant data)           |
-| POST /v1/commerce/carts/:id/items           | **Done** (stock check, merge on dup)           |
-| PATCH /v1/commerce/carts/:id/items/:itemId  | **Done**                                       |
-| DELETE /v1/commerce/carts/:id/items/:itemId | **Done**                                       |
-| DELETE /v1/commerce/carts/:id/items         | **Done** (clear all)                           |
-| Storefront Cart Page                        | **Done** (full client cart with quantity mgmt) |
-| Storefront Cart Drawer                      | **Done** (sheet drawer with item list)         |
-
-### Checkout — 100% (Backend + Storefront UI)
-
-| Feature                           | Status                                            |
-| --------------------------------- | ------------------------------------------------- |
-| POST /v1/commerce/checkout        | **Done**                                          |
-| Cart validation (open, non-empty) | **Done**                                          |
-| Stock availability check          | **Done**                                          |
-| Price calculation (subtotal)      | **Done**                                          |
-| Transactional order creation      | **Done**                                          |
-| Stock reservation (30-min expiry) | **Done**                                          |
-| Stripe PaymentIntent creation     | **Done**                                          |
-| Storefront Checkout Page          | **Done** (multi-step: contact, shipping, payment) |
-| Order Success Page                | **Done**                                          |
 
 ### Orders — 100%
 
@@ -304,7 +178,7 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | Admin Order List/Detail UI                      | **Done** (full management)       |
 | Storefront Order History                        | **Done** (auth-gated)            |
 
-### Payments (Stripe) — 100%
+### Payments (Stripe) — 80%
 
 | Feature                                  | Status                            |
 | ---------------------------------------- | --------------------------------- |
@@ -321,63 +195,37 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | --------------------------------- | -------- |
 | CRUD API (5 endpoints)            | **Done** |
 | Admin Customer List/Detail UI     | **Done** |
->>>>>>> feat/admin-ui-refactor
 | Admin Customer Form (create/edit) | **Done** |
 
-### Users Management — 100% (New)
+### Users Management — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| Users CRUD API | **Done** |
-| Admin User List/Detail UI | **Done** |
-| Admin User Invite UI | **Done** |
-| Change Password UI | **Done** (connected to backend) |
-
-### Shipping, Tax, Promotions — 70% (CRUD only, no checkout integration)
-
-| Module | Status |
-|---|---|
-| Shipping Rules API (CRUD) | **Done** |
-| Flat-rate shipping rules | **Done** |
-| Shipping rules NOT used in checkout | **Missing** — `ShippingService` never injected into `CheckoutService` |
-| Tax Rules API (CRUD) | **Done** |
-| Flat % tax rules | **Done** |
-| Tax rules NOT used in checkout | **Missing** — `TaxService` never injected into `CheckoutService` |
-| Promotions API (CRUD) | **Done** |
-| Coupon code management | **Done** |
-| Promotions NOT used in checkout | **Missing** — `PromotionsService` never injected into `CheckoutService` |
-=======
 | Feature                   | Status   |
 | ------------------------- | -------- |
 | Users CRUD API            | **Done** |
 | Admin User List/Detail UI | **Done** |
 | Admin User Invite UI      | **Done** |
+| Change Password UI        | **Done** (connected to backend) |
 
-### Shipping, Tax, Promotions — 100% (Backend only)
+### Shipping, Tax, Promotions — 70% (CRUD only, no checkout integration)
 
 | Module                          | Status                    |
 | ------------------------------- | ------------------------- |
 | Shipping Rules API (CRUD)       | **Done**                  |
 | Flat-rate shipping rules        | **Done**                  |
+| Shipping rules NOT used in checkout | **Missing** — `ShippingService` never injected into `CheckoutService` |
 | Tax Rules API (CRUD)            | **Done**                  |
 | Flat % tax rules                | **Done**                  |
+| Tax rules NOT used in checkout | **Missing** — `TaxService` never injected into `CheckoutService` |
 | Promotions API (CRUD)           | **Done**                  |
 | Coupon code management          | **Done**                  |
->>>>>>> feat/admin-ui-refactor
+| Promotions NOT used in checkout | **Missing** — `PromotionsService` never injected into `CheckoutService` |
 | Admin Shipping/Tax/Promotion UI | **Done** (settings pages) |
 
 ### Admin Dashboard — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| Revenue chart | **Done** |
-=======
 | Feature                                 | Status   |
 | --------------------------------------- | -------- |
 | Revenue chart                           | **Done** |
->>>>>>> feat/admin-ui-refactor
 | Stat cards (orders, revenue, customers) | **Done** |
 | Recent orders list                      | **Done** |
 
@@ -387,13 +235,8 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 
 ### Design Tokens — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-=======
 | Feature                       | Status   |
 | ----------------------------- | -------- |
->>>>>>> feat/admin-ui-refactor
 | Color palettes (light + dark) | **Done** |
 | Typography scale              | **Done** |
 | Spacing/sizing system         | **Done** |
@@ -415,43 +258,25 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 
 ### Theme Engine — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| Base + tenant override merge | **Done** |
-| Conflict detection | **Done** |
-=======
 | Feature                       | Status   |
 | ----------------------------- | -------- |
 | Base + tenant override merge  | **Done** |
 | Conflict detection            | **Done** |
->>>>>>> feat/admin-ui-refactor
 | resolveOverride<T>() function | **Done** |
 | Tested (spec file)            | **Done** |
 
 ### Theme API — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| GET /v1/experience/theme | **Done** (public, no auth) |
-=======
 | Feature                           | Status                          |
 | --------------------------------- | ------------------------------- |
 | GET /v1/experience/theme          | **Done** (public, no auth)      |
->>>>>>> feat/admin-ui-refactor
 | PUT /v1/experience/theme/override | **Done** (requires theme.write) |
 | Conflict reporting                | **Done**                        |
 
 ### Admin Theme Editor — 100%
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-=======
 | Feature                         | Status   |
 | ------------------------------- | -------- |
->>>>>>> feat/admin-ui-refactor
 | Color pickers (light/dark mode) | **Done** |
 | Typography selectors            | **Done** |
 | Spacing/radii/shadows sliders   | **Done** |
@@ -460,32 +285,6 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 
 ### Page Builder — 100% (Backend + Admin UI)
 
-<<<<<<< HEAD
-| Feature | Status |
-|---|---|
-| GET /v1/experience/builder/pages/:key | **Done** |
-| PUT /v1/experience/builder/pages/:key | **Done** |
-| Sections JSON storage | **Done** |
-| Composite key (tenant_id + page_key) | **Done** |
-| Admin Page Layout Editor | **Done** (add/reorder sections, prop editor) |
-
-### Storefront Pages — 95%
-
-| Feature | Status |
-|---|---|
-| Root layout (HTML, fonts, theme) | **Done** |
-| Homepage (SSR with products, categories) | **Done** |
-| Product listing (grid, filters, sort) | **Done** |
-| Product detail (gallery, variant selector, add-to-cart) | **Done** |
-| Category pages | **Done** (SSR, product grid, SEO metadata, empty state, ISR 60s) |
-| Cart page | **Done** (quantity mgmt, remove, subtotal) |
-| Checkout page | **Done** (multi-step: email, payment, summary — shipping/tax stubbed) |
-| Order success page | **Done** |
-| Search | **Done** (full implementation with `SearchForm` client component, results grid, empty state) |
-| Auth pages (Login, Register, Forgot/Reset/Change Password, MFA) | **Done** (all connected to backend) |
-| Customer account dashboard | **Done** (profile, order history, MFA setup/disable) |
-| Order history | **Done** |
-=======
 | Feature                               | Status                                       |
 | ------------------------------------- | -------------------------------------------- |
 | GET /v1/experience/builder/pages/:key | **Done**                                     |
@@ -494,7 +293,7 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | Composite key (tenant_id + page_key)  | **Done**                                     |
 | Admin Page Layout Editor              | **Done** (add/reorder sections, prop editor) |
 
-### Storefront Pages — 90%
+### Storefront Pages — 95%
 
 | Feature                                                 | Status   |
 | ------------------------------------------------------- | -------- |
@@ -510,56 +309,32 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | Auth (Login, Register)                                  | **Done** |
 | Customer account dashboard                              | **Done** |
 | Order history                                           | **Done** |
->>>>>>> feat/admin-ui-refactor
 
 ---
 
 ## 5. Shared Packages Summary
 
-<<<<<<< HEAD
-| Package | Status | Completion |
-|---|---|---|
-| @commerceos/design-tokens | Full light/dark token system, Style Dictionary build | **100%** |
-| @commerceos/components | 30 components, registry with plan gating, section schemas, 6 tests | **90%** |
-| @commerceos/theme-engine | resolveOverride() with conflict detection, tested | **100%** |
-| @commerceos/shared-types | Zod schemas for all core entities | **100%** |
-| @commerceos/ui-config | Tailwind CSS variable bridge | **80%** (no `dist/` build output) |
-=======
 | Package                   | Status                                                             | Completion |
 | ------------------------- | ------------------------------------------------------------------ | ---------- |
 | @commerceos/design-tokens | Full light/dark token system, Style Dictionary build               | **100%**   |
 | @commerceos/components    | 30 components, registry with plan gating, section schemas, 6 tests | **90%**    |
 | @commerceos/theme-engine  | resolveOverride() with conflict detection, tested                  | **100%**   |
 | @commerceos/shared-types  | Zod schemas for all core entities                                  | **100%**   |
-| @commerceos/ui-config     | Tailwind CSS variable bridge                                       | **100%**   |
->>>>>>> feat/admin-ui-refactor
+| @commerceos/ui-config     | Tailwind CSS variable bridge                                       | **80%** (no `dist/` build output) |
 
 ---
 
 ## 6. Testing Coverage
 
-<<<<<<< HEAD
-| Area | Files | Coverage Est. |
-|---|---|---|
-| API Unit Tests | 17 spec files | ~50% of services |
-| API E2E Tests | 5 e2e-spec files | ~30% of endpoints |
-| Shared Components | 6 Vitest specs | ~25% of components |
-| Theme Engine | 1 spec file | 100% of logic |
-| Playwright E2E | 1 spec file (checkout) | Skeleton |
-| Admin Dashboard | 0 tests | **0%** |
-| Storefront | 0 tests | **0%** |
-| **Total** | **27 test files** | |
-=======
 | Area              | Files            | Coverage Est.                |
 | ----------------- | ---------------- | ---------------------------- |
-| API Unit Tests    | 15 spec files    | ~50% of services             |
-| API E2E Tests     | 3 e2e-spec files | ~25% of endpoints            |
+| API Unit Tests    | 17 spec files    | ~50% of services             |
+| API E2E Tests     | 5 e2e-spec files | ~30% of endpoints            |
 | Shared Components | 6 Vitest specs   | ~25% of components           |
 | Theme Engine      | 1 spec file      | 100% of logic                |
 | Admin Dashboard   | 0 tests          | **0%**                       |
 | Storefront        | 0 tests          | **0%**                       |
 | E2E Playwright    | 1 spec           | Skeleton (references old UI) |
->>>>>>> feat/admin-ui-refactor
 
 ---
 
@@ -567,32 +342,14 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 
 ### High Priority
 
-<<<<<<< HEAD
-| Priority | Area | Description |
-|---|---|---|
-| Critical | Auth/RBAC | Fix `PermissionGuard` — read permissions from `request.user` not `tenantContext`. Add `permissions` field to Role model if needed |
-| Critical | Auth/RBAC | Verify all `@RequirePermissions()`-gated endpoints (`invite`, super admin APIs) work after fix |
-| High | Checkout | Integrate `ShippingService`, `TaxService`, `PromotionsService` into `CheckoutService.checkout()` |
-| High | Quality | Build regression + E2E test suite |
-| High | Quality | Add tests for admin and storefront apps (currently 0%) |
-| High | CI/CD | Create GitHub Actions workflows (lint, test, build) |
-
-### Medium Priority
-
-| Priority | Area | Description |
-|---|---|---|
-| Medium | Payments | Refund initiation flow (endpoint + service method) |
-| Medium | Platform | Super Admin console — billing, feature flags, plan management |
-| Medium | Storefront | Add coupon/promotion input to cart and checkout pages |
-| Medium | Infrastructure | Dockerfiles for admin + storefront |
-| Medium | Infrastructure | Pre-commit hooks, Sentry monitoring |
-| Medium | Audit | Wire `AuditLogService.log()` calls into key service operations |
-| Medium | Admin | Wire "Provision Tenant" button to `ProvisionTenantDialog` |
-=======
 | Priority | Area    | Description                                            |
 | -------- | ------- | ------------------------------------------------------ |
+| Critical | Auth/RBAC | Fix `PermissionGuard` — read permissions from `request.user` not `tenantContext`. Add `permissions` field to Role model if needed |
+| Critical | Auth/RBAC | Verify all `@RequirePermissions()`-gated endpoints (`invite`, super admin APIs) work after fix |
+| High     | Checkout | Integrate `ShippingService`, `TaxService`, `PromotionsService` into `CheckoutService.checkout()` |
 | High     | Quality | Build regression + E2E test suite (Session 17)         |
 | High     | Quality | Add tests for admin and storefront apps (currently 0%) |
+| High     | CI/CD | Create GitHub Actions workflows (lint, test, build) |
 
 ### Medium Priority
 
@@ -605,24 +362,17 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 | Medium   | Tax            | Checkout integration (currently backend-only)                 |
 | Medium   | Promotions     | Storefront coupon application                                 |
 | Medium   | DevOps         | Pre-commit hooks, Sentry monitoring                           |
->>>>>>> feat/admin-ui-refactor
+| Medium   | Audit          | Wire `AuditLogService.log()` calls into key service operations |
+| Medium   | Admin          | Wire "Provision Tenant" button to `ProvisionTenantDialog` |
 
 ---
 
-## 8. API Endpoint Count: ~60+ Total
+## 8. API Endpoint Count: ~85+ Total
 
-<<<<<<< HEAD
-| Module | Endpoints | Status |
-|---|---|---|
-| Auth | 13 (login, register, refresh, me, logout, forgot-password, reset-password, change-password, invite, mfa/verify, mfa/setup, mfa/enable, mfa/disable) | **All implemented** |
-| Super Admin | 14 (6 super admin + 8 tenant admin) | **All implemented** (blocked by PermissionGuard bug) |
-| Audit Log | 1 (GET list) | **Live** |
-| Catalog | 14 (products, categories, variants CRUD) | **Live** |
-| Cart | 6 (create, get, add/update/remove items, clear) | **Live** |
 | Module       | Endpoints                                       | Status       |
 | ------------ | ----------------------------------------------- | ------------ |
 | Auth         | 13 (login, register, refresh, me, logout, forgot-password, reset-password, change-password, invite, mfa/verify, mfa/setup, mfa/enable, mfa/disable) | **All implemented** |
-| Super Admin | 14 (6 super admin + 8 tenant admin) | **All implemented** (blocked by PermissionGuard bug) |
+| Super Admin  | 14 (6 super admin + 8 tenant admin)             | **All implemented** (blocked by PermissionGuard bug) |
 | Audit Log    | 1 (GET list)                                    | **Live**     |
 | Catalog      | 14 (products, categories, variants CRUD)        | **Live**     |
 | Cart         | 6 (create, get, add/update/remove items, clear) | **Live**     |
@@ -662,9 +412,9 @@ Backend creates orders but does NOT integrate with shipping/tax/promotions servi
 
 ## 10. Critical Blockers
 
-1. **PermissionGuard bug** — `permission.guard.ts:19-20` reads `tenantContext.permissions` (always `[]`) instead of `request.user.permissions`. This blocks ALL permission-gated functionality (`invite`, super admin APIs, etc.). The Prisma Role model lacks a `permissions` field, yet `auth.service.ts` casts `(role as any).permissions`. Fixing this requires both the guard and the schema/model.
+1. **PermissionGuard bug** — `permission.guard.ts` reads `tenantContext.permissions` (always `[]`) instead of `request.user.permissions`. This blocks ALL permission-gated functionality (`invite`, super admin APIs, etc.). The Prisma Role model lacks a `permissions` field, yet `auth.service.ts` casts `(role as any).permissions`. Fixing this requires both the guard and the schema/model.
 
-2. **Checkout missing shipping/tax/promotions** — `checkout.service.ts:55-56` hardcodes `taxCents = 0` and `shippingCents = 0`. The `ShippingService`, `TaxService`, and `PromotionsService` all exist with full CRUD but are never injected into `CheckoutService`. Coupon codes cannot be applied.
+2. **Checkout missing shipping/tax/promotions** — `checkout.service.ts` hardcodes `taxCents = 0` and `shippingCents = 0`. The `ShippingService`, `TaxService`, and `PromotionsService` all exist with full CRUD but are never injected into `CheckoutService`. Coupon codes cannot be applied.
 
 3. **No CI/CD** — `.github/` directory is empty. No automated linting, testing, or building on push/PR.
 

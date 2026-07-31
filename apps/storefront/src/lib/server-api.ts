@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 class ApiError extends Error {
   status: number;
@@ -33,12 +33,18 @@ async function serverRequest<T>(path: string, options?: RequestInit): Promise<T>
 export const serverApi = {
   experience: {
     getTheme: () => serverRequest<any>('/experience/theme'),
-    getPage: (pageKey: string, draft?: boolean) => serverRequest<any>(`/experience/builder/pages/${pageKey}${draft ? '?draft=true' : ''}`),
+    getPage: (pageKey: string, draft?: boolean) =>
+      serverRequest<any>(
+        `/experience/builder/pages/${pageKey}${draft ? '?draft=true' : ''}`,
+        draft && process.env.PREVIEW_SECRET
+          ? { headers: { 'x-preview-secret': process.env.PREVIEW_SECRET } }
+          : undefined,
+      ),
   },
   products: {
     list: (params?: { category?: string; q?: string; page?: number; limit?: number; attributes?: Record<string, string> }) => {
       const search = new URLSearchParams();
-      if (params?.category) search.set('categoryId', params.category);
+      if (params?.category) search.set('category', params.category);
       if (params?.q) search.set('q', params.q);
       if (params?.page) search.set('page', params.page.toString());
       if (params?.limit) search.set('limit', params.limit.toString());
@@ -46,11 +52,11 @@ export const serverApi = {
         search.set('attributes', JSON.stringify(params.attributes));
       }
       const qs = search.toString();
-      return serverRequest<{ data: any[], facets: any }>(`/catalog/products${qs ? `?${qs}` : ''}`); // Note: according to API docs, it's catalog/products
+      return serverRequest<{ data: any[], facets: any }>(`/storefront/products${qs ? `?${qs}` : ''}`);
     },
-    get: (id: string) => serverRequest<any>(`/catalog/products/${id}`),
+    get: (slug: string) => serverRequest<any>(`/storefront/products/${slug}`),
   },
   categories: {
-    list: () => serverRequest<any[]>('/catalog/categories'),
+    list: () => serverRequest<any[]>('/storefront/categories'),
   }
 };

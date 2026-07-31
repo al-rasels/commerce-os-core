@@ -6,9 +6,11 @@ export async function GET(request: Request) {
   const secret = searchParams.get('secret');
   const slug = searchParams.get('slug');
 
-  // Check the secret and next parameters
-  // This secret should only be known to this API route and the CMS/Admin
-  if (secret !== process.env.PREVIEW_SECRET && process.env.NODE_ENV === 'production') {
+  // Check the secret. This secret should only be known to this API route and
+  // the CMS/Admin. Fail closed in all environments: if the secret is unset the
+  // route is never usable, and only the current server value is accepted.
+  const previewSecret = process.env.PREVIEW_SECRET;
+  if (!previewSecret || secret !== previewSecret) {
     return new Response('Invalid token', { status: 401 });
   }
 

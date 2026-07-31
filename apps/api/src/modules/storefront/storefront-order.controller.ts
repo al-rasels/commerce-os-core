@@ -1,17 +1,18 @@
 import { Controller, Get, Param, Query, NotFoundException } from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront/orders')
 export class StorefrontOrderController {
+  constructor(private readonly prismaService: PrismaService) { }
+
   @Get('by-email')
   async getOrdersByEmail(
     @GetTenantContext() ctx: TenantContext,
     @Query('email') email: string,
   ) {
-    const { PrismaService } = await import('../../prisma/prisma.service.js');
-    const prisma = new PrismaService();
-    const service = prisma as any;
+    const service = this.prismaService as any;
 
     const orders = await service.order.findMany({
       where: { tenant_id: ctx.tenantId, customer: { email } },
@@ -27,9 +28,7 @@ export class StorefrontOrderController {
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
   ) {
-    const { PrismaService } = await import('../../prisma/prisma.service.js');
-    const prisma = new PrismaService();
-    const service = prisma as any;
+    const service = this.prismaService as any;
 
     const order = await service.order.findUnique({
       where: { id },

@@ -11,6 +11,7 @@ export * from "./testimonials";
 export * from "./newsletter";
 export * from "./faq";
 export * from "./rich-text";
+export * from "./sanitize";
 export * from "./gallery";
 export * from "./banner";
 export * from "./breadcrumbs";
@@ -28,6 +29,7 @@ export * from "./empty-state";
 export * from "./toast";
 export * from "./data-table";
 export * from "./form";
+export * from "./form-renderer";
 export * from "./section-schema";
 
 export * from "./alert-dialog";

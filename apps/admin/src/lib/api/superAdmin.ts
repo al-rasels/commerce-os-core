@@ -27,12 +27,12 @@ export interface ProvisionTenantInput {
 }
 
 export const superAdminApi = {
-  listTenants: () => api.get<TenantListResponse>('/api/v1/admin/tenants'),
-  getTenant: (id: string) => api.get<TenantDetail>(`/api/v1/admin/tenants/${id}`),
+  listTenants: () => api.get<TenantListResponse>('/api/v1/super-admin/tenants'),
+  getTenant: (id: string) => api.get<TenantDetail>(`/api/v1/super-admin/tenants/${id}`),
   suspendTenant: (id: string) =>
-    api.patch<void>(`/api/v1/admin/tenants/${id}`, { status: 'suspended' }),
+    api.patch<void>(`/api/v1/super-admin/tenants/${id}`, { status: 'suspended' }),
   toggleFlag: (id: string, flag_key: string, enabled: boolean) =>
-    api.post<void>(`/api/v1/admin/tenants/${id}/flags`, { flag_key, enabled }),
+    api.post<void>(`/api/v1/super-admin/tenants/${id}/flags`, { flag_key, enabled }),
   provisionTenant: (input: ProvisionTenantInput) =>
-    api.post<TenantDetail>('/api/v1/admin/tenants', input),
+    api.post<TenantDetail>('/api/v1/super-admin/tenants', input),
 };

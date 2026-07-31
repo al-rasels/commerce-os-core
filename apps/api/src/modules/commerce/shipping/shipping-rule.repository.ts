@@ -5,6 +5,6 @@ import { TenantScopedRepository } from '../../../common/repositories/tenant-scop
 @Injectable()
 export class ShippingRuleRepository extends TenantScopedRepository<any> {
   constructor(prisma: PrismaService) {
-    super(prisma, 'shipping_rule');
+    super(prisma, 'shippingRule');
   }
 }

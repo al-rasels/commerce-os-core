@@ -1,9 +1,12 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
+import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront')
 export class StorefrontController {
+  constructor(private readonly prismaService: PrismaService) { }
+
   @Get('products')
   async listProducts(
     @GetTenantContext() ctx: TenantContext,
@@ -11,9 +14,7 @@ export class StorefrontController {
     @Query('q') searchQuery?: string,
     @Query('attributes') attributesJson?: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service.js'))
-      .PrismaService;
-    const service = new prisma();
+    const service = this.prismaService as any;
     const where: any = {
       deleted_at: null,
       tenant_id: ctx.tenantId,
@@ -75,9 +76,7 @@ export class StorefrontController {
     @GetTenantContext() ctx: TenantContext,
     @Param('slug') slug: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service.js'))
-      .PrismaService;
-    const service = new prisma();
+    const service = this.prismaService as any;
     const product = await (service as any).product.findFirst({
       where: {
         slug,
@@ -92,9 +91,7 @@ export class StorefrontController {
 
   @Get('categories')
   async listCategories(@GetTenantContext() ctx: TenantContext) {
-    const prisma = (await import('../../prisma/prisma.service.js'))
-      .PrismaService;
-    const service = new prisma();
+    const service = this.prismaService as any;
     return (service as any).category.findMany({
       where: { tenant_id: ctx.tenantId },
       orderBy: { sort_order: 'asc' },
@@ -107,9 +104,7 @@ export class StorefrontController {
     @Query('email') email: string,
   ) {
     if (!email) return [];
-    const prisma = (await import('../../prisma/prisma.service.js'))
-      .PrismaService;
-    const service = new prisma();
+    const service = this.prismaService as any;
     return (service as any).order.findMany({
       where: {
         tenant_id: ctx.tenantId,
@@ -129,10 +124,8 @@ export class StorefrontController {
     @GetTenantContext() ctx: TenantContext,
     @Param('id') id: string,
   ) {
-    const prisma = (await import('../../prisma/prisma.service.js'))
-      .PrismaService;
-    const service = new prisma();
-    const order = await (service as any).order.findFirst({
+    const service = this.prismaService as any;
+    const order = await service.order.findFirst({
       where: {
         id,
         tenant_id: ctx.tenantId,

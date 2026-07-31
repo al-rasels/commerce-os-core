@@ -1,4 +1,4 @@
-import { cn } from "./utils";
+import { sanitizeHtml } from "./sanitize";
 
 export interface RichTextProps {
   content: string;
@@ -9,7 +9,7 @@ export function RichText({ content }: RichTextProps) {
     <section className="mx-auto max-w-3xl py-12">
       <div
         className="prose prose-sm dark:prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
       />
     </section>
   );
