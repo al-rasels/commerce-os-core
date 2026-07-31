@@ -237,7 +237,7 @@ export default function AnalyticsPage() {
                               <div key={i} className="flex items-center gap-2">
                                 <div className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
                                 <span className="text-muted-foreground">{entry.name}:</span>
-                                <span className="font-mono font-medium">{entry.value.toLocaleString()}</span>
+                                <span className="font-mono font-medium">{(entry.value ?? 0).toLocaleString()}</span>
                               </div>
                             ))}
                           </div>
@@ -285,7 +285,7 @@ export default function AnalyticsPage() {
                                   <div className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
                                   <span className="text-muted-foreground">{entry.name}:</span>
                                   <span className="font-mono font-medium">
-                                    {entry.dataKey === 'revenue' ? formatCurrency(Number(entry.value)) : entry.value.toLocaleString()}
+                                    {entry.dataKey === 'revenue' ? formatCurrency(Number(entry.value ?? 0)) : (entry.value ?? 0).toLocaleString()}
                                   </span>
                                 </div>
                               ))}
@@ -319,7 +319,7 @@ export default function AnalyticsPage() {
                                   <div className="h-2 w-2 rounded-full" style={{ backgroundColor: entry.color }} />
                                   <span className="text-muted-foreground">{entry.name}:</span>
                                   <span className="font-mono font-medium">
-                                    {entry.dataKey === 'revenue' ? formatCurrency(Number(entry.value)) : entry.value.toLocaleString()}
+                                    {entry.dataKey === 'revenue' ? formatCurrency(Number(entry.value ?? 0)) : (entry.value ?? 0).toLocaleString()}
                                   </span>
                                 </div>
                               ))}
