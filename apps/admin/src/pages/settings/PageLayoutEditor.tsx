@@ -231,21 +231,7 @@ export default function PageLayoutEditorPage() {
             <Save className="size-3.5" />
             {syncing ? "Saving..." : "Save Draft"}
           </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate(`/settings/pages/${pageKey}/builder`)}
-              className="gap-2"
-            >
-              <Layers className="size-4" />
-              Visual Builder (Beta)
-            </Button>
-          <Button
-            variant="default"
-            size="sm"
-            disabled={(!hasUnsavedChanges && !hasUnpublishedChanges) || syncing}
-            onClick={handlePublish}
-          >
+            <Button variant="outline" size="sm" disabled={(!hasUnsavedChanges && !hasUnpublishedChanges) || syncing} onClick={handlePublish}>
             <Send className="size-3.5" />
             {syncing ? "Publishing..." : "Publish"}
           </Button>
