@@ -46,7 +46,7 @@ describe("DataTable", () => {
 
   it("renders custom cell renderer", () => {
     const cols = [
-      { key: "name", label: "Name", render: (val: string) => `Mr. ${val}` },
+      { key: "name", label: "Name", render: (item: { name: string; age: number }) => `Mr. ${item.name}` },
     ];
     render(<DataTable columns={cols} data={data} />);
     expect(screen.getByText("Mr. Alice")).toBeInTheDocument();
