@@ -152,7 +152,7 @@ function PreviewCard({ resolvedTokens, mode }: { resolvedTokens: DesignTokens; m
     "--p-font-sans": t.fontFamilies.sans,
     "--p-font-heading": t.fontFamilies.heading,
     "--p-font-mono": t.fontFamilies.mono,
-  } as React.CSSProperties), [c, resolvedTokens])
+  } as React.CSSProperties), [c, resolvedTokens, t])
 
   return (
     <div
@@ -447,7 +447,6 @@ export default function ThemeEditorPage() {
   const [mode, setMode] = useState<ColorMode>("light")
   const [draftOverride, setDraftOverride] = useState<Record<string, unknown>>({})
   const [dirty, setDirty] = useState(false)
-  const [saving, setSaving] = useState(false)
 
   const baseTokens = useMemo(() => {
     if (!resolved?.tokens) return defaultTokens
@@ -498,18 +497,19 @@ export default function ThemeEditorPage() {
     setDirty(true)
   }
 
-  async function handleSave() {
+  function handleSave() {
     if (!resolved?.id) return
-    setSaving(true)
-    try {
-      await saveOverride.mutateAsync({
+    saveOverride.mutate(
+      {
         themeBaseId: resolved.id,
         overridesJson: draftOverride,
-      })
-      setDirty(false)
-    } finally {
-      setSaving(false)
-    }
+      },
+      {
+        onSuccess: () => {
+          setDirty(false)
+        },
+      }
+    )
   }
 
   if (isLoading) return <LoadingSkeleton />
@@ -534,9 +534,9 @@ export default function ThemeEditorPage() {
             <RotateCcw className="size-3.5" />
             Reset edits
           </Button>
-          <Button size="sm" onClick={handleSave} disabled={!dirty || saving}>
+          <Button size="sm" onClick={handleSave} disabled={!dirty || saveOverride.isPending}>
             <Save className="size-3.5" />
-            {saving ? "Saving..." : "Save"}
+            {saveOverride.isPending ? "Saving..." : "Save"}
           </Button>
         </div>
       </header>

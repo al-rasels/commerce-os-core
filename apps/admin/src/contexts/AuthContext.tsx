@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
+import { api } from '@/lib/api/client';
 
 interface AuthUser {
   id: string;
@@ -82,18 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const mfaVerify = useCallback(async (mfaToken: string, code: string) => {
-    const res = await fetch('/api/v1/auth/mfa/verify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mfa_token: mfaToken, code }),
-    });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || 'MFA verification failed');
-    }
-
-    const data = await res.json();
+    const data = await api.post<any>('/api/v1/auth/mfa/verify', { mfa_token: mfaToken, code });
     localStorage.setItem(TOKEN_KEY, data.access_token);
     if (data.refresh_token) localStorage.setItem(REFRESH_KEY, data.refresh_token);
     localStorage.setItem(USER_KEY, JSON.stringify({ id: data.user_id, email: data.email }));

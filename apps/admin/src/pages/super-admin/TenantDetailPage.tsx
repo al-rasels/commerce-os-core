@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { superAdminApi } from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -11,7 +11,7 @@ export function TenantDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const load = () => {
+  const load = useCallback(() => {
     if (!id) return;
     setLoading(true);
     setError(null);
@@ -19,11 +19,11 @@ export function TenantDetailPage() {
       .then(setTenant)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  };
+  }, [id]);
 
   useEffect(() => {
     load();
-  }, [id]);
+  }, [load]);
 
   const handleSuspend = async () => {
     if (!id) return;

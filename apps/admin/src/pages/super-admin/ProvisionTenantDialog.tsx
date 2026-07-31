@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -29,25 +30,22 @@ export function ProvisionTenantDialog({ onProvisioned }: Props) {
   const [name, setName] = useState("")
   const [plan, setPlan] = useState<string>("growth")
   const [domain, setDomain] = useState("")
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
-    try {
-      await superAdminApi.provisionTenant({ name, plan_id: plan, domain })
+  const mutation = useMutation({
+    mutationFn: (data: { name: string; plan_id: string; domain: string }) => superAdminApi.provisionTenant(data),
+    onSuccess: () => {
       setOpen(false)
       setName("")
       setPlan("growth")
       setDomain("")
       onProvisioned?.()
-    } catch (err: any) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
     }
+    // Errors are handled globally
+  })
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    mutation.mutate({ name, plan_id: plan, domain })
   }
 
   return (
@@ -77,9 +75,8 @@ export function ProvisionTenantDialog({ onProvisioned }: Props) {
             <Label htmlFor="domain">Primary domain</Label>
             <Input id="domain" value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="store.example.com" />
           </div>
-          {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" disabled={loading}>
-            {loading ? "Provisioning..." : "Provision"}
+          <Button type="submit" disabled={mutation.isPending}>
+            {mutation.isPending ? "Provisioning..." : "Provision"}
           </Button>
         </form>
       </DialogContent>
