@@ -48,12 +48,13 @@
     "ioredis": "^5.4.1",
     "meilisearch": "^0.60.0",
     "multer": "^2.2.0",
-    "nestjs-pino": "^4.1.0",
+    "nestjs-pino": "^4.6.1",
     "otplib": "^13.4.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "pino": "^9.3.2",
-    "pino-pretty": "^11.2.2",
+    "pino": "^9.14.0",
+    "pino-http": "^11.0.0",
+    "pino-pretty": "^11.3.0",
     "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2",
     "resend": "^3.5.0",
@@ -109,7 +110,7 @@
     "testEnvironment": "node",
     "testTimeout": 30000,
     "transformIgnorePatterns": [
-      "node_modules/(?!(@scure|otplib|@otplib|@noble)/)"
+      "node_modules/(?!(@scure|otplib|@otplib|@noble|uuid)/)"
     ],
     "setupFiles": [
       "<rootDir>/../test/setup.ts"

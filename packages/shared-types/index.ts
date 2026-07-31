@@ -1,4 +1,5 @@
 import { z } from "zod";
+export * from "./errors";
 
 // Tenant schemas
 export const TenantSchema = z.object({

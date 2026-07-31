@@ -2,11 +2,23 @@ const API_BASE = import.meta.env.VITE_API_URL || '';
 
 export class ApiError extends Error {
   status: number;
+  errorCode?: string;
+  traceId?: string;
+  validationErrors?: Record<string, string[]>;
 
-  constructor(status: number, message: string) {
+  constructor(
+    status: number,
+    message: string,
+    errorCode?: string,
+    traceId?: string,
+    validationErrors?: Record<string, string[]>,
+  ) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
+    this.errorCode = errorCode;
+    this.traceId = traceId;
+    this.validationErrors = validationErrors;
   }
 }
 
@@ -98,8 +110,24 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   }
 
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new ApiError(res.status, body.message || `Request failed (${res.status})`);
+    let body: any = {};
+    try {
+      body = await res.json();
+    } catch (_) {
+      // Not JSON
+    }
+
+    // Dispatch custom event for global toast handling
+    const error = new ApiError(
+      res.status,
+      body.detail || body.message || `Request failed (${res.status})`,
+      body.errorCode,
+      body.traceId,
+      body.validationErrors
+    );
+
+    window.dispatchEvent(new CustomEvent('global-api-error', { detail: error }));
+    throw error;
   }
 
   if (res.status === 204) return undefined as T;

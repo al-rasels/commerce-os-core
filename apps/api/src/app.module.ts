@@ -10,9 +10,9 @@ import { CommerceModule } from './modules/commerce/commerce.module';
 import { ExperienceModule } from './modules/experience/experience.module';
 import { CommerceThrottlerGuard } from './common/guards/commerce-throttler.guard';
 import { CsrfMiddleware } from './common/middleware/csrf.middleware';
-import { LoggerModule } from 'nestjs-pino';
 import { B2bModule } from './modules/business/b2b/b2b.module';
 import { SubscriptionsModule } from './modules/business/subscriptions/subscriptions.module';
+import { LoggerModule } from './common/logger/logger.module';
 
 @Module({
   imports: [
@@ -23,15 +23,7 @@ import { SubscriptionsModule } from './modules/business/subscriptions/subscripti
         limit: 60,
       },
     ]),
-    LoggerModule.forRoot({
-      pinoHttp: {
-        level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
-        transport:
-          process.env.NODE_ENV !== 'production'
-            ? { target: 'pino-pretty' }
-            : undefined,
-      },
-    }),
+    LoggerModule,
     PrismaModule,
     PlatformModule,
     CommerceModule,
