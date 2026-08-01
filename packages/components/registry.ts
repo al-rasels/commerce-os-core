@@ -1,4 +1,5 @@
 import { type ComponentType } from "react";
+import { ComponentMetadata, type PlanTier } from "@commerceos/shared-types";
 import { Hero } from "./hero";
 import { Header } from "./header";
 import { Footer } from "./footer";
@@ -30,7 +31,7 @@ import { Toaster, toast } from "./toast";
 
 export type ComponentRegistryEntry = {
   component: ComponentType<any>;
-  minPlan?: "starter" | "pro" | "enterprise";
+  minPlan?: PlanTier;
 };
 
 export const componentRegistry = {
@@ -45,12 +46,12 @@ export const componentRegistry = {
   "newsletter.v1": { component: Newsletter },
   "faq.v1": { component: Faq },
   "rich-text.v1": { component: RichText },
-  "gallery.v1": { component: Gallery, minPlan: "pro" },
+  "gallery.v1": { component: Gallery, minPlan: ComponentMetadata["gallery.v1"]?.minPlan },
   "banner.v1": { component: Banner },
   "breadcrumbs.v1": { component: Breadcrumbs },
   "search-bar.v1": { component: SearchBar },
   "pagination.v1": { component: Pagination },
-  "sidebar.v1": { component: Sidebar, minPlan: "pro" },
+  "sidebar.v1": { component: Sidebar, minPlan: ComponentMetadata["sidebar.v1"]?.minPlan },
   "modal.v1": { component: Modal },
   "tabs.v1": { component: Tabs },
   "skeleton.v1": { component: Skeleton },
@@ -59,8 +60,8 @@ export const componentRegistry = {
   "textarea.v1": { component: Textarea },
   "select.v1": { component: Select },
   "empty-state.v1": { component: EmptyState },
-  "data-table.v1": { component: DataTable, minPlan: "pro" },
-  "form-renderer.v1": { component: FormRenderer, minPlan: "pro" },
+  "data-table.v1": { component: DataTable, minPlan: ComponentMetadata["data-table.v1"]?.minPlan },
+  "form-renderer.v1": { component: FormRenderer, minPlan: ComponentMetadata["form-renderer.v1"]?.minPlan },
   "toast.v1": { component: Toaster },
 } as const satisfies Record<string, ComponentRegistryEntry>;
 
