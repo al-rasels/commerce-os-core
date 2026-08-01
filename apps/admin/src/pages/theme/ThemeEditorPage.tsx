@@ -131,21 +131,21 @@ function PreviewCard({ resolvedTokens, mode }: { resolvedTokens: DesignTokens; m
   const t = resolvedTokens.typography
 
   const cssVars = useMemo(() => ({
-    "--p-surface": c.surface,
-    "--p-surface-muted": c.surfaceMuted,
-    "--p-text": c.text,
-    "--p-text-muted": c.textMuted,
-    "--p-border": c.border,
-    "--p-primary": c.primary,
-    "--p-primary-contrast": c.primaryContrast,
-    "--p-accent": c.accent,
-    "--p-accent-contrast": c.accentContrast,
-    "--p-success": c.success,
-    "--p-success-contrast": c.successContrast,
-    "--p-warning": c.warning,
-    "--p-warning-contrast": c.warningContrast,
-    "--p-error": c.error,
-    "--p-error-contrast": c.errorContrast,
+    "--p-surface": c.muted.background,
+    "--p-surface-muted": c.muted.muted,
+    "--p-text": c.muted.foreground,
+    "--p-text-muted": c.muted.mutedForeground,
+    "--p-border": c.muted.border,
+    "--p-primary": c.muted.primary,
+    "--p-primary-contrast": c.muted.primaryForeground,
+    "--p-accent": c.muted.accent,
+    "--p-accent-contrast": c.muted.accentForeground,
+    "--p-success": c.muted.primary,
+    "--p-success-contrast": c.muted.primaryForeground,
+    "--p-warning": c.muted.primary,
+    "--p-warning-contrast": c.muted.primaryForeground,
+    "--p-error": c.muted.destructive,
+    "--p-error-contrast": c.muted.destructiveForeground,
     "--p-radius": resolvedTokens.radii.md,
     "--p-radius-lg": resolvedTokens.radii.lg,
     "--p-shadow": resolvedTokens.shadows.md,
@@ -290,22 +290,41 @@ function ColorsSection({
   defaultColors,
 }: {
   colors: ColorTokens
-  onChange: (key: keyof ColorTokens, value: string) => void
+  onChange: (path: string[], value: string) => void
   defaultColors: ColorTokens
 }) {
-  const entries = Object.entries(colors) as [keyof ColorTokens, string][]
   return (
-    <div className="space-y-0.5">
-      {entries.map(([key, value]) => (
-        <SettingRow
-          key={key}
-          label={key}
-          value={value}
-          type="color"
-          onChange={(v) => onChange(key, v)}
-          onReset={value !== defaultColors[key] ? () => onChange(key, defaultColors[key]) : undefined}
-        />
-      ))}
+    <div className="space-y-4">
+      <div>
+        <h4 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">Muted Variant</h4>
+        <div className="space-y-0.5">
+          {(Object.entries(colors.muted) as [string, string][]).map(([key, value]) => (
+            <SettingRow
+              key={key}
+              label={key}
+              value={value}
+              type="color"
+              onChange={(v) => onChange(["muted", key], v)}
+              onReset={value !== defaultColors.muted[key as keyof typeof defaultColors.muted] ? () => onChange(["muted", key], defaultColors.muted[key as keyof typeof defaultColors.muted]) : undefined}
+            />
+          ))}
+        </div>
+      </div>
+      <div>
+        <h4 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">Colorful Variant</h4>
+        <div className="space-y-0.5">
+          {(Object.entries(colors.colorful) as [string, string][]).map(([key, value]) => (
+            <SettingRow
+              key={key}
+              label={key}
+              value={value}
+              type="color"
+              onChange={(v) => onChange(["colorful", key], v)}
+              onReset={value !== defaultColors.colorful[key as keyof typeof defaultColors.colorful] ? () => onChange(["colorful", key], defaultColors.colorful[key as keyof typeof defaultColors.colorful]) : undefined}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
@@ -472,8 +491,8 @@ export default function ThemeEditorPage() {
     setDirty(true)
   }
 
-  function setColorsOverride(key: keyof ColorTokens, value: string) {
-    setOverride(["colors", mode, key], value)
+  function setColorsOverride(path: string[], value: string) {
+    setOverride(["colors", mode, ...path], value)
   }
 
   function setTypographyOverride(path: string[], value: string) {

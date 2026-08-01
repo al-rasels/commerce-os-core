@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/lib/store';
 import { api } from '@/lib/api';
 import { getStripe } from '@/lib/stripe';
-import { Elements } from '@stripe/react-stripe-js';
 import CheckoutPaymentForm from '@/components/checkout-payment-form';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
