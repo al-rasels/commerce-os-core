@@ -69,4 +69,15 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       this.fallback.delete(key);
     }
   }
+
+  /**
+   * Ping the Redis server. Returns 'PONG' when the server is responsive.
+   * Throws when Redis is unavailable or the client is not connected.
+   */
+  async ping(): Promise<string> {
+    if (!this.client) {
+      throw new Error('Redis client is not connected');
+    }
+    return this.client.ping();
+  }
 }

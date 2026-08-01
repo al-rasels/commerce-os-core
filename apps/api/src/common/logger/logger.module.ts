@@ -7,7 +7,10 @@ import { randomUUID } from 'crypto';
     PinoLoggerModule.forRoot({
       pinoHttp: {
         genReqId: (req, res) => {
-          const existingId = req.id ?? req.headers['x-request-id'] ?? req.headers['x-correlation-id'];
+          const existingId =
+            req.id ??
+            req.headers['x-request-id'] ??
+            req.headers['x-correlation-id'];
           if (existingId) return existingId;
           const id = randomUUID();
           res.setHeader('X-Request-Id', id);
@@ -46,7 +49,11 @@ import { randomUUID } from 'crypto';
         },
         serializers: {
           req: (req) => {
-            req.body = req.raw.body;
+            if (!req) return req;
+            // Only attach body if the raw request and its body exist
+            if (req.raw && req.raw.body !== undefined) {
+              req.body = req.raw.body;
+            }
             return req;
           },
         },

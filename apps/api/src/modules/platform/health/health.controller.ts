@@ -3,18 +3,18 @@ import {
   HealthCheck,
   HealthCheckService,
   PrismaHealthIndicator,
-  MicroserviceHealthIndicator,
+  HealthIndicatorResult,
 } from '@nestjs/terminus';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { RedisOptions, Transport } from '@nestjs/microservices';
+import { RedisService } from '../redis/redis.service';
 
 @Controller('health')
 export class HealthController {
   constructor(
     private health: HealthCheckService,
     private prismaHealth: PrismaHealthIndicator,
-    private microserviceHealth: MicroserviceHealthIndicator,
     private prisma: PrismaService,
+    private redisService: RedisService,
   ) {}
 
   @Get()
@@ -23,16 +23,25 @@ export class HealthController {
     return this.health.check([
       // Database health
       () => this.prismaHealth.pingCheck('database', this.prisma),
-      // Redis health
-      () =>
-        this.microserviceHealth.pingCheck<RedisOptions>('redis', {
-          transport: Transport.REDIS,
-          options: {
-            host: process.env.REDIS_HOST || 'localhost',
-            port: parseInt(process.env.REDIS_PORT || '6379', 10),
-            password: process.env.REDIS_PASSWORD || undefined,
-          },
-        }),
+      // Redis health — ping the already-connected RedisService client
+      async (): Promise<HealthIndicatorResult> => {
+        try {
+          const pong = await this.redisService.ping();
+          if (pong === 'PONG') {
+            return { redis: { status: 'up', message: 'Redis is responsive' } };
+          }
+          return {
+            redis: { status: 'down', message: `Unexpected response: ${pong}` },
+          };
+        } catch (err) {
+          return {
+            redis: {
+              status: 'down',
+              message: (err as Error).message,
+            },
+          };
+        }
+      },
     ]);
   }
 }
