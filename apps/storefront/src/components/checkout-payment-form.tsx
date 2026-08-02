@@ -7,13 +7,13 @@ import { Lock } from 'lucide-react';
 
 interface CheckoutPaymentFormProps {
   orderId: string;
-  _clientSecret: string;
+  clientSecret: string;
   onSuccess: () => void;
 }
 
 export default function CheckoutPaymentForm({
   orderId,
-  _clientSecret,
+  clientSecret,
   onSuccess,
 }: CheckoutPaymentFormProps) {
   const stripe = useStripe();
