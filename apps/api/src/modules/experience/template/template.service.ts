@@ -36,7 +36,6 @@ export class TemplateService {
     const data = template.layout_json as any;
 
     await this.prisma.$transaction(async (tx) => {
-
       if (data.categories && Array.isArray(data.categories)) {
         for (const cat of data.categories) {
           await tx.category.upsert({
@@ -55,7 +54,9 @@ export class TemplateService {
       if (data.page_layouts && typeof data.page_layouts === 'object') {
         for (const [pageKey, sections] of Object.entries(data.page_layouts)) {
           await tx.pageLayout.upsert({
-            where: { tenant_id_page_key: { tenant_id: tenantId, page_key: pageKey } },
+            where: {
+              tenant_id_page_key: { tenant_id: tenantId, page_key: pageKey },
+            },
             update: { sections_json: sections as any },
             create: {
               tenant_id: tenantId,
@@ -75,7 +76,12 @@ export class TemplateService {
             let categoryId: string | undefined;
             if (prod.category_slug) {
               const cat = await tx.category.findUnique({
-                where: { tenant_id_slug: { tenant_id: tenantId, slug: prod.category_slug } },
+                where: {
+                  tenant_id_slug: {
+                    tenant_id: tenantId,
+                    slug: prod.category_slug,
+                  },
+                },
               });
               if (cat) categoryId = cat.id;
             }
@@ -92,13 +98,22 @@ export class TemplateService {
                 description: prod.description ?? null,
                 status: prod.status ?? 'draft',
                 category_id: categoryId,
-                metafields_json: Object.keys(metafields).length > 0 ? metafields as Prisma.InputJsonValue : undefined,
+                metafields_json:
+                  Object.keys(metafields).length > 0
+                    ? (metafields as Prisma.InputJsonValue)
+                    : undefined,
               },
             });
             if (prod.variants && Array.isArray(prod.variants)) {
               for (const v of prod.variants) {
-                const attrs = { ...(typeof v.attributes_json === 'object' && v.attributes_json !== null ? v.attributes_json : {}) };
-                if (v.compare_at_cents != null) attrs.compareAtPriceCents = v.compare_at_cents;
+                const attrs = {
+                  ...(typeof v.attributes_json === 'object' &&
+                  v.attributes_json !== null
+                    ? v.attributes_json
+                    : {}),
+                };
+                if (v.compare_at_cents != null)
+                  attrs.compareAtPriceCents = v.compare_at_cents;
 
                 await tx.productVariant.create({
                   data: {

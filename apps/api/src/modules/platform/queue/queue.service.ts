@@ -20,9 +20,11 @@ export class QueueService {
   async enqueueTenantJob(jobName: string, payload: TenantJobPayload) {
     if (!payload.tenantId) {
       this.logger.error(`Failed to enqueue job ${jobName}: missing tenantId`);
-      throw new Error(`Queue boundary violation: missing tenantId in job ${jobName}`);
+      throw new Error(
+        `Queue boundary violation: missing tenantId in job ${jobName}`,
+      );
     }
-    
+
     await this.defaultQueue.add(jobName, payload);
     this.logger.log(`Enqueued job ${jobName} for tenant ${payload.tenantId}`);
   }

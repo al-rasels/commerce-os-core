@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UnauthorizedException, ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  UnauthorizedException,
+  ConflictException,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
@@ -79,22 +83,34 @@ describe('AuthService', () => {
   describe('login', () => {
     it('returns tokens when credentials are valid', async () => {
       const hash = await argon2.hash('password123');
-      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
-        id: 'u1',
-        email: 'test@test.com',
-        password_hash: hash,
-        tenant_id: 't1',
-        status: 'active',
-        role: { name: 'Store Owner', permissions: ['catalog.read', 'catalog.write'] },
-      }]);
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([
+        {
+          id: 'u1',
+          email: 'test@test.com',
+          password_hash: hash,
+          tenant_id: 't1',
+          status: 'active',
+          role: {
+            name: 'Store Owner',
+            permissions: ['catalog.read', 'catalog.write'],
+          },
+        },
+      ]);
       mockJwt.signAsync.mockResolvedValue('token');
       mockRedis.set.mockResolvedValueOnce(undefined);
 
-      const result = await service.login(ctx, { email: 'test@test.com', password: 'password123' }) as any;
+      const result = (await service.login(ctx, {
+        email: 'test@test.com',
+        password: 'password123',
+      })) as any;
 
       expect(result.access_token).toBe('token');
       expect(result.refresh_token).toBe('token');
-      expect(result.user).toEqual({ id: 'u1', email: 'test@test.com', role: 'Store Owner' });
+      expect(result.user).toEqual({
+        id: 'u1',
+        email: 'test@test.com',
+        role: 'Store Owner',
+      });
       // Key format: refresh:${tenantId}:${userId}:${sid}
       expect(mockRedis.set).toHaveBeenCalledWith(
         expect.stringMatching(/^refresh:t1:u1:/),
@@ -113,14 +129,19 @@ describe('AuthService', () => {
 
     it('throws UnauthorizedException when password is wrong', async () => {
       const hash = await argon2.hash('correct');
-      mockUsersService.findManyWithRole.mockResolvedValueOnce([{
-        id: 'u1',
-        email: 'test@test.com',
-        password_hash: hash,
-        tenant_id: 't1',
-        status: 'active',
-        role: { name: 'Store Owner', permissions: ['catalog.read', 'catalog.write'] },
-      }]);
+      mockUsersService.findManyWithRole.mockResolvedValueOnce([
+        {
+          id: 'u1',
+          email: 'test@test.com',
+          password_hash: hash,
+          tenant_id: 't1',
+          status: 'active',
+          role: {
+            name: 'Store Owner',
+            permissions: ['catalog.read', 'catalog.write'],
+          },
+        },
+      ]);
 
       await expect(
         service.login(ctx, { email: 'test@test.com', password: 'wrong' }),
@@ -134,7 +155,12 @@ describe('AuthService', () => {
       mockUsersService.findRoleByName.mockResolvedValueOnce({
         id: 'r1',
         name: 'Customer',
-        permissions: ['catalog.read', 'cart.read', 'checkout.write', 'order.read'],
+        permissions: [
+          'catalog.read',
+          'cart.read',
+          'checkout.write',
+          'order.read',
+        ],
       });
       mockUsersService.create.mockResolvedValueOnce({
         id: 'u1',
@@ -153,7 +179,11 @@ describe('AuthService', () => {
 
       expect(result.access_token).toBe('token');
       expect(result.refresh_token).toBe('token');
-      expect(result.user).toEqual({ id: 'u1', email: 'new@test.com', role: 'Customer' });
+      expect(result.user).toEqual({
+        id: 'u1',
+        email: 'new@test.com',
+        role: 'Customer',
+      });
     });
 
     it('throws ConflictException when email exists', async () => {
@@ -177,7 +207,10 @@ describe('AuthService', () => {
         id: 'u1',
         email: 'test@test.com',
         tenant_id: 't1',
-        role: { name: 'Store Owner', permissions: ['catalog.read', 'catalog.write'] },
+        role: {
+          name: 'Store Owner',
+          permissions: ['catalog.read', 'catalog.write'],
+        },
       });
       mockJwt.signAsync.mockResolvedValue('new-token');
       mockRedis.set.mockResolvedValueOnce(undefined);
@@ -187,7 +220,9 @@ describe('AuthService', () => {
       expect(result.access_token).toBe('new-token');
       expect(result.refresh_token).toBe('new-token');
       // Key format: refresh:${tenantId}:${userId}:${sid}
-      expect(mockRedis.get).toHaveBeenCalledWith('refresh:t1:u1:test-session-id');
+      expect(mockRedis.get).toHaveBeenCalledWith(
+        'refresh:t1:u1:test-session-id',
+      );
     });
 
     it('throws UnauthorizedException when token cannot be verified', async () => {

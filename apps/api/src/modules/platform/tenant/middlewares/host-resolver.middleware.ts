@@ -5,7 +5,7 @@ import { TenantContext } from '../tenant-context';
 
 @Injectable()
 export class HostResolverMiddleware implements NestMiddleware {
-  constructor(private tenantService: TenantService) { }
+  constructor(private tenantService: TenantService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     const host = req.hostname;
@@ -38,7 +38,9 @@ export class HostResolverMiddleware implements NestMiddleware {
           req['tenantContext'] = ctx;
           return next();
         }
-        throw new NotFoundException(`No active tenant found for domain: ${host}`);
+        throw new NotFoundException(
+          `No active tenant found for domain: ${host}`,
+        );
       }
       throw err;
     }

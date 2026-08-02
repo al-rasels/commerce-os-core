@@ -17,8 +17,18 @@ function getUserTier(req: Record<string, any>): string {
 
 @Injectable()
 export class CommerceThrottlerGuard extends ThrottlerGuard {
-  protected async handleRequest(requestProps: ThrottlerRequest): Promise<boolean> {
-    const { context, limit, ttl, throttler, blockDuration, getTracker, generateKey } = requestProps;
+  protected async handleRequest(
+    requestProps: ThrottlerRequest,
+  ): Promise<boolean> {
+    const {
+      context,
+      limit,
+      ttl,
+      throttler,
+      blockDuration,
+      getTracker,
+      generateKey,
+    } = requestProps;
     const { req, res } = this.getRequestResponse(context);
 
     const tier = getUserTier(req);
@@ -32,7 +42,13 @@ export class CommerceThrottlerGuard extends ThrottlerGuard {
     const key = generateKey(context, tracker, throttlerKey);
 
     const { totalHits, timeToExpire, isBlocked, timeToBlockExpire } =
-      await this.storageService.increment(key, effectiveTtl, effectiveLimit, blockDuration, throttlerKey);
+      await this.storageService.increment(
+        key,
+        effectiveTtl,
+        effectiveLimit,
+        blockDuration,
+        throttlerKey,
+      );
 
     const suffix = throttlerKey === 'default' ? '' : `-${throttlerKey}`;
 
@@ -51,7 +67,10 @@ export class CommerceThrottlerGuard extends ThrottlerGuard {
     }
 
     res.header(`${this.headerPrefix}-Limit${suffix}`, effectiveLimit);
-    res.header(`${this.headerPrefix}-Remaining${suffix}`, Math.max(0, effectiveLimit - totalHits));
+    res.header(
+      `${this.headerPrefix}-Remaining${suffix}`,
+      Math.max(0, effectiveLimit - totalHits),
+    );
     res.header(`${this.headerPrefix}-Reset${suffix}`, timeToExpire);
 
     return true;

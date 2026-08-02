@@ -17,7 +17,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront/cart')
 export class StorefrontCartController {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)

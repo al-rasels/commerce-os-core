@@ -20,7 +20,10 @@ export class UsersRepository extends TenantScopedRepository<User> {
   ): Promise<Array<User & { role: { id: string; name: string } }>> {
     return this.prisma.user.findMany({
       ...args,
-      where: { ...args.where, OR: [{ tenant_id: ctx.tenantId }, { tenant_id: null }] },
+      where: {
+        ...args.where,
+        OR: [{ tenant_id: ctx.tenantId }, { tenant_id: null }],
+      },
       include: this.include,
     }) as any;
   }

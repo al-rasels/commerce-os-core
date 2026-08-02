@@ -55,7 +55,7 @@ export function CartDrawer({
 
   useEffect(() => {
     loadCart();
-  }, [open, cartId]);
+  }, [open, cartId, sessionId]);
 
   const handleRemove = async (itemId: string) => {
     if (!cartId) return;
@@ -120,10 +120,10 @@ export function CartDrawer({
               <div className="flex items-center gap-2 mb-2 text-sm">
                 <Truck className="w-4 h-4 text-primary" />
                 {progressToFreeShipping >= 100 ? (
-                  <span className="font-semibold text-green-600 dark:text-green-400">You've unlocked free shipping!</span>
+                  <span className="font-semibold text-green-600 dark:text-green-400">You&apos;ve unlocked free shipping!</span>
                 ) : (
                   <span>
-                    You're <span className="font-semibold">{formatPrice(amountAwayFromFreeShipping, currency)}</span> away from free shipping
+                    You&apos;re <span className="font-semibold">{formatPrice(amountAwayFromFreeShipping, currency)}</span> away from free shipping
                   </span>
                 )}
               </div>

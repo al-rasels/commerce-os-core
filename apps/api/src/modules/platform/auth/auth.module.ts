@@ -13,7 +13,7 @@ import { RedisModule } from '../redis/redis.module';
       signOptions: { expiresIn: '15m' },
     }),
     forwardRef(() => UsersModule),
-    RedisModule
+    RedisModule,
   ],
   providers: [AuthService],
   controllers: [AuthController],

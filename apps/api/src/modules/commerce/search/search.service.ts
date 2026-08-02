@@ -29,18 +29,25 @@ export class SearchService implements OnModuleInit {
   async indexDocuments(tenantId: string, resource: string, documents: any[]) {
     const indexName = this.getTenantIndexName(tenantId, resource);
     const index = this.client.index(indexName);
-    
+
     await index.addDocuments(documents);
-    this.logger.debug(`Indexed ${documents.length} documents into ${indexName}`);
+    this.logger.debug(
+      `Indexed ${documents.length} documents into ${indexName}`,
+    );
   }
 
   /**
    * Search documents in a tenant-specific index.
    */
-  async search(tenantId: string, resource: string, query: string, options?: any) {
+  async search(
+    tenantId: string,
+    resource: string,
+    query: string,
+    options?: any,
+  ) {
     const indexName = this.getTenantIndexName(tenantId, resource);
     const index = this.client.index(indexName);
-    
+
     return index.search(query, options);
   }
 
@@ -50,7 +57,7 @@ export class SearchService implements OnModuleInit {
   async deleteDocument(tenantId: string, resource: string, documentId: string) {
     const indexName = this.getTenantIndexName(tenantId, resource);
     const index = this.client.index(indexName);
-    
+
     await index.deleteDocument(documentId);
   }
 }

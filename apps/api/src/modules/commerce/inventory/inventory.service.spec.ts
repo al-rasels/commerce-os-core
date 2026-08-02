@@ -72,7 +72,9 @@ describe('InventoryService', () => {
     const successfulReservations = results.filter((res) => res !== null);
 
     expect(successfulReservations).toHaveLength(1);
-    expect(prisma.$executeRaw).toHaveBeenCalledTimes(10);
-    expect(prisma.stockReservation.create).toHaveBeenCalledTimes(1);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(prisma.$executeRaw as jest.Mock).toHaveBeenCalledTimes(10);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(prisma.stockReservation.create as jest.Mock).toHaveBeenCalledTimes(1);
   });
 });

@@ -48,15 +48,19 @@ export class PaymentsService {
 
     await this.prisma.order.update({
       where: { id: orderId },
-      data: { 
-        payment_intent_id: paymentIntent.id 
+      data: {
+        payment_intent_id: paymentIntent.id,
       },
     });
 
     return { client_secret: paymentIntent.client_secret };
   }
 
-  async initiateRefund(ctx: TenantContext, orderId: string, amountCents: number) {
+  async initiateRefund(
+    ctx: TenantContext,
+    orderId: string,
+    amountCents: number,
+  ) {
     return this.refund(orderId, ctx.tenantId, amountCents);
   }
 
@@ -74,10 +78,13 @@ export class PaymentsService {
     }
 
     const refundAmount = amountCents ?? order.total;
-    const paymentIntentId = order.stripe_payment_intent_id || order.payment_intent_id;
+    const paymentIntentId =
+      order.stripe_payment_intent_id || order.payment_intent_id;
 
     if (!paymentIntentId) {
-      throw new BadRequestException('Order does not have an associated payment intent');
+      throw new BadRequestException(
+        'Order does not have an associated payment intent',
+      );
     }
 
     const refund = await this.stripe.refunds.create({

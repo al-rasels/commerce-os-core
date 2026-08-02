@@ -14,7 +14,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront/checkout')
 export class StorefrontCheckoutController {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   @Post(':cartId')
   @HttpCode(HttpStatus.OK)
@@ -36,7 +36,7 @@ export class StorefrontCheckoutController {
   ) {
     const prisma = this.prismaService;
 
-    const cart = await (prisma as any).cart.findUnique({
+    const cart = await prisma.cart.findUnique({
       where: { id: cartId },
       include: { items: { include: { variant: true } } },
     });
@@ -59,7 +59,7 @@ export class StorefrontCheckoutController {
     }
 
     const subtotalCents = cart.items.reduce(
-      (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
+      (sum: number, i) => sum + i.variant.price_cents * i.quantity,
       0,
     );
     const totalCents = subtotalCents;
@@ -67,17 +67,23 @@ export class StorefrontCheckoutController {
 
     let customerId = cart.customer_id;
     if (!customerId && email) {
-      const existing = await (prisma as any).customer.findFirst({
+      const existing = await prisma.customer.findFirst({
         where: { tenant_id: ctx.tenantId, email },
       });
       if (existing) {
         customerId = existing.id;
       } else {
-        const created = await (prisma as any).customer.create({
+        const created = await prisma.customer.create({
           data: { tenant_id: ctx.tenantId, email },
         });
         customerId = created.id;
       }
+    }
+
+    if (!customerId) {
+      throw new BadRequestException(
+        'Customer ID or email is required to create an order',
+      );
     }
 
     const shippingAddress = {
@@ -92,11 +98,9 @@ export class StorefrontCheckoutController {
       phone: shippingPhone || null,
     };
 
-    const billingAddress = billingSameAsShipping
-      ? shippingAddress
-      : {};
+    const billingAddress = billingSameAsShipping ? shippingAddress : {};
 
-    const order = await (prisma as any).$transaction(async (tx: any) => {
+    const order = await prisma.$transaction(async (tx) => {
       const created = await tx.order.create({
         data: {
           tenant_id: ctx.tenantId,
@@ -112,7 +116,7 @@ export class StorefrontCheckoutController {
           shipping_address: shippingAddress,
           billing_address: billingAddress,
           items: {
-            create: cart.items.map((i: any) => ({
+            create: cart.items.map((i) => ({
               tenant_id: ctx.tenantId,
               variant_id: i.variant_id,
               quantity: i.quantity,
@@ -159,7 +163,7 @@ export class StorefrontCheckoutController {
         metadata: { order_id: order.id, tenant_id: ctx.tenantId },
       });
 
-      await (prisma as any).order.update({
+      await prisma.order.update({
         where: { id: order.id },
         data: { stripe_payment_intent_id: paymentIntent.id },
       });

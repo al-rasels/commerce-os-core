@@ -17,22 +17,27 @@ import { PrismaModule } from '../../../prisma/prisma.module';
   ],
   controllers: [InventoryController],
   providers: [
-    InventoryService, 
-    InventoryLocationRepository, 
+    InventoryService,
+    InventoryLocationRepository,
     InventoryLevelRepository,
-    InventoryWorker
+    InventoryWorker,
   ],
   exports: [InventoryService],
 })
 export class InventoryModule implements OnModuleInit {
-  constructor(@InjectQueue('inventory') private readonly inventoryQueue: Queue) {}
+  constructor(
+    @InjectQueue('inventory') private readonly inventoryQueue: Queue,
+  ) {}
 
   async onModuleInit() {
-    await this.inventoryQueue.add('release_expired_reservations', {}, {
-      repeat: {
-        pattern: '* * * * *', // runs every minute
+    await this.inventoryQueue.add(
+      'release_expired_reservations',
+      {},
+      {
+        repeat: {
+          pattern: '* * * * *', // runs every minute
+        },
       },
-    });
+    );
   }
 }
-

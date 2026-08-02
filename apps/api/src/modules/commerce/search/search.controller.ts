@@ -16,11 +16,16 @@ export class SearchController {
     @Query('limit') limit?: string,
   ) {
     const tenantId = (req as any).tenantContext.tenantId;
-    
-    const results = await this.searchService.search(tenantId, resource, query || '', {
-      limit: limit ? parseInt(limit, 10) : 20,
-    });
-    
+
+    const results = await this.searchService.search(
+      tenantId,
+      resource,
+      query || '',
+      {
+        limit: limit ? parseInt(limit, 10) : 20,
+      },
+    );
+
     return results;
   }
 }

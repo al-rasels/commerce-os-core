@@ -21,7 +21,7 @@ async function test() {
       _count: true,
     });
     console.log('orderAgg ok');
-    
+
     const recentOrders = await prisma.order.findMany({
       where: { tenant_id: tenantId },
       orderBy: { created_at: 'desc' },
@@ -29,9 +29,9 @@ async function test() {
       include: {
         items: true,
         customer: {
-          select: { id: true, email: true, first_name: true, last_name: true }
-        }
-      }
+          select: { id: true, email: true, first_name: true, last_name: true },
+        },
+      },
     });
     console.log('recentOrders ok');
 
@@ -43,7 +43,7 @@ async function test() {
     console.log('statusBreakdown ok');
 
     const customerCount = await prisma.customer.count({
-      where: { tenant_id: tenantId }
+      where: { tenant_id: tenantId },
     });
     console.log('customerCount ok');
 

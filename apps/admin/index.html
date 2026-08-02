@@ -10,7 +10,9 @@
     try {
       var theme = localStorage.getItem('admin_theme') || 'dark-muted';
       document.documentElement.setAttribute('data-theme', theme);
-    } catch (e) {}
+    } catch (e) {
+      console.error('Failed to set initial theme:', e);
+    }
   </script>
 </head>
 

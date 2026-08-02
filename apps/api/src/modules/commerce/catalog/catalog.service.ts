@@ -155,11 +155,7 @@ export class CatalogService {
     return variant;
   }
 
-  async reserveStock(
-    ctx: TenantContext,
-    variantId: string,
-    quantity: number,
-  ) {
+  async reserveStock(ctx: TenantContext, variantId: string, quantity: number) {
     const success = await this.variantRepo.incrementReservedStock(
       ctx,
       variantId,
@@ -179,7 +175,11 @@ export class CatalogService {
     return reservation.id;
   }
 
-  async confirmReservation(ctx: TenantContext, reservationId: string, orderId: string) {
+  async confirmReservation(
+    ctx: TenantContext,
+    reservationId: string,
+    orderId: string,
+  ) {
     await this.stockReservationRepo.update(ctx, reservationId, {
       order_id: orderId,
     });

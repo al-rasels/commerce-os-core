@@ -35,7 +35,7 @@ export default function ReturnsPage() {
       {returns.length === 0 ? (
         <div className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-8 text-center">
           <h2 className="text-lg font-medium mb-2">No returns yet</h2>
-          <p className="text-neutral-500 mb-6">You haven't requested any returns.</p>
+          <p className="text-neutral-500 mb-6">You haven&apos;t requested any returns.</p>
           <Link href="/account/orders">
             <Button variant="outline">View Orders</Button>
           </Link>
@@ -57,3 +57,4 @@ export default function ReturnsPage() {
     </div>
   );
 }
+

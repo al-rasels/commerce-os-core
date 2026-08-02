@@ -97,13 +97,21 @@ export class OrderService {
       { from: order.status, to: newStatus },
     );
 
-    this.logger.log(`Order ${id} status changed: ${order.status} → ${newStatus}`);
+    this.logger.log(
+      `Order ${id} status changed: ${order.status} → ${newStatus}`,
+    );
 
     return this.toDto(updated);
   }
 
-  async updatePaymentIntentId(ctx: TenantContext, id: string, paymentIntentId: string) {
-    const updated = await this.orderRepo.update(ctx, id, { payment_intent_id: paymentIntentId });
+  async updatePaymentIntentId(
+    ctx: TenantContext,
+    id: string,
+    paymentIntentId: string,
+  ) {
+    const updated = await this.orderRepo.update(ctx, id, {
+      payment_intent_id: paymentIntentId,
+    });
     return this.toDto(updated);
   }
 

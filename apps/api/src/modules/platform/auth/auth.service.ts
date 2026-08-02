@@ -30,7 +30,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,
-  ) { }
+  ) {}
 
   async register(ctx: TenantContext, dto: RegisterDto) {
     const normalizedEmail = dto.email.toLowerCase().trim();
@@ -280,7 +280,10 @@ export class AuthService {
       }
     } catch (error) {
       if (error instanceof UnauthorizedException) throw error;
-      console.warn('Redis error during refresh, proceeding with JWT validation only:', error);
+      console.warn(
+        'Redis error during refresh, proceeding with JWT validation only:',
+        error,
+      );
     }
 
     const user = await this.usersService.findUniqueWithRoleFull(

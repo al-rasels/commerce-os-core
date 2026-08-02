@@ -19,6 +19,11 @@ import { PrismaModule } from '../../../prisma/prisma.module';
     StockReservationRepository,
     BundleRepository,
   ],
-  exports: [CatalogService, ProductRepository, ProductVariantRepository, BundleRepository],
+  exports: [
+    CatalogService,
+    ProductRepository,
+    ProductVariantRepository,
+    BundleRepository,
+  ],
 })
 export class CatalogModule {}

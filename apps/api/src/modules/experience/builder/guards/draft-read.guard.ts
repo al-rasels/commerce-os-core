@@ -20,7 +20,11 @@ export class DraftReadGuard implements CanActivate {
 
     const secret = request.headers['x-preview-secret'];
     const previewSecret = process.env.PREVIEW_SECRET;
-    if (previewSecret && typeof secret === 'string' && secret === previewSecret) {
+    if (
+      previewSecret &&
+      typeof secret === 'string' &&
+      secret === previewSecret
+    ) {
       request['isDraftAuthorized'] = true;
       return true;
     }

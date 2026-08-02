@@ -34,15 +34,18 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     } else if (exception instanceof HttpException) {
       status = exception.getStatus();
       const resp = exception.getResponse() as any;
-      message = typeof resp === 'string' ? resp : (resp.message || 'HTTP Error');
+      message = typeof resp === 'string' ? resp : resp.message || 'HTTP Error';
       title = exception.name;
       // Map basic HTTP codes
-      if (status === 400) errorCode = ERROR_CODES.VALIDATION_ERROR;
-      if (status === 401) errorCode = ERROR_CODES.UNAUTHORIZED;
-      if (status === 403) errorCode = ERROR_CODES.FORBIDDEN;
-      if (status === 404) errorCode = ERROR_CODES.NOT_FOUND;
-      if (status === 409) errorCode = ERROR_CODES.CONFLICT;
-      if (status === 429) errorCode = ERROR_CODES.RATE_LIMIT_EXCEEDED;
+      if (status === HttpStatus.BAD_REQUEST)
+        errorCode = ERROR_CODES.VALIDATION_ERROR;
+      if (status === HttpStatus.UNAUTHORIZED)
+        errorCode = ERROR_CODES.UNAUTHORIZED;
+      if (status === HttpStatus.FORBIDDEN) errorCode = ERROR_CODES.FORBIDDEN;
+      if (status === HttpStatus.NOT_FOUND) errorCode = ERROR_CODES.NOT_FOUND;
+      if (status === HttpStatus.CONFLICT) errorCode = ERROR_CODES.CONFLICT;
+      if (status === HttpStatus.TOO_MANY_REQUESTS)
+        errorCode = ERROR_CODES.RATE_LIMIT_EXCEEDED;
     }
 
     // Always log full error details on the server side
@@ -66,14 +69,18 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       detail: message,
       instance: request.url,
       timestamp: new Date().toISOString(),
-      traceId: request.id as string || 'unknown',
+      traceId: (request.id as string) || 'unknown',
       errorCode,
       validationErrors,
     };
 
     // Mask stack trace in production. The message itself might contain sensitive info if it's an unexpected error
-    if (process.env.NODE_ENV === 'production' && status === HttpStatus.INTERNAL_SERVER_ERROR) {
-      errorResponse.detail = 'An unexpected error occurred. Please contact support.';
+    if (
+      process.env.NODE_ENV === 'production' &&
+      status === HttpStatus.INTERNAL_SERVER_ERROR
+    ) {
+      errorResponse.detail =
+        'An unexpected error occurred. Please contact support.';
     }
 
     response.status(status).json(errorResponse);

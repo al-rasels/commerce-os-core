@@ -34,7 +34,7 @@ export default function SubscriptionsPage() {
       {subscriptions.length === 0 ? (
         <div className="bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg p-8 text-center">
           <h2 className="text-lg font-medium mb-2">No active subscriptions</h2>
-          <p className="text-neutral-500 mb-6">You aren't subscribed to any recurring products.</p>
+          <p className="text-neutral-500 mb-6">You aren&apos;t subscribed to any recurring products.</p>
           <Link href="/products">
             <Button variant="outline">Browse Products</Button>
           </Link>
@@ -56,3 +56,4 @@ export default function SubscriptionsPage() {
     </div>
   );
 }
+

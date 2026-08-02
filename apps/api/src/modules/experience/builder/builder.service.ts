@@ -5,7 +5,11 @@ import {
 } from '@nestjs/common';
 import { PageLayoutRepository } from './repositories/page-layout.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
-import { ComponentMetadata, PlanTier, BuilderNodeSchema } from '@commerceos/shared-types';
+import {
+  ComponentMetadata,
+  PlanTier,
+  BuilderNodeSchema,
+} from '@commerceos/shared-types';
 import { z } from 'zod';
 import { BadRequestException } from '@nestjs/common';
 
@@ -72,11 +76,15 @@ export class BuilderService {
     publish: boolean = false,
   ) {
     // 0. Validate Schema (sections are an array of nodes)
-    const parseResult = z.array(BuilderNodeSchema as any).safeParse(sectionsJson);
+    const parseResult = z
+      .array(BuilderNodeSchema as any)
+      .safeParse(sectionsJson);
     if (!parseResult.success) {
-      throw new BadRequestException('Invalid page layout schema: ' + parseResult.error.message);
+      throw new BadRequestException(
+        'Invalid page layout schema: ' + parseResult.error.message,
+      );
     }
-    
+
     for (const section of sectionsJson) {
       this.validatePlanRequirements(section, ctx.plan);
     }
@@ -85,11 +93,16 @@ export class BuilderService {
     // 1. Always update/create the DRAFT version
     const draftKey = `${pageKey}:draft`;
     const existingDraft = await this.layoutRepo.findByPageKey(ctx, draftKey);
-    
+
     if (existingDraft) {
       await prisma.pageLayout.update({
-        where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey } },
-        data: { sections_json: sectionsJson, published_at: publish ? new Date() : null },
+        where: {
+          tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey },
+        },
+        data: {
+          sections_json: sectionsJson,
+          published_at: publish ? new Date() : null,
+        },
       });
     } else {
       await this.layoutRepo.create(ctx, {
@@ -101,10 +114,15 @@ export class BuilderService {
 
     // 2. If publishing, also update/create the PUBLISHED version
     if (publish) {
-      const existingPublished = await this.layoutRepo.findByPageKey(ctx, pageKey);
+      const existingPublished = await this.layoutRepo.findByPageKey(
+        ctx,
+        pageKey,
+      );
       if (existingPublished) {
         await prisma.pageLayout.update({
-          where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey } },
+          where: {
+            tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
+          },
           data: { sections_json: sectionsJson, published_at: new Date() },
         });
       } else {
@@ -127,10 +145,12 @@ export class BuilderService {
     }
 
     const prisma = (this.layoutRepo as any).prisma;
-    
+
     // Update draft to published
     await prisma.pageLayout.update({
-      where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey } },
+      where: {
+        tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey },
+      },
       data: { published_at: new Date() },
     });
 
@@ -138,7 +158,9 @@ export class BuilderService {
     const existingPublished = await this.layoutRepo.findByPageKey(ctx, pageKey);
     if (existingPublished) {
       return prisma.pageLayout.update({
-        where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey } },
+        where: {
+          tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
+        },
         data: { sections_json: draft.sections_json, published_at: new Date() },
       });
     } else {
@@ -156,9 +178,14 @@ export class BuilderService {
       throw new NotFoundException(`Page layout for '${pageKey}' not found`);
     }
     const prisma = (this.layoutRepo as any).prisma;
-    
+
     await prisma.pageLayout.update({
-      where: { tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: `${pageKey}:draft` } },
+      where: {
+        tenant_id_page_key: {
+          tenant_id: ctx.tenantId,
+          page_key: `${pageKey}:draft`,
+        },
+      },
       data: { published_at: null },
     });
 

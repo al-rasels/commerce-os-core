@@ -27,7 +27,11 @@ export class InventoryService {
     });
   }
 
-  async reserveStock(ctx: TenantContext, variantId: string, qty: number): Promise<string | null> {
+  async reserveStock(
+    ctx: TenantContext,
+    variantId: string,
+    qty: number,
+  ): Promise<string | null> {
     const result = await this.prisma.$executeRaw`
       UPDATE product_variants
       SET stock_available = stock_available - ${qty},
@@ -36,7 +40,7 @@ export class InventoryService {
         AND tenant_id = ${ctx.tenantId}::uuid
         AND stock_available >= ${qty}
     `;
-    
+
     if (result === 0) return null;
 
     const reservation = await this.prisma.stockReservation.create({
@@ -58,14 +62,21 @@ export class InventoryService {
       await this.prisma.$transaction([
         this.prisma.productVariant.update({
           where: { id: res.variant_id },
-          data: { stock_available: { increment: res.quantity }, stock_reserved: { decrement: res.quantity } },
+          data: {
+            stock_available: { increment: res.quantity },
+            stock_reserved: { decrement: res.quantity },
+          },
         }),
         this.prisma.stockReservation.delete({ where: { id: res.id } }),
       ]);
     }
   }
 
-  async confirmReservation(ctx: TenantContext, reservationId: string, orderId: string) {
+  async confirmReservation(
+    ctx: TenantContext,
+    reservationId: string,
+    orderId: string,
+  ) {
     await this.prisma.stockReservation.update({
       where: { id: reservationId, tenant_id: ctx.tenantId },
       data: { order_id: orderId },
@@ -81,7 +92,10 @@ export class InventoryService {
     await this.prisma.$transaction([
       this.prisma.productVariant.update({
         where: { id: res.variant_id },
-        data: { stock_available: { increment: res.quantity }, stock_reserved: { decrement: res.quantity } },
+        data: {
+          stock_available: { increment: res.quantity },
+          stock_reserved: { decrement: res.quantity },
+        },
       }),
       this.prisma.stockReservation.delete({ where: { id: reservationId } }),
     ]);

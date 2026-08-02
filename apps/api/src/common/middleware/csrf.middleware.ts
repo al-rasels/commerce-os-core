@@ -29,7 +29,12 @@ export class CsrfMiddleware implements NestMiddleware {
       throw new ForbiddenException('CSRF token missing');
     }
 
-    if (!crypto.timingSafeEqual(Buffer.from(cookieToken), Buffer.from(headerToken))) {
+    if (
+      !crypto.timingSafeEqual(
+        Buffer.from(cookieToken),
+        Buffer.from(headerToken),
+      )
+    ) {
       throw new ForbiddenException('CSRF token mismatch');
     }
 

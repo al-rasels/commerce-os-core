@@ -15,7 +15,10 @@ export class InventoryController {
   }
 
   @Get('locations/:id/levels')
-  async getLevels(@GetTenantContext() ctx: TenantContext, @Param('id') locationId: string) {
+  async getLevels(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') locationId: string,
+  ) {
     return this.inventoryService.getLevels(ctx, locationId);
   }
 }

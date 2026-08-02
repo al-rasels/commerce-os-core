@@ -5,7 +5,7 @@ import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront')
 export class StorefrontController {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   @Get('products')
   async listProducts(
@@ -27,7 +27,7 @@ export class StorefrontController {
       ];
     }
     if (categorySlug) {
-      const category = await (service as any).category.findFirst({
+      const category = await service.category.findFirst({
         where: { slug: categorySlug, tenant_id: ctx.tenantId },
       });
       if (category) where.category_id = category.id;
@@ -49,7 +49,7 @@ export class StorefrontController {
       }
     }
 
-    const products = await (service as any).product.findMany({
+    const products = await service.product.findMany({
       where,
       include: { category: true, variants: true },
       orderBy: { created_at: 'desc' },
@@ -77,7 +77,7 @@ export class StorefrontController {
     @Param('slug') slug: string,
   ) {
     const service = this.prismaService as any;
-    const product = await (service as any).product.findFirst({
+    const product = await service.product.findFirst({
       where: {
         slug,
         tenant_id: ctx.tenantId,
@@ -92,7 +92,7 @@ export class StorefrontController {
   @Get('categories')
   async listCategories(@GetTenantContext() ctx: TenantContext) {
     const service = this.prismaService as any;
-    return (service as any).category.findMany({
+    return service.category.findMany({
       where: { tenant_id: ctx.tenantId },
       orderBy: { sort_order: 'asc' },
     });
@@ -105,7 +105,7 @@ export class StorefrontController {
   ) {
     if (!email) return [];
     const service = this.prismaService as any;
-    return (service as any).order.findMany({
+    return service.order.findMany({
       where: {
         tenant_id: ctx.tenantId,
         customer: { email },

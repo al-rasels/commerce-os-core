@@ -1,11 +1,25 @@
 // NestJS backend has setGlobalPrefix('api') in main.ts, so all routes are prefixed with /api
 const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000') + '/api';
 
-class ApiError extends Error {
+export class ApiError extends Error {
   status: number;
-  constructor(message: string, status: number) {
+  errorCode?: string;
+  traceId?: string;
+  validationErrors?: Record<string, string[]>;
+
+  constructor(
+    status: number,
+    message: string,
+    errorCode?: string,
+    traceId?: string,
+    validationErrors?: Record<string, string[]>,
+  ) {
     super(message);
+    this.name = 'ApiError';
     this.status = status;
+    this.errorCode = errorCode;
+    this.traceId = traceId;
+    this.validationErrors = validationErrors;
   }
 }
 
@@ -17,7 +31,13 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new ApiError(body.message || res.statusText, res.status);
+    throw new ApiError(
+      res.status,
+      body.detail || body.message || res.statusText,
+      body.errorCode,
+      body.traceId,
+      body.validationErrors
+    );
   }
   return res.json();
 }
@@ -30,7 +50,13 @@ async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new ApiError(body.message || res.statusText, res.status);
+    throw new ApiError(
+      res.status,
+      body.detail || body.message || res.statusText,
+      body.errorCode,
+      body.traceId,
+      body.validationErrors
+    );
   }
   return res.json();
 }

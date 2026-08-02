@@ -42,4 +42,3 @@ function getRedisConnection() {
   exports: [QueueService, BullModule],
 })
 export class QueueModule {}
-

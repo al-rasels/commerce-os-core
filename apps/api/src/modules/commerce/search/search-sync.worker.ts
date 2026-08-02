@@ -21,7 +21,7 @@ export class SearchSyncWorker extends WorkerHost {
 
   async process(job: Job<SearchSyncJobPayload>): Promise<void> {
     const { tenantId, resource, action, documentId, document } = job.data;
-    
+
     if (!tenantId) {
       this.logger.error(`SearchSync failed: Missing tenantId`);
       throw new Error('TenantId is strictly required for isolation');

@@ -9,6 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Eye, EyeOff, Loader2, ShoppingBag, Check, X } from 'lucide-react';
 
+const CheckIcon = ({ ok }: { ok: boolean }) =>
+    ok ? <Check className="size-3 text-green-500" /> : <X className="size-3 text-muted-foreground/40" />;
+
 export default function RegisterPage() {
     const router = useRouter();
     const [name, setName] = useState('');
@@ -71,9 +74,6 @@ export default function RegisterPage() {
             setLoading(false);
         }
     };
-
-    const CheckIcon = ({ ok }: { ok: boolean }) =>
-        ok ? <Check className="size-3 text-green-500" /> : <X className="size-3 text-muted-foreground/40" />;
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">

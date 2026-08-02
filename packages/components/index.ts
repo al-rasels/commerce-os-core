@@ -57,3 +57,5 @@ export * from "./switch";
 export * from "./table";
 export * from "./timeline";
 export * from "./tooltip";
+export * from "./accordion";
+export * from "./carousel";

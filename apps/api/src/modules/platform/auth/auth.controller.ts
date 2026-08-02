@@ -174,7 +174,7 @@ export class AuthController {
       // Throw 401 if no token provided
       throw new UnauthorizedException('No refresh token provided');
     }
-    
+
     const tokens = await this.authService.refresh(ctx, refreshToken);
     this.setAuthCookies(res, tokens);
     return tokens;

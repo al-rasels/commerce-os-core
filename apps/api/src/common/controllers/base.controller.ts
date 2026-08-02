@@ -13,7 +13,10 @@ export abstract class BaseController {
 
   protected handleError(error: unknown, res: Response, context?: string) {
     if (context) {
-      this.logger.error(`Error in ${context}`, error instanceof Error ? error.stack : undefined);
+      this.logger.error(
+        `Error in ${context}`,
+        error instanceof Error ? error.stack : undefined,
+      );
     }
     // In a pure NestJS app, throwing the error lets the GlobalExceptionFilter handle it uniformly
     throw error;

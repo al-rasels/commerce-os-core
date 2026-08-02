@@ -1,7 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ThemeTenantOverrideRepository } from './repositories/theme-override.repository';
 import { PrismaService } from '../../../prisma/prisma.service';
-import { resolveOverride, ThemeRegistry, ThemeBaseId } from '@commerceos/theme-engine';
+import {
+  resolveOverride,
+  ThemeRegistry,
+  ThemeBaseId,
+} from '@commerceos/theme-engine';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 
 @Injectable()
@@ -17,7 +21,9 @@ export class ThemeService {
     const baseTheme = ThemeRegistry[themeBaseId];
 
     if (!baseTheme) {
-      throw new NotFoundException(`Base theme '${themeBaseId}' not found in registry`);
+      throw new NotFoundException(
+        `Base theme '${themeBaseId}' not found in registry`,
+      );
     }
 
     // 2. Fetch tenant override using strictly isolated repo

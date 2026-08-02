@@ -63,7 +63,7 @@ export class CheckoutService {
       }
     }
 
-    let subtotalCents = (cart as any).items.reduce(
+    const subtotalCents = (cart as any).items.reduce(
       (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
       0,
     );
@@ -189,7 +189,9 @@ export class CheckoutService {
         cart_id: cartId,
         total_cents: totalCents,
         currency,
-        ...(selectedShippingRuleId && { shipping_rule_id: selectedShippingRuleId }),
+        ...(selectedShippingRuleId && {
+          shipping_rule_id: selectedShippingRuleId,
+        }),
         ...(appliedPromotionId && { promotion_id: appliedPromotionId }),
       },
     );

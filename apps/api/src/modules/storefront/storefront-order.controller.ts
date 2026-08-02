@@ -1,11 +1,17 @@
-import { Controller, Get, Param, Query, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  NotFoundException,
+} from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
 import { PrismaService } from '../../prisma/prisma.service';
 
 @Controller('v1/storefront/orders')
 export class StorefrontOrderController {
-  constructor(private readonly prismaService: PrismaService) { }
+  constructor(private readonly prismaService: PrismaService) {}
 
   @Get('by-email')
   async getOrdersByEmail(
