@@ -22,6 +22,14 @@ import { DraftReadGuard } from './guards/draft-read.guard';
 export class BuilderController {
   constructor(private readonly builderService: BuilderService) {}
 
+  // List layouts for the tenant (admin "Pages" list). Declared before ':key'.
+  @Get()
+  @UseGuards(TenantAuthGuard, PermissionGuard)
+  @RequirePermissions('builder.write')
+  async listPageLayouts(@GetTenantContext() ctx: TenantContext) {
+    return this.builderService.listPageLayouts(ctx);
+  }
+
   @Get(':key')
   // Public for published reads; draft reads gated by DraftReadGuard
   @UseGuards(DraftReadGuard)
@@ -45,15 +53,9 @@ export class BuilderController {
   async updatePageLayout(
     @GetTenantContext() ctx: TenantContext,
     @Param('key') pageKey: string,
-    @Body('sectionsJson') sectionsJson: any,
-    @Body('publish') publish: boolean,
+    @Body('nodes') nodes: unknown,
   ) {
-    return this.builderService.updatePageLayout(
-      ctx,
-      pageKey,
-      sectionsJson,
-      publish,
-    );
+    return this.builderService.updatePageLayout(ctx, pageKey, nodes);
   }
 
   @Post(':key/publish')

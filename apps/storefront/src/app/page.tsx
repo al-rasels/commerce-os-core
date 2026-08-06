@@ -14,7 +14,7 @@ export default async function HomePage() {
     serverApi.categories.list().catch(() => []),
   ]);
 
-  if (!page || !page.data) {
+  if (!page || !Array.isArray(page.nodes)) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <p className="text-muted-foreground text-lg">Homepage layout not found or not published.</p>
@@ -25,5 +25,7 @@ export default async function HomePage() {
   const products = productsResponse?.data || [];
   const categories = Array.isArray(categoriesResponse) ? categoriesResponse : [];
 
-  return <SectionRenderer nodes={page.data.sections || page.data.sections_json} dataContext={{ products, categories }} />;
+  const dataContext: Record<string, unknown> = { products, categories };
+
+  return <SectionRenderer nodes={page.nodes} dataContext={dataContext} />;
 }

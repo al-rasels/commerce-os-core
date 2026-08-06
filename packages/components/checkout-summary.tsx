@@ -1,10 +1,33 @@
 import { cn } from "./utils";
 
 export interface CheckoutSummaryProps {
+  subtotalCents: number;
+  shippingCents?: number;
+  taxCents?: number;
+  totalCents: number;
+  currency?: string;
+  onCheckout: () => void;
+  checkoutLabel?: string;
   showPromoCodeInput?: boolean;
 }
 
-export function CheckoutSummary({ showPromoCodeInput = true }: CheckoutSummaryProps) {
+function formatCurrency(cents: number, currency: string): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+  }).format(cents / 100);
+}
+
+export function CheckoutSummary({
+  subtotalCents,
+  shippingCents,
+  taxCents,
+  totalCents,
+  currency = "USD",
+  onCheckout,
+  checkoutLabel = "Checkout",
+  showPromoCodeInput = true,
+}: CheckoutSummaryProps) {
   return (
     <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
       <h2 className="text-lg font-semibold">Order Summary</h2>
@@ -28,23 +51,32 @@ export function CheckoutSummary({ showPromoCodeInput = true }: CheckoutSummaryPr
       <div className="mt-6 space-y-3 border-t pt-4">
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Subtotal</span>
-          <span className="font-medium">$0.00</span>
+          <span className="font-medium">{formatCurrency(subtotalCents, currency)}</span>
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Shipping</span>
-          <span className="font-medium">Calculated at next step</span>
-        </div>
+        {shippingCents !== undefined && (
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Shipping</span>
+            <span className="font-medium">{formatCurrency(shippingCents, currency)}</span>
+          </div>
+        )}
+        {taxCents !== undefined && (
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Tax</span>
+            <span className="font-medium">{formatCurrency(taxCents, currency)}</span>
+          </div>
+        )}
         <div className="flex justify-between border-t pt-3 text-base font-semibold">
           <span>Total</span>
-          <span>$0.00</span>
+          <span>{formatCurrency(totalCents, currency)}</span>
         </div>
       </div>
 
       <button
         type="button"
+        onClick={onCheckout}
         className="mt-6 w-full rounded-full bg-primary py-3 text-sm font-medium text-primary-foreground shadow transition-all hover:brightness-110 active:scale-95"
       >
-        Proceed to Checkout
+        {checkoutLabel}
       </button>
     </div>
   );

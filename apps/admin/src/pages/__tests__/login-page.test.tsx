@@ -32,7 +32,7 @@ describe('LoginPage', () => {
 
   it('renders login form', () => {
     renderPage();
-    expect(screen.getByText('Sign in to CommerceOS')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Sign in' })).toBeInTheDocument();
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
@@ -66,8 +66,8 @@ describe('LoginPage', () => {
     await user.type(screen.getByLabelText('Password'), 'password123');
     await user.click(screen.getByRole('button', { name: /sign in/i }));
 
-    expect(await screen.findByText('Two-factor authentication')).toBeInTheDocument();
-    expect(screen.getByLabelText('Authentication code')).toBeInTheDocument();
+    expect(await screen.findByText('Two-Factor Auth')).toBeInTheDocument();
+    expect(screen.getByLabelText('Authentication Code')).toBeInTheDocument();
   });
 
   it('shows error on failed login', async () => {

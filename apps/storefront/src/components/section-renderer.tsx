@@ -1,40 +1,39 @@
 import React from 'react';
 import { componentRegistry, type ComponentRegistryKey } from '@commerceos/components';
 import { ProductClient } from '@/app/products/[slug]/product-client';
-
-type VisibilityRule = {
-  if: string; // e.g., "segment == 'vip'"
-  action: 'show' | 'hide';
-};
-
-type Node = {
-  id: string;
-  component: string;
-  props?: Record<string, any>;
-  children?: Node[];
-  rules?: VisibilityRule[];
-};
-
-type SectionRendererProps = {
-  nodes: Node[];
-  dataContext?: Record<string, any>;
-};
+import {
+  evaluateRules,
+  resolveDataPath,
+  type BuilderNode,
+} from '@commerceos/shared-types';
 
 // Local registry for storefront-specific components that can't be in the generic @commerceos/components package
 const localRegistry: Record<string, { component: React.ComponentType<any> }> = {
   'product-details.v1': { component: ProductClient as React.ComponentType<any> },
 };
 
-// Helper to resolve "$bind" variables via lodash-like 'get'
-function resolveBind(path: string, obj: any): any {
-  return path.split('.').reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : undefined), obj);
-}
+type SectionRendererProps = {
+  nodes: BuilderNode[];
+  dataContext?: Record<string, unknown>;
+};
 
-function resolveProps(props: Record<string, any> = {}, dataContext: Record<string, any> = {}): Record<string, any> {
+// Resolve "$bind" props (e.g. { $bind: "product.title" }) against the data context
+function resolveProps(
+  props: Record<string, unknown> = {},
+  dataContext: Record<string, unknown> = {},
+): Record<string, unknown> {
   const resolved = { ...props };
   for (const [key, value] of Object.entries(resolved)) {
-    if (value && typeof value === 'object' && value['$bind']) {
-      resolved[key] = resolveBind(value['$bind'], dataContext);
+    if (
+      value &&
+      typeof value === 'object' &&
+      !Array.isArray(value) &&
+      (value as { $bind?: string }).$bind
+    ) {
+      resolved[key] = resolveDataPath(
+        (value as { $bind: string }).$bind,
+        dataContext,
+      );
     }
   }
   return resolved;
@@ -46,29 +45,20 @@ export function SectionRenderer({ nodes, dataContext = {} }: SectionRendererProp
   return (
     <>
       {nodes.map((node) => {
-        if (node.rules && node.rules.length > 0) {
-          let shouldShow = true;
-          for (const rule of node.rules) {
-            const match = rule.if.match(/(\w+)\s*==\s*'([^']+)'/);
-            if (match) {
-              const [_, key, val] = match;
-              const actualValue = resolveBind(key, dataContext);
-              const conditionMet = String(actualValue) === val;
-              
-              if (rule.action === 'show' && !conditionMet) shouldShow = false;
-              if (rule.action === 'hide' && conditionMet) shouldShow = false;
-            }
-          }
-          if (!shouldShow) return null;
-        }
+        // Honor `visible: false` and evaluate dynamic visibility rules
+        if (!evaluateRules(node, dataContext)) return null;
 
-        const registryEntry = localRegistry[node.component] || componentRegistry[node.component as ComponentRegistryKey];
-        
+        const registryEntry =
+          localRegistry[node.component] ||
+          componentRegistry[node.component as ComponentRegistryKey];
+
         if (!registryEntry) {
-          console.warn(`Component "${node.component}" not found in registry. Failing closed (skipping render).`);
+          console.warn(
+            `Component "${node.component}" not found in registry. Failing closed (skipping render).`,
+          );
           return null;
         }
-        
+
         const Component = registryEntry.component;
         const resolvedProps = resolveProps(node.props, dataContext);
 

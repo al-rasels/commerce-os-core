@@ -1,28 +1,23 @@
 import { api } from './client';
+import type { BuilderNode, PageLayoutDTO } from '@commerceos/shared-types';
 
-export interface PageSection {
-  id: string;
-  component: string;
-  visible: boolean;
-  rules?: { if: string; action: 'show' | 'hide' }[];
-  props: Record<string, unknown>;
-}
-
-export interface PageLayout {
-  page_key: string;
-  sections_json: PageSection[];
-  published_at: string | null;
-}
+export type PageSection = BuilderNode;
+export type PageLayout = PageLayoutDTO;
 
 export const pagesApi = {
-  get: (key: string) => api.get<PageLayout>(`/api/v1/experience/builder/pages/${key}`),
+  list: () => api.get<PageLayoutDTO[]>('/api/v1/experience/builder/pages'),
 
-  save: (key: string, sectionsJson: PageSection[], publish: boolean = false) =>
-    api.put<PageLayout>(`/api/v1/experience/builder/pages/${key}`, { sectionsJson, publish }),
+  get: (key: string) =>
+    api.get<PageLayoutDTO>(`/api/v1/experience/builder/pages/${key}?draft=true`),
+
+  save: (key: string, nodes: BuilderNode[]) =>
+    api.put<PageLayoutDTO>(`/api/v1/experience/builder/pages/${key}`, {
+      nodes,
+    }),
 
   publish: (key: string) =>
-    api.post<PageLayout>(`/api/v1/experience/builder/pages/${key}/publish`),
+    api.post<PageLayoutDTO>(`/api/v1/experience/builder/pages/${key}/publish`),
 
   unpublish: (key: string) =>
-    api.post<PageLayout>(`/api/v1/experience/builder/pages/${key}/unpublish`),
+    api.post<PageLayoutDTO>(`/api/v1/experience/builder/pages/${key}/unpublish`),
 };

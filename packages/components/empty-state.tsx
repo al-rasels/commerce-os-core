@@ -12,7 +12,6 @@ import {
   WifiOff,
   type LucideIcon,
 } from "lucide-react"
-import { Button } from "./button"
 
 /* ─── Preset illustrations ─── */
 const ILLUSTRATIONS: Record<string, LucideIcon> = {
@@ -31,8 +30,12 @@ export interface EmptyStateProps {
   icon?: LucideIcon | keyof typeof ILLUSTRATIONS
   title: string
   description?: string
-  /** Primary action */
+  /** Primary action as ReactNode */
   action?: React.ReactNode
+  /** Quick action link — renders <a> tag */
+  actionLabel?: string
+  /** Quick action href — used with actionLabel */
+  actionHref?: string
   /** Secondary action */
   secondaryAction?: React.ReactNode
   className?: string
@@ -45,6 +48,8 @@ export function EmptyState({
   title,
   description,
   action,
+  actionLabel,
+  actionHref,
   secondaryAction,
   className,
   variant = "default",
@@ -53,6 +58,16 @@ export function EmptyState({
   const IconComponent: LucideIcon = typeof icon === "string"
     ? ILLUSTRATIONS[icon] ?? Inbox
     : icon ?? Inbox
+
+  // Build action from label/href if provided
+  const primaryAction = actionLabel && actionHref ? (
+    <a
+      href={actionHref}
+      className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+    >
+      {actionLabel}
+    </a>
+  ) : action
 
   if (variant === "compact") {
     return (
@@ -66,7 +81,7 @@ export function EmptyState({
             <p className="text-xs text-muted-foreground mt-0.5 truncate">{description}</p>
           )}
         </div>
-        {action}
+        {primaryAction}
       </div>
     )
   }
@@ -101,9 +116,9 @@ export function EmptyState({
         )}
       </div>
 
-      {(action || secondaryAction) && (
+      {(primaryAction || secondaryAction) && (
         <div className="flex items-center gap-2 mt-2">
-          {action}
+          {primaryAction}
           {secondaryAction}
         </div>
       )}

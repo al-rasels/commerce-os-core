@@ -1,45 +1,98 @@
 import {
+  BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
-  ForbiddenException,
 } from '@nestjs/common';
+import { PageLayout } from '@prisma/client';
 import { PageLayoutRepository } from './repositories/page-layout.repository';
 import { TenantContext } from '../../platform/tenant/tenant-context';
 import {
+  BuilderNode,
   ComponentMetadata,
-  PlanTier,
-  BuilderNodeSchema,
+  LAYOUT_VERSION,
+  normalizePageLayout,
+  PageLayoutDocument,
+  PageLayoutDocumentSchema,
+  PageLayoutDTO,
+  areNodesEqual,
 } from '@commerceos/shared-types';
-import { z } from 'zod';
-import { BadRequestException } from '@nestjs/common';
+
+const EMPTY_DOC: PageLayoutDocument = { version: LAYOUT_VERSION, nodes: [] };
 
 @Injectable()
 export class BuilderService {
   constructor(private readonly layoutRepo: PageLayoutRepository) {}
 
+  private toDTO(row: PageLayout): PageLayoutDTO {
+    const draft =
+      (row.draft_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+    const published =
+      (row.published_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+    const publishedNodes = Array.isArray(published.nodes)
+      ? published.nodes
+      : [];
+    const draftNodes = Array.isArray(draft.nodes) ? draft.nodes : [];
+    return {
+      page_key: row.page_key,
+      nodes: publishedNodes,
+      version: LAYOUT_VERSION,
+      status: row.published_at ? 'published' : 'draft',
+      published_at: row.published_at
+        ? row.published_at.toISOString()
+        : null,
+      updated_at: row.updated_at ? row.updated_at.toISOString() : null,
+      has_unpublished_changes: !areNodesEqual(draftNodes, publishedNodes),
+    };
+  }
+
   async getPageLayout(
     ctx: TenantContext,
     pageKey: string,
-    draft: boolean = false,
-    canReadDraft: boolean = false,
-  ) {
-    const readDraft = draft && canReadDraft;
-    const key = readDraft ? `${pageKey}:draft` : pageKey;
-    let layout = await this.layoutRepo.findByPageKey(ctx, key);
+    draft = false,
+    canReadDraft = false,
+  ): Promise<PageLayoutDTO> {
+    const row = await this.layoutRepo.findByPageKey(ctx, pageKey);
 
-    // Fallback: If draft doesn't exist, try getting the published version
-    if (!layout && readDraft) {
-      layout = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    // Editor opening a fresh page: return an empty draft baseline.
+    if (!row && draft && canReadDraft) {
+      return {
+        page_key: pageKey,
+        nodes: [],
+        version: LAYOUT_VERSION,
+        status: 'draft',
+        published_at: null,
+        updated_at: null,
+        has_unpublished_changes: false,
+      };
     }
 
-    if (!layout) {
-      // Return a default empty layout so the editor can start fresh
-      return { page_key: pageKey, sections_json: [], published_at: null };
+    // Public reads 404 unless a version has been published.
+    if (!row || !row.published_at) {
+      throw new NotFoundException(
+        `Page layout '${pageKey}' not found or not published`,
+      );
     }
-    return layout;
+
+    const dto = this.toDTO(row);
+
+    // Authorized draft reads serve the draft, falling back to the published
+    // copy when the draft is empty so the editor always opens with a baseline.
+    if (draft && canReadDraft) {
+      const draftDoc =
+        (row.draft_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+      const draftNodes = Array.isArray(draftDoc.nodes) ? draftDoc.nodes : [];
+      return {
+        ...dto,
+        nodes: draftNodes.length > 0 ? draftNodes : dto.nodes,
+        has_unpublished_changes: !areNodesEqual(draftNodes, dto.nodes),
+      };
+    }
+
+    return dto;
   }
 
-  private validatePlanRequirements(node: any, tenantPlan: string) {
+  private validatePlanRequirements(node: BuilderNode, tenantPlan: string) {
     if (!node) return;
 
     if (node.component) {
@@ -72,128 +125,58 @@ export class BuilderService {
   async updatePageLayout(
     ctx: TenantContext,
     pageKey: string,
-    sectionsJson: any,
-    publish: boolean = false,
-  ) {
-    // 0. Validate Schema (sections are an array of nodes)
-    const parseResult = z
-      .array(BuilderNodeSchema as any)
-      .safeParse(sectionsJson);
+    nodes: unknown,
+  ): Promise<PageLayoutDTO> {
+    // Normalize legacy shapes, backfill ids/visible/rules, then validate.
+    const doc = normalizePageLayout(nodes);
+    const parseResult = PageLayoutDocumentSchema.safeParse(doc);
     if (!parseResult.success) {
       throw new BadRequestException(
-        'Invalid page layout schema: ' + parseResult.error.message,
+        'Invalid page layout: ' + parseResult.error.message,
       );
     }
 
-    for (const section of sectionsJson) {
-      this.validatePlanRequirements(section, ctx.plan);
-    }
-    const prisma = (this.layoutRepo as any).prisma;
-
-    // 1. Always update/create the DRAFT version
-    const draftKey = `${pageKey}:draft`;
-    const existingDraft = await this.layoutRepo.findByPageKey(ctx, draftKey);
-
-    if (existingDraft) {
-      await prisma.pageLayout.update({
-        where: {
-          tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey },
-        },
-        data: {
-          sections_json: sectionsJson,
-          published_at: publish ? new Date() : null,
-        },
-      });
-    } else {
-      await this.layoutRepo.create(ctx, {
-        page_key: draftKey,
-        sections_json: sectionsJson,
-        published_at: publish ? new Date() : null,
-      });
+    for (const node of doc.nodes) {
+      this.validatePlanRequirements(node, ctx.plan);
     }
 
-    // 2. If publishing, also update/create the PUBLISHED version
-    if (publish) {
-      const existingPublished = await this.layoutRepo.findByPageKey(
-        ctx,
-        pageKey,
-      );
-      if (existingPublished) {
-        await prisma.pageLayout.update({
-          where: {
-            tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
-          },
-          data: { sections_json: sectionsJson, published_at: new Date() },
-        });
-      } else {
-        await this.layoutRepo.create(ctx, {
-          page_key: pageKey,
-          sections_json: sectionsJson,
-          published_at: new Date(),
-        });
-      }
-    }
+    await this.layoutRepo.saveDraft(ctx, pageKey, doc);
 
-    return { success: true };
+    const row = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    if (!row) {
+      throw new NotFoundException(`Page layout '${pageKey}' not found`);
+    }
+    return this.toDTO(row);
   }
 
-  async publishPageLayout(ctx: TenantContext, pageKey: string) {
-    const draftKey = `${pageKey}:draft`;
-    const draft = await this.layoutRepo.findByPageKey(ctx, draftKey);
-    if (!draft) {
-      throw new NotFoundException(`Draft for '${pageKey}' not found`);
+  async publishPageLayout(
+    ctx: TenantContext,
+    pageKey: string,
+  ): Promise<PageLayoutDTO> {
+    const row = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    if (!row) {
+      throw new NotFoundException(`Page layout '${pageKey}' not found`);
     }
-
-    const prisma = (this.layoutRepo as any).prisma;
-
-    // Update draft to published
-    await prisma.pageLayout.update({
-      where: {
-        tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: draftKey },
-      },
-      data: { published_at: new Date() },
-    });
-
-    // Copy to published record
-    const existingPublished = await this.layoutRepo.findByPageKey(ctx, pageKey);
-    if (existingPublished) {
-      return prisma.pageLayout.update({
-        where: {
-          tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
-        },
-        data: { sections_json: draft.sections_json, published_at: new Date() },
-      });
-    } else {
-      return this.layoutRepo.create(ctx, {
-        page_key: pageKey,
-        sections_json: draft.sections_json,
-        published_at: new Date(),
-      });
-    }
+    await this.layoutRepo.publish(ctx, pageKey);
+    const updated = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    return this.toDTO(updated as PageLayout);
   }
 
-  async unpublishPageLayout(ctx: TenantContext, pageKey: string) {
-    const existing = await this.layoutRepo.findByPageKey(ctx, pageKey);
-    if (!existing) {
-      throw new NotFoundException(`Page layout for '${pageKey}' not found`);
+  async unpublishPageLayout(
+    ctx: TenantContext,
+    pageKey: string,
+  ): Promise<PageLayoutDTO> {
+    const row = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    if (!row) {
+      throw new NotFoundException(`Page layout '${pageKey}' not found`);
     }
-    const prisma = (this.layoutRepo as any).prisma;
+    await this.layoutRepo.unpublish(ctx, pageKey);
+    const updated = await this.layoutRepo.findByPageKey(ctx, pageKey);
+    return this.toDTO(updated as PageLayout);
+  }
 
-    await prisma.pageLayout.update({
-      where: {
-        tenant_id_page_key: {
-          tenant_id: ctx.tenantId,
-          page_key: `${pageKey}:draft`,
-        },
-      },
-      data: { published_at: null },
-    });
-
-    return prisma.pageLayout.update({
-      where: {
-        tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
-      },
-      data: { published_at: null },
-    });
+  async listPageLayouts(ctx: TenantContext): Promise<PageLayoutDTO[]> {
+    const rows = await this.layoutRepo.list(ctx);
+    return rows.map((r) => this.toDTO(r));
   }
 }

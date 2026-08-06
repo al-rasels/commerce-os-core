@@ -1,13 +1,15 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { GripVertical, Eye, EyeOff, Trash2, Settings, AlertTriangle } from "lucide-react"
+import { GripVertical, Eye, EyeOff, Trash2, Settings, AlertTriangle, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
 } from "@/components/ui/tooltip"
 import { sectionSchemas } from "@commerceos/components"
+import { ComponentMetadata } from "@commerceos/shared-types"
 import type { PageSection } from "@/lib/api/pages"
 
 interface SectionCardProps {
@@ -15,21 +17,31 @@ interface SectionCardProps {
   isSelected: boolean
   onSelect: () => void
   onToggleVisibility: () => void
+  onDuplicate?: () => void
   onDelete: () => void
 }
 
-export function SectionCard({ section, isSelected, onSelect, onToggleVisibility, onDelete }: SectionCardProps) {
+export function SectionCard({
+  section,
+  isSelected,
+  onSelect,
+  onToggleVisibility,
+  onDuplicate,
+  onDelete,
+}: SectionCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: section.id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : undefined,
+    opacity: isDragging ? 0.4 : undefined,
   }
 
   const schema = sectionSchemas[section.component]
+  const meta = ComponentMetadata[section.component]
   const isUnknown = !schema
   const displayName = schema?.name ?? section.component
+  const hasRules = section.rules && section.rules.length > 0
 
   return (
     <div
@@ -37,32 +49,109 @@ export function SectionCard({ section, isSelected, onSelect, onToggleVisibility,
       style={style}
       data-selected={isSelected || undefined}
       onClick={onSelect}
-      className="group flex cursor-pointer items-center gap-2 rounded-lg border bg-card px-3 py-2.5 text-sm transition-colors hover:bg-accent/50 data-selected:border-primary data-selected:ring-1 data-selected:ring-primary data-invalid:border-destructive/50"
+      className={`group relative flex cursor-pointer items-center gap-2 rounded-lg border bg-card px-3 py-2.5 text-sm transition-all hover:border-primary/50 hover:bg-accent/40 ${
+        isSelected
+          ? "border-primary bg-accent/60 ring-1 ring-primary shadow-xs"
+          : "border-border/70"
+      } ${!section.visible ? "opacity-60 bg-muted/30" : ""}`}
     >
-      <button {...attributes} {...listeners} className="cursor-grab text-muted-foreground hover:text-foreground">
-        <GripVertical className="size-3.5" />
+      <button
+        {...attributes}
+        {...listeners}
+        className="cursor-grab text-muted-foreground/60 hover:text-foreground active:cursor-grabbing p-0.5"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <GripVertical className="size-4" />
       </button>
-      {isUnknown && (
+
+      {isUnknown ? (
         <Tooltip>
-          <TooltipTrigger>
-            <AlertTriangle className="size-3.5 shrink-0 text-destructive" />
-          </TooltipTrigger>
-          <TooltipContent side="top">
-            Unknown component: {section.component}
-          </TooltipContent>
+          <TooltipTrigger
+            render={<AlertTriangle className="size-4 shrink-0 text-destructive" />}
+          />
+          <TooltipContent side="top">Unknown component: {section.component}</TooltipContent>
         </Tooltip>
-      )}
-      <span className="flex-1 truncate font-medium">{displayName}</span>
-      <span className="hidden text-xs text-muted-foreground group-hover:inline">{section.component.split(".")[1]}</span>
-      <div className="flex items-center gap-0.5">
-        <Button variant="ghost" size="icon-xs" onClick={(e) => { e.stopPropagation(); onToggleVisibility() }} title={section.visible ? "Hide" : "Show"}>
-          {section.visible ? <Eye className="size-3" /> : <EyeOff className="size-3 text-muted-foreground" />}
+      ) : null}
+
+      <div className="flex flex-1 flex-col gap-0.5 min-w-0">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <span className="truncate font-semibold text-xs text-foreground">{displayName}</span>
+          {meta?.minPlan && (
+            <Badge
+              variant="outline"
+              className="text-[9px] h-3.5 px-1 py-0 uppercase bg-amber-500/10 text-amber-600 border-amber-500/20 shrink-0 font-mono"
+            >
+              {meta.minPlan}
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
+          <span className="font-mono text-[9px] text-muted-foreground/80">{section.component}</span>
+          {hasRules && (
+            <Badge variant="secondary" className="text-[9px] h-3.5 px-1 py-0 text-primary bg-primary/10">
+              {section.rules!.length} rule{section.rules!.length > 1 ? "s" : ""}
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      <div className="flex items-center gap-0.5 opacity-80 group-hover:opacity-100">
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          className="h-6 w-6"
+          onClick={(e) => {
+            e.stopPropagation()
+            onToggleVisibility()
+          }}
+          title={section.visible ? "Hide section" : "Show section"}
+        >
+          {section.visible ? (
+            <Eye className="size-3.5 text-foreground" />
+          ) : (
+            <EyeOff className="size-3.5 text-muted-foreground" />
+          )}
         </Button>
-        <Button variant="ghost" size="icon-xs" onClick={(e) => { e.stopPropagation(); onSelect() }} title="Edit props">
+
+        {onDuplicate && (
+          <Button
+            variant="ghost"
+            size="icon-xs"
+            className="h-6 w-6 text-muted-foreground hover:text-foreground"
+            onClick={(e) => {
+              e.stopPropagation()
+              onDuplicate()
+            }}
+            title="Duplicate section"
+          >
+            <Copy className="size-3" />
+          </Button>
+        )}
+
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          className="h-6 w-6 text-muted-foreground hover:text-foreground"
+          onClick={(e) => {
+            e.stopPropagation()
+            onSelect()
+          }}
+          title="Edit properties"
+        >
           <Settings className="size-3" />
         </Button>
-        <Button variant="ghost" size="icon-xs" onClick={(e) => { e.stopPropagation(); onDelete() }} title="Remove">
-          <Trash2 className="size-3 text-destructive" />
+
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          className="h-6 w-6 text-muted-foreground hover:text-destructive"
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete()
+          }}
+          title="Remove section"
+        >
+          <Trash2 className="size-3 text-destructive/80" />
         </Button>
       </div>
     </div>

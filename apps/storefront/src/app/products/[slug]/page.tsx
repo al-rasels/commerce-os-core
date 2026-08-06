@@ -30,7 +30,7 @@ export default async function ProductPage({
   const { slug } = await params;
 
   const [page, productResponse] = await Promise.all([
-    serverApi.experience.getPage('product').catch(() => null),
+    serverApi.experience.getPage('product_detail').catch(() => null),
     serverApi.products.get(slug).catch(() => null),
   ]);
 
@@ -38,7 +38,7 @@ export default async function ProductPage({
     return notFound();
   }
 
-  if (!page || !page.data) {
+  if (!page || !Array.isArray(page.nodes)) {
     return (
       <div className="flex items-center justify-center min-h-[50vh]">
         <p className="text-muted-foreground text-lg">Product layout not found or not published.</p>
@@ -83,7 +83,7 @@ export default async function ProductPage({
   return (
     <>
       <JsonLd data={jsonLdData} />
-      <ProductPageClient nodes={page.data.sections || page.data.sections_json} initialProduct={enrichedProduct} />
+      <ProductPageClient nodes={page.nodes} initialProduct={enrichedProduct} />
     </>
   );
 }

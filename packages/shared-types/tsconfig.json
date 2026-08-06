@@ -11,6 +11,12 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "index.ts"
+    "*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "vitest.config.ts"
   ]
 }

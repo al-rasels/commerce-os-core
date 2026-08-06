@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import * as argon2 from 'argon2';
+import { applyTemplateData } from '../src/modules/experience/template/template-apply';
 
 const prisma = new PrismaClient();
 
@@ -123,7 +124,7 @@ async function main() {
     },
   });
 
-  await prisma.templateBase.create({
+  const fashionTemplate = await prisma.templateBase.create({
     data: {
       name: 'Fashion Store',
       description: 'Premium editorial-fashion template inspired by luxury retailers. Warm palette, serif headings, immersive imagery, and trend-forward merchandising with rich product storytelling.',
@@ -171,10 +172,7 @@ async function main() {
         ],
         page_layouts: {
           homepage: [
-            { component: 'custom.announcement-bar', props: { text: 'Free shipping on orders over $150 — Extended returns through January', bgColor: '#1f2937', textColor: '#ffffff' } },
             { component: 'hero.v1', props: { heading: 'Winter Edition 2026', subheading: 'Where elegance meets edge. Discover our coldest-weather collection yet.', ctaLabel: 'Explore the Collection', ctaHref: '/collections/winter-2026', backgroundImage: '/assets/hero-winter.jpg', alignment: 'left', variant: 'editorial' } },
-            { component: 'custom.value-props-strip', props: { items: [{ icon: 'truck', text: 'Free Shipping over $150' }, { icon: 'refresh', text: '60-Day Easy Returns' }, { icon: 'shield', text: 'Secure Checkout' }, { icon: 'gift', text: 'Complimentary Gift Wrap' }], bgColor: '#ffffff' } },
-            { component: 'custom.featured-categories', props: { title: 'Shop by Category', subtitle: 'Curated for every moment', count: 4, layout: 'card_grid', imageAspect: '3:4' } },
             { component: 'product-grid.v1', props: { limit: 6, source: 'featured' } },
             { component: 'banner.v1', props: { heading: 'Up to 40% Off', ctaLabel: 'Shop Sale', ctaHref: '/category/sale', imageUrl: '' } },
             { component: 'product-grid.v1', props: { limit: 4, source: 'featured' } },
@@ -185,15 +183,13 @@ async function main() {
           ],
           products: [
             { component: 'breadcrumbs.v1', props: { homeLabel: 'Home', separator: '/' } },
-            { component: 'custom.search-bar', props: { placeholder: 'Search by product, category, or brand...', autocomplete: true } },
-            { component: 'custom.active-filters', props: { showClearAll: true } },
-            { component: 'custom.category-filter', props: { layout: 'grid', showCounts: true, sortOptions: ['Newest', 'Price: Low to High', 'Price: High to Low', 'Best Selling', 'Rating'] } },
+            { component: 'search-bar.v1', props: { placeholder: 'Search by product, category, or brand...', autocomplete: true } },
             { component: 'product-grid.v1', props: { columns: 3, tabletColumns: 2, mobileColumns: 1, pagination: 24, infiniteScroll: false, lazyLoad: true, showQuickAdd: true } },
           ],
           product_detail: [
             { component: 'breadcrumbs.v1', props: { homeLabel: 'Home', separator: '/' } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_stacked', zoom: true, showThumbnails: true, thumbnailPosition: 'left' } },
-            { component: 'custom.product-info', props: { showReviews: true, showSku: true, showStockLevel: true, showSizeGuide: true, showWishlist: true, showShare: true } },
+            { component: 'product-details.v1', props: { showReviews: true, showSku: true, showStockLevel: true, showSizeGuide: true, showWishlist: true, showShare: true } },
             { component: 'faq.v1', props: { items: [{ title: 'Details & Fit', content: 'Multi-season weight, true to size, model is 5\'10" wearing size S' }, { title: 'Materials & Care', content: '100% organic cotton shell, machine wash cold, tumble dry low' }, { title: 'Shipping & Returns', content: 'Free shipping over $150. 60-day return window. Final sale items excluded.' }] } },
             { component: 'product-grid.v1', props: { title: 'Complete the Look', strategy: 'completes_the_outfit', count: 3 } },
             { component: 'product-grid.v1', props: { title: 'You May Also Like', strategy: 'category_based', count: 4, layout: 'horizontal_scroll' } },
@@ -277,7 +273,7 @@ async function main() {
     },
   });
 
-  await prisma.templateBase.create({
+  const electronicsTemplate = await prisma.templateBase.create({
     data: {
       name: 'Electronics Store',
       description: 'Premium electronics retail template modeled on flagship tech stores. Clean sans-serif typography, blue-cool palette, spec-driven product displays, grid-heavy layouts, and trust-focused merchandising with protection plans and financing badges.',
@@ -327,38 +323,28 @@ async function main() {
         ],
         page_layouts: {
           homepage: [
-            { component: 'custom.announcement-bar', props: { text: 'Free 2-Day Shipping on orders $50+ | 0% APR Financing for 12 Months on select items', bgColor: '#0f172a', textColor: '#ffffff' } },
             { component: 'hero.v1', props: { heading: 'Next-Gen Power. Unveiled.', subheading: 'The new AuraBook Pro M4 is here. Up to 22hr battery life, 3x faster neural engine, and a breathtaking Liquid Retina XDR display.', ctaLabel: 'Pre-Order Now', ctaHref: '/collections/new-arrivals', backgroundImage: '', alignment: 'left', variant: 'modern' } },
-            { component: 'custom.value-props-strip', props: { items: [{ icon: 'truck', text: 'Free 2-Day Shipping' }, { icon: 'rotate', text: '30-Day Returns, No Questions' }, { icon: 'shield', text: '2-Year Warranty Included' }, { icon: 'headset', text: '24/7 Tech Support' }, { icon: 'tag', text: 'Price Match Guarantee' }], bgColor: '#f8fafc', borderBottom: true } },
-            { component: 'custom.featured-categories', props: { title: 'Shop by Category', subtitle: 'Explore our extensive catalog', count: 5, layout: 'icon_grid', columns: 5 } },
-            { component: 'custom.deal-of-the-day', props: { title: 'Deal of the Day', count: 3, showTimer: true, badge: 'Limited Offer', bgColor: '#ffffff' } },
             { component: 'product-grid.v1', props: { limit: 6, source: 'featured' } },
             { component: 'banner.v1', props: { heading: 'Save up to $300 on Trade-In', ctaLabel: 'Get Your Quote', imageUrl: '/assets/trade-in-banner.jpg' } },
-            { component: 'custom.brand-logo-strip', props: { title: 'Top Brands', logos: ['Apple', 'Samsung', 'Sony', 'Bose', 'Dell', 'LG', 'AMD', 'Intel'], bgColor: '#ffffff' } },
             { component: 'product-grid.v1', props: { limit: 4, source: 'featured' } },
             { component: 'testimonials.v1', props: { variant: 'carousel', testimonials: [{ name: 'Marcus J.', text: 'Best tech shopping experience hands down. The price match saved me $150 and support was incredible.', rating: 5, location: 'Austin, TX', verifiedPurchase: true }, { name: 'Priya K.', text: 'The financing options made my home studio setup affordable. Will be a lifelong customer.', rating: 5, location: 'Toronto, CA', verifiedPurchase: true }, { name: 'Carlos M.', text: 'Shipping was incredibly fast — ordered my laptop at 10am and it arrived the next morning.', rating: 5, location: 'Miami, FL', verifiedPurchase: true }] } },
-            { component: 'custom.service-promises', props: { items: [{ icon: 'wrench', title: 'Geek Squad Support', text: 'Expert setup, repair, and advisory services' }, { icon: 'calendar', title: 'Flexible Financing', text: '0% APR for 12 months on orders $299+' }, { icon: 'award', title: 'Certified Refurbished', text: 'Factory-tested, full warranty, up to 30% off' }], columns: 3 } },
             { component: 'newsletter.v1', props: { heading: 'Stay Ahead of the Curve', subheading: 'Get exclusive access to member-only deals, early product drops, and tech insights.', placeholderText: 'Enter your email address' } },
           ],
           products: [
             { component: 'breadcrumbs.v1', props: { homeLabel: 'Home', showCategory: true } },
-            { component: 'custom.search-bar', props: { placeholder: 'Search 10,000+ products by name, brand, or SKU...', autocomplete: true, voiceSearch: true } },
-            { component: 'custom.active-filters', props: { showClearAll: true, showCount: true } },
-            { component: 'custom.category-filter', props: { layout: 'sidebar', showCounts: true, sortOptions: ['Best Match', 'Price: Low to High', 'Price: High to Low', 'Customer Rating', 'Newest', 'Most Reviews'], filters: ['Brand', 'Price Range', 'Rating', 'Availability', 'Discount'] } },
-            { component: 'custom.compare-toolbar', props: { enabled: true, maxCompare: 4 } },
+            { component: 'search-bar.v1', props: { placeholder: 'Search 10,000+ products by name, brand, or SKU...', autocomplete: true, voiceSearch: true } },
             { component: 'product-grid.v1', props: { columns: 4, tabletColumns: 3, mobileColumns: 2, pagination: 24, infiniteScroll: false, showCompare: true, showRating: true, quickView: true } },
           ],
           product_detail: [
             { component: 'breadcrumbs.v1', props: { showCategory: true, showProductName: true } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_column', zoom: true, imageCount: 5, showVideo: true, has360View: true } },
-            { component: 'custom.product-info', props: { showSpecs: true, showSku: true, showStockLevel: true, showReviews: true, showWarranty: true, showFinancing: true } },
+            { component: 'product-details.v1', props: { showSpecs: true, showSku: true, showStockLevel: true, showReviews: true, showWarranty: true, showFinancing: true } },
             { component: 'faq.v1', props: { items: [
               { title: 'Technical Specifications', content: 'Detailed spec sheet with dimensions, weight, processor, display, ports, connectivity, and battery information.' },
               { title: 'What\'s in the Box', content: 'Product, charging cable, power adapter, documentation, warranty card.' },
               { title: 'Protection Plans', content: 'Extend your coverage up to 3 years. Includes accidental damage protection and priority support.' },
               { title: 'Financing Options', content: '0% APR for 12 months. As low as $49/month with approved credit. No interest if paid in full.' },
             ] } },
-            { component: 'custom.comparison-table', props: { title: 'Compare Models', models: ['Base', 'Pro', 'Max'], attributes: ['Processor', 'RAM', 'Storage', 'Display', 'Battery'] } },
             { component: 'product-grid.v1', props: { title: 'Frequently Bought Together', strategy: 'frequently_bundled', count: 4, showTotal: true } },
             { component: 'product-grid.v1', props: { title: 'Customers Also Viewed', strategy: 'views_affinity', count: 6, layout: 'horizontal_scroll' } },
             { component: 'product-grid.v1', props: { title: 'Recently Viewed', count: 4, layout: 'grid_2x2' } },
@@ -428,7 +414,7 @@ async function main() {
     },
   });
 
-  await prisma.templateBase.create({
+  const generalTemplate = await prisma.templateBase.create({
     data: {
       name: 'General Store',
       description: 'Versatile big-box retail template inspired by Target and Macy\'s. Clean indigo palette, accessible design, promotional merchandising with deals, loyalty programs, and registry features. Balanced for any product mix.',
@@ -477,31 +463,23 @@ async function main() {
         ],
         page_layouts: {
           homepage: [
-            { component: 'custom.announcement-bar', props: { text: 'Free store pickup | Save 5% with RedCard | Weekly deals end Sunday', bgColor: '#4f46e5', textColor: '#ffffff' } },
             { component: 'hero.v1', props: { heading: 'Spring Refresh Sale', subheading: 'Save up to 30% on home, fashion & outdoor — plus an extra 10% with code SPRING10', ctaLabel: 'Shop the Sale', ctaHref: '/category/sale', backgroundImage: '', alignment: 'center', variant: 'modern' } },
-            { component: 'custom.value-props-strip', props: { items: [{ icon: 'truck', text: 'Free Shipping $35+' }, { icon: 'store', text: 'Free Same-Day Pickup' }, { icon: 'rotate', text: '90-Day Easy Returns' }, { icon: 'credit-card', text: 'Save 5% w/ RedCard' }], bgColor: '#ffffff' } },
-            { component: 'custom.deal-grid', props: { title: 'Today\'s Deals', subtitle: 'Limited-time offers updated daily', items: [{ text: 'Buy 2 Get 1 Free', desc: 'On all home decor' }, { text: '30% Off', desc: 'Select outdoor gear' }, { text: 'Spend $50, Save $10', desc: 'Beauty & personal care' }], columns: 3 } },
-            { component: 'custom.featured-categories', props: { title: 'Shop by Department', subtitle: 'Find exactly what you need', count: 6, layout: 'card_grid', columns: 3 } },
             { component: 'product-grid.v1', props: { limit: 8, source: 'featured' } },
             { component: 'banner.v1', props: { heading: 'Weekly Ad', ctaLabel: 'View Weekly Ad', imageUrl: '' } },
             { component: 'product-grid.v1', props: { limit: 4, source: 'featured' } },
             { component: 'rich-text.v1', props: { content: 'From everyday essentials to special finds, we bring you quality products at prices that make sense. Free shipping, easy returns, and a team that cares.' } },
             { component: 'testimonials.v1', props: { variant: 'carousel', testimonials: [{ name: 'Maria G.', text: 'This is my go-to for everything. The prices are great and pickup is always ready within 2 hours.', rating: 5, location: 'Chicago, IL' }, { name: 'David T.', text: 'The RedCard savings alone make it worth it. Fast shipping, easy app, and great customer service.', rating: 5, location: 'Seattle, WA' }, { name: 'Nancy P.', text: 'I love the product selection and the quality exceeds what I expect for the price point.', rating: 5, location: 'Atlanta, GA' }] } },
-            { component: 'custom.service-promises', props: { items: [{ icon: 'target', title: 'Order Pickup', text: 'Free same-day pickup at 2,000+ stores' }, { icon: 'gift', title: 'Gift Registry', text: 'Create a registry for any occasion' }, { icon: 'tag', title: 'Price Match', text: 'We match competitor prices on qualifying items' }], columns: 3, bgColor: '#ffffff' } },
             { component: 'newsletter.v1', props: { heading: 'Get More from Your Cart', subheading: 'Sign up for weekly deals, personalized picks, and insider access. Plus, get 15% off your next order.', placeholderText: 'Your email address' } },
           ],
           products: [
             { component: 'breadcrumbs.v1', props: { homeLabel: 'Home', separator: '›' } },
-            { component: 'custom.search-bar', props: { placeholder: 'Search thousands of products...', autocomplete: true } },
-            { component: 'custom.active-filters', props: { showClearAll: true, showCount: true } },
-            { component: 'custom.category-filter', props: { layout: 'sidebar', showCounts: true, sortOptions: ['Best Match', 'Price Low - High', 'Price High - Low', 'Top Rated', 'Newest', 'Percent Off'], filters: ['Category', 'Price', 'Brand', 'Rating', 'Color', 'Size', 'Availability', 'Discount'] } },
-            { component: 'custom.promo-bar', props: { text: 'Free shipping on orders $35+ | Spend $75 and get a free gift' } },
+            { component: 'search-bar.v1', props: { placeholder: 'Search thousands of products...', autocomplete: true } },
             { component: 'product-grid.v1', props: { columns: 4, tabletColumns: 3, mobileColumns: 2, pagination: 24, infiniteScroll: true, showRating: true, quickView: true } },
           ],
           product_detail: [
             { component: 'breadcrumbs.v1', props: { showCategory: true, showProductName: true } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_bottom', zoom: true, imageCount: 4 } },
-            { component: 'custom.product-info', props: { showReviews: true, showSku: true, showStockLevel: true, showWishlist: true, showRegistry: true } },
+            { component: 'product-details.v1', props: { showReviews: true, showSku: true, showStockLevel: true, showWishlist: true, showRegistry: true } },
             { component: 'faq.v1', props: { items: [
               { title: 'Product Details', content: 'Dimensions, materials, care instructions, and additional product information.' },
               { title: 'Shipping & Returns', content: 'Free shipping on orders $35+. In-store pickup available. 90-day return policy.' },
@@ -576,6 +554,37 @@ async function main() {
           },
         ],
       },
+    },
+  });
+
+  // Apply a template to each demo tenant so the storefronts render published
+  // page layouts (home, products, product_detail) out of the box.
+  const tenantALayout = fashionTemplate.layout_json as any;
+  const tenantBLayout = electronicsTemplate.layout_json as any;
+
+  // NOTE: no explicit $transaction here — the Neon connection pooler drops long
+  // interactive transactions (P2028), so template application runs as individual
+  // implicit transactions against the plain client. The NestJS TemplateService
+  // keeps its own transaction for API-triggered applies.
+  await applyTemplateData(prisma, tenantA.id, tenantALayout);
+  await prisma.templateTenantOverride.upsert({
+    where: { tenant_id: tenantA.id },
+    update: { template_base_id: fashionTemplate.id, overrides_json: {} },
+    create: {
+      tenant_id: tenantA.id,
+      template_base_id: fashionTemplate.id,
+      overrides_json: {},
+    },
+  });
+
+  await applyTemplateData(prisma, tenantB.id, tenantBLayout);
+  await prisma.templateTenantOverride.upsert({
+    where: { tenant_id: tenantB.id },
+    update: { template_base_id: electronicsTemplate.id, overrides_json: {} },
+    create: {
+      tenant_id: tenantB.id,
+      template_base_id: electronicsTemplate.id,
+      overrides_json: {},
     },
   });
 

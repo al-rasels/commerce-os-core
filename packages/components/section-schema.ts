@@ -111,4 +111,17 @@ export const sectionSchemas: Record<string, SectionSchema> = {
       { key: "variant", label: "Layout", type: "select", options: [{ label: "Grid", value: "grid" }, { label: "Masonry", value: "masonry" }, { label: "Carousel", value: "carousel" }], defaultValue: "grid" },
     ],
   },
+  "product-details.v1": {
+    key: "product-details.v1",
+    name: "Product Details",
+    description: "Interactive product info, variant selection, and add-to-cart. Binds to the current product via $bind.",
+    props: [
+      { key: "showSku", label: "Show SKU", type: "boolean", defaultValue: true },
+      { key: "showStockLevel", label: "Show Stock Level", type: "boolean", defaultValue: true },
+      { key: "showReviews", label: "Show Reviews", type: "boolean", defaultValue: true },
+      { key: "showSizeGuide", label: "Show Size Guide", type: "boolean", defaultValue: false },
+      { key: "showWishlist", label: "Show Wishlist", type: "boolean", defaultValue: false },
+      { key: "showShare", label: "Show Share", type: "boolean", defaultValue: false },
+    ],
+  },
 }

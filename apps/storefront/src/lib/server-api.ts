@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import type { PageLayoutDTO } from '@commerceos/shared-types';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
@@ -34,7 +35,7 @@ export const serverApi = {
   experience: {
     getTheme: () => serverRequest<any>('/experience/theme'),
     getPage: (pageKey: string, draft?: boolean) =>
-      serverRequest<any>(
+      serverRequest<PageLayoutDTO>(
         `/experience/builder/pages/${pageKey}${draft ? '?draft=true' : ''}`,
         draft && process.env.PREVIEW_SECRET
           ? { headers: { 'x-preview-secret': process.env.PREVIEW_SECRET } }

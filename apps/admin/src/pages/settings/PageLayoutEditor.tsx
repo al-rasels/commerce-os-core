@@ -13,7 +13,12 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable"
 import { sectionSchemas } from "@commerceos/components"
-import { usePageLayout, useSavePageLayout, usePublishPageLayout, useUnpublishPageLayout } from "@/hooks/usePages"
+import { areNodesEqual, PAGE_KEY_CATALOG } from "@commerceos/shared-types"
+import {
+  usePageLayout,
+  useSavePageLayout,
+  useUnpublishPageLayout,
+} from "@/hooks/usePages"
 import { SectionCard, AddSectionPanel, PropEditor } from "@/components/page-editor"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -31,11 +36,17 @@ import {
   Save,
   Send,
   Ban,
-  Eye,
-  EyeOff,
   Layers,
+  Monitor,
+  Tablet,
+  Smartphone,
+  ExternalLink,
+  Sparkles,
+  Zap,
 } from "lucide-react"
 import type { PageSection } from "@/lib/api/pages"
+
+type ViewportMode = "desktop" | "tablet" | "mobile"
 
 function createDefaultSection(componentKey: string): PageSection {
   const schema = sectionSchemas[componentKey]
@@ -51,31 +62,47 @@ function createDefaultSection(componentKey: string): PageSection {
     id: crypto.randomUUID(),
     component: componentKey,
     visible: true,
+    rules: [],
     props: defaults,
+    children: [],
   }
 }
 
 export default function PageLayoutEditorPage() {
-  const { pageKey } = useParams<{ pageKey: string }>()
+  const { pageKey = "homepage" } = useParams<{ pageKey: string }>()
   const navigate = useNavigate()
-  const { data: layout, isLoading, isError, error } = usePageLayout(pageKey ?? "")
-  const saveMutation = useSavePageLayout(pageKey ?? "")
-  const publishMutation = usePublishPageLayout(pageKey ?? "")
-  const unpublishMutation = useUnpublishPageLayout(pageKey ?? "")
+  const { data: layout, isLoading, isError, error } = usePageLayout(pageKey)
+  const saveMutation = useSavePageLayout(pageKey)
+  const unpublishMutation = useUnpublishPageLayout(pageKey)
 
   const [sections, setSections] = useState<PageSection[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
-  const [hasUnpublishedChanges, setHasUnpublishedChanges] = useState(false)
+  const [viewport, setViewport] = useState<ViewportMode>("desktop")
   const initialized = useRef(false)
+
+  const catalogEntry = useMemo(
+    () => PAGE_KEY_CATALOG.find((p) => p.key === pageKey) ?? null,
+    [pageKey],
+  )
+
+  // Reset editor state when navigating to a different page key.
+  useEffect(() => {
+    initialized.current = false
+    setSections([])
+    setSelectedId(null)
+  }, [pageKey])
 
   useEffect(() => {
     if (layout && !initialized.current) {
-      setSections(layout.sections_json ?? [])
-      setHasUnpublishedChanges(false)
+      const initialNodes = layout.nodes ?? []
+      setSections(initialNodes)
+      if (initialNodes.length > 0) {
+        setSelectedId(initialNodes[0].id)
+      }
       initialized.current = true
     }
-  }, [layout])
+  }, [layout, pageKey])
 
   const selectedSection = useMemo(
     () => sections.find((s) => s.id === selectedId) ?? null,
@@ -108,6 +135,23 @@ export default function PageLayoutEditorPage() {
     setSections((prev) => [...prev, section])
     setSelectedId(section.id)
     setAddOpen(false)
+  }, [])
+
+  const handleDuplicateSection = useCallback((id: string) => {
+    setSections((prev) => {
+      const idx = prev.findIndex((s) => s.id === id)
+      if (idx === -1) return prev
+      const target = prev[idx]
+      const duplicate: PageSection = {
+        ...target,
+        id: crypto.randomUUID(),
+        props: JSON.parse(JSON.stringify(target.props)),
+        rules: JSON.parse(JSON.stringify(target.rules ?? [])),
+      }
+      const next = [...prev]
+      next.splice(idx + 1, 0, duplicate)
+      return next
+    })
   }, [])
 
   const handleDelete = useCallback((id: string) => {
@@ -144,101 +188,187 @@ export default function PageLayoutEditorPage() {
   )
 
   function handleSaveDraft() {
-    saveMutation.mutate(
-      { sections, publish: false },
-      { onSuccess: () => setHasUnpublishedChanges(true) },
-    )
+    saveMutation.mutate({ nodes: sections, publish: false })
   }
 
   function handlePublish() {
-    saveMutation.mutate(
-      { sections, publish: true },
-      { onSuccess: () => setHasUnpublishedChanges(false) },
-    )
+    // Persist the current draft first, then publish it atomically.
+    saveMutation.mutate({ nodes: sections, publish: true })
   }
 
   function handleUnpublish() {
-    unpublishMutation.mutate(undefined, {
-      onSuccess: () => setHasUnpublishedChanges(false),
-    })
+    unpublishMutation.mutate()
   }
 
   if (isLoading) {
     return (
-      <div className="flex h-60 items-center justify-center text-sm text-muted-foreground">
-        Loading page layout...
+      <div className="flex h-64 items-center justify-center text-sm text-muted-foreground">
+        Loading layout builder...
       </div>
     )
   }
 
   if (isError) {
     return (
-      <div className="flex h-60 flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
-        <p className="text-destructive font-medium">Failed to load page layout</p>
+      <div className="flex h-64 flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
+        <p className="font-semibold text-destructive">Failed to load layout builder</p>
         <p className="text-xs">{(error as Error)?.message || "An unexpected error occurred"}</p>
         <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
-          Try Again
+          Retry
         </Button>
       </div>
     )
   }
 
-  if (!layout) {
-    return (
-      <div className="flex h-60 items-center justify-center text-sm text-muted-foreground">
-        No layout data found
-      </div>
-    )
-  }
+  const baselineNodes = layout?.nodes ?? []
+  const hasUnsavedChanges = !areNodesEqual(sections, baselineNodes)
+  const isPublished = !!layout?.published_at
+  const hasUnpublishedChanges = !!layout?.has_unpublished_changes || hasUnsavedChanges
+  const syncing = saveMutation.isPending || unpublishMutation.isPending
 
-  const sectionIds = sections.map((s) => s.id)
-  const hasUnsavedChanges = JSON.stringify(sections) !== JSON.stringify(layout.sections_json ?? [])
-  const isPublished = !!layout.published_at
-  const syncing = saveMutation.isPending || publishMutation.isPending || unpublishMutation.isPending
-
-  let statusBadge: { label: string; variant: "default" | "secondary" | "outline" | "destructive" }
+  let statusBadge: { label: string; variant: "default" | "secondary" | "outline"; className: string }
   if (!isPublished) {
-    statusBadge = { label: "Draft", variant: "secondary" }
-  } else if (hasUnpublishedChanges || hasUnsavedChanges) {
-    statusBadge = { label: "Unpublished changes", variant: "outline" }
+    statusBadge = {
+      label: "Draft",
+      variant: "secondary",
+      className: "bg-slate-500/10 text-slate-600 border-slate-500/20 dark:text-slate-400",
+    }
+  } else if (hasUnpublishedChanges) {
+    statusBadge = {
+      label: "Unpublished changes",
+      variant: "outline",
+      className: "bg-amber-500/10 text-amber-600 border-amber-500/20 dark:text-amber-400",
+    }
   } else {
-    statusBadge = { label: "Published", variant: "default" }
+    statusBadge = {
+      label: "Published",
+      variant: "default",
+      className: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:text-emerald-400",
+    }
   }
+
+  const viewportWidthClass =
+    viewport === "mobile"
+      ? "max-w-[375px]"
+      : viewport === "tablet"
+        ? "max-w-[768px]"
+        : "w-full"
 
   return (
-    <div className="flex h-[calc(100vh-4.5rem)] flex-col gap-0">
-      {/* Header */}
-      <div className="flex shrink-0 items-center justify-between border-b pb-3">
+    <div className="flex h-[calc(100vh-4.5rem)] flex-col gap-0 overflow-hidden">
+      {/* Header Bar */}
+      <div className="flex shrink-0 items-center justify-between border-b bg-card/80 px-4 py-2.5 backdrop-blur-xs">
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon-sm" onClick={() => navigate("/settings/pages")}>
             <ArrowLeft className="size-4" />
           </Button>
           <div>
-            <h1 className="text-lg font-semibold capitalize">{pageKey}</h1>
-            <p className="text-xs text-muted-foreground">Page Layout Editor</p>
+            <div className="flex items-center gap-2">
+              <h1 className="text-base font-bold capitalize">
+                {catalogEntry?.label || pageKey}
+              </h1>
+              <Badge variant="outline" className={`text-[10px] font-mono ${statusBadge.className}`}>
+                {statusBadge.label}
+              </Badge>
+            </div>
+            <p className="text-[11px] text-muted-foreground">
+              {catalogEntry?.description || `Layout editor for ${pageKey}`}
+            </p>
           </div>
-          <Badge variant={statusBadge.variant} className="ml-2 text-xs">
-            {statusBadge.label}
-          </Badge>
         </div>
+
+        {/* Viewport Switcher */}
+        <div className="flex items-center rounded-lg border bg-muted/40 p-0.5">
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant={viewport === "desktop" ? "secondary" : "ghost"}
+                  size="icon-xs"
+                  className="h-7 w-7"
+                  onClick={() => setViewport("desktop")}
+                />
+              }
+            >
+              <Monitor className="size-3.5" />
+            </TooltipTrigger>
+            <TooltipContent>Desktop View</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant={viewport === "tablet" ? "secondary" : "ghost"}
+                  size="icon-xs"
+                  className="h-7 w-7"
+                  onClick={() => setViewport("tablet")}
+                />
+              }
+            >
+              <Tablet className="size-3.5" />
+            </TooltipTrigger>
+            <TooltipContent>Tablet (768px)</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant={viewport === "mobile" ? "secondary" : "ghost"}
+                  size="icon-xs"
+                  className="h-7 w-7"
+                  onClick={() => setViewport("mobile")}
+                />
+              }
+            >
+              <Smartphone className="size-3.5" />
+            </TooltipTrigger>
+            <TooltipContent>Mobile (375px)</TooltipContent>
+          </Tooltip>
+        </div>
+
+        {/* Action Toolbar */}
         <div className="flex items-center gap-2">
+          {catalogEntry?.route && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 gap-1.5 text-xs text-muted-foreground"
+              onClick={() =>
+                window.open(
+                  `http://localhost:3001${catalogEntry.route === "/" ? "" : catalogEntry.route}`,
+                  "_blank",
+                )
+              }
+            >
+              <ExternalLink className="size-3.5" />
+              Storefront Preview
+            </Button>
+          )}
           <Button
             variant="outline"
             size="sm"
+            className="h-8 gap-1.5 text-xs"
             disabled={!hasUnsavedChanges || syncing}
             onClick={handleSaveDraft}
           >
             <Save className="size-3.5" />
-            {syncing ? "Saving..." : "Save Draft"}
+            {saveMutation.isPending ? "Saving..." : "Save Draft"}
           </Button>
-            <Button variant="outline" size="sm" disabled={(!hasUnsavedChanges && !hasUnpublishedChanges) || syncing} onClick={handlePublish}>
+          <Button
+            variant="default"
+            size="sm"
+            className="h-8 gap-1.5 text-xs"
+            disabled={syncing}
+            onClick={handlePublish}
+          >
             <Send className="size-3.5" />
-            {syncing ? "Publishing..." : "Publish"}
+            {saveMutation.isPending ? "Publishing..." : "Publish"}
           </Button>
           {isPublished && (
             <Button
               variant="ghost"
               size="sm"
+              className="h-8 gap-1.5 text-xs text-muted-foreground hover:text-destructive"
               disabled={syncing}
               onClick={handleUnpublish}
             >
@@ -249,32 +379,33 @@ export default function PageLayoutEditorPage() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-1 gap-4 overflow-hidden pt-4">
-        {/* Left: Section List */}
-        <div className="flex w-full max-w-sm flex-col gap-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm font-medium">
-              <Layers className="size-4 text-muted-foreground" />
-              Sections
-              <span className="rounded-md bg-muted px-1.5 text-xs tabular-nums text-muted-foreground">
+      {/* Main 3-Column Workspace */}
+      <div className="flex flex-1 overflow-hidden bg-muted/20">
+        {/* Left Column: Section Explorer Tree */}
+        <div className="flex w-80 flex-col border-r bg-card/60">
+          <div className="flex items-center justify-between border-b px-3 py-2.5">
+            <div className="flex items-center gap-2 text-xs font-semibold">
+              <Layers className="size-4 text-primary" />
+              Page Sections
+              <Badge variant="secondary" className="h-4 px-1.5 text-[10px] tabular-nums font-mono">
                 {sections.length}
-              </span>
+              </Badge>
             </div>
-            <Tooltip>
-              <TooltipTrigger>
-                <Button variant="outline" size="icon-sm" onClick={() => setAddOpen(true)}>
-                  <Plus className="size-3.5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Add section</TooltipContent>
-            </Tooltip>
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-7 gap-1 text-xs"
+              onClick={() => setAddOpen(true)}
+            >
+              <Plus className="size-3.5" />
+              Add Section
+            </Button>
           </div>
 
-          <ScrollArea className="flex-1">
+          <ScrollArea className="flex-1 p-2">
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-              <SortableContext items={sectionIds} strategy={verticalListSortingStrategy}>
-                <div className="flex flex-col gap-1.5 pr-3">
+              <SortableContext items={sections.map((s) => s.id)} strategy={verticalListSortingStrategy}>
+                <div className="flex flex-col gap-1.5">
                   {sections.map((section) => (
                     <SectionCard
                       key={section.id}
@@ -282,55 +413,114 @@ export default function PageLayoutEditorPage() {
                       isSelected={section.id === selectedId}
                       onSelect={() => setSelectedId(section.id)}
                       onToggleVisibility={() => handleToggleVisibility(section.id)}
+                      onDuplicate={() => handleDuplicateSection(section.id)}
                       onDelete={() => handleDelete(section.id)}
                     />
                   ))}
                 </div>
               </SortableContext>
             </DndContext>
+
             {sections.length === 0 && (
-              <div className="flex flex-col items-center gap-2 py-12 text-center text-sm text-muted-foreground">
+              <div className="flex flex-col items-center justify-center gap-2 py-16 text-center text-xs text-muted-foreground">
                 <Layers className="size-8 opacity-30" />
-                <p>No sections yet</p>
-                <Button variant="outline" size="sm" onClick={() => setAddOpen(true)}>
-                  <Plus className="size-3.5" />
-                  Add a section
+                <p className="font-medium text-foreground">No sections configured</p>
+                <p>Add components to compose your store layout.</p>
+                <Button variant="outline" size="sm" className="mt-2 text-xs" onClick={() => setAddOpen(true)}>
+                  <Plus className="size-3.5 mr-1" /> Add Section
                 </Button>
               </div>
             )}
           </ScrollArea>
         </div>
 
-        <Separator orientation="vertical" className="h-full" />
+        {/* Center Column: Live Responsive Canvas */}
+        <div className="flex flex-1 flex-col items-center justify-start overflow-y-auto p-4">
+          <div
+            className={`transition-all duration-300 ${viewportWidthClass} flex min-h-[500px] flex-col rounded-xl border bg-card shadow-sm overflow-hidden`}
+          >
+            {/* Viewport Frame Header */}
+            <div className="flex items-center justify-between border-b bg-muted/40 px-3 py-1.5 text-[10px] text-muted-foreground">
+              <span className="font-mono uppercase tracking-wider">{viewport} frame</span>
+              <span className="font-mono">
+                {viewport === "desktop" ? "100%" : viewport === "tablet" ? "768px" : "375px"}
+              </span>
+            </div>
 
-        {/* Right: Prop Editor */}
-        <div className="flex flex-1 flex-col gap-3 overflow-hidden">
-          {selectedSection && selectedSchema ? (
-            <ScrollArea className="flex-1 pr-2">
-              <div className="flex flex-col gap-4">
-                <div>
-                  <h2 className="text-sm font-semibold">{selectedSchema.name}</h2>
-                  <p className="text-xs text-muted-foreground">{selectedSchema.description}</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="text-xs font-mono">
-                    {selectedSection.component}
-                  </Badge>
-                  <Badge
-                    variant="outline"
-                    className="flex items-center gap-1 text-xs"
+            {/* Sections Canvas Render Stack */}
+            <div className="flex flex-1 flex-col divide-y divide-border/40 p-3 bg-background/50">
+              {sections.map((section, idx) => {
+                const schema = sectionSchemas[section.component]
+                const isSelected = section.id === selectedId
+                return (
+                  <div
+                    key={section.id}
+                    onClick={() => setSelectedId(section.id)}
+                    className={`group relative flex cursor-pointer flex-col p-4 transition-all rounded-lg my-1 ${
+                      isSelected
+                        ? "border-2 border-primary bg-primary/5 shadow-xs"
+                        : "border border-dashed border-border/70 hover:border-primary/40 hover:bg-accent/30"
+                    } ${!section.visible ? "opacity-50 border-muted" : ""}`}
                   >
-                    {selectedSection.visible ? (
-                      <><Eye className="size-3" /> Visible</>
-                    ) : (
-                      <><EyeOff className="size-3" /> Hidden</>
-                    )}
-                  </Badge>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] text-muted-foreground">#{idx + 1}</span>
+                        <span className="text-xs font-bold text-foreground">
+                          {schema?.name || section.component}
+                        </span>
+                        {!section.visible && (
+                          <Badge variant="outline" className="text-[9px] h-3.5 px-1 bg-muted">
+                            Hidden
+                          </Badge>
+                        )}
+                      </div>
+                      <code className="text-[10px] font-mono text-muted-foreground">{section.component}</code>
+                    </div>
+
+                    <div className="rounded border bg-card/80 p-3 text-xs text-muted-foreground">
+                      <p className="text-[11px] italic mb-1">{schema?.description || "Component preview"}</p>
+                      <pre className="font-mono text-[10px] overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground/80">
+                        {JSON.stringify(section.props, null, 2)}
+                      </pre>
+                    </div>
+                  </div>
+                )
+              })}
+
+              {sections.length === 0 && (
+                <div className="flex flex-1 items-center justify-center p-12 text-center text-xs text-muted-foreground">
+                  Empty canvas. Click &quot;Add Section&quot; to begin building.
                 </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Prop Inspector & Rules Engine */}
+        <div className="flex w-96 flex-col border-l bg-card/60">
+          {selectedSection && selectedSchema ? (
+            <ScrollArea className="flex-1 p-4">
+              <div className="flex flex-col gap-5">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-sm font-bold text-foreground">{selectedSchema.name}</h2>
+                    <Badge variant="outline" className="font-mono text-[10px]">
+                      {selectedSection.component}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-0.5">{selectedSchema.description}</p>
+                </div>
+
                 <Separator />
+
+                {/* Section Props Inspector */}
                 <div className="flex flex-col gap-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                    <Zap className="size-3 text-primary" /> Component Properties
+                  </h3>
+
                   {selectedSchema.props.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">No configurable properties</p>
+                    <p className="text-xs text-muted-foreground italic">No configurable properties for this section.</p>
                   ) : (
                     selectedSchema.props.map((propSchema) => (
                       <PropEditor
@@ -342,90 +532,150 @@ export default function PageLayoutEditorPage() {
                     ))
                   )}
                 </div>
-                
+
                 <Separator />
-                
-                <div className="mb-8">
-                  <h3 className="text-sm font-semibold mb-2">Visibility Rules</h3>
-                  <div className="flex flex-col gap-2">
+
+                {/* Visibility Rules Engine */}
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                      <Sparkles className="size-3 text-primary" /> Visibility Rules (DSL)
+                    </h3>
+                    <Button
+                      variant="outline"
+                      size="icon-xs"
+                      className="h-6 w-6"
+                      onClick={() => {
+                        const newRules = [
+                          ...(selectedSection.rules || []),
+                          { if: "segment == 'vip'", action: "show" as const },
+                        ]
+                        handleRulesChange(newRules)
+                      }}
+                      title="Add Visibility Rule"
+                    >
+                      <Plus className="size-3" />
+                    </Button>
+                  </div>
+
+                  {/* Rule Presets */}
+                  <div className="flex flex-wrap gap-1">
+                    <span className="text-[10px] text-muted-foreground">Presets:</span>
+                    <button
+                      type="button"
+                      className="rounded bg-muted/60 px-1.5 py-0.5 text-[10px] text-foreground hover:bg-accent font-mono"
+                      onClick={() => {
+                        const newRules = [
+                          ...(selectedSection.rules || []),
+                          { if: "segment == 'vip'", action: "show" as const },
+                        ]
+                        handleRulesChange(newRules)
+                      }}
+                    >
+                      + VIP Only
+                    </button>
+                    <button
+                      type="button"
+                      className="rounded bg-muted/60 px-1.5 py-0.5 text-[10px] text-foreground hover:bg-accent font-mono"
+                      onClick={() => {
+                        const newRules = [
+                          ...(selectedSection.rules || []),
+                          { if: "category in ('tech','fashion')", action: "show" as const },
+                        ]
+                        handleRulesChange(newRules)
+                      }}
+                    >
+                      + Category Match
+                    </button>
+                  </div>
+
+                  <div className="flex flex-col gap-2 mt-1">
                     {(selectedSection.rules || []).map((rule, idx) => (
-                      <div key={idx} className="flex flex-col gap-2 p-3 border rounded-md bg-muted/20">
+                      <div
+                        key={idx}
+                        className="flex flex-col gap-2 rounded-lg border bg-muted/20 p-2.5 text-xs"
+                      >
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-semibold">Rule {idx + 1}</span>
-                          <Button 
-                            variant="ghost" 
-                            size="icon-sm" 
-                            className="h-6 w-6 text-destructive hover:bg-destructive/10"
+                          <span className="font-semibold text-[11px] text-primary">Rule #{idx + 1}</span>
+                          <Button
+                            variant="ghost"
+                            size="icon-xs"
+                            className="h-5 w-5 text-destructive hover:bg-destructive/10"
                             onClick={() => {
-                              const newRules = [...(selectedSection.rules || [])];
-                              newRules.splice(idx, 1);
-                              handleRulesChange(newRules);
+                              const newRules = [...(selectedSection.rules || [])]
+                              newRules.splice(idx, 1)
+                              handleRulesChange(newRules)
                             }}
                           >
                             <Ban className="size-3" />
                           </Button>
                         </div>
-                        <div className="flex gap-2">
-                          <div className="flex-1">
-                            <label className="text-[10px] uppercase text-muted-foreground font-semibold mb-1 block">Condition (If)</label>
-                            <input 
-                              className="flex h-8 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-                              placeholder="segment == 'vip'"
+
+                        <div className="flex flex-col gap-1.5">
+                          <div>
+                            <label className="text-[10px] uppercase font-semibold text-muted-foreground mb-0.5 block">
+                              Condition Expression (If)
+                            </label>
+                            <input
+                              className="flex h-7 w-full rounded border border-input bg-background px-2 font-mono text-xs shadow-2xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                              placeholder="segment == 'vip' or category in ('a','b')"
                               value={rule.if}
                               onChange={(e) => {
-                                const newRules = [...(selectedSection.rules || [])];
-                                newRules[idx].if = e.target.value;
-                                handleRulesChange(newRules);
+                                const newRules = [...(selectedSection.rules || [])]
+                                newRules[idx].if = e.target.value
+                                handleRulesChange(newRules)
                               }}
                             />
                           </div>
-                          <div className="w-24">
-                            <label className="text-[10px] uppercase text-muted-foreground font-semibold mb-1 block">Action</label>
-                            <select 
-                              className="flex h-8 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+
+                          <div className="flex items-center justify-between">
+                            <label className="text-[10px] uppercase font-semibold text-muted-foreground">
+                              Action
+                            </label>
+                            <select
+                              className="h-7 rounded border border-input bg-background px-2 text-xs font-semibold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                               value={rule.action}
                               onChange={(e) => {
-                                const newRules = [...(selectedSection.rules || [])];
-                                newRules[idx].action = e.target.value as 'show' | 'hide';
-                                handleRulesChange(newRules);
+                                const newRules = [...(selectedSection.rules || [])]
+                                newRules[idx].action = e.target.value as 'show' | 'hide'
+                                handleRulesChange(newRules)
                               }}
                             >
-                              <option value="show">Show</option>
-                              <option value="hide">Hide</option>
+                              <option value="show">Show Section</option>
+                              <option value="hide">Hide Section</option>
                             </select>
                           </div>
                         </div>
                       </div>
                     ))}
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="w-full text-xs h-8 mt-1 border-dashed"
-                      onClick={() => {
-                        const newRules = [...(selectedSection.rules || []), { if: '', action: 'hide' as const }];
-                        handleRulesChange(newRules);
-                      }}
-                    >
-                      <Plus className="size-3 mr-1" /> Add Rule
-                    </Button>
+
+                    {(selectedSection.rules || []).length === 0 && (
+                      <p className="text-[11px] text-muted-foreground italic">
+                        No visibility rules attached. Section renders for all visitors.
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             </ScrollArea>
           ) : (
-            <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-              Select a section to edit its properties
+            <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-xs text-muted-foreground">
+              <Layers className="size-8 opacity-30" />
+              <p className="font-semibold text-foreground">No Section Selected</p>
+              <p>Select a section from the left sidebar to inspect and edit its properties.</p>
             </div>
           )}
         </div>
       </div>
 
-      {/* Add Section Sheet */}
+      {/* Add Section Sheet Drawer */}
       <Sheet open={addOpen} onOpenChange={setAddOpen}>
-        <SheetContent side="right" className="sm:max-w-sm">
+        <SheetContent side="right" className="sm:max-w-md">
           <SheetHeader>
-            <SheetTitle>Add Section</SheetTitle>
-            <SheetDescription>Choose a section to add to the page</SheetDescription>
+            <SheetTitle className="text-base font-bold">Add Section Component</SheetTitle>
+            <SheetDescription className="text-xs">
+              Choose a section component to insert into the page layout tree.
+            </SheetDescription>
           </SheetHeader>
           <div className="px-4">
             <AddSectionPanel onAdd={handleAddSection} />

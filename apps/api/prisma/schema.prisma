@@ -336,11 +336,13 @@ model StockReservation {
 }
 
 model PageLayout {
-  tenant_id     String    @db.Uuid
-  page_key      String // 'homepage' | 'category' | 'product' | 'checkout'
-  sections_json Json
-  published_at  DateTime? @db.Timestamptz(6)
-  tenant        Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  tenant_id      String    @db.Uuid
+  page_key       String // canonical key from the PAGE_KEYS catalog in @commerceos/shared-types
+  draft_json     Json      @default("{}") // working copy edited in the admin builder
+  published_json Json      @default("{}") // served to the storefront
+  published_at   DateTime? @db.Timestamptz(6)
+  updated_at     DateTime  @updatedAt @db.Timestamptz(6)
+  tenant         Tenant    @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
 
   @@id([tenant_id, page_key])
   @@map("page_layouts")

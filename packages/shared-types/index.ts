@@ -86,15 +86,8 @@ export const ComponentMetadata: Record<string, { minPlan?: PlanTier }> = {
   "form-renderer.v1": { minPlan: "pro" }
 };
 
-// Page Builder JSON schema
-export const BuilderNodeSchema: z.ZodType<any> = z.lazy(() =>
-  z.object({
-    id: z.string().min(1),
-    component: z.string().min(1),
-    props: z.record(z.any()).default({}),
-    children: z.array(BuilderNodeSchema).default([]),
-  })
-);
-
-export type BuilderNode = z.infer<typeof BuilderNodeSchema>;
+// Page builder — canonical contracts, DTO, rules DSL, ingestion normalizer
+export * from "./experience";
+// Page-key catalog shared by seed, admin, and storefront
+export * from "./pages";
 
