@@ -6,18 +6,24 @@ import { motion } from "framer-motion";
 import { ProductCard } from "@/components/product-card";
 import { SlidersHorizontal, ChevronRight, Check, LayoutGrid, List } from "lucide-react";
 
-export function ProductsClient({ 
-  products, 
-  facets = {}, 
-  categories, 
-  initialCategory = null, 
-  initialAttributes = {} 
-}: { 
-  products: any[], 
-  facets?: Record<string, Record<string, number>>, 
+export function ProductsClient({
+  products,
+  facets = {},
+  categories,
+  initialCategory = null,
+  initialAttributes = {},
+  total = 0,
+  page = 1,
+  limit = 24
+}: {
+  products: any[],
+  facets?: Record<string, Record<string, number>>,
   categories: any[],
   initialCategory?: string | null,
-  initialAttributes?: Record<string, string>
+  initialAttributes?: Record<string, string>,
+  total?: number,
+  page?: number,
+  limit?: number
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -31,7 +37,7 @@ export function ProductsClient({
 
   const updateFilters = (newCategory: string | null, newAttributes: Record<string, string>, newSort: string = currentSort) => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (newCategory) params.set("category", newCategory);
     else params.delete("category");
 
@@ -47,6 +53,19 @@ export function ProductsClient({
       params.delete("sort");
     }
 
+    // Reset to the first page on any filter change.
+    params.delete("page");
+
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const totalPages = Math.max(Math.ceil(total / limit), 1);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    const params = new URLSearchParams(searchParams.toString());
+    if (newPage > 1) params.set("page", String(newPage));
+    else params.delete("page");
     router.push(`${pathname}?${params.toString()}`);
   };
 
@@ -184,7 +203,11 @@ export function ProductsClient({
           {/* Main Content */}
           <main className="flex-1">
             <div className="mb-6 flex justify-between items-center text-sm text-muted-foreground">
-              <span>Showing {filteredProducts.length} results</span>
+              <span>
+                {total > 0
+                  ? `Showing ${Math.min((page - 1) * limit + filteredProducts.length, total)} of ${total} products`
+                  : `${filteredProducts.length} results`}
+              </span>
               <div className="flex items-center gap-4">
                 <div className="hidden sm:flex border border-border/50 rounded-md overflow-hidden">
                   <button 
@@ -239,6 +262,28 @@ export function ProductsClient({
                   </motion.div>
                 ))}
               </motion.div>
+            )}
+
+            {totalPages > 1 && total > 0 && (
+              <div className="mt-10 flex items-center justify-center gap-4">
+                <button
+                  onClick={() => handlePageChange(page - 1)}
+                  disabled={page <= 1}
+                  className="px-4 py-2 text-sm rounded-lg border border-border/50 hover:border-primary disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                >
+                  Previous
+                </button>
+                <span className="text-sm text-muted-foreground">
+                  Page {page} of {totalPages}
+                </span>
+                <button
+                  onClick={() => handlePageChange(page + 1)}
+                  disabled={page >= totalPages}
+                  className="px-4 py-2 text-sm rounded-lg border border-border/50 hover:border-primary disabled:opacity-40 disabled:pointer-events-none transition-colors"
+                >
+                  Next
+                </button>
+              </div>
             )}
           </main>
         </div>

@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RedisModule } from './redis/redis.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { QueueModule } from './queue/queue.module';
 import { HealthModule } from './health/health.module';
 import { HostResolverMiddleware } from './tenant/middlewares/host-resolver.middleware';
@@ -19,6 +20,7 @@ import { AdminModule } from './admin/admin.module';
     UsersModule,
     RedisModule,
     AuditLogModule,
+    NotificationsModule,
     QueueModule,
     AdminModule,
     HealthModule,

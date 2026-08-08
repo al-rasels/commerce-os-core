@@ -16,7 +16,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import Image from 'next/image';
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 'pk_test_mock');
+const stripePublishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 function PaymentForm({ onSuccess }: { onSuccess: () => void }) {
   const stripe = useStripe();
@@ -488,7 +489,25 @@ export default function CheckoutPage() {
               </div>
 
               <motion.div animate={{ height: step === 3 ? "auto" : 0 }} className="overflow-hidden">
-              {step === 3 && clientSecret && (
+              {step === 3 && clientSecret && !stripePublishableKey && (
+                <div className="pl-9">
+                  <div className="bg-muted/30 border border-border/50 rounded-xl p-6">
+                    <div className="flex justify-center mb-4">
+                      <Lock className="w-8 h-8 text-muted-foreground" />
+                    </div>
+                    <div className="bg-amber-50 border border-amber-200 text-amber-800 dark:bg-amber-900/20 dark:border-amber-700 dark:text-amber-100 rounded-lg p-4 text-sm">
+                      <p className="font-medium">Payments are not configured</p>
+                      <p className="mt-1">
+                        Your order was created but could not be charged because the storefront
+                        has no Stripe publishable key. Set{' '}
+                        <code className="font-mono">NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</code> to
+                        complete the payment flow.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {step === 3 && clientSecret && stripePromise && (
                 <div className="pl-9">
                   <div className="bg-muted/30 border border-border/50 rounded-xl p-6">
                     <div className="flex justify-center mb-4">

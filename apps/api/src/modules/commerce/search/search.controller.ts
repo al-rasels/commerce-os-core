@@ -1,10 +1,15 @@
-import { Controller, Get, Query, Req, UseGuards, Param } from '@nestjs/common';
+import { Controller, Get, Query, Req, Param } from '@nestjs/common';
 import { SearchService } from './search.service';
-import { TenantAuthGuard } from '../../platform/auth/guards/tenant-auth.guard';
 import type { Request } from 'express';
 
+/**
+ * Tenant-scoped search over Meilisearch.
+ *
+ * Intentionally public (like the storefront product endpoints): isolation comes
+ * from the per-tenant index naming scheme (`tenant_<id>_<resource>`), keyed off
+ * the tenant resolved from the request host. Reads only.
+ */
 @Controller('v1/search')
-@UseGuards(TenantAuthGuard)
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 

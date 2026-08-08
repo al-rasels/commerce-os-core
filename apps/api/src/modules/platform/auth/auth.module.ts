@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { RedisModule } from '../redis/redis.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { RedisModule } from '../redis/redis.module';
     }),
     forwardRef(() => UsersModule),
     RedisModule,
+    NotificationsModule,
   ],
   providers: [AuthService],
   controllers: [AuthController],

@@ -15,6 +15,7 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateProductVariantDto } from './dto/create-product-variant.dto';
 import { UpdateProductVariantDto } from './dto/update-product-variant.dto';
+import { SearchIndexer } from '../search/search-indexer';
 
 @Injectable()
 export class CatalogService {
@@ -24,6 +25,7 @@ export class CatalogService {
     private readonly variantRepo: ProductVariantRepository,
     private readonly stockReservationRepo: StockReservationRepository,
     private readonly bundleRepo: BundleRepository,
+    private readonly searchIndexer: SearchIndexer,
   ) {}
 
   async createProduct(ctx: TenantContext, dto: CreateProductDto) {
@@ -31,7 +33,9 @@ export class CatalogService {
     if (existing.length > 0) {
       throw new ConflictException('Product with this slug already exists');
     }
-    return this.productRepo.create(ctx, dto);
+    const product = await this.productRepo.create(ctx, dto);
+    await this.indexProduct(ctx, product.id);
+    return product;
   }
 
   async listProducts(ctx: TenantContext) {
@@ -43,7 +47,9 @@ export class CatalogService {
     if (existing.length > 0) {
       throw new ConflictException('Category with this slug already exists');
     }
-    return this.categoryRepo.create(ctx, dto);
+    const category = await this.categoryRepo.create(ctx, dto);
+    await this.indexCategory(ctx, category.id);
+    return category;
   }
 
   async listCategories(ctx: TenantContext) {
@@ -70,13 +76,17 @@ export class CatalogService {
       }
     }
 
-    return this.productRepo.update(ctx, id, dto);
+    const updated = await this.productRepo.update(ctx, id, dto);
+    await this.indexProduct(ctx, id);
+    return updated;
   }
 
   async deleteProduct(ctx: TenantContext, id: string) {
     const product = await this.productRepo.findUnique(ctx, id);
     if (!product) throw new NotFoundException('Product not found');
-    return this.productRepo.softDelete(ctx, id);
+    const deleted = await this.productRepo.softDelete(ctx, id);
+    await this.searchIndexer.remove(ctx.tenantId, 'products', id);
+    return deleted;
   }
 
   async getCategory(ctx: TenantContext, id: string) {
@@ -99,13 +109,17 @@ export class CatalogService {
       }
     }
 
-    return this.categoryRepo.update(ctx, id, dto);
+    const updated = await this.categoryRepo.update(ctx, id, dto);
+    await this.indexCategory(ctx, id);
+    return updated;
   }
 
   async deleteCategory(ctx: TenantContext, id: string) {
     const category = await this.categoryRepo.findUnique(ctx, id);
     if (!category) throw new NotFoundException('Category not found');
-    return this.categoryRepo.softDelete(ctx, id);
+    const deleted = await this.categoryRepo.softDelete(ctx, id);
+    await this.searchIndexer.remove(ctx.tenantId, 'categories', id);
+    return deleted;
   }
 
   async getVariants(ctx: TenantContext, productId: string) {
@@ -122,7 +136,9 @@ export class CatalogService {
         'Variant with this SKU already exists for this product',
       );
     }
-    return this.variantRepo.create(ctx, dto);
+    const variant = await this.variantRepo.create(ctx, dto);
+    await this.indexProduct(ctx, dto.product_id);
+    return variant;
   }
 
   async updateVariant(
@@ -132,13 +148,17 @@ export class CatalogService {
   ) {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
-    return this.variantRepo.update(ctx, id, dto);
+    const updated = await this.variantRepo.update(ctx, id, dto);
+    await this.indexProduct(ctx, variant.product_id);
+    return updated;
   }
 
   async deleteVariant(ctx: TenantContext, id: string) {
     const variant = await this.variantRepo.findUnique(ctx, id);
     if (!variant) throw new NotFoundException('Variant not found');
-    return this.variantRepo.softDelete(ctx, id);
+    const deleted = await this.variantRepo.softDelete(ctx, id);
+    await this.indexProduct(ctx, variant.product_id);
+    return deleted;
   }
 
   async getLowStockVariants(ctx: TenantContext) {
@@ -214,5 +234,49 @@ export class CatalogService {
     items: { child_variant_id: string; quantity: number }[],
   ) {
     await this.bundleRepo.setBundleItems(ctx, parentVariantId, items);
+  }
+
+  /**
+   * Index a product document for search (products include their variants so
+   * facets like price/attributes keep working).
+   */
+  private async indexProduct(ctx: TenantContext, productId: string) {
+    const product = await this.productRepo.findUnique(ctx, productId);
+    if (!product) return;
+    const variants = await this.variantRepo.findMany(ctx, {
+      where: { product_id: productId },
+    });
+
+    await this.searchIndexer.upsert(ctx.tenantId, 'products', {
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      description: product.description,
+      status: product.status,
+      category_id: product.category_id,
+      price_min_cents: variants.length
+        ? Math.min(...variants.map((v) => v.price_cents))
+        : null,
+      currency: variants[0]?.currency ?? 'USD',
+      variants: variants.map((v) => ({
+        id: v.id,
+        sku: v.sku,
+        price_cents: v.price_cents,
+        attributes_json: v.attributes_json,
+      })),
+    });
+  }
+
+  /** Index a category document for search. */
+  private async indexCategory(ctx: TenantContext, categoryId: string) {
+    const category = await this.categoryRepo.findUnique(ctx, categoryId);
+    if (!category) return;
+
+    await this.searchIndexer.upsert(ctx.tenantId, 'categories', {
+      id: category.id,
+      name: category.name,
+      slug: category.slug,
+      parent_id: category.parent_id,
+    });
   }
 }

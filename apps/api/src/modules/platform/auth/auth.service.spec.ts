@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { RedisService } from '../redis/redis.service';
+import { EmailService } from '../notifications/email.service';
 import { TenantContext } from '../tenant/tenant-context';
 import * as argon2 from 'argon2';
 
@@ -36,6 +37,11 @@ describe('AuthService', () => {
     set: jest.fn(),
     get: jest.fn(),
     del: jest.fn(),
+  };
+
+  const mockEmailService = {
+    sendPasswordReset: jest.fn().mockResolvedValue(undefined),
+    sendInvite: jest.fn().mockResolvedValue(undefined),
   };
 
   const mockUsersService = {
@@ -68,6 +74,7 @@ describe('AuthService', () => {
         { provide: PrismaService, useValue: mockPrisma },
         { provide: JwtService, useValue: mockJwt },
         { provide: RedisService, useValue: mockRedis },
+        { provide: EmailService, useValue: mockEmailService },
       ],
     }).compile();
 

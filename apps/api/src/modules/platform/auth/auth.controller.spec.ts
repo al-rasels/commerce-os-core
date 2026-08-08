@@ -14,6 +14,13 @@ describe('AuthController', () => {
     refresh: jest.fn(),
   };
 
+  const createMockRes = () => ({
+    cookie: jest.fn(),
+    clearCookie: jest.fn(),
+  });
+
+  const mockReq = () => ({ cookies: {} });
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuthController],
@@ -36,11 +43,17 @@ describe('AuthController', () => {
       const ctx = { tenantId: 't1' } as any;
       const dto = { email: 'test@test.com', password: 'password123' };
       mockAuthService.login.mockResolvedValueOnce({ access_token: 'token' });
+      const res = createMockRes();
 
-      const result = await controller.login(ctx, dto);
+      const result = await controller.login(ctx, dto, res);
 
       expect(authService.login).toHaveBeenCalledWith(ctx, dto);
       expect(result).toEqual({ access_token: 'token' });
+      expect(res.cookie).toHaveBeenCalledWith(
+        'access_token',
+        'token',
+        expect.any(Object),
+      );
     });
   });
 
@@ -49,8 +62,9 @@ describe('AuthController', () => {
       const ctx = { tenantId: 't1' } as any;
       const dto = { email: 'new@test.com', password: 'password123' };
       mockAuthService.register.mockResolvedValueOnce({ access_token: 'token' });
+      const res = createMockRes();
 
-      const result = await controller.register(ctx, dto);
+      const result = await controller.register(ctx, dto, res);
 
       expect(authService.register).toHaveBeenCalledWith(ctx, dto);
       expect(result).toEqual({ access_token: 'token' });
@@ -63,8 +77,15 @@ describe('AuthController', () => {
       mockAuthService.refresh.mockResolvedValueOnce({
         access_token: 'new-token',
       });
+      const req = mockReq();
+      const res = createMockRes();
 
-      const result = await controller.refresh(ctx, 'refresh-token-value');
+      const result = await controller.refresh(
+        ctx,
+        req,
+        'refresh-token-value',
+        res,
+      );
 
       expect(authService.refresh).toHaveBeenCalledWith(
         ctx,

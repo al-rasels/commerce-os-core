@@ -13,6 +13,7 @@ const { authenticator } = require('otplib');
 import * as QRCode from 'qrcode';
 import { UsersService } from '../users/users.service';
 import { RedisService } from '../redis/redis.service';
+import { EmailService } from '../notifications/email.service';
 import { TenantContext } from '../tenant/tenant-context';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -30,6 +31,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly redis: RedisService,
+    private readonly emailService: EmailService,
   ) {}
 
   async register(ctx: TenantContext, dto: RegisterDto) {
@@ -183,7 +185,9 @@ export class AuthService {
 
     const key = `reset_token:${ctx.tenantId}:${user.id}`;
     await this.redis.set(key, token, 900);
-    // In production, send email with reset link containing the token
+
+    const resetUrl = `${process.env.STOREFRONT_URL || 'http://localhost:3001'}/account/reset-password?token=${token}`;
+    await this.emailService.sendPasswordReset(normalizedEmail, resetUrl);
 
     return { message: 'If the email exists, a reset link has been sent' };
   }
@@ -253,7 +257,8 @@ export class AuthService {
       status: 'pending',
     });
 
-    // In production, send invitation email with setup link and temp password
+    const loginUrl = `${process.env.STOREFRONT_URL || 'http://localhost:3001'}/account/login`;
+    await this.emailService.sendInvite(normalizedEmail, tempPassword, loginUrl);
 
     return { message: 'Invitation sent' };
   }

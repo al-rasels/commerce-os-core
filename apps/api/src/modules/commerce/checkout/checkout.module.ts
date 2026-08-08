@@ -25,5 +25,6 @@ import { InventoryModule } from '../inventory/inventory.module';
   ],
   controllers: [CheckoutController],
   providers: [CheckoutService],
+  exports: [CheckoutService],
 })
 export class CheckoutModule {}

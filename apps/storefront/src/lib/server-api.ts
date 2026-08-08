@@ -53,7 +53,9 @@ export const serverApi = {
         search.set('attributes', JSON.stringify(params.attributes));
       }
       const qs = search.toString();
-      return serverRequest<{ data: any[], facets: any }>(`/storefront/products${qs ? `?${qs}` : ''}`);
+      return serverRequest<{ data: any[]; facets: any; total: number; page: number; limit: number }>(
+        `/storefront/products${qs ? `?${qs}` : ''}`,
+      );
     },
     get: (slug: string) => serverRequest<any>(`/storefront/products/${slug}`),
   },

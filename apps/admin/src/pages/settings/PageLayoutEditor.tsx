@@ -41,6 +41,7 @@ import {
   Tablet,
   Smartphone,
   ExternalLink,
+  Eye,
   Sparkles,
   Zap,
 } from "lucide-react"
@@ -71,6 +72,8 @@ function createDefaultSection(componentKey: string): PageSection {
 export default function PageLayoutEditorPage() {
   const { pageKey = "homepage" } = useParams<{ pageKey: string }>()
   const navigate = useNavigate()
+  const storefrontUrl = import.meta.env.VITE_STOREFRONT_URL || "http://localhost:3001"
+  const previewSecret = import.meta.env.VITE_PREVIEW_SECRET || ""
   const { data: layout, isLoading, isError, error } = usePageLayout(pageKey)
   const saveMutation = useSavePageLayout(pageKey)
   const unpublishMutation = useUnpublishPageLayout(pageKey)
@@ -335,13 +338,31 @@ export default function PageLayoutEditorPage() {
               className="h-8 gap-1.5 text-xs text-muted-foreground"
               onClick={() =>
                 window.open(
-                  `http://localhost:3001${catalogEntry.route === "/" ? "" : catalogEntry.route}`,
+                  `${storefrontUrl}${catalogEntry.route === "/" ? "" : catalogEntry.route}`,
                   "_blank",
                 )
               }
             >
               <ExternalLink className="size-3.5" />
               Storefront Preview
+            </Button>
+          )}
+          {previewSecret && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 gap-1.5 text-xs text-muted-foreground"
+              onClick={() =>
+                window.open(
+                  `${storefrontUrl}/api/draft?secret=${encodeURIComponent(
+                    previewSecret,
+                  )}&slug=${encodeURIComponent(pageKey)}`,
+                  "_blank",
+                )
+              }
+            >
+              <Eye className="size-3.5" />
+              Preview Draft
             </Button>
           )}
           <Button

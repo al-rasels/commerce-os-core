@@ -7,9 +7,10 @@ import { ProductVariantRepository } from './repositories/product-variant.reposit
 import { StockReservationRepository } from './repositories/stock-reservation.repository';
 import { BundleRepository } from './repositories/bundle.repository';
 import { PrismaModule } from '../../../prisma/prisma.module';
+import { SearchModule } from '../search/search.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, SearchModule],
   controllers: [CatalogController],
   providers: [
     CatalogService,

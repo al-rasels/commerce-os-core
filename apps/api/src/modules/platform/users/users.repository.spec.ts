@@ -1,15 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { randomUUID } from 'node:crypto';
 import { TenantContext } from '../../../modules/platform/tenant/tenant-context';
-import { v4 as uuidv4 } from 'uuid';
-// Note: Imports for the actual repository might need adjusting based on relative path
 
 describe('isolation: user', () => {
   // This is a boilerplate isolation test mandated by Rule 01
   it("never returns another tenant's rows", async () => {
     // Conceptual mock for seedTenant
     const tenantA: TenantContext = {
-      tenantId: uuidv4(),
+      tenantId: randomUUID(),
       plan: 'starter',
       effectiveFlags: new Set(),
       theme: { themeBaseId: 'default', overrides: {} },
@@ -21,7 +18,7 @@ describe('isolation: user', () => {
       hasFeature: () => false,
     };
     const tenantB: TenantContext = {
-      tenantId: uuidv4(),
+      tenantId: randomUUID(),
       plan: 'starter',
       effectiveFlags: new Set(),
       theme: { themeBaseId: 'default', overrides: {} },

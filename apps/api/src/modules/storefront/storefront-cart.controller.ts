@@ -9,6 +9,7 @@ import {
   Query,
   HttpCode,
   HttpStatus,
+  NotFoundException,
 } from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
@@ -61,8 +62,9 @@ export class StorefrontCartController {
     });
     if (!cart) return { error: 'Cart not found' };
 
-    const variant = await service.productVariant.findUnique({
-      where: { id: dto.variant_id },
+    // Tenant-scoped variant lookup — never trust the variant id cross-tenant.
+    const variant = await service.productVariant.findFirst({
+      where: { id: dto.variant_id, tenant_id: ctx.tenantId },
     });
     if (!variant) return { error: 'Variant not found' };
     if (variant.stock_available - variant.stock_reserved < dto.quantity) {
@@ -70,7 +72,7 @@ export class StorefrontCartController {
     }
 
     const existing = await service.cartItem.findFirst({
-      where: { cart_id: cartId, variant_id: dto.variant_id },
+      where: { cart_id: cartId, tenant_id: ctx.tenantId, variant_id: dto.variant_id },
     });
 
     if (existing) {
@@ -83,6 +85,7 @@ export class StorefrontCartController {
     return service.cartItem.create({
       data: {
         cart_id: cartId,
+        tenant_id: ctx.tenantId,
         variant_id: dto.variant_id,
         quantity: dto.quantity,
       },
@@ -98,16 +101,21 @@ export class StorefrontCartController {
     @Body('quantity') quantity: number,
   ) {
     const service = this.prismaService as any;
+    // Owned-scoped mutation: the item must belong to BOTH this cart and this tenant.
+    const owned = { id: itemId, cart_id: cartId, tenant_id: ctx.tenantId };
 
     if (quantity === 0) {
-      await service.cartItem.delete({ where: { id: itemId } });
+      const { count } = await service.cartItem.deleteMany({ where: owned });
+      if (count === 0) throw new NotFoundException('Cart item not found');
       return { removed: true };
     }
 
-    return service.cartItem.update({
-      where: { id: itemId },
+    const { count } = await service.cartItem.updateMany({
+      where: owned,
       data: { quantity },
     });
+    if (count === 0) throw new NotFoundException('Cart item not found');
+    return { updated: true };
   }
 
   @Delete(':cartId/items/:itemId')
@@ -118,7 +126,10 @@ export class StorefrontCartController {
     @Param('itemId') itemId: string,
   ) {
     const service = this.prismaService as any;
-    await service.cartItem.delete({ where: { id: itemId } });
+    const { count } = await service.cartItem.deleteMany({
+      where: { id: itemId, cart_id: cartId, tenant_id: ctx.tenantId },
+    });
+    if (count === 0) throw new NotFoundException('Cart item not found');
     return { removed: true };
   }
 }

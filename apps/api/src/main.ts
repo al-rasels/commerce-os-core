@@ -8,6 +8,39 @@ import { SensitiveFieldsInterceptor } from './common/interceptors/sensitive-fiel
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
 import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
 
+/**
+ * Resolve the CORS origin allowlist.
+ *
+ * `credentials: true` is enabled below, so a wildcard `*` origin is invalid and
+ * rejected by browsers. We therefore fail closed:
+ *  - production requires an explicit `CORS_ORIGIN` allowlist at boot;
+ *  - development falls back to the local origins from `.env.example`.
+ */
+function resolveCorsOrigins(): string[] {
+  const configured = process.env.CORS_ORIGIN
+    ?.split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+  if (configured && configured.length > 0) {
+    return configured;
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'CORS_ORIGIN must be set to an explicit origin allowlist in production. ' +
+        'Wildcard "*" is not allowed together with credentials:true.',
+    );
+  }
+
+  // Local development defaults (mirror .env.example).
+  return [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+  ];
+}
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     rawBody: true,
@@ -24,7 +57,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   app.enableCors({
-    origin: process.env.CORS_ORIGIN?.split(',') ?? '*',
+    origin: resolveCorsOrigins(),
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     credentials: true,
   });

@@ -13,8 +13,15 @@ export class StorefrontController {
     @Query('category') categorySlug?: string,
     @Query('q') searchQuery?: string,
     @Query('attributes') attributesJson?: string,
+    @Query('page') rawPage?: string,
+    @Query('limit') rawLimit?: string,
   ) {
     const service = this.prismaService as any;
+    const page = Math.max(parseInt(rawPage || '', 10) || 1, 1);
+    const limit = Math.min(
+      Math.max(parseInt(rawLimit || '', 10) || 100, 1),
+      100,
+    );
     const where: any = {
       deleted_at: null,
       tenant_id: ctx.tenantId,
@@ -49,13 +56,18 @@ export class StorefrontController {
       }
     }
 
-    const products = await service.product.findMany({
-      where,
-      include: { category: true, variants: true },
-      orderBy: { created_at: 'desc' },
-    });
+    const [total, products] = await Promise.all([
+      service.product.count({ where }),
+      service.product.findMany({
+        where,
+        include: { category: true, variants: true },
+        orderBy: { created_at: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
 
-    // Compute simple facets in-memory for MVP
+    // Compute simple facets in-memory for MVP (against the current page).
     const facets: Record<string, Record<string, number>> = {};
     products.forEach((p: any) => {
       p.variants?.forEach((v: any) => {
@@ -68,7 +80,7 @@ export class StorefrontController {
       });
     });
 
-    return { data: products, facets };
+    return { data: products, facets, total, page, limit };
   }
 
   @Get('products/:slug')

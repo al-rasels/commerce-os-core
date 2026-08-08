@@ -1,15 +1,12 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { randomUUID } from 'node:crypto';
 import { TenantContext } from '../../../modules/platform/tenant/tenant-context';
-import { v4 as uuidv4 } from 'uuid';
-// Note: Imports for the actual repository might need adjusting based on relative path
 
 describe('isolation: order', () => {
   // This is a boilerplate isolation test mandated by Rule 01
-  it("never returns another tenant's rows", async () => {
+  it('never returns another tenant\'s rows', async () => {
     // Conceptual mock for seedTenant
     const tenantA: TenantContext = {
-      tenantId: uuidv4(),
+      tenantId: randomUUID(),
       plan: 'starter',
       effectiveFlags: new Set(),
       theme: { themeBaseId: 'default', overrides: {} },
@@ -21,7 +18,7 @@ describe('isolation: order', () => {
       hasFeature: () => false,
     };
     const tenantB: TenantContext = {
-      tenantId: uuidv4(),
+      tenantId: randomUUID(),
       plan: 'starter',
       effectiveFlags: new Set(),
       theme: { themeBaseId: 'default', overrides: {} },
@@ -34,8 +31,6 @@ describe('isolation: order', () => {
     };
 
     // In a real e2e/integration suite, you would use Prisma to insert rows here.
-    // await seedRowFor(tenantA, /* data */);
-
     // Then verify repoAs(tenantB).findMany({}) returns 0 rows.
     // const resultsAsB = await repoAs(tenantB).findMany({});
     // expect(resultsAsB).toHaveLength(0);

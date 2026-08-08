@@ -1,5 +1,7 @@
+import { BuilderOrStatic } from '@/components/builder-or-static';
 import { StaticPageLayout } from '@/components/static-page-layout';
 
+export const revalidate = 60;
 export const metadata = { title: 'FAQ | CommerceOS' };
 
 const faqs = [
@@ -13,16 +15,18 @@ const faqs = [
 
 export default function FaqPage() {
   return (
-    <StaticPageLayout title="Frequently Asked Questions">
-      <p className="text-lg">Find answers to common questions about our products, shipping, and policies.</p>
-      <div className="space-y-8 mt-8">
-        {faqs.map((faq, i) => (
-          <div key={i}>
-            <h2 className="text-lg font-semibold text-foreground mb-2">{faq.q}</h2>
-            <p>{faq.a}</p>
-          </div>
-        ))}
-      </div>
-    </StaticPageLayout>
+    <BuilderOrStatic pageKey="faq">
+      <StaticPageLayout title="Frequently Asked Questions">
+        <p className="text-lg">Find answers to common questions about our products, shipping, and policies.</p>
+        <div className="space-y-8 mt-8">
+          {faqs.map((faq, i) => (
+            <div key={i}>
+              <h2 className="text-lg font-semibold text-foreground mb-2">{faq.q}</h2>
+              <p>{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </StaticPageLayout>
+    </BuilderOrStatic>
   );
 }

@@ -144,7 +144,9 @@ export const api = {
         search.set('attributes', JSON.stringify(params.attributes));
       }
       const qs = search.toString();
-      return request<{ data: any[], facets: any }>(`/products${qs ? `?${qs}` : ''}`);
+      return request<{ data: any[]; facets: any; total: number; page: number; limit: number }>(
+        `/products${qs ? `?${qs}` : ''}`,
+      );
     },
     get: (slug: string) => request<any>(`/products/${slug}`),
   },
@@ -184,6 +186,16 @@ export const api = {
       shipping_country?: string;
       shipping_phone?: string;
       billing_same_as_shipping?: boolean;
+      billing_first_name?: string;
+      billing_last_name?: string;
+      billing_address_line1?: string;
+      billing_address_line2?: string;
+      billing_city?: string;
+      billing_state?: string;
+      billing_postal_code?: string;
+      billing_country?: string;
+      shipping_rule_id?: string;
+      promo_code?: string;
     }) =>
       request<any>(`/checkout/${cartId}`, {
         method: 'POST',
