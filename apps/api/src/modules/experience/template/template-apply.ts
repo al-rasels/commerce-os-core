@@ -67,22 +67,25 @@ export async function applyTemplateData(
       // Normalize legacy shapes (backfill node ids/visible/rules) and publish
       // the template layouts immediately for a fresh store.
       const doc = normalizePageLayout(sections);
+      const jsonVal = doc as unknown as Prisma.InputJsonValue;
       await tx.pageLayout.upsert({
         where: {
           tenant_id_page_key: { tenant_id: tenantId, page_key: pageKey },
         },
         update: {
-          draft_json: doc as unknown as Prisma.InputJsonValue,
-          published_json: doc as unknown as Prisma.InputJsonValue,
+          sections_json: jsonVal,
+          draft_json: jsonVal,
+          published_json: jsonVal,
           published_at: new Date(),
-        },
+        } as any,
         create: {
           tenant_id: tenantId,
           page_key: pageKey,
-          draft_json: doc as unknown as Prisma.InputJsonValue,
-          published_json: doc as unknown as Prisma.InputJsonValue,
+          sections_json: jsonVal,
+          draft_json: jsonVal,
+          published_json: jsonVal,
           published_at: new Date(),
-        },
+        } as any,
       });
     }
   }

@@ -26,13 +26,18 @@ export class BuilderService {
 
   private toDTO(row: PageLayout): PageLayoutDTO {
     const draft =
-      (row.draft_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+      ((row as any).draft_json as unknown as PageLayoutDocument) ??
+      ((row as any).sections_json as unknown as PageLayoutDocument) ??
+      EMPTY_DOC;
     const published =
-      (row.published_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+      ((row as any).published_json as unknown as PageLayoutDocument) ??
+      ((row as any).sections_json as unknown as PageLayoutDocument) ??
+      EMPTY_DOC;
     const publishedNodes = Array.isArray(published.nodes)
       ? published.nodes
       : [];
     const draftNodes = Array.isArray(draft.nodes) ? draft.nodes : [];
+    const updatedAt = (row as any).updated_at || (row as any).updatedAt || null;
     return {
       page_key: row.page_key,
       nodes: publishedNodes,
@@ -41,7 +46,7 @@ export class BuilderService {
       published_at: row.published_at
         ? row.published_at.toISOString()
         : null,
-      updated_at: row.updated_at ? row.updated_at.toISOString() : null,
+      updated_at: updatedAt ? new Date(updatedAt).toISOString() : null,
       has_unpublished_changes: !areNodesEqual(draftNodes, publishedNodes),
     };
   }
@@ -80,7 +85,9 @@ export class BuilderService {
     // copy when the draft is empty so the editor always opens with a baseline.
     if (draft && canReadDraft) {
       const draftDoc =
-        (row.draft_json as unknown as PageLayoutDocument) ?? EMPTY_DOC;
+        ((row as any).draft_json as unknown as PageLayoutDocument) ??
+        ((row as any).sections_json as unknown as PageLayoutDocument) ??
+        EMPTY_DOC;
       const draftNodes = Array.isArray(draftDoc.nodes) ? draftDoc.nodes : [];
       return {
         ...dto,

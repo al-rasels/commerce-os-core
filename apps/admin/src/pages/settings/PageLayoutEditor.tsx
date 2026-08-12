@@ -92,7 +92,7 @@ export default function PageLayoutEditorPage() {
 
   useEffect(() => {
     if (layout && !initialized.current) {
-      const initialNodes = layout.nodes ?? layout.sections_json ?? []
+      const initialNodes = (layout.nodes ?? (layout as any).sections_json ?? []) as PageSection[]
       reset(initialNodes)
       if (initialNodes.length > 0) {
         setSelectedId(initialNodes[0].id)
@@ -271,8 +271,8 @@ export default function PageLayoutEditorPage() {
     )
   }
 
-  const baselineNodes = layout?.nodes ?? layout?.sections_json ?? []
-  const hasUnsavedChanges = !areNodesEqual(sections, baselineNodes)
+  const baselineNodes = (layout?.nodes ?? (layout as any)?.sections_json ?? []) as any[]
+  const hasUnsavedChanges = !areNodesEqual(sections as any, baselineNodes)
   const isPublished = !!layout?.published_at
   const hasUnpublishedChanges = !!layout?.has_unpublished_changes || hasUnsavedChanges
   const syncing = saveMutation.isPending || unpublishMutation.isPending

@@ -134,10 +134,24 @@ export const api = {
       }),
   },
   products: {
-    list: (params?: { category?: string; q?: string; attributes?: Record<string, string> }) => {
+    list: (params?: {
+      category?: string;
+      q?: string;
+      attributes?: Record<string, string>;
+      page?: number;
+      limit?: number;
+      sort?: string;
+      price_min?: number;
+      price_max?: number;
+    }) => {
       const search = new URLSearchParams();
       if (params?.category) search.set('category', params.category);
       if (params?.q) search.set('q', params.q);
+      if (params?.page) search.set('page', String(params.page));
+      if (params?.limit) search.set('limit', String(params.limit));
+      if (params?.sort) search.set('sort', params.sort);
+      if (params?.price_min !== undefined) search.set('price_min', String(params.price_min));
+      if (params?.price_max !== undefined) search.set('price_max', String(params.price_max));
       if (params?.attributes && Object.keys(params.attributes).length > 0) {
         search.set('attributes', JSON.stringify(params.attributes));
       }

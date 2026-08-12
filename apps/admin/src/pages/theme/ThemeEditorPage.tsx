@@ -550,6 +550,47 @@ export default function ThemeEditorPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
+          {/* Quick Presets */}
+          <div className="flex items-center gap-1 border rounded-lg p-1 bg-muted/30">
+            <span className="text-[11px] text-muted-foreground font-medium px-2">Presets:</span>
+            <button
+              onClick={() => {
+                setOverride(["colors", "light", "muted", "primary"], "oklch(0.18 0.04 270)")
+                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.92 0.01 260)")
+              }}
+              className="px-2 py-1 text-[10px] font-semibold rounded bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20"
+            >
+              Indigo
+            </button>
+            <button
+              onClick={() => {
+                setOverride(["colors", "light", "muted", "primary"], "oklch(0.5 0.2 155)")
+                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.68 0.22 155)")
+              }}
+              className="px-2 py-1 text-[10px] font-semibold rounded bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
+            >
+              Emerald Luxe
+            </button>
+            <button
+              onClick={() => {
+                setOverride(["colors", "light", "muted", "primary"], "oklch(0.48 0.22 250)")
+                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.62 0.22 250)")
+              }}
+              className="px-2 py-1 text-[10px] font-semibold rounded bg-blue-500/10 text-blue-600 hover:bg-blue-500/20"
+            >
+              Sapphire Royal
+            </button>
+            <button
+              onClick={() => {
+                setOverride(["colors", "light", "muted", "primary"], "oklch(0.5 0.22 270)")
+                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.65 0.22 270)")
+              }}
+              className="px-2 py-1 text-[10px] font-semibold rounded bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
+            >
+              Violet Glow
+            </button>
+          </div>
+
           <Button variant="outline" size="sm" onClick={resetAll} disabled={!dirty}>
             <RotateCcw className="size-3.5" />
             Reset edits
