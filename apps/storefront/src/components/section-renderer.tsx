@@ -7,13 +7,13 @@ import {
   type BuilderNode,
 } from '@commerceos/shared-types';
 
-// Local registry for storefront-specific components that can't be in the generic @commerceos/components package
+// Local registry for storefront-specific components
 const localRegistry: Record<string, { component: React.ComponentType<any> }> = {
   'product-details.v1': { component: ProductClient as React.ComponentType<any> },
 };
 
 type SectionRendererProps = {
-  nodes: BuilderNode[];
+  nodes: (BuilderNode | any)[];
   dataContext?: Record<string, unknown>;
 };
 
@@ -62,13 +62,27 @@ export function SectionRenderer({ nodes, dataContext = {} }: SectionRendererProp
         const Component = registryEntry.component;
         const resolvedProps = resolveProps(node.props, dataContext);
 
-        // Render children recursively if any exist
+        const deviceTarget = node.props?.deviceTarget || 'all';
+        let deviceClass = '';
+        if (deviceTarget === 'desktop') deviceClass = 'hidden md:block';
+        if (deviceTarget === 'mobile') deviceClass = 'block md:hidden';
+
+        const customStyles = node.options?.styles || {};
+        const inlineStyles = {
+          paddingTop: customStyles.paddingTop || undefined,
+          paddingBottom: customStyles.paddingBottom || undefined,
+          backgroundColor: customStyles.backgroundColor || undefined,
+        };
+        const customClass = customStyles.customCssClass || '';
+
         return (
-          <Component key={node.id} {...resolvedProps}>
-            {node.children && node.children.length > 0 && (
-              <SectionRenderer nodes={node.children} dataContext={dataContext} />
-            )}
-          </Component>
+          <div key={node.id} className={`${deviceClass} ${customClass}`.trim() || undefined} style={inlineStyles}>
+            <Component {...resolvedProps}>
+              {node.children && node.children.length > 0 && (
+                <SectionRenderer nodes={node.children} dataContext={dataContext} />
+              )}
+            </Component>
+          </div>
         );
       })}
     </>

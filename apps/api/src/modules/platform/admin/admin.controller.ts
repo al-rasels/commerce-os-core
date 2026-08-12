@@ -36,6 +36,8 @@ export class AdminController {
       domain: string;
       plan_id: string;
       template_id?: string;
+      admin_email?: string;
+      admin_password?: string;
     },
   ) {
     return this.adminService.provisionTenant(data);

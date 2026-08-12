@@ -7,7 +7,7 @@ import { Lock } from 'lucide-react';
 
 interface CheckoutPaymentFormProps {
   orderId: string;
-  clientSecret: string;
+  clientSecret?: string;
   onSuccess: () => void;
 }
 
@@ -46,7 +46,6 @@ export default function CheckoutPaymentForm({
       return;
     }
 
-    // Payment succeeded without redirect (for some payment methods)
     onSuccess();
   };
 
@@ -91,4 +90,3 @@ export default function CheckoutPaymentForm({
     </form>
   );
 }
-

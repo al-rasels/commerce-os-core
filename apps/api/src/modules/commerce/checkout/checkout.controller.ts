@@ -18,11 +18,9 @@ export class CheckoutController {
     @GetTenantContext() ctx: TenantContext,
     @Body() dto: CheckoutDto,
   ) {
-    return this.checkoutService.checkout(
-      ctx,
-      dto.cart_id,
-      dto.shipping_rule_id,
-      dto.promo_code,
-    );
+    return this.checkoutService.checkout(ctx, dto.cart_id, {
+      shippingRuleId: dto.shipping_rule_id,
+      promoCode: dto.promo_code,
+    });
   }
 }

@@ -6,6 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Search, Plus, Lock, LayoutTemplate, ShoppingBag, Navigation, Mail, Layers } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ComponentMetadata } from "@commerceos/shared-types"
+import { cn } from "@/lib/utils"
 
 interface AddSectionPanelProps {
   onAdd: (key: string) => void
@@ -29,18 +30,25 @@ function getCategoryIcon(key: string) {
 
 export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
   const [search, setSearch] = useState("")
-  const schemaList = Object.values(sectionSchemas)
+  const [activeCategory, setActiveCategory] = useState<string>("all")
+  const schemaList = Object.values(sectionSchemas) as any[]
+
+  const categories = [
+    { id: "all", label: "All" },
+    { id: "hero", label: "Hero & Banners" },
+    { id: "commerce", label: "Commerce" },
+    { id: "content", label: "Content" },
+    { id: "engagement", label: "Engagement" },
+  ]
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return schemaList
-    const q = search.toLowerCase()
-    return schemaList.filter(
-      (s) =>
-        s.name.toLowerCase().includes(q) ||
-        s.key.toLowerCase().includes(q) ||
-        s.description.toLowerCase().includes(q),
-    )
-  }, [schemaList, search])
+    return schemaList.filter((s: any) => {
+      const q = search.toLowerCase().trim()
+      const matchesSearch = !q || s.name.toLowerCase().includes(q) || s.key.toLowerCase().includes(q) || s.description.toLowerCase().includes(q)
+      const matchesCategory = activeCategory === "all" || s.category === activeCategory
+      return matchesSearch && matchesCategory
+    })
+  }, [schemaList, search, activeCategory])
 
   return (
     <div className="flex flex-col gap-3 py-2">
@@ -52,6 +60,23 @@ export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
           onChange={(e) => setSearch(e.target.value)}
           className="h-8 pl-8 text-xs"
         />
+      </div>
+
+      <div className="flex flex-wrap gap-1 border-b pb-2">
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setActiveCategory(cat.id)}
+            className={cn(
+              "px-2 py-1 text-[11px] rounded-md transition-colors font-medium",
+              activeCategory === cat.id
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+            )}
+          >
+            {cat.label}
+          </button>
+        ))}
       </div>
 
       <ScrollArea className="h-[380px] pr-2">
@@ -112,7 +137,7 @@ export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
           {filtered.length === 0 && (
             <div className="flex flex-col items-center gap-2 py-8 text-center text-xs text-muted-foreground">
               <Layers className="size-6 opacity-40" />
-              <p>No section components match &quot;{search}&quot;</p>
+              <p>No section components match search or filter</p>
             </div>
           )}
         </div>

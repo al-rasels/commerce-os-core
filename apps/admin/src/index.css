@@ -180,6 +180,111 @@
   --color-sidebar-ring: oklch(0.5 0.22 270 / 0.5);
 }
 
+/* ===== Dark Emerald — Deep Forest & Vibrant Mint Glow ===== */
+[data-theme="dark-emerald"] {
+  --color-background: oklch(0.09 0.015 160);
+  --color-foreground: oklch(0.97 0.01 160);
+  --color-card: oklch(0.13 0.025 160);
+  --color-card-foreground: oklch(0.97 0.01 160);
+  --color-popover: oklch(0.13 0.025 160);
+  --color-popover-foreground: oklch(0.97 0.01 160);
+  --color-primary: oklch(0.68 0.22 155);
+  --color-primary-foreground: oklch(0.09 0.015 160);
+  --color-secondary: oklch(0.19 0.03 160);
+  --color-secondary-foreground: oklch(0.97 0.01 160);
+  --color-muted: oklch(0.16 0.02 160);
+  --color-muted-foreground: oklch(0.65 0.04 160);
+  --color-accent: oklch(0.7 0.2 170);
+  --color-accent-foreground: oklch(0.09 0.015 160);
+  --color-success: oklch(0.72 0.22 150);
+  --color-success-foreground: oklch(0.09 0.015 160);
+  --color-warning: oklch(0.75 0.2 85);
+  --color-warning-foreground: oklch(0.09 0.015 160);
+  --color-destructive: oklch(0.65 0.22 25);
+  --color-destructive-foreground: oklch(0.98 0.005 160);
+  --color-border: oklch(0.22 0.035 160);
+  --color-input: oklch(0.22 0.035 160);
+  --color-ring: oklch(0.68 0.22 155 / 0.5);
+  --color-sidebar: oklch(0.09 0.015 160);
+  --color-sidebar-foreground: oklch(0.97 0.01 160);
+  --color-sidebar-border: oklch(0.22 0.035 160);
+  --color-sidebar-accent: oklch(0.13 0.025 160);
+  --color-sidebar-accent-foreground: oklch(0.97 0.01 160);
+  --color-sidebar-primary: oklch(0.68 0.22 155);
+  --color-sidebar-primary-foreground: oklch(0.09 0.015 160);
+  --color-sidebar-ring: oklch(0.68 0.22 155 / 0.5);
+}
+
+/* ===== Light Emerald — Soft Mint Background & Emerald Primary ===== */
+[data-theme="light-emerald"] {
+  --color-background: oklch(0.985 0.005 160);
+  --color-foreground: oklch(0.12 0.02 160);
+  --color-card: oklch(0.995 0.002 160);
+  --color-card-foreground: oklch(0.12 0.02 160);
+  --color-popover: oklch(0.995 0.002 160);
+  --color-popover-foreground: oklch(0.12 0.02 160);
+  --color-primary: oklch(0.5 0.2 155);
+  --color-primary-foreground: oklch(0.985 0.005 160);
+  --color-secondary: oklch(0.93 0.015 160);
+  --color-secondary-foreground: oklch(0.12 0.02 160);
+  --color-muted: oklch(0.95 0.01 160);
+  --color-muted-foreground: oklch(0.45 0.03 160);
+  --color-accent: oklch(0.55 0.2 170);
+  --color-accent-foreground: oklch(0.985 0.005 160);
+  --color-success: oklch(0.5 0.2 150);
+  --color-success-foreground: oklch(0.985 0.005 160);
+  --color-warning: oklch(0.6 0.18 85);
+  --color-warning-foreground: oklch(0.985 0.005 160);
+  --color-destructive: oklch(0.55 0.2 25);
+  --color-destructive-foreground: oklch(0.985 0.005 160);
+  --color-border: oklch(0.88 0.015 160);
+  --color-input: oklch(0.88 0.015 160);
+  --color-ring: oklch(0.5 0.2 155 / 0.4);
+  --color-sidebar: oklch(0.985 0.005 160);
+  --color-sidebar-foreground: oklch(0.12 0.02 160);
+  --color-sidebar-border: oklch(0.88 0.015 160);
+  --color-sidebar-accent: oklch(0.93 0.015 160);
+  --color-sidebar-accent-foreground: oklch(0.12 0.02 160);
+  --color-sidebar-primary: oklch(0.5 0.2 155);
+  --color-sidebar-primary-foreground: oklch(0.985 0.005 160);
+  --color-sidebar-ring: oklch(0.5 0.2 155 / 0.4);
+}
+
+/* ===== Dark Sapphire — Deep Royal Blue & Cyan Highlights ===== */
+[data-theme="dark-sapphire"] {
+  --color-background: oklch(0.1 0.015 250);
+  --color-foreground: oklch(0.97 0.01 250);
+  --color-card: oklch(0.14 0.025 250);
+  --color-card-foreground: oklch(0.97 0.01 250);
+  --color-popover: oklch(0.14 0.025 250);
+  --color-popover-foreground: oklch(0.97 0.01 250);
+  --color-primary: oklch(0.62 0.22 250);
+  --color-primary-foreground: oklch(0.98 0.005 250);
+  --color-secondary: oklch(0.2 0.03 250);
+  --color-secondary-foreground: oklch(0.97 0.01 250);
+  --color-muted: oklch(0.17 0.02 250);
+  --color-muted-foreground: oklch(0.65 0.03 250);
+  --color-accent: oklch(0.68 0.2 210);
+  --color-accent-foreground: oklch(0.1 0.015 250);
+  --color-success: oklch(0.65 0.2 145);
+  --color-success-foreground: oklch(0.98 0.005 250);
+  --color-warning: oklch(0.7 0.2 85);
+  --color-warning-foreground: oklch(0.1 0.015 250);
+  --color-destructive: oklch(0.65 0.22 25);
+  --color-destructive-foreground: oklch(0.98 0.005 250);
+  --color-border: oklch(0.22 0.035 250);
+  --color-input: oklch(0.22 0.035 250);
+  --color-ring: oklch(0.62 0.22 250 / 0.5);
+  --color-sidebar: oklch(0.1 0.015 250);
+  --color-sidebar-foreground: oklch(0.97 0.01 250);
+  --color-sidebar-border: oklch(0.22 0.035 250);
+  --color-sidebar-accent: oklch(0.14 0.025 250);
+  --color-sidebar-accent-foreground: oklch(0.97 0.01 250);
+  --color-sidebar-primary: oklch(0.62 0.22 250);
+  --color-sidebar-primary-foreground: oklch(0.98 0.005 250);
+  --color-sidebar-ring: oklch(0.62 0.22 250 / 0.5);
+}
+
 @layer base {
 
   *,
@@ -196,12 +301,61 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
   }
 
   body {
     background: radial-gradient(ellipse 80% 50% at 50% -20%,
-        color-mix(in oklab, var(--color-primary) 15%, transparent),
+        color-mix(in oklab, var(--color-primary) 18%, transparent),
         transparent);
     min-height: 100vh;
   }
+}
+
+/* ===== Micro-Animations & Utility Classes ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 2.5s ease-in-out infinite;
+}
+
+.glass-card {
+  background: color-mix(in oklab, var(--color-card) 85%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, var(--color-border) 80%, transparent);
+}
+
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px color-mix(in oklab, var(--color-primary) 20%, transparent);
+}
+
+.active-press:active {
+  transform: scale(0.98);
 }

@@ -45,7 +45,7 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}/v1/auth${path}`, {
     headers: { 'Content-Type': 'application/json', ...options?.headers },
-    credentials: 'include', // Ensure cookies are sent and received
+    credentials: 'include',
     ...options,
   });
   if (!res.ok) {
@@ -62,8 +62,6 @@ async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 async function authRequestWithToken<T>(path: string, options?: RequestInit): Promise<T> {
-  // Tokens are now handled via HttpOnly cookies, so we don't strictly need to send the Bearer token,
-  // but if we do have it in memory (e.g. access_token), we can send it for redundancy or if CSRF requires it.
   const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
   return authRequest<T>(path, {
     ...options,
@@ -175,6 +173,11 @@ export const api = {
       request<any>(`/cart/${cartId}/items/${itemId}`, { method: 'DELETE' }),
   },
   checkout: {
+    preview: (cartId: string, data: { shipping_state?: string; shipping_rule_id?: string; promo_code?: string }) =>
+      request<any>(`/checkout/${cartId}/preview`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }),
     submit: (cartId: string, email: string, sessionId: string, addressData?: {
       shipping_first_name?: string;
       shipping_last_name?: string;

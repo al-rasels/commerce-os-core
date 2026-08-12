@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { CatalogService } from './catalog.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -37,8 +38,11 @@ export class CatalogController {
 
   @Get('products')
   @RequirePermissions('catalog.read')
-  async listProducts(@GetTenantContext() ctx: TenantContext) {
-    return this.catalogService.listProducts(ctx);
+  async listProducts(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('category') category?: string,
+  ) {
+    return this.catalogService.listProducts(ctx, category);
   }
 
   @Post('categories')

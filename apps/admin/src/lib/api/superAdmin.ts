@@ -24,6 +24,8 @@ export interface ProvisionTenantInput {
   plan_id: string;
   domain?: string;
   template_id?: string;
+  admin_email?: string;
+  admin_password?: string;
 }
 
 export const superAdminApi = {
@@ -31,6 +33,8 @@ export const superAdminApi = {
   getTenant: (id: string) => api.get<TenantDetail>(`/api/v1/super-admin/tenants/${id}`),
   suspendTenant: (id: string) =>
     api.patch<void>(`/api/v1/super-admin/tenants/${id}`, { status: 'suspended' }),
+  updatePlan: (id: string, plan_id: string) =>
+    api.patch<TenantDetail>(`/api/v1/super-admin/tenants/${id}`, { plan_id }),
   toggleFlag: (id: string, flag_key: string, enabled: boolean) =>
     api.post<void>(`/api/v1/super-admin/tenants/${id}/flags`, { flag_key, enabled }),
   provisionTenant: (input: ProvisionTenantInput) =>

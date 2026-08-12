@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { GripVertical, Eye, EyeOff, Trash2, Settings, AlertTriangle, Copy } from "lucide-react"
+import { GripVertical, Eye, EyeOff, Trash2, Settings, AlertTriangle, Copy, ArrowUp, ArrowDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -17,8 +17,10 @@ interface SectionCardProps {
   isSelected: boolean
   onSelect: () => void
   onToggleVisibility: () => void
-  onDuplicate?: () => void
   onDelete: () => void
+  onDuplicate?: () => void
+  onMoveUp?: () => void
+  onMoveDown?: () => void
 }
 
 export function SectionCard({
@@ -26,8 +28,10 @@ export function SectionCard({
   isSelected,
   onSelect,
   onToggleVisibility,
-  onDuplicate,
   onDelete,
+  onDuplicate,
+  onMoveUp,
+  onMoveDown,
 }: SectionCardProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: section.id })
 
@@ -42,6 +46,7 @@ export function SectionCard({
   const isUnknown = !schema
   const displayName = schema?.name ?? section.component
   const hasRules = section.rules && section.rules.length > 0
+  const deviceTarget = (section.props as any)?.deviceTarget ?? "all"
 
   return (
     <div
@@ -49,7 +54,7 @@ export function SectionCard({
       style={style}
       data-selected={isSelected || undefined}
       onClick={onSelect}
-      className={`group relative flex cursor-pointer items-center gap-2 rounded-lg border bg-card px-3 py-2.5 text-sm transition-all hover:border-primary/50 hover:bg-accent/40 ${
+      className={`group relative flex cursor-pointer items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm transition-all hover:border-primary/50 hover:bg-accent/40 ${
         isSelected
           ? "border-primary bg-accent/60 ring-1 ring-primary shadow-xs"
           : "border-border/70"
@@ -64,18 +69,23 @@ export function SectionCard({
         <GripVertical className="size-4" />
       </button>
 
-      {isUnknown ? (
+      {isUnknown && (
         <Tooltip>
-          <TooltipTrigger
-            render={<AlertTriangle className="size-4 shrink-0 text-destructive" />}
-          />
+          <TooltipTrigger>
+            <AlertTriangle className="size-4 shrink-0 text-destructive" />
+          </TooltipTrigger>
           <TooltipContent side="top">Unknown component: {section.component}</TooltipContent>
         </Tooltip>
-      ) : null}
+      )}
 
       <div className="flex flex-1 flex-col gap-0.5 min-w-0">
         <div className="flex items-center gap-1.5 min-w-0">
           <span className="truncate font-semibold text-xs text-foreground">{displayName}</span>
+          {deviceTarget !== "all" && (
+            <Badge variant="outline" className="text-[9px] px-1 py-0 uppercase font-mono">
+              {deviceTarget}
+            </Badge>
+          )}
           {meta?.minPlan && (
             <Badge
               variant="outline"
@@ -86,7 +96,7 @@ export function SectionCard({
           )}
         </div>
         <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground">
-          <span className="font-mono text-[9px] text-muted-foreground/80">{section.component}</span>
+          <span className="font-mono text-[9px] text-muted-foreground/80 truncate">{section.component}</span>
           {hasRules && (
             <Badge variant="secondary" className="text-[9px] h-3.5 px-1 py-0 text-primary bg-primary/10">
               {section.rules!.length} rule{section.rules!.length > 1 ? "s" : ""}
@@ -96,23 +106,16 @@ export function SectionCard({
       </div>
 
       <div className="flex items-center gap-0.5 opacity-80 group-hover:opacity-100">
-        <Button
-          variant="ghost"
-          size="icon-xs"
-          className="h-6 w-6"
-          onClick={(e) => {
-            e.stopPropagation()
-            onToggleVisibility()
-          }}
-          title={section.visible ? "Hide section" : "Show section"}
-        >
-          {section.visible ? (
-            <Eye className="size-3.5 text-foreground" />
-          ) : (
-            <EyeOff className="size-3.5 text-muted-foreground" />
-          )}
-        </Button>
-
+        {onMoveUp && (
+          <Button variant="ghost" size="icon-xs" className="h-6 w-6" onClick={(e) => { e.stopPropagation(); onMoveUp() }} title="Move up">
+            <ArrowUp className="size-3" />
+          </Button>
+        )}
+        {onMoveDown && (
+          <Button variant="ghost" size="icon-xs" className="h-6 w-6" onClick={(e) => { e.stopPropagation(); onMoveDown() }} title="Move down">
+            <ArrowDown className="size-3" />
+          </Button>
+        )}
         {onDuplicate && (
           <Button
             variant="ghost"
@@ -127,20 +130,22 @@ export function SectionCard({
             <Copy className="size-3" />
           </Button>
         )}
-
         <Button
           variant="ghost"
           size="icon-xs"
-          className="h-6 w-6 text-muted-foreground hover:text-foreground"
+          className="h-6 w-6"
           onClick={(e) => {
             e.stopPropagation()
-            onSelect()
+            onToggleVisibility()
           }}
-          title="Edit properties"
+          title={section.visible ? "Hide section" : "Show section"}
         >
-          <Settings className="size-3" />
+          {section.visible ? (
+            <Eye className="size-3.5 text-primary" />
+          ) : (
+            <EyeOff className="size-3.5 text-muted-foreground" />
+          )}
         </Button>
-
         <Button
           variant="ghost"
           size="icon-xs"

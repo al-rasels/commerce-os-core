@@ -1,9 +1,24 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
-export type ThemeMode = 'dark-muted' | 'dark-colorful' | 'light-muted' | 'light-colorful';
+export type ThemeMode =
+  | 'dark-muted'
+  | 'dark-colorful'
+  | 'dark-emerald'
+  | 'light-emerald'
+  | 'dark-sapphire'
+  | 'light-muted'
+  | 'light-colorful';
 
 const THEME_KEY = 'admin_theme';
-const VALID_THEMES: ThemeMode[] = ['dark-muted', 'dark-colorful', 'light-muted', 'light-colorful'];
+const VALID_THEMES: ThemeMode[] = [
+  'dark-muted',
+  'dark-colorful',
+  'dark-emerald',
+  'light-emerald',
+  'dark-sapphire',
+  'light-muted',
+  'light-colorful',
+];
 
 interface ThemeContextType {
     theme: ThemeMode;

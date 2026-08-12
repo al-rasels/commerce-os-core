@@ -63,8 +63,10 @@ export default function CheckoutPage() {
   const [orderId, setOrderId] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [step, setStep] = useState(1);
-  const [shippingMethod, setShippingMethod] = useState('standard');
+  const [shippingMethod, setShippingMethod] = useState('');
   const [emailValid, setEmailValid] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [previewData, setPreviewData] = useState<any>(null);
 
   // Simple email validation
   useEffect(() => {
@@ -92,6 +94,11 @@ export default function CheckoutPage() {
       try {
         const data = await api.cart.get(cartId);
         setCart(data);
+        const preview = await api.checkout.preview(cartId, {});
+        setPreviewData(preview);
+        if (preview.shipping_options?.length > 0) {
+          setShippingMethod(preview.shipping_options[0].id);
+        }
       } catch {
         setCart(null);
       } finally {
@@ -100,6 +107,24 @@ export default function CheckoutPage() {
     };
     load();
   }, [cartId]);
+
+  useEffect(() => {
+    if (!cartId || step < 2) return;
+    const fetchPreview = async () => {
+      try {
+        const preview = await api.checkout.preview(cartId, {
+          shipping_state: shippingState,
+          shipping_rule_id: shippingMethod || undefined,
+          promo_code: promoCode || undefined,
+        });
+        setPreviewData(preview);
+      } catch (e) {
+        console.error('Preview error', e);
+      }
+    };
+    const timer = setTimeout(fetchPreview, 300);
+    return () => clearTimeout(timer);
+  }, [cartId, shippingState, shippingMethod, promoCode, step]);
 
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,6 +148,8 @@ export default function CheckoutPage() {
           shipping_country: shippingCountry,
           shipping_phone: shippingPhone,
           billing_same_as_shipping: billingSameAsShipping,
+          shipping_rule_id: shippingMethod || undefined,
+          promo_code: promoCode || undefined,
         });
         setOrderId(result.order?.id);
         setClientSecret(result.client_secret);
@@ -160,14 +187,13 @@ export default function CheckoutPage() {
   }
 
   const items = cart?.items ?? [];
-  const subtotal = items.reduce(
-    (sum: number, i: any) => sum + (i.variant?.price_cents ?? 0) * i.quantity,
-    0,
-  );
   const currency = items[0]?.variant?.currency ?? 'USD';
-  const tax = 0;
-  const shipping = subtotal > 15000 ? 0 : 1500;
-  const total = subtotal + tax + shipping;
+  const subtotal = previewData?.subtotal_cents ?? 0;
+  const tax = previewData?.tax_cents ?? 0;
+  const shipping = previewData?.shipping_cents ?? 0;
+  const discount = previewData?.discount_cents ?? 0;
+  const total = previewData?.total_cents ?? 0;
+  const shippingOptions = previewData?.shipping_options ?? [];
 
   if (items.length === 0 && !clientSecret) {
     return (
@@ -428,37 +454,29 @@ export default function CheckoutPage() {
               <motion.div animate={{ height: step === 2 ? "auto" : 0 }} className="overflow-hidden">
                 <form onSubmit={handlePlaceOrder}>
                   <div className="space-y-3 mb-8">
-                    <label className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-colors ${shippingMethod === 'standard' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border/50 hover:border-foreground/30'}`}>
-                      <div className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${shippingMethod === 'standard' ? 'border-primary' : 'border-muted-foreground'}`}>
-                          {shippingMethod === 'standard' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
-                        </div>
-                        <div>
-                          <p className="font-medium">Standard Shipping</p>
-                          <p className="text-sm text-muted-foreground">3-5 business days</p>
-                        </div>
-                      </div>
-                      <span className="font-semibold">{subtotal > 15000 ? 'Free' : '$15.00'}</span>
-                      <input type="radio" name="shipping" value="standard" checked={shippingMethod === 'standard'} onChange={(e) => setShippingMethod(e.target.value)} className="hidden" />
-                    </label>
-                    <label className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-colors ${shippingMethod === 'express' ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border/50 hover:border-foreground/30'}`}>
-                      <div className="flex items-center gap-3">
-                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${shippingMethod === 'express' ? 'border-primary' : 'border-muted-foreground'}`}>
-                          {shippingMethod === 'express' && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
-                        </div>
-                        <div>
-                          <p className="font-medium">Express Shipping</p>
-                          <p className="text-sm text-muted-foreground">1-2 business days</p>
-                        </div>
-                      </div>
-                      <span className="font-semibold">$25.00</span>
-                      <input type="radio" name="shipping" value="express" checked={shippingMethod === 'express'} onChange={(e) => setShippingMethod(e.target.value)} className="hidden" />
-                    </label>
+                    {shippingOptions.length === 0 ? (
+                      <p className="text-sm text-muted-foreground">No shipping options available for the selected address.</p>
+                    ) : (
+                      shippingOptions.map((option: any) => (
+                        <label key={option.id} className={`flex items-center justify-between p-4 border rounded-xl cursor-pointer transition-colors ${shippingMethod === option.id ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border/50 hover:border-foreground/30'}`}>
+                          <div className="flex items-center gap-3">
+                            <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${shippingMethod === option.id ? 'border-primary' : 'border-muted-foreground'}`}>
+                              {shippingMethod === option.id && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
+                            </div>
+                            <div>
+                              <p className="font-medium">{option.name}</p>
+                            </div>
+                          </div>
+                          <span className="font-semibold">{option.price_cents === 0 ? 'Free' : `${currency} ${(option.price_cents / 100).toFixed(2)}`}</span>
+                          <input type="radio" name="shipping" value={option.id} checked={shippingMethod === option.id} onChange={(e) => setShippingMethod(e.target.value)} className="hidden" />
+                        </label>
+                      ))
+                    )}
                   </div>
                   <Button 
                     type="submit" 
                     className="w-full h-12 text-base font-semibold rounded-xl" 
-                    disabled={submitting}
+                    disabled={submitting || shippingOptions.length === 0}
                   >
                     {submitting ? 'Preparing Order...' : 'Continue to Payment'}
                   </Button>
@@ -467,7 +485,7 @@ export default function CheckoutPage() {
               {step > 2 && (
                 <div className="pl-9 text-sm text-muted-foreground flex items-center gap-2 mt-4">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  {shippingMethod === 'standard' ? 'Standard Shipping' : 'Express Shipping'}
+                  {shippingOptions.find((o: any) => o.id === shippingMethod)?.name || 'Selected Shipping'}
                 </div>
               )}
             </motion.div>
@@ -572,18 +590,37 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
+              <div className="border-t border-border/50 pt-4 mb-4">
+                <Label htmlFor="promoCode" className="text-sm font-semibold mb-2 block">Promo Code</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    id="promoCode" 
+                    placeholder="Enter code" 
+                    value={promoCode} 
+                    onChange={(e) => setPromoCode(e.target.value)}
+                    className="h-10 bg-muted/50 border-border/50 focus:bg-background"
+                  />
+                </div>
+              </div>
+
               <div className="border-t border-border/50 pt-4 space-y-3">
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Subtotal</span>
                   <span className="font-medium text-foreground">{currency} {(subtotal / 100).toFixed(2)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-sm text-green-600">
+                    <span>Discount</span>
+                    <span className="font-medium">-{currency} {(discount / 100).toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Shipping</span>
                   <span className="font-medium text-foreground">{shipping === 0 ? 'Free' : `${currency} ${(shipping / 100).toFixed(2)}`}</span>
                 </div>
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>Taxes</span>
-                  <span className="font-medium text-foreground">Calculated at next step</span>
+                  <span className="font-medium text-foreground">{tax === 0 ? '-' : `${currency} ${(tax / 100).toFixed(2)}`}</span>
                 </div>
               </div>
 

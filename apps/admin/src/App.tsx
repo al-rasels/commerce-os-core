@@ -5,6 +5,7 @@ import LoginPage from "@/pages/LoginPage"
 import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage"
 import ResetPasswordPage from "@/pages/auth/ResetPasswordPage"
 import ChangePasswordPage from "@/pages/auth/ChangePasswordPage"
+import MfaSetupPage from "@/pages/auth/MfaSetupPage"
 import ProductListPage from "@/pages/products/ProductListPage"
 import ProductFormPage from "@/pages/products/ProductFormPage"
 import CategoryListPage from "@/pages/categories/CategoryListPage"
@@ -67,6 +68,7 @@ export default function App() {
             <Route path="users/invite" element={<UserInvitePage />} />
             <Route path="users/:id" element={<UserDetailPage />} />
             <Route path="change-password" element={<ChangePasswordPage />} />
+            <Route path="mfa-setup" element={<MfaSetupPage />} />
             <Route path="theme" element={<ThemeEditorPage />} />
             <Route path="settings/pages" element={<PageLayoutListPage />} />
             <Route path="settings/pages/:pageKey" element={<PageLayoutEditorPage />} />

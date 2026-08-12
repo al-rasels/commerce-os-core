@@ -114,6 +114,8 @@ export function CreateStoreWizard() {
   const [storeName, setStoreName] = useState('');
   const [storeDomain, setStoreDomain] = useState('');
   const [planId, setPlanId] = useState('starter');
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
 
   useEffect(() => {
     templatesApi.list()
@@ -134,6 +136,8 @@ export function CreateStoreWizard() {
         domain: storeDomain,
         plan_id: planId,
         template_id: selectedTemplateId,
+        admin_email: adminEmail || undefined,
+        admin_password: adminPassword || undefined,
       });
       navigate('/super-admin/tenants');
     } finally {
@@ -254,6 +258,32 @@ export function CreateStoreWizard() {
                     <SelectItem value="enterprise">Enterprise</SelectItem>
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="border-t pt-4 mt-2">
+                <h3 className="text-sm font-medium mb-4">Initial Admin User</h3>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-email">Admin Email</Label>
+                    <Input
+                      id="admin-email"
+                      type="email"
+                      placeholder="admin@mystore.com"
+                      value={adminEmail}
+                      onChange={(e) => setAdminEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="admin-password">Admin Password</Label>
+                    <Input
+                      id="admin-password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
+                    />
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>

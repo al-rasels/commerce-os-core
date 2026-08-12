@@ -13,7 +13,7 @@ const { authenticator } = require('otplib');
 import * as QRCode from 'qrcode';
 import { UsersService } from '../users/users.service';
 import { RedisService } from '../redis/redis.service';
-import { EmailService } from '../notifications/email.service';
+import { EmailService } from '../email/email.service';
 import { TenantContext } from '../tenant/tenant-context';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
@@ -185,9 +185,7 @@ export class AuthService {
 
     const key = `reset_token:${ctx.tenantId}:${user.id}`;
     await this.redis.set(key, token, 900);
-
-    const resetUrl = `${process.env.STOREFRONT_URL || 'http://localhost:3001'}/account/reset-password?token=${token}`;
-    await this.emailService.sendPasswordReset(normalizedEmail, resetUrl);
+    await this.emailService.sendPasswordReset(user.email, token, ctx.domain);
 
     return { message: 'If the email exists, a reset link has been sent' };
   }
@@ -257,8 +255,7 @@ export class AuthService {
       status: 'pending',
     });
 
-    const loginUrl = `${process.env.STOREFRONT_URL || 'http://localhost:3001'}/account/login`;
-    await this.emailService.sendInvite(normalizedEmail, tempPassword, loginUrl);
+    await this.emailService.sendStaffInvite(normalizedEmail, tempPassword, ctx.domain);
 
     return { message: 'Invitation sent' };
   }
@@ -301,7 +298,7 @@ export class AuthService {
       user.id,
       ctx.tenantId,
       ((user.role as any).permissions as string[]) || [],
-      sid, // reuse sid for same session
+      sid,
     );
     return tokens;
   }

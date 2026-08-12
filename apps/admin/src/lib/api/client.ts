@@ -65,7 +65,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
         });
         headers['Authorization'] = `Bearer ${newToken}`;
         res = await fetch(`${API_BASE}${path}`, { ...options, headers });
-      } catch (err) {
+      } catch {
         throw new ApiError(401, 'Unauthorized');
       }
     } else {
@@ -113,7 +113,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     let body: any = {};
     try {
       body = await res.json();
-    } catch (_) {
+    } catch {
       // Not JSON
     }
 

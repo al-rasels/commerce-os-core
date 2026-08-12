@@ -349,10 +349,11 @@ function TypographySection({
   return (
     <div className="space-y-4">
       {subSections.map(({ key, label }) => {
-        const group = typography[key] as Record<string, string>
-        const defaults = defaultTypography[key] as Record<string, string>
+        const keyStr = String(key)
+        const group = (typography as any)[keyStr] as Record<string, string> || {}
+        const defaults = (defaultTypography as any)[keyStr] as Record<string, string> || {}
         return (
-          <div key={key}>
+          <div key={keyStr}>
             <h4 className="text-xs font-medium text-muted-foreground mb-1 uppercase tracking-wider">{label}</h4>
             <div className="space-y-0.5">
               {Object.entries(group).map(([k, v]) => (
@@ -360,8 +361,8 @@ function TypographySection({
                   key={k}
                   label={k}
                   value={v}
-                  onChange={(nv) => onChange([key, k], nv)}
-                  onReset={v !== defaults[k] ? () => onChange([key, k], defaults[k]) : undefined}
+                  onChange={(nv) => onChange([keyStr, k], nv)}
+                  onReset={v !== defaults[k] ? () => onChange([keyStr, k], defaults[k]) : undefined}
                 />
               ))}
             </div>

@@ -85,7 +85,7 @@ export default function CustomerDetailPage() {
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      {((order.total_cents ?? 0) / 100).toFixed(2)} {order.currency}
+                      {((order as any).total ?? (order.total_cents ? order.total_cents / 100 : 0)).toFixed(2)} {order.currency}
                     </TableCell>
                     <TableCell className="text-muted-foreground">
                       {new Date(order.created_at).toLocaleDateString()}

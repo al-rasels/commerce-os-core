@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { CartBadge } from "@/components/cart-badge";
+import { MobileNav } from "@/components/mobile-nav";
 import { SearchAutocomplete } from "@/components/search-autocomplete";
 
 export function FloatingHeader() {
@@ -55,11 +56,12 @@ export function FloatingHeader() {
         <div className={`flex-1 mx-8 hidden ${isFloating ? "lg:hidden" : "lg:block"} max-w-sm`}>
           <SearchAutocomplete />
         </div>
-        <div className="flex items-center gap-4">
-          <Link href="/account" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+        <div className="flex items-center gap-3">
+          <Link href="/account" className="hidden sm:inline-block text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Account
           </Link>
           <CartBadge />
+          <MobileNav />
         </div>
       </div>
     </motion.header>

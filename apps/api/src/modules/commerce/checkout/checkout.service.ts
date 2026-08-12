@@ -14,6 +14,7 @@ import { ShippingService } from '../shipping/shipping.service';
 import { TaxService } from '../tax/tax.service';
 import { PromotionsService } from '../promotions/promotions.service';
 import { AuditLogService } from '../../platform/audit-log/audit-log.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
 export class CheckoutService {
@@ -29,14 +30,21 @@ export class CheckoutService {
     private readonly promotionsService: PromotionsService,
     private readonly inventoryService: InventoryService,
     private readonly auditLog: AuditLogService,
+    private readonly prisma: PrismaService,
   ) {}
 
   async checkout(
     ctx: TenantContext,
     cartId: string,
-    shippingRuleId?: string,
-    promoCode?: string,
+    options?: {
+      shippingRuleId?: string;
+      promoCode?: string;
+      email?: string;
+      shippingAddress?: any;
+      billingAddress?: any;
+    }
   ) {
+    const { shippingRuleId, promoCode, email, shippingAddress, billingAddress } = options || {};
     this.logger.log(
       `Starting checkout for cart ${cartId} (Tenant: ${ctx.tenantId})`,
     );
@@ -132,11 +140,31 @@ export class CheckoutService {
 
     this.logger.log(`Processing transaction for cart ${cartId}`);
 
+    let customerId = (cart as any).customer_id;
+    if (!customerId && email) {
+      const existing = await this.prisma.customer.findFirst({
+        where: { tenant_id: ctx.tenantId, email },
+      });
+      if (existing) {
+        customerId = existing.id;
+      } else {
+        const created = await this.prisma.customer.create({
+          data: { tenant_id: ctx.tenantId, email },
+        });
+        customerId = created.id;
+      }
+    }
+
+    if (!customerId) {
+      throw new BadRequestException('Customer ID or email is required to create an order');
+    }
+
     let order;
     try {
       // PHASE 2: Create Order
       order = await this.orderService.createOrder(ctx, {
-        customer_id: (cart as any).customer_id!,
+        customer_id: customerId,
+        customer_email: email || null,
         status: 'pending',
         subtotal_cents: subtotalCents,
         tax_cents: taxCents,
@@ -145,6 +173,8 @@ export class CheckoutService {
         total_cents: totalCents,
         currency,
         channel: 'online',
+        shipping_address: shippingAddress || {},
+        billing_address: billingAddress || {},
         items: {
           create: (cart as any).items.map((i: any) => ({
             tenant_id: ctx.tenantId,
@@ -197,5 +227,76 @@ export class CheckoutService {
     );
 
     return { order, client_secret };
+  }
+
+  async preview(
+    ctx: TenantContext,
+    cartId: string,
+    options?: {
+      shippingRuleId?: string;
+      promoCode?: string;
+      shippingState?: string;
+    }
+  ) {
+    const { shippingRuleId, promoCode, shippingState } = options || {};
+
+    const cart = await this.cartService.getWithItems(ctx, cartId);
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+
+    const subtotalCents = (cart as any).items.reduce(
+      (sum: number, i: any) => sum + i.variant.price_cents * i.quantity,
+      0,
+    );
+
+    let shippingCents = 0;
+    const shippingOptions = await this.shippingService.calculateShippingOptions(
+      ctx,
+      subtotalCents,
+      0,
+    );
+    
+    if (shippingRuleId) {
+      const selected = shippingOptions.find(
+        (o: any) => o.id === shippingRuleId,
+      );
+      if (selected) {
+        shippingCents = selected.price_cents;
+      }
+    }
+
+    let discountCents = 0;
+    if (promoCode) {
+      try {
+        const result = await this.promotionsService.validateAndApply(
+          ctx,
+          promoCode,
+          subtotalCents,
+        );
+        discountCents = result.discount_cents;
+      } catch (e) {
+        // Just ignore invalid promo codes for preview
+      }
+    }
+
+    const taxableAmount = subtotalCents - discountCents;
+    const taxResult = await this.taxService.calculateTax(
+      ctx,
+      Math.max(taxableAmount, 0),
+      shippingState
+    );
+    const taxCents = taxResult.total_tax_cents;
+
+    const totalCents = Math.max(taxableAmount, 0) + taxCents + shippingCents;
+
+    return {
+      subtotal_cents: subtotalCents,
+      shipping_cents: shippingCents,
+      tax_cents: taxCents,
+      discount_cents: discountCents,
+      total_cents: totalCents,
+      shipping_options: shippingOptions,
+    };
   }
 }

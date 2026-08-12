@@ -271,6 +271,10 @@ function AppSidebar() {
                     <KeyRound className="mr-2 size-4" />
                     Change Password
                   </DropdownMenuItem>
+                  <DropdownMenuItem render={<Link to="/mfa-setup" />}>
+                    <Shield className="mr-2 size-4" />
+                    Two-Factor Auth
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <LogoutMenuItem />

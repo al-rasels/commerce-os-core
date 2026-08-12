@@ -12,6 +12,7 @@ import { TenantContextMiddleware } from './tenant/middlewares/tenant-context.mid
 import { TenantService } from './tenant/tenant.service';
 
 import { AdminModule } from './admin/admin.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AdminModule } from './admin/admin.module';
     QueueModule,
     AdminModule,
     HealthModule,
+    EmailModule,
   ],
 })
 export class PlatformModule implements NestModule {

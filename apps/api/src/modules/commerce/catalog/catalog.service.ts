@@ -38,8 +38,19 @@ export class CatalogService {
     return product;
   }
 
-  async listProducts(ctx: TenantContext) {
-    return this.productRepo.findMany(ctx, { orderBy: { created_at: 'desc' } });
+  async listProducts(ctx: TenantContext, categorySlug?: string) {
+    const where: any = {};
+    if (categorySlug) {
+      where.category = { slug: categorySlug };
+    }
+    
+    return this.productRepo.findMany(ctx, { 
+      where,
+      orderBy: { created_at: 'desc' },
+      include: {
+        variants: true,
+      }
+    });
   }
 
   async createCategory(ctx: TenantContext, dto: CreateCategoryDto) {

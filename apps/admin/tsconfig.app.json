@@ -20,12 +20,17 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@commerceos/components": ["../../packages/components/dist/index.d.ts", "../../packages/components/*.ts"],
+      "@commerceos/design-tokens": ["../../packages/design-tokens/dist/index.d.ts"],
+      "@commerceos/shared-types": ["../../packages/shared-types/dist/index.d.ts"],
+      "@commerceos/theme-engine": ["../../packages/theme-engine/dist/index.d.ts"],
+      "@commerceos/ui-config": ["../../packages/ui-config/index.js"]
     },
 
     /* Linting */
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },

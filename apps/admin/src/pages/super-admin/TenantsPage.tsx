@@ -1,24 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { superAdminApi } from '@/lib/api';
-import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/ui/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
+import { ProvisionTenantDialog } from './ProvisionTenantDialog';
 
 export function TenantsPage() {
   const [tenants, setTenants] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const loadTenants = useCallback(() => {
     setError(null);
     superAdminApi.listTenants()
       .then((res) => setTenants(res.data))
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    loadTenants();
+  }, [loadTenants]);
 
   const columns = [
     {
@@ -72,9 +76,7 @@ export function TenantsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Super Admin: Tenants</h1>
-        <Link to="/super-admin/create-store">
-          <Button>Provision Tenant</Button>
-        </Link>
+        <ProvisionTenantDialog onProvisioned={loadTenants} />
       </div>
       
       <div className="border rounded-md">

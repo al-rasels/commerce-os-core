@@ -4,10 +4,13 @@ import { Button } from '@/components/ui/button';
 import { Palette } from 'lucide-react';
 
 const THEMES: { id: ThemeMode; label: string; preview: string }[] = [
-    { id: 'dark-muted', label: 'Dark Muted', preview: '#818cf8' },
-    { id: 'dark-colorful', label: 'Dark Colorful', preview: '#7c3aed' },
-    { id: 'light-muted', label: 'Light Muted', preview: '#6366f1' },
-    { id: 'light-colorful', label: 'Light Colorful', preview: '#7c3aed' },
+  { id: 'dark-muted', label: 'Indigo Midnight', preview: '#818cf8' },
+  { id: 'dark-emerald', label: 'Emerald Luxe (Dark)', preview: '#10b981' },
+  { id: 'light-emerald', label: 'Emerald Mint (Light)', preview: '#059669' },
+  { id: 'dark-sapphire', label: 'Sapphire Royal', preview: '#3b82f6' },
+  { id: 'dark-colorful', label: 'Violet Glow', preview: '#7c3aed' },
+  { id: 'light-muted', label: 'Clean White', preview: '#6366f1' },
+  { id: 'light-colorful', label: 'Light Colorful', preview: '#a855f7' },
 ];
 
 export function ThemeSwitcher() {

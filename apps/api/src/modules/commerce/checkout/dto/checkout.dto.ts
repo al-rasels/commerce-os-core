@@ -11,4 +11,14 @@ export class CheckoutDto {
   @IsOptional()
   @IsString()
   promo_code?: string;
+
+  @IsOptional()
+  @IsString()
+  email?: string;
+
+  @IsOptional()
+  shipping_address?: any;
+
+  @IsOptional()
+  billing_address?: any;
 }

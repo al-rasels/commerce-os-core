@@ -37,38 +37,38 @@ export default function OrderListPage() {
       key: "id",
       label: "Order ID",
       sortable: true,
-      render: (o) => <span className="font-mono text-xs">{o.id.slice(0, 8)}…</span>,
+      render: (o: any) => <span className="font-mono text-xs">{o.id.slice(0, 8)}…</span>,
     },
     {
       key: "customer_id",
       label: "Customer",
       sortable: true,
-      render: (o) => <span className="text-muted-foreground">{o.customer_id ? `${o.customer_id.slice(0, 8)}…` : "-"}</span>,
+      render: (o: any) => <span className="text-muted-foreground">{o.customer_id ? `${o.customer_id.slice(0, 8)}…` : "-"}</span>,
     },
     {
       key: "status",
       label: "Status",
       sortable: true,
-      render: (o) => <StatusBadge status={o.status} />,
+      render: (o: any) => <StatusBadge status={o.status} />,
     },
     {
       key: "total",
       label: "Total",
       sortable: true,
       className: "text-right",
-      render: (o) => <span className="font-medium">{(o.total / 100).toFixed(2)} {o.currency}</span>,
+      render: (o: any) => <span className="font-medium">{((o.total ?? 0) > 100 ? o.total / 100 : o.total).toFixed(2)} {o.currency}</span>,
     },
     {
       key: "created_at",
       label: "Date",
       sortable: true,
-      render: (o) => <span className="text-muted-foreground text-sm">{new Date(o.created_at).toLocaleDateString()}</span>,
+      render: (o: any) => <span className="text-muted-foreground text-sm">{new Date(o.created_at).toLocaleDateString()}</span>,
     },
     {
       key: "actions",
       label: "Actions",
       className: "text-right w-20",
-      render: (o) => (
+      render: (o: any) => (
         <div className="flex justify-end">
           <Link to={`/orders/${o.id}`}>
             <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-primary/10 hover:text-primary">

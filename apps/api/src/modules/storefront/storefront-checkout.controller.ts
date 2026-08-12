@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { GetTenantContext } from '../../common/decorators/tenant-context.decorator';
 import { TenantContext } from '../platform/tenant/tenant-context';
-import { PrismaService } from '../../prisma/prisma.service';
 import { CheckoutService } from '../commerce/checkout/checkout.service';
 
 /**
@@ -18,17 +17,27 @@ import { CheckoutService } from '../commerce/checkout/checkout.service';
  *
  * Delegates the actual order/pricing/reservation/payment work to the commerce
  * `CheckoutService` (single source of truth for tax, shipping, promotions,
- * atomic stock reservation + rollback, and Stripe intent creation). This
- * controller only validates tenant ownership, attaches a guest customer, and
- * enriches the resulting order with the shipping/billing address captured on
- * the storefront form.
+ * atomic stock reservation + rollback, and Stripe intent creation).
  */
 @Controller('v1/storefront/checkout')
 export class StorefrontCheckoutController {
-  constructor(
-    private readonly prismaService: PrismaService,
-    private readonly checkoutService: CheckoutService,
-  ) {}
+  constructor(private readonly checkoutService: CheckoutService) {}
+
+  @Post(':cartId/preview')
+  @HttpCode(HttpStatus.OK)
+  async preview(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('cartId') cartId: string,
+    @Body('shipping_rule_id') shippingRuleId?: string,
+    @Body('promo_code') promoCode?: string,
+    @Body('shipping_state') shippingState?: string,
+  ) {
+    return this.checkoutService.preview(ctx, cartId, {
+      shippingRuleId,
+      promoCode,
+      shippingState,
+    });
+  }
 
   @Post(':cartId')
   @HttpCode(HttpStatus.OK)
@@ -40,58 +49,8 @@ export class StorefrontCheckoutController {
     @Body('shipping_rule_id') shippingRuleId?: string,
     @Body('promo_code') promoCode?: string,
     @Body('billing_same_as_shipping') billingSameAsShipping?: boolean,
-    @Body() body: Record<string, unknown> = {},
+    @Body() body: Record<string, any> = {},
   ) {
-    const prisma = this.prismaService;
-
-    // 1. Tenant-scoped cart validation.
-    const cart = await prisma.cart.findUnique({
-      where: { id: cartId },
-      include: { items: { include: { variant: true } } },
-    });
-    if (!cart || cart.tenant_id !== ctx.tenantId) {
-      throw new NotFoundException('Cart not found');
-    }
-    if (cart.status !== 'open') {
-      throw new BadRequestException('Cart is not open');
-    }
-    if (cart.items.length === 0) {
-      throw new BadRequestException('Cart is empty');
-    }
-
-    // 2. Attach (or create) the guest customer so CheckoutService can build an order.
-    let customerId = cart.customer_id;
-    if (!customerId && email) {
-      const existing = await prisma.customer.findFirst({
-        where: { tenant_id: ctx.tenantId, email },
-      });
-      customerId = existing
-        ? existing.id
-        : (
-            await prisma.customer.create({
-              data: { tenant_id: ctx.tenantId, email },
-            })
-          ).id;
-      await prisma.cart.update({
-        where: { id: cartId },
-        data: { customer_id: customerId },
-      });
-    }
-    if (!customerId) {
-      throw new BadRequestException(
-        'Customer ID or email is required to create an order',
-      );
-    }
-
-    // 3. Single source of truth: reuse the commerce checkout orchestration.
-    const { order, client_secret } = await this.checkoutService.checkout(
-      ctx,
-      cartId,
-      shippingRuleId,
-      promoCode,
-    );
-
-    // 4. Enrich the order with the storefront form's address / contact details.
     const shippingAddress = {
       first_name: body.shipping_first_name ?? null,
       last_name: body.shipping_last_name ?? null,
@@ -103,6 +62,7 @@ export class StorefrontCheckoutController {
       country: body.shipping_country ?? null,
       phone: body.shipping_phone ?? null,
     };
+
     const billingAddress = billingSameAsShipping
       ? shippingAddress
       : {
@@ -116,15 +76,12 @@ export class StorefrontCheckoutController {
           country: body.billing_country ?? null,
         };
 
-    await prisma.order.update({
-      where: { id: order.id },
-      data: {
-        customer_email: email || null,
-        shipping_address: shippingAddress,
-        billing_address: billingAddress,
-      },
+    return this.checkoutService.checkout(ctx, cartId, {
+      shippingRuleId,
+      promoCode,
+      email,
+      shippingAddress,
+      billingAddress,
     });
-
-    return { order, client_secret };
   }
 }
