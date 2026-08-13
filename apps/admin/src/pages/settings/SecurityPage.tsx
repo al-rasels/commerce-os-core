@@ -13,7 +13,7 @@ import { toast } from 'sonner';
  * or disable with the account password.
  */
 export default function SecurityPage() {
-  const { user, token } = useAuth();
+  const { user } = useAuth();
   const userId = user?.id ?? '';
 
   const [enabled, setEnabled] = useState(false);

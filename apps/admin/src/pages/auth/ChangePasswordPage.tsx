@@ -38,8 +38,8 @@ export default function ChangePasswordPage() {
     try {
       await api.post("/api/v1/auth/change-password", {
         user_id: user!.id,
-        current_password: currentPassword,
-        new_password: newPassword,
+        currentPassword: currentPassword,
+        newPassword: newPassword,
       })
       toast.success("Password changed")
       setCurrentPassword("")

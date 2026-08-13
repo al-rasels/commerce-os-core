@@ -29,9 +29,10 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
-  const [page, productResponse] = await Promise.all([
+  const [page, productResponse, reviews] = await Promise.all([
     serverApi.experience.getPage('product_detail').catch(() => null),
     serverApi.products.get(slug).catch(() => null),
+    serverApi.products.reviews(slug).catch(() => null),
   ]);
 
   if (!productResponse || productResponse.notFound) {
@@ -83,7 +84,7 @@ export default async function ProductPage({
   return (
     <>
       <JsonLd data={jsonLdData} />
-      <ProductPageClient nodes={page.nodes} initialProduct={enrichedProduct} />
+      <ProductPageClient nodes={page.nodes} initialProduct={enrichedProduct} reviews={reviews} />
     </>
   );
 }

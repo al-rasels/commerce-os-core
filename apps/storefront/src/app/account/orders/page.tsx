@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { useAuthStore } from '@/lib/auth-store';
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/empty-state';
 import { Package, ArrowLeft, LogOut } from 'lucide-react';
@@ -35,12 +36,12 @@ export default function OrderHistoryPage() {
     const router = useRouter();
     const [orders, setOrders] = useState<Order[]>([]);
     const [loading, setLoading] = useState(true);
-    const [user, setUser] = useState<{ email: string } | null>(null);
+    const user = useAuthStore((state) => state.user);
+    const logout = useAuthStore((state) => state.logout);
 
     const loadOrders = async () => {
         try {
-            const userData = JSON.parse(localStorage.getItem('user') || '{}');
-            const data = await api.orders.listByEmail(userData.email || '');
+            const data = await api.orders.listByEmail(user?.email || '');
             setOrders(Array.isArray(data) ? data : []);
         } catch {
             setOrders([]);
@@ -50,19 +51,16 @@ export default function OrderHistoryPage() {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('auth_token');
-        const userData = localStorage.getItem('user');
-        if (!token || !userData) {
+        if (!user) {
             router.push('/account/login');
             return;
         }
-        setUser(JSON.parse(userData));
         loadOrders();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user]);
 
-    const handleLogout = () => {
-        localStorage.removeItem('auth_token');
-        localStorage.removeItem('user');
+    const handleLogout = async () => {
+        await logout();
         router.push('/');
     };
 

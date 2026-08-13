@@ -4,8 +4,7 @@ import React, { useEffect } from 'react';
 
 type ResolvedTheme = {
   themeBaseId?: string;
-  tokensJson?: Record<string, string>;
-  tokens_json?: Record<string, string>;
+  tokens?: Record<string, string>;
 };
 
 export function TenantThemeProvider({
@@ -16,7 +15,7 @@ export function TenantThemeProvider({
   theme?: ResolvedTheme;
 }) {
   useEffect(() => {
-    const tokens = theme?.tokensJson || theme?.tokens_json;
+    const tokens = theme?.tokens;
     if (tokens) {
       const root = document.documentElement;
       Object.entries(tokens).forEach(([key, value]) => {

@@ -26,6 +26,14 @@ function getToken(): string | null {
   return localStorage.getItem('admin_token');
 }
 
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+
+function getCsrfToken(): string | null {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
 function getRefreshToken(): string | null {
   return localStorage.getItem('admin_refresh_token');
 }
@@ -46,6 +54,7 @@ function processQueue(error: Error | null, token: string | null = null) {
 
 async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
+  const method = (options.method || 'GET').toUpperCase();
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
@@ -55,7 +64,13 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  let res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+  if (!SAFE_METHODS.has(method)) {
+    const csrf = getCsrfToken();
+    if (csrf) headers['x-csrf-token'] = csrf;
+  }
+
+  const fetchOptions: RequestInit = { ...options, headers, credentials: 'include' };
+  let res = await fetch(`${API_BASE}${path}`, fetchOptions);
 
   if (res.status === 401 && !path.includes('/auth/login') && !path.includes('/auth/refresh')) {
     if (isRefreshing) {
@@ -64,7 +79,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
           failedQueue.push({ resolve, reject });
         });
         headers['Authorization'] = `Bearer ${newToken}`;
-        res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+        res = await fetch(`${API_BASE}${path}`, { ...fetchOptions, headers });
       } catch {
         throw new ApiError(401, 'Unauthorized');
       }
@@ -89,7 +104,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
         processQueue(null, data.access_token);
         
         headers['Authorization'] = `Bearer ${data.access_token}`;
-        res = await fetch(`${API_BASE}${path}`, { ...options, headers });
+        res = await fetch(`${API_BASE}${path}`, { ...fetchOptions, headers });
       } catch (err) {
         processQueue(err as Error, null);
         localStorage.removeItem('admin_token');

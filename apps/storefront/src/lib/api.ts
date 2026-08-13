@@ -23,9 +23,30 @@ export class ApiError extends Error {
   }
 }
 
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+
+function getCsrfToken(): string | null {
+  if (typeof document === 'undefined') return null;
+  const match = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function withCsrfHeaders(method: string | undefined, headers: Record<string, string>) {
+  if (!SAFE_METHODS.has((method || 'GET').toUpperCase())) {
+    const csrf = getCsrfToken();
+    if (csrf) headers['x-csrf-token'] = csrf;
+  }
+  return headers;
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options?.headers as Record<string, string> | undefined),
+  };
+  withCsrfHeaders(options?.method, headers);
   const res = await fetch(`${API_BASE}/v1/storefront${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers,
     credentials: 'include',
     ...options,
   });
@@ -43,8 +64,13 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 async function authRequest<T>(path: string, options?: RequestInit): Promise<T> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(options?.headers as Record<string, string> | undefined),
+  };
+  withCsrfHeaders(options?.method, headers);
   const res = await fetch(`${API_BASE}/v1/auth${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    headers,
     credentials: 'include',
     ...options,
   });
@@ -98,7 +124,7 @@ export const api = {
     changePassword: (userId: string, currentPassword: string, newPassword: string) =>
       authRequestWithToken<any>('/change-password', {
         method: 'POST',
-        body: JSON.stringify({ user_id: userId, current_password: currentPassword, new_password: newPassword }),
+        body: JSON.stringify({ user_id: userId, currentPassword, newPassword }),
       }),
     mfaVerify: (mfaToken: string, code: string) =>
       authRequest<any>('/mfa/verify', {
@@ -138,20 +164,22 @@ export const api = {
       category?: string;
       q?: string;
       attributes?: Record<string, string>;
+      brand?: string;
+      minPrice?: number;
+      maxPrice?: number;
+      sort?: string;
       page?: number;
       limit?: number;
-      sort?: string;
-      price_min?: number;
-      price_max?: number;
     }) => {
       const search = new URLSearchParams();
       if (params?.category) search.set('category', params.category);
       if (params?.q) search.set('q', params.q);
+      if (params?.brand) search.set('brand', params.brand);
+      if (params?.minPrice !== undefined && params?.minPrice !== null && !Number.isNaN(params.minPrice)) search.set('min_price', String(params.minPrice));
+      if (params?.maxPrice !== undefined && params?.maxPrice !== null && !Number.isNaN(params.maxPrice)) search.set('max_price', String(params.maxPrice));
+      if (params?.sort) search.set('sort', params.sort);
       if (params?.page) search.set('page', String(params.page));
       if (params?.limit) search.set('limit', String(params.limit));
-      if (params?.sort) search.set('sort', params.sort);
-      if (params?.price_min !== undefined) search.set('price_min', String(params.price_min));
-      if (params?.price_max !== undefined) search.set('price_max', String(params.price_max));
       if (params?.attributes && Object.keys(params.attributes).length > 0) {
         search.set('attributes', JSON.stringify(params.attributes));
       }

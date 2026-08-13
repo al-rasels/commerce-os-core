@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { SectionRenderer } from "@/components/section-renderer";
 
-export function ProductPageClient({ nodes, initialProduct }: { nodes: any[], initialProduct: any }) {
+export function ProductPageClient({ nodes, initialProduct, reviews }: { nodes: any[], initialProduct: any, reviews?: any }) {
   const optionsMap = useMemo(() => {
     const map: Record<string, Set<string>> = {};
     initialProduct.variants?.forEach((v: any) => {
@@ -46,5 +46,5 @@ export function ProductPageClient({ nodes, initialProduct }: { nodes: any[], ini
     handleOptionSelect,
   };
 
-  return <SectionRenderer nodes={nodes} dataContext={{ product: dynamicProduct }} />;
+  return <SectionRenderer nodes={nodes} dataContext={{ product: dynamicProduct, reviews }} />;
 }

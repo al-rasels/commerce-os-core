@@ -58,6 +58,10 @@ export const serverApi = {
       );
     },
     get: (slug: string) => serverRequest<any>(`/storefront/products/${slug}`),
+    reviews: (slug: string) =>
+      serverRequest<{ data: any[]; summary: { count: number; avg: number } }>(
+        `/storefront/products/${slug}/reviews`,
+      ),
   },
   categories: {
     list: () => serverRequest<any[]>('/storefront/categories'),

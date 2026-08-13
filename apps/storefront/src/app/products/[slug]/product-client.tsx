@@ -6,9 +6,9 @@ import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { AddToCartButton } from "@/components/add-to-cart-button";
-import { Check, ShieldCheck, Truck, ChevronDown, ChevronUp, X, ZoomIn } from "lucide-react";
+import { Check, ShieldCheck, Truck, ChevronDown, ChevronUp, X, ZoomIn, Star } from "lucide-react";
 
-export function ProductClient({ product, currency }: any) {
+export function ProductClient({ product, currency, reviews, showReviews }: any) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ loop: true });
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
@@ -272,6 +272,66 @@ export function ProductClient({ product, currency }: any) {
                   )}
                 </div>
               </div>
+
+              {/* Reviews */}
+              {showReviews !== false && (
+                <div className="mt-10 pt-8 border-t border-border/50">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-xl font-bold text-foreground">Customer Reviews</h2>
+                    {reviews && reviews.summary && reviews.summary.count > 0 && (
+                      <span className="inline-flex items-center gap-2">
+                        <span className="flex">
+                          {[1, 2, 3, 4, 5].map(n => (
+                            <Star
+                              key={n}
+                              className={`w-4 h-4 ${n <= Math.round(reviews.summary.avg) ? 'fill-primary text-primary' : 'text-muted-foreground/30'}`}
+                            />
+                          ))}
+                        </span>
+                        <span className="text-sm text-muted-foreground">
+                          {Number(reviews.summary.avg).toFixed(1)} · {reviews.summary.count} {reviews.summary.count === 1 ? 'review' : 'reviews'}
+                        </span>
+                      </span>
+                    )}
+                  </div>
+
+                  {!reviews || !reviews.data || reviews.data.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No reviews yet.</p>
+                  ) : (
+                    <ul className="space-y-6">
+                      {reviews.data.map((r: any) => (
+                        <li key={r.id} className="pb-6 border-b border-border/50 last:border-b-0">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold shrink-0">
+                                {(r.author || 'V').charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                <p className="text-sm font-semibold text-foreground">{r.author}</p>
+                                {r.created_at && (
+                                  <p className="text-xs text-muted-foreground">
+                                    {new Date(r.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                            <span className="flex">
+                              {[1, 2, 3, 4, 5].map(n => (
+                                <Star
+                                  key={n}
+                                  className={`w-4 h-4 ${n <= (r.rating || 0) ? 'fill-primary text-primary' : 'text-muted-foreground/30'}`}
+                                />
+                              ))}
+                            </span>
+                          </div>
+                          {r.title && <p className="font-semibold text-foreground text-sm mb-1">{r.title}</p>}
+                          {r.body && <p className="text-sm text-muted-foreground leading-relaxed">{r.body}</p>}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </motion.div>
           </div>
         </div>

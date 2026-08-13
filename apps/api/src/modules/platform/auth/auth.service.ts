@@ -174,7 +174,8 @@ export class AuthService {
   }
 
   async forgotPassword(ctx: TenantContext, dto: ForgotPasswordDto) {
-    const user = await this.usersService.findByEmail(ctx, dto.email);
+    const normalizedEmail = dto.email.toLowerCase().trim();
+    const user = await this.usersService.findByEmail(ctx, normalizedEmail);
     if (!user)
       return { message: 'If the email exists, a reset link has been sent' };
 

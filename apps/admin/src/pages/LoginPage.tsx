@@ -6,11 +6,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { motion, AnimatePresence } from "framer-motion"
 import { toast } from "sonner"
-import { Eye, EyeOff, Loader2, Mail, Lock, ShieldCheck, ArrowRight, Command } from "lucide-react"
+import { Eye, EyeOff, Loader2, Mail, Lock, ShieldCheck, ArrowRight, Command, WifiOff } from "lucide-react"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { cn } from "@/lib/utils"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -19,26 +21,58 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
+interface LoginError {
+  message: string
+  kind: "auth" | "network" | "generic"
+}
+
+function toLoginError(err: unknown): LoginError {
+  const raw = err instanceof Error ? err.message : String(err || "An unexpected error occurred.")
+  if (/failed to fetch|networkerror|network error|cannot connect to server|api server is running/i.test(raw)) {
+    return {
+      message: "Cannot connect to the server. Please verify the API is running and try again.",
+      kind: "network",
+    }
+  }
+  if (/incorrect email or password|invalid credentials|unauthorized/i.test(raw)) {
+    return { message: raw, kind: "auth" }
+  }
+  return { message: raw, kind: "generic" }
+}
+
+const REMEMBER_EMAIL_KEY = "admin_remember_email"
+
 export default function LoginPage() {
   const { login, mfaVerify } = useAuth()
   const navigate = useNavigate()
 
   const [mfaCode, setMfaCode] = useState("")
   const [mfaToken, setMfaToken] = useState("")
-  const [error, setError] = useState("")
+  const [error, setError] = useState<LoginError | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [capsLock, setCapsLock] = useState(false)
   const [success, setSuccess] = useState(false)
   const [mfaLoading, setMfaLoading] = useState(false)
+  const [rememberEmail, setRememberEmail] = useState<boolean>(
+    () => localStorage.getItem(REMEMBER_EMAIL_KEY) !== null
+  )
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema as any),
-    defaultValues: { email: "", password: "" },
+    defaultValues: {
+      email: rememberEmail ? localStorage.getItem(REMEMBER_EMAIL_KEY) ?? "" : "",
+      password: "",
+    },
   })
+
+  const email = watch("email")
+  const password = watch("password")
+  const canSubmit = Boolean(email?.trim() && password)
 
   // Detect caps lock
   useEffect(() => {

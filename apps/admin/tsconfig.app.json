@@ -21,10 +21,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@commerceos/components": ["../../packages/components/dist/index.d.ts", "../../packages/components/*.ts"],
-      "@commerceos/design-tokens": ["../../packages/design-tokens/dist/index.d.ts"],
-      "@commerceos/shared-types": ["../../packages/shared-types/dist/index.d.ts"],
-      "@commerceos/theme-engine": ["../../packages/theme-engine/dist/index.d.ts"],
+      "@commerceos/components": ["../../packages/components/index.ts", "../../packages/components/*.ts"],
+      "@commerceos/design-tokens": ["../../packages/design-tokens/index.ts"],
+      "@commerceos/shared-types": ["../../packages/shared-types/index.ts"],
+      "@commerceos/theme-engine": ["../../packages/theme-engine/index.ts"],
       "@commerceos/ui-config": ["../../packages/ui-config/index.js"]
     },
 

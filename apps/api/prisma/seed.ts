@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import * as argon2 from 'argon2';
 import { applyTemplateData } from '../src/modules/experience/template/template-apply';
+import { generateFakerCatalog } from './faker-catalog';
 
 const prisma = new PrismaClient();
 
@@ -189,7 +190,7 @@ async function main() {
           product_detail: [
             { component: 'breadcrumbs.v1', props: { homeLabel: 'Home', separator: '/' } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_stacked', zoom: true, showThumbnails: true, thumbnailPosition: 'left' } },
-            { component: 'product-details.v1', props: { showReviews: true, showSku: true, showStockLevel: true, showSizeGuide: true, showWishlist: true, showShare: true } },
+            { component: 'product-details.v1', props: { product: { $bind: 'product' }, currency: { $bind: 'product.currency' }, reviews: { $bind: 'reviews' }, showReviews: true, showSku: true, showStockLevel: true, showSizeGuide: true, showWishlist: true, showShare: true } },
             { component: 'faq.v1', props: { items: [{ title: 'Details & Fit', content: 'Multi-season weight, true to size, model is 5\'10" wearing size S' }, { title: 'Materials & Care', content: '100% organic cotton shell, machine wash cold, tumble dry low' }, { title: 'Shipping & Returns', content: 'Free shipping over $150. 60-day return window. Final sale items excluded.' }] } },
             { component: 'product-grid.v1', props: { title: 'Complete the Look', strategy: 'completes_the_outfit', count: 3 } },
             { component: 'product-grid.v1', props: { title: 'You May Also Like', strategy: 'category_based', count: 4, layout: 'horizontal_scroll' } },
@@ -338,7 +339,7 @@ async function main() {
           product_detail: [
             { component: 'breadcrumbs.v1', props: { showCategory: true, showProductName: true } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_column', zoom: true, imageCount: 5, showVideo: true, has360View: true } },
-            { component: 'product-details.v1', props: { showSpecs: true, showSku: true, showStockLevel: true, showReviews: true, showWarranty: true, showFinancing: true } },
+            { component: 'product-details.v1', props: { product: { $bind: 'product' }, currency: { $bind: 'product.currency' }, reviews: { $bind: 'reviews' }, showSpecs: true, showSku: true, showStockLevel: true, showReviews: true, showWarranty: true, showFinancing: true } },
             { component: 'faq.v1', props: { items: [
               { title: 'Technical Specifications', content: 'Detailed spec sheet with dimensions, weight, processor, display, ports, connectivity, and battery information.' },
               { title: 'What\'s in the Box', content: 'Product, charging cable, power adapter, documentation, warranty card.' },
@@ -479,7 +480,7 @@ async function main() {
           product_detail: [
             { component: 'breadcrumbs.v1', props: { showCategory: true, showProductName: true } },
             { component: 'gallery.v1', props: { layout: 'thumbnails_bottom', zoom: true, imageCount: 4 } },
-            { component: 'product-details.v1', props: { showReviews: true, showSku: true, showStockLevel: true, showWishlist: true, showRegistry: true } },
+            { component: 'product-details.v1', props: { product: { $bind: 'product' }, currency: { $bind: 'product.currency' }, reviews: { $bind: 'reviews' }, showReviews: true, showSku: true, showStockLevel: true, showWishlist: true, showRegistry: true } },
             { component: 'faq.v1', props: { items: [
               { title: 'Product Details', content: 'Dimensions, materials, care instructions, and additional product information.' },
               { title: 'Shipping & Returns', content: 'Free shipping on orders $35+. In-store pickup available. 90-day return policy.' },
@@ -561,6 +562,33 @@ async function main() {
   // page layouts (home, products, product_detail) out of the box.
   const tenantALayout = fashionTemplate.layout_json as any;
   const tenantBLayout = electronicsTemplate.layout_json as any;
+
+  // Faker-generated deterministic sample products round out each demo store so
+  // the storefront grid has realistic volume without manual data entry. Appended
+  // to the template layouts and applied through the shared template write path.
+  tenantALayout.sample_products = [
+    ...(tenantALayout.sample_products ?? []),
+    ...generateFakerCatalog({
+      seed: 202602,
+      skuPrefix: 'FKF',
+      categories: ['clothing', 'outerwear', 'footwear', 'accessories', 'sale'],
+      count: 6,
+      priceMin: 25,
+      priceMax: 900,
+      badge: 'New',
+    }),
+  ];
+  tenantBLayout.sample_products = [
+    ...(tenantBLayout.sample_products ?? []),
+    ...generateFakerCatalog({
+      seed: 202603,
+      skuPrefix: 'FKX',
+      categories: ['computers', 'smartphones', 'audio', 'gaming', 'accessories', 'deals'],
+      count: 6,
+      priceMin: 20,
+      priceMax: 2500,
+    }),
+  ];
 
   // NOTE: no explicit $transaction here — the Neon connection pooler drops long
   // interactive transactions (P2028), so template application runs as individual
