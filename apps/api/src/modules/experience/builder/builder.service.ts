@@ -27,11 +27,9 @@ export class BuilderService {
   private toDTO(row: PageLayout): PageLayoutDTO {
     const draft =
       ((row as any).draft_json as unknown as PageLayoutDocument) ??
-      ((row as any).sections_json as unknown as PageLayoutDocument) ??
       EMPTY_DOC;
     const published =
       ((row as any).published_json as unknown as PageLayoutDocument) ??
-      ((row as any).sections_json as unknown as PageLayoutDocument) ??
       EMPTY_DOC;
     const publishedNodes = Array.isArray(published.nodes)
       ? published.nodes
@@ -72,21 +70,11 @@ export class BuilderService {
       };
     }
 
-    // Public reads 404 unless a version has been published.
-    if (!row || !row.published_at) {
-      throw new NotFoundException(
-        `Page layout '${pageKey}' not found or not published`,
-      );
-    }
-
-    const dto = this.toDTO(row);
-
-    // Authorized draft reads serve the draft, falling back to the published
-    // copy when the draft is empty so the editor always opens with a baseline.
-    if (draft && canReadDraft) {
+    // Authorized draft reads: serve the draft copy even for unpublished pages.
+    if (row && draft && canReadDraft) {
+      const dto = this.toDTO(row);
       const draftDoc =
         ((row as any).draft_json as unknown as PageLayoutDocument) ??
-        ((row as any).sections_json as unknown as PageLayoutDocument) ??
         EMPTY_DOC;
       const draftNodes = Array.isArray(draftDoc.nodes) ? draftDoc.nodes : [];
       return {
@@ -95,6 +83,15 @@ export class BuilderService {
         has_unpublished_changes: !areNodesEqual(draftNodes, dto.nodes),
       };
     }
+
+    // Public reads 404 unless a version has been published.
+    if (!row || !row.published_at) {
+      throw new NotFoundException(
+        `Page layout '${pageKey}' not found or not published`,
+      );
+    }
+
+    const dto = this.toDTO(row);
 
     return dto;
   }

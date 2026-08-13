@@ -73,7 +73,7 @@ export default function PageLayoutEditorPage() {
   const unpublishMutation = useUnpublishPageLayout(pageKey)
 
   const [sections, setSections, { undo, redo, canUndo, canRedo, reset }] = useHistoryState<PageSection[]>([])
-  
+
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
   const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">("desktop")
@@ -92,7 +92,7 @@ export default function PageLayoutEditorPage() {
 
   useEffect(() => {
     if (layout && !initialized.current) {
-      const initialNodes = (layout.nodes ?? (layout as any).sections_json ?? []) as PageSection[]
+      const initialNodes = (layout.nodes ?? []) as PageSection[]
       reset(initialNodes)
       if (initialNodes.length > 0) {
         setSelectedId(initialNodes[0].id)
@@ -205,7 +205,7 @@ export default function PageLayoutEditorPage() {
     },
     [selectedId, setSections],
   )
-  
+
   const handleStylesChange = useCallback(
     (styles: Record<string, string>) => {
       setSections((prev) =>
@@ -237,7 +237,7 @@ export default function PageLayoutEditorPage() {
       ) {
         return;
       }
-      
+
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'z') {
         e.preventDefault();
         if (e.shiftKey) {
@@ -271,7 +271,7 @@ export default function PageLayoutEditorPage() {
     )
   }
 
-  const baselineNodes = (layout?.nodes ?? (layout as any)?.sections_json ?? []) as any[]
+  const baselineNodes = (layout?.nodes ?? []) as any[]
   const hasUnsavedChanges = !areNodesEqual(sections as any, baselineNodes)
   const isPublished = !!layout?.published_at
   const hasUnpublishedChanges = !!layout?.has_unpublished_changes || hasUnsavedChanges
@@ -454,8 +454,8 @@ export default function PageLayoutEditorPage() {
 
         {/* Center: Live Responsive Preview Frame */}
         <div className="flex-1 h-full min-w-0">
-          <PagePreviewFrame 
-            sections={sections} 
+          <PagePreviewFrame
+            sections={sections}
             device={device}
             onDeviceChange={setDevice}
           />

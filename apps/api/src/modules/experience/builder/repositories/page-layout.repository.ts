@@ -16,7 +16,7 @@ export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
     ctx: TenantContext,
     pageKey: string,
   ): Promise<PageLayout | null> {
-    const results = await this.findMany(ctx, { page_key: pageKey });
+    const results = await this.findMany(ctx, { where: { page_key: pageKey } });
     return results.length > 0 ? results[0] : null;
   }
 
@@ -31,25 +31,22 @@ export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
     doc: PageLayoutDocument,
   ): Promise<PageLayout> {
     const jsonVal = doc as unknown as Prisma.InputJsonValue;
-    const dataObj: any = {
-      sections_json: jsonVal,
-      draft_json: jsonVal,
-    };
     return this.prisma.pageLayout.upsert({
       where: {
         tenant_id_page_key: { tenant_id: ctx.tenantId, page_key: pageKey },
       },
-      update: dataObj,
+      update: {
+        draft_json: jsonVal,
+      },
       create: {
         tenant_id: ctx.tenantId,
         page_key: pageKey,
-        sections_json: jsonVal,
         draft_json: jsonVal,
         published_json: {
           version: LAYOUT_VERSION,
           nodes: [],
         } as unknown as Prisma.InputJsonValue,
-      } as any,
+      },
     });
   }
 
@@ -57,7 +54,7 @@ export class PageLayoutRepository extends TenantScopedRepository<PageLayout> {
   async publish(ctx: TenantContext, pageKey: string): Promise<void> {
     await this.prisma.$executeRaw`
       UPDATE "page_layouts"
-      SET "sections_json" = COALESCE("draft_json", "sections_json"), "published_at" = NOW(), "updated_at" = NOW()
+      SET "published_json" = "draft_json", "published_at" = NOW(), "updated_at" = NOW()
       WHERE "tenant_id" = ${ctx.tenantId} AND "page_key" = ${pageKey}
     `;
   }

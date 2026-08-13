@@ -73,7 +73,6 @@ export async function applyTemplateData(
           tenant_id_page_key: { tenant_id: tenantId, page_key: pageKey },
         },
         update: {
-          sections_json: jsonVal,
           draft_json: jsonVal,
           published_json: jsonVal,
           published_at: new Date(),
@@ -81,7 +80,6 @@ export async function applyTemplateData(
         create: {
           tenant_id: tenantId,
           page_key: pageKey,
-          sections_json: jsonVal,
           draft_json: jsonVal,
           published_json: jsonVal,
           published_at: new Date(),
@@ -128,7 +126,7 @@ export async function applyTemplateData(
           for (const v of prod.variants) {
             const attrs = {
               ...(typeof v.attributes_json === 'object' &&
-              v.attributes_json !== null
+                v.attributes_json !== null
                 ? v.attributes_json
                 : {}),
             };

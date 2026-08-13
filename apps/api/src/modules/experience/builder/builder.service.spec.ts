@@ -83,6 +83,16 @@ describe('BuilderService', () => {
       expect(result.nodes[0].id).toBe('d1');
     });
 
+    it('serves the draft copy for an authorized draft read of an unpublished page', async () => {
+      repo.findByPageKey.mockResolvedValue(makeRow({ published_at: null }));
+
+      const result = await service.getPageLayout(ctx as any, 'homepage', true, true);
+
+      expect(result.status).toBe('draft');
+      expect(result.published_at).toBeNull();
+      expect(result.nodes[0].id).toBe('d1');
+    });
+
     it('falls back to published nodes when the draft is empty', async () => {
       repo.findByPageKey.mockResolvedValue(
         makeRow({ draft_json: emptyDoc }),
