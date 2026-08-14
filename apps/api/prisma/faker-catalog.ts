@@ -67,7 +67,7 @@ export function generateFakerCatalog(options: FakerCatalogOptions): FakerProduct
       name,
       slug,
       description: faker.commerce.productDescription(),
-      status: 'published',
+      status: 'active',
       category_slug: category,
       ...(options.badge ? { badge: options.badge } : {}),
       images: [

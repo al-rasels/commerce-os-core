@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import { api } from '@/lib/api/client';
+import { api, getCsrfToken } from '@/lib/api/client';
 
 interface AuthUser {
   id: string;
@@ -47,9 +47,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = useCallback(async (email: string, password: string) => {
     try {
       // Note: We use raw fetch here because api client might intercept 401s and redirect to /login
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const csrf = getCsrfToken();
+      if (csrf) headers['x-csrf-token'] = csrf;
       const res = await fetch('/api/v1/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers,
         body: JSON.stringify({ email, password }),
       });
 
@@ -94,9 +98,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(async () => {
     try {
       if (user) {
+        const logoutHeaders: Record<string, string> = {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        };
+        const csrf = getCsrfToken();
+        if (csrf) logoutHeaders['x-csrf-token'] = csrf;
         await fetch('/api/v1/auth/logout', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          credentials: 'include',
+          headers: logoutHeaders,
           body: JSON.stringify({ user_id: user.id }),
         });
       }

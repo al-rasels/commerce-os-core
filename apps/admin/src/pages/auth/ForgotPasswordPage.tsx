@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import { getCsrfToken } from "@/lib/api/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -21,9 +22,13 @@ export default function ForgotPasswordPage() {
     setError("")
     setLoading(true)
     try {
+      const headers: Record<string, string> = { "Content-Type": "application/json" }
+      const csrf = getCsrfToken()
+      if (csrf) headers["x-csrf-token"] = csrf
       const res = await fetch("/api/v1/auth/forgot-password", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        headers,
         body: JSON.stringify({ email }),
       })
       if (!res.ok) {

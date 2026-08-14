@@ -7,29 +7,41 @@ import {
   ThemeBaseId,
 } from '@commerceos/theme-engine';
 import { TenantContext } from '../../platform/tenant/tenant-context';
+import { TenantService } from '../../platform/tenant/tenant.service';
 
 @Injectable()
 export class ThemeService {
   constructor(
     private readonly overrideRepo: ThemeTenantOverrideRepository,
     private readonly prisma: PrismaService, // Used only for global ThemeBase
+    private readonly tenantService: TenantService,
   ) {}
 
   async getResolvedTheme(ctx: TenantContext) {
-    // 1. Fetch base theme from ThemeRegistry using context
-    const themeBaseId = (ctx.theme?.themeBaseId || 'default') as ThemeBaseId;
-    const baseTheme = ThemeRegistry[themeBaseId];
+    // 1. Determine the base theme registry key. ctx.theme.themeBaseId is a
+    //    ThemeBase UUID (set when a tenant override exists) or ''. Resolve a
+    //    real UUID back to its registry key (slug); otherwise default.
+    const overrideId = ctx.theme?.themeBaseId || '';
+    const resolvedKey =
+      overrideId && (await this.resolveBaseKey(overrideId));
+    const baseKey = (resolvedKey as ThemeBaseId) || 'default';
+
+    const baseTheme = ThemeRegistry[baseKey];
 
     if (!baseTheme) {
       throw new NotFoundException(
-        `Base theme '${themeBaseId}' not found in registry`,
+        `Base theme '${baseKey}' not found in registry`,
       );
     }
 
-    // 2. Fetch tenant override using strictly isolated repo
-    const overrides = await this.overrideRepo.findMany(ctx, {
-      where: { theme_base_id: themeBaseId },
-    });
+    // 2. Fetch tenant override using strictly isolated repo. Only query the
+    //    UUID column when we actually have a UUID (avoids the 500 caused by
+    //    passing a slug like 'default' into a @db.Uuid where clause).
+    const overrides = overrideId
+      ? await this.overrideRepo.findMany(ctx, {
+          where: { theme_base_id: overrideId },
+        })
+      : [];
     const tenantOverride = overrides.length > 0 ? overrides[0] : null;
 
     const baseJson = (baseTheme as Record<string, unknown>) || {};
@@ -41,7 +53,7 @@ export class ThemeService {
     const { resolved, conflicts } = resolveOverride(baseJson, overrideJson);
 
     return {
-      id: themeBaseId,
+      id: baseKey,
       version: '1.0.0', // Hardcoded version since it's from code now
       tokens: resolved,
       conflicts,
@@ -53,25 +65,48 @@ export class ThemeService {
     themeBaseId: string,
     overridesJson: Record<string, unknown>,
   ) {
-    // TenantScopedRepository ensures this only updates this tenant's override
-    // We check if it exists via findMany to keep isolation intact
-    const existing = await this.overrideRepo.findMany(ctx, {
-      where: { theme_base_id: themeBaseId },
+    // The admin sends the registry slug (e.g. 'default') as themeBaseId,
+    // matching the `id` returned by getResolvedTheme. Map it to the ThemeBase
+    // UUID before writing, since theme_base_id is a @db.Uuid column.
+    const base = await this.prisma.themeBase.findUnique({
+      where: { key: themeBaseId },
+      select: { id: true },
     });
 
+    if (!base) {
+      throw new NotFoundException(`Base theme '${themeBaseId}' not found`);
+    }
+
+    const existing = await this.overrideRepo.findMany(ctx, {});
+
     if (existing.length > 0) {
-      // In Prisma, ThemeTenantOverride primary key is just tenant_id.
-      // But TenantScopedRepository `update` assumes 'id' as the PK name.
-      // Since it's tenant_id, we might need a custom update, but let's use Prisma directly with context where:
-      return this.overrideRepo.updateByTenant(ctx, {
+      await this.overrideRepo.updateByTenant(ctx, {
         overrides_json: overridesJson as any,
-        theme_base_id: themeBaseId,
+        theme_base_id: base.id,
       });
     } else {
-      return this.overrideRepo.create(ctx, {
-        theme_base_id: themeBaseId,
+      await this.overrideRepo.create(ctx, {
+        theme_base_id: base.id,
         overrides_json: overridesJson as any,
       });
     }
+
+    // ctx.theme.themeBaseId was resolved (and cached for 300s) BEFORE the
+    // write above, so it would still point to '' and the override would never
+    // be read back. Invalidate the tenant cache and re-resolve so the returned
+    // (and subsequent) resolved theme reflects the persisted override.
+    await this.tenantService.invalidateCache(ctx.domain);
+    const freshCtx = await this.tenantService.resolveTenant(ctx.domain);
+    return this.getResolvedTheme(freshCtx);
+  }
+
+  private async resolveBaseKey(
+    themeBaseId: string,
+  ): Promise<ThemeBaseId | null> {
+    const base = await this.prisma.themeBase.findUnique({
+      where: { id: themeBaseId },
+      select: { key: true },
+    });
+    return base?.key ? ((base.key as ThemeBaseId) ?? null) : null;
   }
 }

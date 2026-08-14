@@ -300,6 +300,7 @@ model OrderItem {
 
 model ThemeBase {
   id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key         String                @unique // 'default' | 'minimal' | 'bold' (ThemeRegistry slug)
   version     String
   tokens_json Json
   overrides   ThemeTenantOverride[]
@@ -464,6 +465,8 @@ model CompanyProfile {
   tax_id             String?
   payment_terms      String     @default("due_on_receipt") // 'net_15', 'net_30', 'net_60'
   credit_limit_cents Int?
+  created_at         DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime   @updatedAt @db.Timestamptz(6)
   tenant             Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   customers          Customer[]
 
@@ -476,6 +479,8 @@ model PriceList {
   name       String
   currency   String
   rules_json Json
+  created_at DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at DateTime   @updatedAt @db.Timestamptz(6)
   tenant     Tenant     @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   customers  Customer[]
 
@@ -491,6 +496,8 @@ model Subscription {
   interval        String // 'daily'|'weekly'|'monthly'|'yearly'
   interval_count  Int      @default(1)
   next_billing_at DateTime @db.Timestamptz
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime @updatedAt @db.Timestamptz(6)
   tenant          Tenant   @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   customer        Customer @relation(fields: [customer_id], references: [id])
   order           Order    @relation(fields: [order_id], references: [id])
@@ -517,6 +524,8 @@ model InventoryLocation {
   name         String
   is_default   Boolean?           @default(false)
   address_json Json
+  created_at   DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime           @updatedAt @db.Timestamptz(6)
   tenant       Tenant             @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   levels       InventoryLevel[]
   reservations StockReservation[]
@@ -530,6 +539,8 @@ model InventoryLevel {
   location_id     String            @db.Uuid
   variant_id      String            @db.Uuid
   stock_available Int               @default(0)
+  created_at      DateTime          @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime          @updatedAt @db.Timestamptz(6)
   tenant          Tenant            @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
   location        InventoryLocation @relation(fields: [location_id], references: [id], onDelete: Cascade)
   variant         ProductVariant    @relation(fields: [variant_id], references: [id], onDelete: Cascade)

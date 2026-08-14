@@ -106,6 +106,7 @@ async function main() {
 
   const baseTheme = await prisma.themeBase.create({
     data: {
+      key: 'default',
       version: 'v1',
       tokens_json: {
         colors: {
@@ -200,7 +201,7 @@ async function main() {
         sample_products: [
           {
             name: 'The Heritage Wool Blazer', slug: 'heritage-wool-blazer', description: 'A masterclass in modern tailoring. Cut from premium Italian wool, this single-breasted blazer features a natural shoulder, notch lapels, and pick-stitch detailing. Fully lined with interior pockets. The cornerstone of any discerning wardrobe.',
-            status: 'published', category_slug: 'outerwear', badge: 'Bestseller',
+            status: 'active', category_slug: 'outerwear', badge: 'Bestseller',
             images: ['/products/blazer-front.jpg', '/products/blazer-back.jpg', '/products/blazer-detail.jpg'],
             tags: ['tailored', 'wool', 'formal', 'italian-fabric'],
             variants: [
@@ -215,7 +216,7 @@ async function main() {
           },
           {
             name: 'Luna Cashmere Sweater', slug: 'luna-cashmere-sweater', description: 'Luxuriously soft and impossibly lightweight. Made from Grade-A Mongolian cashmere with a fine 14-gauge knit. Features a relaxed silhouette, ribbed cuffs, and a subtle mock-neck collar. Each piece undergoes a 12-step finishing process for unmatched softness.',
-            status: 'published', category_slug: 'clothing', badge: 'New',
+            status: 'active', category_slug: 'clothing', badge: 'New',
             images: ['/products/sweater-front.jpg', '/products/sweater-side.jpg'],
             tags: ['cashmere', 'luxury', 'winter', 'essential'],
             variants: [
@@ -231,7 +232,7 @@ async function main() {
           },
           {
             name: 'Avena Leather Tote', slug: 'avena-leather-tote', description: 'Handcrafted from full-grain Italian leather that develops a rich patina over time. Features a spacious main compartment with a removable zip pouch, double top handles, and an optional crossbody strap. Artisan-stitched in Tuscany.',
-            status: 'published', category_slug: 'accessories', badge: 'Limited Edition',
+            status: 'active', category_slug: 'accessories', badge: 'Limited Edition',
             images: ['/products/tote-front.jpg', '/products/tote-open.jpg', '/products/tote-detail.jpg'],
             tags: ['leather', 'artisan', 'italian', 'tote', 'everyday-luxury'],
             variants: [
@@ -242,7 +243,7 @@ async function main() {
           },
           {
             name: 'Velocity Leather Sneakers', slug: 'velocity-leather-sneakers', description: 'Reimagined court-shoe silhouette in buttery-soft Italian nappa leather. Features a cushioned ortholite insole, perforated toe cap, and a gum rubber outsole. Hand-stitched details and gold-tone eyelets elevate this everyday essential.',
-            status: 'published', category_slug: 'footwear', badge: 'Editor Pick',
+            status: 'active', category_slug: 'footwear', badge: 'Editor Pick',
             images: ['/products/sneakers-side.jpg', '/products/sneakers-top.jpg', '/products/sneakers-back.jpg'],
             tags: ['leather', 'sneakers', 'casual', 'italian'],
             variants: [
@@ -257,7 +258,7 @@ async function main() {
           },
           {
             name: 'Solstice Silk Slip Dress', slug: 'solstice-silk-slip-dress', description: 'An exercise in refined simplicity. Cut from 22-momme charmeuse silk with a subtle satin finish. Features a cowl neckline, adjustable spaghetti straps, and a side slit. Bias-cut for a liquid drape that moves with you.',
-            status: 'published', category_slug: 'clothing', badge: 'Bestseller',
+            status: 'active', category_slug: 'clothing', badge: 'Bestseller',
             images: ['/products/dress-front.jpg', '/products/dress-back.jpg'],
             tags: ['silk', 'evening', 'luxury', 'minimal'],
             variants: [
@@ -354,7 +355,7 @@ async function main() {
         sample_products: [
           {
             name: 'AuraBook Pro M4 Max', slug: 'aurabook-pro-m4-max', description: 'The most powerful AuraBook ever. The M4 Max chip delivers a 16-core CPU, 40-core GPU, and 16-core Neural Engine for mind-blowing performance. Featuring a 16.2" Liquid Retina XDR display with ProMotion, up to 128GB unified memory, Thunderbolt 5 connectivity, and all-day battery life. The ultimate laptop for professionals who refuse to compromise.',
-            status: 'published', category_slug: 'computers', badge: 'Just Released',
+            status: 'active', category_slug: 'computers', badge: 'Just Released',
             images: ['/products/laptop-front.jpg', '/products/laptop-angle.jpg', '/products/laptop-open.jpg', '/products/laptop-ports.jpg', '/products/laptop-display.jpg'],
             tags: ['m4', 'pro', 'laptop', 'apple', 'premium'],
             variants: [
@@ -367,7 +368,7 @@ async function main() {
           },
           {
             name: 'Galaxy S26 Ultra', slug: 'galaxy-s26-ultra', description: 'Redefining what a smartphone can do. The Galaxy S26 Ultra features a revolutionary 250MP quad-camera system with AI-powered scene optimization, a stunning 7.0" Dynamic AMOLED 3X display with 3000 nits peak brightness, the lightning-fast Snapdragon 9 Gen 4 processor, built-in S Pen, and 5,500mAh battery with 65W super-fast charging. Titanium frame construction.',
-            status: 'published', category_slug: 'smartphones', badge: 'Pre-Order',
+            status: 'active', category_slug: 'smartphones', badge: 'Pre-Order',
             images: ['/products/phone-front.jpg', '/products/phone-back.jpg', '/products/phone-side.jpg', '/products/phone-camera.jpg'],
             tags: ['android', 'flagship', '5g', 'samsung', 'ultra'],
             variants: [
@@ -380,7 +381,7 @@ async function main() {
           },
           {
             name: 'QuietComfort Ultra Pro Headphones', slug: 'qc-ultra-pro-headphones', description: 'Immerse yourself in pure sound. Industry-leading adaptive noise cancellation with CustomTune technology that adjusts to your environment. Spatial audio with head tracking, lossless over USB-C, and 40-hour battery life. Fold-flat design with a premium hard-shell case. The gold standard in wireless audio.',
-            status: 'published', category_slug: 'audio', badge: '★ Best Seller',
+            status: 'active', category_slug: 'audio', badge: '★ Best Seller',
             images: ['/products/headphones-side.jpg', '/products/headphones-folded.jpg', '/products/headphones-case.jpg'],
             tags: ['noise-cancelling', 'wireless', 'premium', 'bose', 'spatial-audio'],
             variants: [
@@ -392,7 +393,7 @@ async function main() {
           },
           {
             name: 'Predator X45 45" OLED Gaming Monitor', slug: 'predator-x45-oled', description: 'Dominate every frame. A breathtaking 45" UWQHD (3440x1440) OLED panel with 240Hz refresh rate, 0.03ms response time, and true HDR with 1,000 nits peak brightness. Features AMD FreeSync Premium Pro, built-in KVM switch, and RGB ambient lighting. The ultimate command center for competitive and immersive gaming.',
-            status: 'published', category_slug: 'gaming', badge: 'Hot',
+            status: 'active', category_slug: 'gaming', badge: 'Hot',
             images: ['/products/monitor-front.jpg', '/products/monitor-angle.jpg', '/products/monitor-ports.jpg'],
             tags: ['oled', 'gaming', 'ultrawide', 'monitor', '240hz'],
             variants: [
@@ -401,7 +402,7 @@ async function main() {
           },
           {
             name: 'EchoVerse Smart Home Hub Max', slug: 'echoverse-smart-hub-max', description: 'The brain of your smart home. EchoVerse Max combines a 10" HD smart display with a powerful Zigbee/Matter smart home hub, premium room-filling speaker, and advanced AI assistant. Control hundreds of compatible devices, view security cameras, make video calls, and stream content. Built with privacy-first design.',
-            status: 'published', category_slug: 'accessories', badge: 'New',
+            status: 'active', category_slug: 'accessories', badge: 'New',
             images: ['/products/hub-front.jpg', '/products/hub-stand.jpg'],
             tags: ['smart-home', 'ai-assistant', 'display', 'matter', 'amazon'],
             variants: [
@@ -495,7 +496,7 @@ async function main() {
         sample_products: [
           {
             name: 'Synthetic Down Comforter - All-Season', slug: 'synthetic-down-comforter', description: 'Hotel-luxury comfort without the premium price tag. This all-season comforter features a 300-thread-count cotton sateen shell filled with premium alternative down for the perfect balance of warmth and breathability. Box-stitch construction prevents shifting. Machine washable. OEKO-TEX certified.',
-            status: 'published', category_slug: 'home-living', badge: 'Bestseller',
+            status: 'active', category_slug: 'home-living', badge: 'Bestseller',
             images: ['/products/comforter-folded.jpg', '/products/comforter-bed.jpg', '/products/comforter-detail.jpg', '/products/comforter-packaging.jpg'],
             tags: ['bedding', 'comforter', 'hotel-quality', 'all-season'],
             variants: [
@@ -509,7 +510,7 @@ async function main() {
           },
           {
             name: 'ProFormance Yoga Mat - 6mm', slug: 'proformance-yoga-mat', description: 'Engineered for serious practitioners. This premium yoga mat features a dual-layer construction with a natural tree rubber base for unmatched grip and a microfiber suede top layer that becomes grippier as you sweat. Includes alignment markings and a carrying strap. Non-toxic, phthalate-free, and biodegradable.',
-            status: 'published', category_slug: 'sports-outdoors', badge: 'Top Rated',
+            status: 'active', category_slug: 'sports-outdoors', badge: 'Top Rated',
             images: ['/products/yogamat-rolled.jpg', '/products/yogamat-flat.jpg', '/products/yogamat-detail.jpg'],
             tags: ['yoga', 'fitness', 'eco-friendly', 'premium'],
             variants: [
@@ -522,7 +523,7 @@ async function main() {
           },
           {
             name: 'Vitamin C Brightening Serum - 15% Pure Formula', slug: 'vitamin-c-brightening-serum', description: 'Dermatologist-developed and clinically tested. Our potent 15% pure L-ascorbic acid serum is stabilized with ferulic acid and vitamin E for maximum efficacy. Brightens dark spots, evens skin tone, and boosts collagen production. Lightweight, fast-absorbing, and fragrance-free. Suitable for all skin types, including sensitive.',
-            status: 'published', category_slug: 'beauty-personal-care', badge: 'Bestseller',
+            status: 'active', category_slug: 'beauty-personal-care', badge: 'Bestseller',
             images: ['/products/serum-bottle.jpg', '/products/serum-dropper.jpg', '/products/serum-box.jpg'],
             tags: ['skincare', 'vitamin-c', 'anti-aging', 'brightening'],
             variants: [
@@ -534,7 +535,7 @@ async function main() {
           },
           {
             name: 'STEM Explorer Kit - 50 Experiments', slug: 'stem-explorer-kit', description: 'Ignite a love for science with 50 hands-on experiments. This all-in-one STEM kit includes real lab equipment, safe chemicals, and a full-color instruction book. Build a volcano, grow crystals, create slime, launch a rocket, and more. Designed for ages 8-14 with adult supervision. Winner of the 2025 Toy of the Year Award.',
-            status: 'published', category_slug: 'toys-kids-baby', badge: 'Award Winner',
+            status: 'active', category_slug: 'toys-kids-baby', badge: 'Award Winner',
             images: ['/products/stem-box.jpg', '/products/stem-contents.jpg', '/products/stem-action.jpg'],
             tags: ['stem', 'educational', 'science', 'gift', 'award-winner'],
             variants: [
@@ -544,7 +545,7 @@ async function main() {
           },
           {
             name: 'Organic Single-Origin Coffee Collection', slug: 'organic-single-origin-coffee', description: 'Curated for the discerning coffee lover. This collection features three 12oz bags of single-origin, organic, shade-grown coffee from Ethiopia Yirgacheffe, Colombia Huila, and Guatemala Antigua. Small-batch roasted within 48 hours of shipping. Tasting notes, brew guides, and origin story included.',
-            status: 'published', category_slug: 'groceries-gourmet', badge: 'Limited Batch',
+            status: 'active', category_slug: 'groceries-gourmet', badge: 'Limited Batch',
             images: ['/products/coffee-bags.jpg', '/products/coffee-beans.jpg', '/products/coffee-brewing.jpg'],
             tags: ['coffee', 'organic', 'single-origin', 'gourmet', 'gift'],
             variants: [
