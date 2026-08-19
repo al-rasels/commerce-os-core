@@ -1,7 +1,7 @@
 # CommerceOS — Master Tasklist
 
-> **Project Completion (Phase 1): ~58-63%** | **36+ of 36 API endpoints live**
-> Generated: 2026-07-21 | Pipeline: `.tasks/backlog/` → `next/` → (build) → `completed/` (Note: `.tasks/` directory no longer on disk — status is tracked in this file only)
+> **Project Completion (Phase 1 + Core Phase 2): ~85–88%** | **45+ of 45 API endpoints live**
+> Updated: 2026-08-19 | Monorepo Turbo Build: 8 of 8 packages active & green
 
 ---
 
