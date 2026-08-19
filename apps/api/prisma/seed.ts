@@ -33,14 +33,26 @@ async function main() {
   await prisma.tenant.deleteMany();
 
   const tenantA = await prisma.tenant.create({
-    data: { name: 'Tenant A', plan_id: 'enterprise' },
+    data: { name: 'Fashion Luxe Store', plan_id: 'enterprise' },
   });
   const tenantB = await prisma.tenant.create({
-    data: { name: 'Tenant B', plan_id: 'starter' },
+    data: { name: 'TechPulse Electronics', plan_id: 'growth' },
+  });
+  const tenantC = await prisma.tenant.create({
+    data: { name: 'OmniRetail General Store', plan_id: 'starter' },
+  });
+  const tenantD = await prisma.tenant.create({
+    data: { name: 'Industrial B2B Wholesale', plan_id: 'enterprise' },
+  });
+  const tenantE = await prisma.tenant.create({
+    data: { name: 'Glow & Rose Beauty', plan_id: 'growth' },
   });
 
   await prisma.tenantDomain.create({ data: { tenant_id: tenantA.id, domain: 'tenanta.localhost' } });
   await prisma.tenantDomain.create({ data: { tenant_id: tenantB.id, domain: 'tenantb.localhost' } });
+  await prisma.tenantDomain.create({ data: { tenant_id: tenantC.id, domain: 'tenantc.localhost' } });
+  await prisma.tenantDomain.create({ data: { tenant_id: tenantD.id, domain: 'tenantd.localhost' } });
+  await prisma.tenantDomain.create({ data: { tenant_id: tenantE.id, domain: 'tenante.localhost' } });
 
   const rolePermissions: Record<string, string[]> = {
     'Super Admin': [
@@ -73,6 +85,9 @@ async function main() {
   const roleNames = ['Store Owner', 'Store Staff', 'Customer'];
   const rolesA: Record<string, string> = {};
   const rolesB: Record<string, string> = {};
+  const rolesC: Record<string, string> = {};
+  const rolesD: Record<string, string> = {};
+  const rolesE: Record<string, string> = {};
 
   for (const name of roleNames) {
     const ra = await prisma.role.create({
@@ -83,6 +98,18 @@ async function main() {
       data: { tenant_id: tenantB.id, name, permissions: rolePermissions[name] },
     });
     rolesB[name] = rb.id;
+    const rc = await prisma.role.create({
+      data: { tenant_id: tenantC.id, name, permissions: rolePermissions[name] },
+    });
+    rolesC[name] = rc.id;
+    const rd = await prisma.role.create({
+      data: { tenant_id: tenantD.id, name, permissions: rolePermissions[name] },
+    });
+    rolesD[name] = rd.id;
+    const re = await prisma.role.create({
+      data: { tenant_id: tenantE.id, name, permissions: rolePermissions[name] },
+    });
+    rolesE[name] = re.id;
   }
 
   const superAdminRole = await prisma.role.create({
@@ -94,14 +121,21 @@ async function main() {
     data: { tenant_id: null, email: 'admin@commerceos.io', password_hash: passSA, role_id: superAdminRole.id },
   });
 
-  const passA = await argon2.hash('password123');
+  const passDefault = await argon2.hash('password123');
   await prisma.user.create({
-    data: { tenant_id: tenantA.id, email: 'admin@tenanta.com', password_hash: passA, role_id: rolesA['Store Owner'] },
+    data: { tenant_id: tenantA.id, email: 'admin@tenanta.com', password_hash: passDefault, role_id: rolesA['Store Owner'] },
   });
-
-  const passB = await argon2.hash('password123');
   await prisma.user.create({
-    data: { tenant_id: tenantB.id, email: 'admin@tenantb.com', password_hash: passB, role_id: rolesB['Store Owner'] },
+    data: { tenant_id: tenantB.id, email: 'admin@tenantb.com', password_hash: passDefault, role_id: rolesB['Store Owner'] },
+  });
+  await prisma.user.create({
+    data: { tenant_id: tenantC.id, email: 'admin@tenantc.com', password_hash: passDefault, role_id: rolesC['Store Owner'] },
+  });
+  await prisma.user.create({
+    data: { tenant_id: tenantD.id, email: 'admin@tenantd.com', password_hash: passDefault, role_id: rolesD['Store Owner'] },
+  });
+  await prisma.user.create({
+    data: { tenant_id: tenantE.id, email: 'admin@tenante.com', password_hash: passDefault, role_id: rolesE['Store Owner'] },
   });
 
   const baseTheme = await prisma.themeBase.create({
@@ -563,6 +597,9 @@ async function main() {
   // page layouts (home, products, product_detail) out of the box.
   const tenantALayout = fashionTemplate.layout_json as any;
   const tenantBLayout = electronicsTemplate.layout_json as any;
+  const tenantCLayout = generalTemplate.layout_json as any;
+  const tenantDLayout = generalTemplate.layout_json as any;
+  const tenantELayout = fashionTemplate.layout_json as any;
 
   // Faker-generated deterministic sample products round out each demo store so
   // the storefront grid has realistic volume without manual data entry. Appended
@@ -590,31 +627,64 @@ async function main() {
       priceMax: 2500,
     }),
   ];
-
-  // NOTE: no explicit $transaction here — the Neon connection pooler drops long
-  // interactive transactions (P2028), so template application runs as individual
-  // implicit transactions against the plain client. The NestJS TemplateService
-  // keeps its own transaction for API-triggered applies.
   await applyTemplateData(prisma, tenantA.id, tenantALayout);
   await prisma.templateTenantOverride.upsert({
     where: { tenant_id: tenantA.id },
     update: { template_base_id: fashionTemplate.id, overrides_json: {} },
-    create: {
-      tenant_id: tenantA.id,
-      template_base_id: fashionTemplate.id,
-      overrides_json: {},
-    },
+    create: { tenant_id: tenantA.id, template_base_id: fashionTemplate.id, overrides_json: {} },
+  });
+  await prisma.themeTenantOverride.upsert({
+    where: { tenant_id: tenantA.id },
+    update: { theme_base_id: baseTheme.id, overrides_json: { themePreset: 'emerald-luxe' } },
+    create: { tenant_id: tenantA.id, theme_base_id: baseTheme.id, overrides_json: { themePreset: 'emerald-luxe' } },
   });
 
   await applyTemplateData(prisma, tenantB.id, tenantBLayout);
   await prisma.templateTenantOverride.upsert({
     where: { tenant_id: tenantB.id },
     update: { template_base_id: electronicsTemplate.id, overrides_json: {} },
-    create: {
-      tenant_id: tenantB.id,
-      template_base_id: electronicsTemplate.id,
-      overrides_json: {},
-    },
+    create: { tenant_id: tenantB.id, template_base_id: electronicsTemplate.id, overrides_json: {} },
+  });
+  await prisma.themeTenantOverride.upsert({
+    where: { tenant_id: tenantB.id },
+    update: { theme_base_id: baseTheme.id, overrides_json: { themePreset: 'dark-mode-pro' } },
+    create: { tenant_id: tenantB.id, theme_base_id: baseTheme.id, overrides_json: { themePreset: 'dark-mode-pro' } },
+  });
+
+  await applyTemplateData(prisma, tenantC.id, tenantCLayout);
+  await prisma.templateTenantOverride.upsert({
+    where: { tenant_id: tenantC.id },
+    update: { template_base_id: generalTemplate.id, overrides_json: {} },
+    create: { tenant_id: tenantC.id, template_base_id: generalTemplate.id, overrides_json: {} },
+  });
+  await prisma.themeTenantOverride.upsert({
+    where: { tenant_id: tenantC.id },
+    update: { theme_base_id: baseTheme.id, overrides_json: { themePreset: 'default' } },
+    create: { tenant_id: tenantC.id, theme_base_id: baseTheme.id, overrides_json: { themePreset: 'default' } },
+  });
+
+  await applyTemplateData(prisma, tenantD.id, tenantDLayout);
+  await prisma.templateTenantOverride.upsert({
+    where: { tenant_id: tenantD.id },
+    update: { template_base_id: generalTemplate.id, overrides_json: {} },
+    create: { tenant_id: tenantD.id, template_base_id: generalTemplate.id, overrides_json: {} },
+  });
+  await prisma.themeTenantOverride.upsert({
+    where: { tenant_id: tenantD.id },
+    update: { theme_base_id: baseTheme.id, overrides_json: { themePreset: 'sapphire-royal' } },
+    create: { tenant_id: tenantD.id, theme_base_id: baseTheme.id, overrides_json: { themePreset: 'sapphire-royal' } },
+  });
+
+  await applyTemplateData(prisma, tenantE.id, tenantELayout);
+  await prisma.templateTenantOverride.upsert({
+    where: { tenant_id: tenantE.id },
+    update: { template_base_id: fashionTemplate.id, overrides_json: {} },
+    create: { tenant_id: tenantE.id, template_base_id: fashionTemplate.id, overrides_json: {} },
+  });
+  await prisma.themeTenantOverride.upsert({
+    where: { tenant_id: tenantE.id },
+    update: { theme_base_id: baseTheme.id, overrides_json: { themePreset: 'pastel-beauty' } },
+    create: { tenant_id: tenantE.id, theme_base_id: baseTheme.id, overrides_json: { themePreset: 'pastel-beauty' } },
   });
 
   console.log('Seeding complete!');

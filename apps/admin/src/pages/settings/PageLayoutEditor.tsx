@@ -20,7 +20,7 @@ import {
   useUnpublishPageLayout,
 } from "@/hooks/usePages"
 import { useHistoryState } from "@/hooks/useHistoryState"
-import { SectionCard, AddSectionPanel, PropEditor, PagePreviewFrame } from "@/components/page-editor"
+import { SectionCard, AddSectionPanel, PropEditor, PagePreviewFrame, TemplateLibraryModal } from "@/components/page-editor"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -41,6 +41,7 @@ import {
   Redo2,
   ExternalLink,
   Eye,
+  Sparkles,
 } from "lucide-react"
 import type { PageSection } from "@/lib/api/pages"
 
@@ -76,6 +77,7 @@ export default function PageLayoutEditorPage() {
 
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [addOpen, setAddOpen] = useState(false)
+  const [templateOpen, setTemplateOpen] = useState(false)
   const [device, setDevice] = useState<"desktop" | "tablet" | "mobile">("desktop")
   const initialized = useRef(false)
 
@@ -323,6 +325,16 @@ export default function PageLayoutEditorPage() {
 
         {/* Action Toolbar */}
         <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 gap-1.5 text-xs text-primary border-primary/30 bg-primary/5 hover:bg-primary/10"
+            onClick={() => setTemplateOpen(true)}
+          >
+            <Sparkles className="size-3.5" />
+            Template Library
+          </Button>
+
           {catalogEntry?.route && (
             <Button
               variant="outline"
@@ -495,6 +507,15 @@ export default function PageLayoutEditorPage() {
           </div>
         </SheetContent>
       </Sheet>
+
+      {/* Template Library Modal */}
+      <TemplateLibraryModal
+        open={templateOpen}
+        onOpenChange={setTemplateOpen}
+        onSelectTemplate={(key) => {
+          navigate(`/settings/pages/${key}`)
+        }}
+      />
     </div>
   )
 }

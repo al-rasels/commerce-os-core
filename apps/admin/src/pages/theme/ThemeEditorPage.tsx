@@ -2,6 +2,7 @@ import { useState, useMemo, useRef } from "react"
 import { useTheme, useSaveThemeOverride } from "@/hooks/useTheme"
 import { defaultTokens } from "@commerceos/design-tokens"
 import type { DesignTokens, ColorTokens } from "@commerceos/design-tokens"
+import { ThemeRegistry, generateCssVariables, type ThemeBaseId } from "@commerceos/theme-engine"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,6 +17,7 @@ import {
 } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import {
   Paintbrush,
   Type,
@@ -30,6 +32,10 @@ import {
   Eye,
   ChevronDown,
   ChevronRight,
+  Code,
+  Sparkles,
+  Copy,
+  Check,
 } from "lucide-react"
 
 type ColorMode = "light" | "dark"
@@ -467,6 +473,8 @@ export default function ThemeEditorPage() {
   const [mode, setMode] = useState<ColorMode>("light")
   const [draftOverride, setDraftOverride] = useState<Record<string, unknown>>({})
   const [dirty, setDirty] = useState(false)
+  const [exportOpen, setExportOpen] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const baseTokens = useMemo(() => {
     if (!resolved?.tokens) return defaultTokens
@@ -476,6 +484,24 @@ export default function ThemeEditorPage() {
   const resolvedTokens = useMemo(() => {
     return deepMergeDesignTokens(baseTokens, draftOverride)
   }, [baseTokens, draftOverride])
+
+  const generatedCss = useMemo(() => {
+    return generateCssVariables(resolvedTokens, mode)
+  }, [resolvedTokens, mode])
+
+  function handleSelectPreset(presetKey: ThemeBaseId) {
+    const targetPreset = ThemeRegistry[presetKey]
+    if (targetPreset) {
+      setDraftOverride(targetPreset as Record<string, unknown>)
+      setDirty(true)
+    }
+  }
+
+  function handleCopyCss() {
+    navigator.clipboard?.writeText(generatedCss)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   function setOverride(path: string[], value: string) {
     setDraftOverride((prev) => {
@@ -550,46 +576,37 @@ export default function ThemeEditorPage() {
           )}
         </div>
         <div className="flex items-center gap-2">
-          {/* Quick Presets */}
-          <div className="flex items-center gap-1 border rounded-lg p-1 bg-muted/30">
-            <span className="text-[11px] text-muted-foreground font-medium px-2">Presets:</span>
-            <button
-              onClick={() => {
-                setOverride(["colors", "light", "muted", "primary"], "oklch(0.18 0.04 270)")
-                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.92 0.01 260)")
-              }}
-              className="px-2 py-1 text-[10px] font-semibold rounded bg-indigo-500/10 text-indigo-600 hover:bg-indigo-500/20"
+          {/* Quick Presets Dropdown */}
+          <div className="flex items-center gap-1.5 border rounded-lg p-1 bg-muted/30">
+            <Sparkles className="size-3.5 text-primary ml-1" />
+            <span className="text-[11px] text-muted-foreground font-medium">Theme Preset:</span>
+            <select
+              onChange={(e) => handleSelectPreset(e.target.value as ThemeBaseId)}
+              defaultValue="default"
+              className="h-7 text-xs bg-background border rounded px-2 font-medium focus:outline-none focus:ring-1 focus:ring-primary cursor-pointer"
             >
-              Indigo
-            </button>
-            <button
-              onClick={() => {
-                setOverride(["colors", "light", "muted", "primary"], "oklch(0.5 0.2 155)")
-                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.68 0.22 155)")
-              }}
-              className="px-2 py-1 text-[10px] font-semibold rounded bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20"
-            >
-              Emerald Luxe
-            </button>
-            <button
-              onClick={() => {
-                setOverride(["colors", "light", "muted", "primary"], "oklch(0.48 0.22 250)")
-                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.62 0.22 250)")
-              }}
-              className="px-2 py-1 text-[10px] font-semibold rounded bg-blue-500/10 text-blue-600 hover:bg-blue-500/20"
-            >
-              Sapphire Royal
-            </button>
-            <button
-              onClick={() => {
-                setOverride(["colors", "light", "muted", "primary"], "oklch(0.5 0.22 270)")
-                setOverride(["colors", "dark", "muted", "primary"], "oklch(0.65 0.22 270)")
-              }}
-              className="px-2 py-1 text-[10px] font-semibold rounded bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
-            >
-              Violet Glow
-            </button>
+              <option value="default">Default CommerceOS</option>
+              <option value="minimal">Scandinavian Minimal</option>
+              <option value="bold">Streetwear Editorial</option>
+              <option value="emerald-luxe">Emerald Luxury</option>
+              <option value="sapphire-royal">Sapphire Corporate</option>
+              <option value="violet-glow">Violet Cyber Glow</option>
+              <option value="amber-sunset">Amber Artisan Sunset</option>
+              <option value="dark-mode-pro">Dark Mode Pro OLED</option>
+              <option value="pastel-beauty">Pastel Rose Beauty</option>
+              <option value="high-contrast">High Contrast (WCAG AAA)</option>
+            </select>
           </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-8 gap-1.5 text-xs"
+            onClick={() => setExportOpen(true)}
+          >
+            <Code className="size-3.5" />
+            Export CSS
+          </Button>
 
           <Button variant="outline" size="sm" onClick={resetAll} disabled={!dirty}>
             <RotateCcw className="size-3.5" />
@@ -698,6 +715,38 @@ export default function ThemeEditorPage() {
           </div>
         </ScrollArea>
       </div>
+
+      {/* Export CSS Dialog */}
+      <Dialog open={exportOpen} onOpenChange={setExportOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-base flex items-center gap-2">
+                <Code className="size-4 text-primary" />
+                Export CSS Variables ({mode.toUpperCase()})
+              </DialogTitle>
+            </div>
+            <DialogDescription className="text-xs">
+              Copy the resolved design token CSS custom properties to embed directly in custom stylesheets.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="relative mt-2">
+            <pre className="p-4 bg-muted/80 rounded-xl font-mono text-xs text-foreground overflow-x-auto max-h-96 border">
+              {generatedCss}
+            </pre>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={handleCopyCss}
+              className="absolute top-3 right-3 h-7 gap-1 text-xs bg-background shadow-xs"
+            >
+              {copied ? <Check className="size-3 text-emerald-600" /> : <Copy className="size-3" />}
+              {copied ? "Copied!" : "Copy CSS"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

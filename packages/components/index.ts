@@ -59,3 +59,28 @@ export * from "./timeline";
 export * from "./tooltip";
 export * from "./accordion";
 export * from "./carousel";
+
+// Export New Enterprise Components
+export * from "./header-mega";
+export * from "./header-top-bar";
+export * from "./footer-enterprise";
+export * from "./hero-slider";
+export * from "./hero-split";
+export * from "./banner-promotional";
+export * from "./product-carousel";
+export * from "./collection-list-featured";
+export * from "./product-bundle-builder";
+export * from "./shoppable-lookbook";
+export * from "./flash-deals-scroller";
+export * from "./feature-grid-icon";
+export * from "./comparison-table";
+export * from "./trust-badges-bar";
+export * from "./newsletter-popup";
+export * from "./b2b-quick-order-pad";
+export * from "./b2b-tier-pricing-table";
+export * from "./b2b-quote-request-form";
+export * from "./account-order-history";
+export * from "./container-grid";
+export * from "./spacer-divider";
+export * from "./custom-code-html";
+export * from "./sticky-floating-bar";

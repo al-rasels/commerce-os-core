@@ -3,7 +3,7 @@ import { sectionSchemas } from "@commerceos/components"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Search, Plus, Lock, LayoutTemplate, ShoppingBag, Navigation, Mail, Layers } from "lucide-react"
+import { Search, Plus, Lock, LayoutTemplate, ShoppingBag, Navigation, Mail, Layers, ShieldCheck, Briefcase, User, Wrench } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { ComponentMetadata } from "@commerceos/shared-types"
 import { cn } from "@/lib/utils"
@@ -12,18 +12,30 @@ interface AddSectionPanelProps {
   onAdd: (key: string) => void
 }
 
-function getCategoryIcon(key: string) {
-  if (key.startsWith("hero") || key.startsWith("promo") || key.startsWith("banner")) {
-    return LayoutTemplate
-  }
-  if (key.startsWith("product") || key.startsWith("gallery") || key.startsWith("cart")) {
-    return ShoppingBag
-  }
-  if (key.startsWith("breadcrumbs") || key.startsWith("search") || key.startsWith("header")) {
+function getCategoryIcon(category?: string, key?: string) {
+  if (category === "navigation" || key?.startsWith("header") || key?.startsWith("footer")) {
     return Navigation
   }
-  if (key.startsWith("newsletter") || key.startsWith("form")) {
+  if (category === "hero" || key?.startsWith("hero") || key?.startsWith("banner")) {
+    return LayoutTemplate
+  }
+  if (category === "commerce" || key?.startsWith("product") || key?.startsWith("collection") || key?.startsWith("flash") || key?.startsWith("shoppable")) {
+    return ShoppingBag
+  }
+  if (category === "social-proof" || key?.startsWith("testim") || key?.startsWith("trust")) {
+    return ShieldCheck
+  }
+  if (category === "b2b" || key?.startsWith("b2b")) {
+    return Briefcase
+  }
+  if (category === "account" || key?.startsWith("account")) {
+    return User
+  }
+  if (category === "engagement" || key?.startsWith("news") || key?.startsWith("faq")) {
     return Mail
+  }
+  if (category === "utility" || key?.startsWith("container") || key?.startsWith("spacer") || key?.startsWith("code") || key?.startsWith("sticky")) {
+    return Wrench
   }
   return Layers
 }
@@ -35,10 +47,15 @@ export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
 
   const categories = [
     { id: "all", label: "All" },
+    { id: "navigation", label: "Navigation" },
     { id: "hero", label: "Hero & Banners" },
     { id: "commerce", label: "Commerce" },
     { id: "content", label: "Content" },
+    { id: "social-proof", label: "Trust & Proof" },
     { id: "engagement", label: "Engagement" },
+    { id: "b2b", label: "B2B Wholesale" },
+    { id: "account", label: "Account" },
+    { id: "utility", label: "Utilities" },
   ]
 
   const filtered = useMemo(() => {
@@ -82,7 +99,7 @@ export function AddSectionPanel({ onAdd }: AddSectionPanelProps) {
       <ScrollArea className="h-[380px] pr-2">
         <div className="flex flex-col gap-2">
           {filtered.map((schema) => {
-            const CategoryIcon = getCategoryIcon(schema.key)
+            const CategoryIcon = getCategoryIcon(schema.category, schema.key)
             const meta = ComponentMetadata[schema.key]
 
             return (
