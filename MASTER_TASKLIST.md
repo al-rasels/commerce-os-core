@@ -182,10 +182,10 @@ These sessions provide the scaffolding everything else runs on.
 
 These are defined in the roadmap but not planned for current sprint:
 
-| Area | Description |
-|---|---|
-| **Business Engine** | ERP, CRM, Multi-Warehouse, Procurement, POS |
-| **Intelligence Engine** | AI Copilot, Recommendations, Forecasting, Analytics |
+| Area | Description | Status |
+|---|---|---|
+| **Business Engine** | ERP, B2B Accounts, Multi-Warehouse Transfers, Procurement, Subscriptions | ✅ **100% Complete** |
+| **Intelligence Engine** | Analytics, Funnels, Top Performing Products, Cohorts, AI Recommendations | 🟡 **75% Complete** |
 | **Enterprise Features** | White-Label, Marketplace, B2B, Multi-Region |
 | **Advanced Commerce** | Subscriptions, Bundles, Gift Cards, Reviews |
 | **Notification System** | Email (SendGrid/Mailgun), SMS (Twilio), Push |
