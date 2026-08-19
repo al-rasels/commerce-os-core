@@ -12,6 +12,7 @@ import { CommerceThrottlerGuard } from './common/guards/commerce-throttler.guard
 import { CsrfMiddleware } from './common/middleware/csrf.middleware';
 import { B2bModule } from './modules/business/b2b/b2b.module';
 import { SubscriptionsModule } from './modules/business/subscriptions/subscriptions.module';
+import { ErpModule } from './modules/business/erp/erp.module';
 import { IntelligenceModule } from './modules/intelligence/intelligence.module';
 import { LoggerModule } from './common/logger/logger.module';
 
@@ -31,6 +32,7 @@ import { LoggerModule } from './common/logger/logger.module';
     ExperienceModule,
     B2bModule,
     SubscriptionsModule,
+    ErpModule,
     IntelligenceModule,
   ],
   controllers: [AppController],
