@@ -48,7 +48,7 @@ export default function LoginPage() {
 
   const [mfaCode, setMfaCode] = useState("")
   const [mfaToken, setMfaToken] = useState("")
-  const [error, setError] = useState<LoginError | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [capsLock, setCapsLock] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -89,7 +89,7 @@ export default function LoginPage() {
   }, [])
 
   async function onSubmit(data: LoginFormValues) {
-    setError("")
+    setError(null)
 
     try {
       const mfaState = await login(data.email, data.password)
@@ -114,7 +114,7 @@ export default function LoginPage() {
 
   async function handleMfaSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setError("")
+    setError(null)
     setMfaLoading(true)
     try {
       await mfaVerify(mfaToken, mfaCode)

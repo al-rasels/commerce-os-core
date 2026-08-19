@@ -1,69 +1,94 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Resend } from 'resend';
+
+export interface SendEmailOptions {
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
+}
 
 @Injectable()
 export class EmailService {
-  private resend: Resend | null = null;
   private readonly logger = new Logger(EmailService.name);
-  private fromEmail: string;
+  private readonly apiKey: string | undefined;
+  private readonly fromEmail: string;
 
-  constructor(private configService: ConfigService) {
-    const apiKey = this.configService.get<string>('RESEND_API_KEY');
-    this.fromEmail = this.configService.get<string>('RESEND_FROM_EMAIL') || 'onboarding@resend.dev';
-    if (apiKey) {
-      this.resend = new Resend(apiKey);
-    } else {
-      this.logger.warn('RESEND_API_KEY is missing. Emails will only be logged.');
-    }
+  constructor(private readonly configService: ConfigService) {
+    this.apiKey = this.configService.get<string>('RESEND_API_KEY');
+    this.fromEmail =
+      this.configService.get<string>('RESEND_FROM_EMAIL') ||
+      'onboarding@resend.dev';
   }
 
-  async sendEmail(to: string, subject: string, html: string) {
-    if (this.resend) {
-      try {
-        await this.resend.emails.send({
+  async sendEmail(options: SendEmailOptions): Promise<{ id: string; success: boolean }> {
+    if (!this.apiKey) {
+      this.logger.log(
+        `[DEV EMAIL NO-OP] To: ${options.to} | Subject: ${options.subject}`,
+      );
+      this.logger.debug(`[EMAIL BODY]: ${options.html}`);
+      return { id: `mock-${Date.now()}`, success: true };
+    }
+
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           from: this.fromEmail,
-          to,
-          subject,
-          html,
-        });
-        this.logger.log(`Email sent to: ${to} | Subject: ${subject}`);
-      } catch (error) {
-        this.logger.error(`Failed to send email to ${to}`, error);
+          to: [options.to],
+          subject: options.subject,
+          html: options.html,
+          text: options.text,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        this.logger.error(`Resend API Error (${response.status}): ${errorText}`);
+        return { id: '', success: false };
       }
-    } else {
-      this.logger.log(`Mock Email to: ${to} | Subject: ${subject} | Body: ${html}`);
+
+      const data = (await response.json()) as { id: string };
+      this.logger.log(`Email successfully sent to ${options.to} (ID: ${data.id})`);
+      return { id: data.id, success: true };
+    } catch (err) {
+      this.logger.error(`Failed to send email: ${err}`);
+      return { id: '', success: false };
     }
   }
 
-  async sendPasswordReset(to: string, token: string, domain: string) {
-    // Assuming admin dashboard runs on port 5173 locally, adjust based on env or domain
-    const isLocalhost = domain.includes('localhost') || domain.includes('127.0.0.1');
-    const port = isLocalhost ? ':5173' : '';
-    const protocol = isLocalhost ? 'http' : 'https';
-    
-    const resetUrl = `${protocol}://${domain}${port}/reset-password?token=${token}`;
-    const html = `
-      <p>Hello,</p>
-      <p>You requested a password reset. Click the link below to reset your password:</p>
-      <p><a href="${resetUrl}">Reset Password</a></p>
-      <p>If you did not request this, please ignore this email.</p>
-    `;
-    await this.sendEmail(to, 'Password Reset Request', html);
+  async sendPasswordReset(to: string, resetToken: string, storefrontUrl: string) {
+    const resetUrl = `${storefrontUrl}/account/reset-password?token=${resetToken}`;
+    return this.sendEmail({
+      to,
+      subject: 'Reset your CommerceOS password',
+      html: `
+        <div style="font-family: sans-serif; padding: 20px;">
+          <h2>Reset Your Password</h2>
+          <p>We received a request to reset your password for CommerceOS.</p>
+          <p><a href="${resetUrl}" style="background: #2563eb; color: #fff; padding: 10px 18px; text-decoration: none; border-radius: 6px; display: inline-block;">Reset Password</a></p>
+          <p style="color: #666; font-size: 12px; margin-top: 20px;">If you did not request this, please ignore this email.</p>
+        </div>
+      `,
+    });
   }
 
-  async sendStaffInvite(to: string, tempPassword: string, domain: string) {
-    const isLocalhost = domain.includes('localhost') || domain.includes('127.0.0.1');
-    const port = isLocalhost ? ':5173' : '';
-    const protocol = isLocalhost ? 'http' : 'https';
-
-    const loginUrl = `${protocol}://${domain}${port}/login`;
-    const html = `
-      <p>Hello,</p>
-      <p>You have been invited to join the staff on Commerce OS.</p>
-      <p>Your temporary password is: <strong>${tempPassword}</strong></p>
-      <p>Please <a href="${loginUrl}">login</a> and change your password immediately.</p>
-    `;
-    await this.sendEmail(to, 'Staff Invitation', html);
+  async sendStaffInvite(to: string, inviteToken: string, tenantName: string, adminUrl?: string) {
+    const inviteUrl = `${adminUrl || 'http://localhost:5173'}/invite?token=${inviteToken}`;
+    return this.sendEmail({
+      to,
+      subject: `You've been invited to join ${tenantName} on CommerceOS`,
+      html: `
+        <div style="font-family: sans-serif; padding: 20px;">
+          <h2>Staff Invitation</h2>
+          <p>You have been invited to join <strong>${tenantName}</strong> as a staff member on CommerceOS.</p>
+          <p><a href="${inviteUrl}" style="background: #059669; color: #fff; padding: 10px 18px; text-decoration: none; border-radius: 6px; display: inline-block;">Accept Invitation</a></p>
+        </div>
+      `,
+    });
   }
 }

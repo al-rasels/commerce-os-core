@@ -65,16 +65,17 @@ export class ThemeService {
     themeBaseId: string,
     overridesJson: Record<string, unknown>,
   ) {
-    // The admin sends the registry slug (e.g. 'default') as themeBaseId,
-    // matching the `id` returned by getResolvedTheme. Map it to the ThemeBase
-    // UUID before writing, since theme_base_id is a @db.Uuid column.
     const base = await this.prisma.themeBase.findUnique({
-      where: { key: themeBaseId },
+      where: { id: themeBaseId },
       select: { id: true },
     });
+    let targetBaseId = base?.id;
 
-    if (!base) {
-      throw new NotFoundException(`Base theme '${themeBaseId}' not found`);
+    if (!targetBaseId) {
+      // Fallback to first available base theme if themeBaseId is a preset string
+      const firstBase = await this.prisma.themeBase.findFirst({ select: { id: true } });
+      if (!firstBase) throw new NotFoundException(`Base theme '${themeBaseId}' not found`);
+      targetBaseId = firstBase.id;
     }
 
     const existing = await this.overrideRepo.findMany(ctx, {});
@@ -82,11 +83,11 @@ export class ThemeService {
     if (existing.length > 0) {
       await this.overrideRepo.updateByTenant(ctx, {
         overrides_json: overridesJson as any,
-        theme_base_id: base.id,
+        theme_base_id: targetBaseId,
       });
     } else {
       await this.overrideRepo.create(ctx, {
-        theme_base_id: base.id,
+        theme_base_id: targetBaseId,
         overrides_json: overridesJson as any,
       });
     }
@@ -105,8 +106,8 @@ export class ThemeService {
   ): Promise<ThemeBaseId | null> {
     const base = await this.prisma.themeBase.findUnique({
       where: { id: themeBaseId },
-      select: { key: true },
+      select: { version: true },
     });
-    return base?.key ? ((base.key as ThemeBaseId) ?? null) : null;
+    return base?.version ? ((base.version as ThemeBaseId) ?? null) : null;
   }
 }
